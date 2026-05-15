@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>TRAVEL STATUS — Powered by MWR Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mwr-blue: #0A2540;
+    --mwr-blue-dark: #051321;
+    --mwr-blue-light: #1E3D59;
+    --mwr-gold: #D4AF37;
+    --mwr-gold-light: #F3E5AB;
+    --mwr-accent: #00D4B2;
+    --bg-light: #F8FAFC;
+    --surface: #FFFFFF;
+    --text-main: #0A2540;
+    --text-muted: #627D98;
+    --border: #E4E7EB;
+    --radius: 8px;
+    --radius-lg: 16px;
+    --shadow: 0 10px 30px rgba(10,37,64,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* BRAND HEADER */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10, 37, 64, 0.98);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow);
+  }
+  .nav-logo {
+    font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em;
+    color: #FFFFFF; text-transform: uppercase; text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-logo span { color: var(--mwr-gold); }
+  .nav-lang { display: flex; gap: 0.5rem; }
+  .lang-btn {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+    cursor: pointer; border-radius: 4px;
+    font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600;
+    color: rgba(255,255,255,0.7); transition: all 0.2s;
+    padding: 0.35rem 0.75rem;
+  }
+  .lang-btn:hover, .lang-btn.active { color: var(--mwr-blue-dark); background: var(--mwr-gold); border-color: var(--mwr-gold); }
+
+  /* MWR HERO CONCEPT */
+  .hero {
+    min-height: 85vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 10rem 2rem 6rem; position: relative; background: var(--mwr-blue-dark);
+    color: #FFFFFF; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(circle at 80% 20%, rgba(0, 212, 178, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 10% 80%, rgba(212, 175, 55, 0.12) 0%, transparent 50%);
+    opacity: 0.8;
+  }
+  .hero-eyebrow { 
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em; 
+    text-transform: uppercase; color: var(--mwr-gold); margin-bottom: 1.5rem; 
+    background: rgba(212, 175, 55, 0.1); padding: 0.4rem 1rem; border-radius: 20px;
+  }
+  .hero-title { 
+    font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.2; 
+    letter-spacing: -0.02em; max-width: 950px; 
+  }
+  .hero-title em { font-style: normal; color: var(--mwr-gold); }
+  .hero-sub { margin-top: 1.5rem; font-size: 1.05rem; font-weight: 400; color: rgba(255,255,255,0.7); max-width: 650px; }
+  .hero-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  
+  .btn-primary, .btn-ghost {
+    font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; 
+    padding: 1rem 2.2rem; border-radius: var(--radius); cursor: pointer; 
+    transition: all 0.2s ease-in-out; text-decoration: none; display: inline-block;
+  }
+  .btn-primary { color: var(--mwr-blue-dark); background: var(--mwr-gold); border: 1px solid var(--mwr-gold); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+  .btn-primary:hover { background: var(--mwr-gold-light); border-color: var(--mwr-gold-light); transform: translateY(-1px); }
+  .btn-ghost { color: #FFFFFF; background: transparent; border: 1px solid rgba(255,255,255,0.25); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.05); border-color: #FFFFFF; transform: translateY(-1px); }
+
+  /* BRAND SECTIONS */
+  section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mwr-blue); margin-bottom: 0.75rem; display: block; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; color: var(--mwr-blue-dark); }
+  .section-title em { font-style: normal; color: var(--mwr-gold); }
+  .brand-line { width: 50px; height: 3px; background: var(--mwr-gold); margin: 1.5rem 0; border-radius: 2px; }
+
+  /* DIAGNOSIS GRID */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: center; }
+  @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .info-lead { font-size: 1.25rem; font-weight: 500; color: var(--mwr-blue); line-height: 1.5; border-left: 3px solid var(--mwr-accent); padding-left: 1.5rem; }
+  .info-body { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* TIERS CARDS MWR DESIGN */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .card { background: var(--surface); padding: 3rem 2.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; transition: transform 0.3s, border-color 0.3s; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(10,37,64,0.15); }
+  .card.featured { border: 2px solid var(--mwr-blue); background: #FFFFFF; }
+  .card.featured::before { content: 'РЕКОМЕНДУЕМ'; position: absolute; top: -12px; left: 2.5rem; background: var(--mwr-blue); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 4px; letter-spacing: 0.1em; }
+  .card-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mwr-blue); background: rgba(10,37,64,0.05); padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1.5rem; align-self: flex-start; }
+  .card-tier { font-size: 1.8rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; }
+  .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; flex: 1; }
+  .card-features { list-style: none; margin-bottom: 2.5rem; }
+  .card-features li { font-size: 0.85rem; color: var(--text-main); padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+  .card-features li::before { content: '✓'; color: var(--mwr-accent); font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
+  .card-cta { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mwr-blue); background: transparent; border: 2px solid var(--mwr-blue); padding: 0.9rem 1.5rem; border-radius: var(--radius); cursor: pointer; transition: all 0.2s; width: 100%; text-align: center; text-decoration: none; display: block; }
+  .card-cta:hover { background: var(--mwr-blue); color: #FFFFFF; }
+  .card.featured .card-cta { background: var(--mwr-gold); color: var(--mwr-blue-dark); border-color: var(--mwr-gold); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2); }
+  .card.featured .card-cta:hover { background: var(--mwr-gold-light); border-color: var(--mwr-gold-light); }
+
+  /* SYSTEM ROADMAP */
+  .roadmap { display: flex; flex-direction: column; margin-top: 3rem; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 2.5rem; box-shadow: var(--shadow); }
+  .roadmap-item { display: grid; grid-template-columns: 50px 1fr; gap: 0 1.5rem; cursor: pointer; }
+  .roadmap-left { display: flex; flex-direction: column; align-items: center; }
+  .step-num { width: 36px; height: 36px; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: var(--mwr-blue); flex-shrink: 0; background: #FFFFFF; z-index: 1; transition: all 0.2s; }
+  .roadmap-item:hover .step-num { border-color: var(--mwr-gold); background: var(--mwr-gold); color: var(--mwr-blue-dark); }
+  .step-line { width: 2px; flex: 1; background: var(--border); min-height: 50px; }
+  .roadmap-item:last-child .step-line { display: none; }
+  .roadmap-content { padding-bottom: 2.5rem; }
+  .step-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
+  .step-title { font-size: 1.25rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; }
+  .step-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  /* CORPORATE METRICS */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .stat { background: var(--mwr-blue); color: #FFFFFF; padding: 2rem; border-radius: var(--radius-lg); text-align: center; box-shadow: var(--shadow); }
+  .stat-num { font-size: 2.5rem; font-weight: 700; color: var(--mwr-gold); line-height: 1; display: block; }
+  .stat-label { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.7); margin-top: 0.5rem; display: block; }
+
+  /* FLOATING AI TERMINAL WIDGET */
+  .chat-widget {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 380px; max-width: calc(100vw - 4rem); hieght: auto;
+    background: #FFFFFF; border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: 0 15px 45px rgba(10,37,64,0.18);
+    display: flex; flex-direction: column;
+    transform: translateY(20px); opacity: 0; pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chat-widget.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .chat-header { background: var(--mwr-blue); padding: 1.2rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 0.75rem; }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--mwr-blue-light); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 1px solid rgba(255,255,255,0.1); }
+  .chat-header-info { flex: 1; }
+  .chat-title { font-size: 0.9rem; font-weight: 600; color: #FFFFFF; }
+  .chat-sub { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
+  .chat-status { width: 8px; height: 8px; border-radius: 50%; background: var(--mwr-accent); }
+  .chat-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.4rem; padding: 0 0.25rem; }
+  
+  .chat-modes { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); background: #F8FAFC; }
+  .mode-btn { background: none; border: none; color: var(--text-muted); padding: 0.75rem; font-family: inherit; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .mode-btn.active { color: var(--mwr-blue); background: #FFFFFF; position: relative; }
+  .mode-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: var(--mwr-blue); }
+
+  .chat-messages { height: 280px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: #FFFFFF; }
+  .msg-wrapper { display: flex; gap: 8px; align-items: flex-end; max-width: 85%; }
+  .msg-wrapper.u { align-self: flex-end; flex-direction: row-reverse; }
+  .msg-wrapper.a { align-self: flex-start; }
+  .msg-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; color: #fff; background: var(--mwr-blue); }
+  .msg-bubble { padding: 0.65rem 0.9rem; font-size: 0.85rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+  .msg-wrapper.u .msg-bubble { background: var(--mwr-blue-light); color: #FFFFFF; border-radius: 12px 12px 2px 12px; }
+  .msg-wrapper.a .msg-bubble { background: #F0F4F8; color: var(--text-main); border-radius: 12px 12px 12px 2px; border: 1px solid var(--border); }
+  
+  .chat-input-area { padding: 0.75rem; border-top: 1px solid var(--border); background: #FFFFFF; display: flex; gap: 0.5rem; }
+  .chat-input { flex: 1; background: #F8FAFC; border: 1px solid var(--border); padding: 0.6rem 0.85rem; border-radius: 6px; color: var(--text-main); font-family: inherit; font-size: 0.85rem; outline: none; }
+  .chat-input:focus { border-color: var(--mwr-blue); background: #FFFFFF; }
+  .chat-submit { background: var(--mwr-blue); border: none; padding: 0 1.2rem; border-radius: 6px; color: #FFFFFF; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .chat-submit:hover { background: var(--mwr-blue-light); }
+  .chat-submit:disabled { background: #E4E7EB; color: #A0AEC0; cursor: not-allowed; }
+  
+  .chat-trigger {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 190;
+    background: var(--mwr-blue); color: #FFFFFF; border: none;
+    padding: 0.9rem 1.6rem; border-radius: 50px; font-family: inherit;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 6px 20px rgba(10,37,64,0.2); transition: all 0.2s;
+  }
+  .chat-trigger:hover { background: var(--mwr-blue-light); transform: translateY(-2px); }
+  .chat-trigger.hidden { opacity: 0; pointer-events: none; transform: scale(0.9); }
+
+  .chat-proof { padding: 0.5rem 1rem; background: #F8FAFC; border-top: 1px solid var(--border); display: flex; gap: 14px; overflow-x: auto; font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--border); background: #FFFFFF; padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: var(--mwr-blue-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+  .footer-copy { font-size: 0.75rem; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .chat-widget { bottom: 0; right: 0; width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
+    .chat-messages { height: calc(100vh - 165px); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">TRAVEL STATUS <span>•</span> MWR</a>
+  <div class="nav-lang">
+    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow" data-i18n="hero_eyebrow">Официальный шлюз MWR Life</p>
+  <h1 class="hero-title" data-i18n="hero_title">TRAVEL STATUS:<br><em>Прямой доступ к оптовым ценам на путешествия</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Закрытая клубная платформа Travel Advantage™. Бронирование отелей, курортов и перелетов напрямую у оптовых поставщиков без розничных наценок.</p>
+  <div class="hero-cta">
+    <a href="#tiers" class="btn-primary" data-i18n="hero_cta_1">Выбрать пакет доступа</a>
+    <a href="#roadmap" class="btn-ghost" data-i18n="hero_cta_2">Пошаговый алгоритм</a>
+  </div>
+</div>
+
+<section>
+  <div class="reveal">
+    <p class="section-label" data-i18n="phil_label">Прозрачность индустрии</p>
+    <h2 class="section-title" data-i18n="phil_title">Почему открытые поисковики больше <em>не выгодны</em>?</h2>
+    <div class="brand-line"></div>
+  </div>
+  <div class="info-grid">
+    <div class="info-lead reveal reveal-delay-1" data-i18n="phil_quote">
+      «Классические розничные сервисы тратят миллионы на рекламу, закладывая эти расходы в конечную стоимость вашего бронирования.»
+    </div>
+    <div class="info-body reveal reveal-delay-2" data-i18n="phil_body">
+      Экосистема MWR Life ликвидирует лишних посредников. Вместо наценок платформа использует модель закрытого членства: вы получаете чистые оптовые тарифы, экономя до 40-60% на проживании. Система TRAVEL STATUS разработана, чтобы предоставить вам пошаговую координацию и моментальный запуск приложения без хаоса и долгих проверок.
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="stats-row">
+    <div class="stat reveal"><span class="stat-num">40%+</span><span class="stat-label" data-i18n="stat_1">Средняя чистая экономия</span></div>
+    <div class="stat reveal reveal-delay-1"><span class="stat-num">2013</span><span class="stat-label" data-i18n="stat_2">Год основания клуба</span></div>
+    <div class="stat reveal reveal-delay-2"><span class="stat-num">150%</span><span class="stat-label" data-i18n="stat_3">Гарантия лучшей цены</span></div>
+    <div class="stat reveal reveal-delay-3"><span class="stat-num">700k+</span><span class="stat-label" data-i18n="stat_4">Участников по всему миру</span></div>
+  </div>
+</section>
+
+<section id="tiers">
+  <div class="reveal">
+    <p class="section-label" data-i18n="tiers_label">Варианты авторизации</p>
+    <h2 class="section-title" data-i18n="tiers_title">Активируйте ваш <em>уровень участия</em></h2>
+    <div class="brand-line"></div>
+  </div>
+
+  <div class="cards-grid reveal reveal-delay-1">
+    <div class="card">
+      <span class="card-badge" data-i18n="guest_badge">Гость</span>
+      <div class="card-tier">Guest</div>
+      <p class="card-desc" data-i18n="guest_desc">Бесплатный ознакомительный доступ. Позволяет лично зайти в систему, протестировать интерфейс и сравнить цены на отели.</p>
+      <ul class="card-features">
+        <li data-i18n="guest_f1">Оптовые тарифы на отели</li>
+        <li data-i18n="guest_f2">Полноценный личный кабинет</li>
+        <li data-i18n="guest_f3">Базовая поддержка платформы</li>
+      </ul>
+      <a href="#" onclick="secureRedirect(event, 'guest')" class="card-cta" data-i18n="guest_cta">Получить Guest-доступ</a>
+    </div>
+
+    <div class="card featured">
+      <span class="card-badge" data-i18n="vip_badge">Оптимальный</span>
+      <div class="card-tier">VIP Доступ</div>
+      <p class="card-desc" data-i18n="vip_desc">Полный набор инструментов для активных путешественников. Максимальные скидки, авиабилеты, круизы и подключение дополнительных гостей.</p>
+      <ul class="card-features">
+        <li data-i18n="vip_f1">Все категории: отели, перелеты, авто</li>
+        <li data-i18n="vip_f2">150% Гарантия возврата разницы</li>
+        <li data-i18n="vip_f3">Добавление +1 пассажира в профиль</li>
+        <li data-i18n="vip_f4">Накопление лояльных Travel-кредитов</li>
+      </ul>
+      <a href="#" onclick="secureRedirect(event, 'vip')" class="card-cta" data-i18n="vip_cta">Активировать статус VIP</a>
+    </div>
+
+    <div class="card">
+      <span class="card-badge" data-i18n="partner_badge">Бизнес</span>
+      <div class="card-tier">Partner</div>
+      <p class="card-desc" data-i18n="partner_desc">Полноценная международная бизнес-франшиза. Инструменты для построения глобальной сети дистрибуции и получения пассивного дохода.</p>
+      <ul class="card-features">
+        <li data-i18n="partner_f1">Лицензия независимого консультанта</li>
+        <li data-i18n="partner_f2">Интеграция в MWR Academy обучения</li>
+        <li data-i18n="partner_f3">Доход от рекомендаций подписок</li>
+      </ul>
+      <a href="#" onclick="secureRedirect(event, 'join')" class="card-cta" data-i18n="partner_cta">Запустить франшизу</a>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="reveal">
+    <p class="section-label" data-i18n="road_label">Дорожная карта</p>
+    <h2 class="section-title" data-i18n="road_title">Три шага до <em>установки терминала</em></h2>
+    <div class="brand-line"></div>
+  </div>
+
+  <div class="roadmap">
+    <div class="roadmap-item reveal reveal-delay-1" onclick="openChatWithContext('step1')">
+      <div class="roadmap-left">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <p class="step-label" data-i18n="step1_label">Шаг 01</p>
+        <h3 class="step-title" data-i18n="step1_title">Выбор пакета и верификация</h3>
+        <p class="step-body" data-i18n="step1_body">Выберите уровень участия выше. Регистрационная форма MWR Life откроется автоматически — заполнение занимает пару минут.</p>
+      </div>
+    </div>
+
+    <div class="roadmap-item reveal reveal-delay-2" onclick="openChatWithContext('step2')">
+      <div class="roadmap-left">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <p class="step-label" data-i18n="step2_label">Шаг 02</p>
+        <h3 class="step-title" data-i18n="step2_title">Активация через Email</h3>
+        <p class="step-body" data-i18n="step2_body">Проверьте почтовый ящик, указанный при регистрации, и подтвердите создание аккаунта для защиты платежных операций.</p>
+      </div>
+    </div>
+
+    <div class="roadmap-item reveal reveal-delay-3" onclick="openChatWithContext('step3')">
+      <div class="roadmap-left">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <p class="step-label" data-i18n="step3_label">Шаг 03</p>
+        <h3 class="step-title" data-i18n="step3_title">Запуск приложения Travel Advantage</h3>
+        <p class="step-body" data-i18n="step3_body">Загрузите мобильное приложение из App Store / Google Play, введите логин и получите доступ к закрытой базе бронирования.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">TRAVEL STATUS</span>
+  <span class="footer-copy" data-i18n="footer">© 2026 TRAVEL STATUS. Независимый шлюз для дистрибуции экосистемы MWR Life & Travel Advantage™.</span>
+</footer>
+
+<button class="chat-trigger" id="chatTrigger" onclick="toggleChat()">
+  <span>💬</span> <span data-i18n="chat_trigger_text">Задать вопрос гиду Alex</span>
+</button>
+
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header">
+    <div class="chat-avatar" id="headerIcon">🔵</div>
+    <div class="chat-header-info">
+      <div class="chat-title">Alex — MWR Personal Guide</div>
+      <div class="chat-sub" id="headerSub" data-i18n="chat_sub">Интеллектуальный помощник · 24/7</div>
+    </div>
+    <div class="chat-status"></div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  
+  <div class="chat-modes">
+    <button class="mode-btn mode-travel active" id="btnTrackTravel" onclick="setWidgetTrack('travel')">Путешествия</button>
+    <button class="mode-btn mode-earn" id="btnTrackEarn" onclick="setWidgetTrack('earn')">Бизнес и Франшиза</button>
+  </div>
+  
+  <div class="chat-messages" id="chatMessages"></div>
+  
+  <div class="chat-proof" id="chatProofRow"></div>
+
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос..." onkeydown="handleChatKey(event)">
+    <button class="chat-submit" id="chatSubmit" onclick="sendChatMessage()">Ок</button>
+  </div>
+</div>
+
+<script>
+const ID = "Status"; 
+const LINKS = {
+  guest: `https://free.traveladvantage.com/${ID}`,
+  vip: `https://vip.traveladvantage.com/${ID}`,
+  join: `https://join.traveladvantage.com/${ID}`,
+  life_exp: `https://lifeexperience.club/${ID}`,
+  main: `https://www.mwrlife.com/${ID}`,
+  present: `https://www.mwrlife.online/${ID}`,
+  academy: `https://www.mwracademy.com/`,
+  events: `https://www.mwrevents.com/`,
+  booking: `https://www.traveladvantage.com/`
+};
+
+const PROOF = [
+  { f: "🇰🇬", n: "Anjelika", s: "-$103", h: "Отель Турция" },
+  { f: "🇰🇿", n: "Raikhan",  s: "-$134", h: "Курорт Испания"  },
+  { f: "🇺🇦", n: "Mariia",   s: "-$494", h: "Нью-Йорк" },
+  { f: "🇷🇺", n: "Sergey",   s: "-$219", h: "Дубай"  }
+];
+
+const INIT = {
+  travel: {
+    ru: "Привет! Я Алекс, твой персональный гид по системе Travel Advantage. Куда ты планируешь отправиться в следующую поездку? Я помогу рассчитать выгоду.",
+    en: "Hello! I'm Alex, your personal guide to Travel Advantage. Where are you planning to travel next? Let's check the wholesale discounts.",
+    de: "Hallo! Ich bin Alex, Ihr persönlicher Guide für Travel Advantage. Wohin planen Sie Ihre nächste Reise?"
+  },
+  earn: {
+    ru: "Приветствую! Развитие франшизы MWR Life — это возможность построить доход на базе индустрии туризма. Ты уже знаком с нашей моделью или хочешь узнать с нуля?",
+    en: "Hello! Launching the MWR Life business franchise opens up global dynamic residual income. Are you familiar with our partner structure?",
+    de: "Hallo! Der Aufbau eines MWR Life-Geschäfts bietet globale passive Einkommenschancen. Sind Sie bereits mit unserem Modell vertraut?"
+  }
+};
+
+const translations = {
+  ru: {
+    hero_eyebrow: "Официальный шлюз MWR Life",
+    hero_title: "TRAVEL STATUS:<br><em>Прямой доступ к оптовым ценам на путешествия</em>",
+    hero_sub: "Закрытая клубная платформа Travel Advantage™. Бронирование отелей, курортов и перелетов напрямую у оптовых поставщиков без розничных наценок.",
+    hero_cta_1: "Выбрать пакет доступа", hero_cta_2: "Пошаговый алгоритм",
+    phil_label: "Прозрачность индустрии",
+    phil_title: "Почему открытые поисковики больше не выгодны?",
+    phil_quote: "«Классические розничные сервисы тратят миллионы на рекламу, закладывая эти расходы в конечную стоимость вашего бронирования.»",
+    stat_1: "Средняя чистая экономия", stat_2: "Год основания клуба", stat_3: "Гарантия лучшей цены", stat_4: "Участников по всему миру",
+    tiers_label: "Варианты авторизации", tiers_title: "Активируйте ваш уровень участия",
+    guest_badge: "Гость", guest_cta: "Получить Guest-доступ",
+    guest_desc: "Бесплатный ознакомительный доступ. Позволяет лично зайти в систему, протестировать интерфейс и сравнить цены на отели.",
+    guest_f1: "Оптовые тарифы на отели", guest_f2: "Полноценный личный кабинет", guest_f3: "Базовая поддержка платформы",
+    vip_badge: "Оптимальный", vip_cta: "Активировать статус VIP",
+    vip_desc: "Полный набор инструментов для активных путешественников. Максимальные скидки, авиабилеты, круизы и подключение дополнительных гостей.",
+    vip_f1: "Все категории: отели, перелеты, авто", vip_f2: "150% Гарантия возврата разницы", vip_f3: "Добавление +1 пассажира в профиль", vip_f4: "Накопление лояльных Travel-кредитов",
+    partner_badge: "Бизнес", partner_cta: "Запустить франшизу",
+    partner_desc: "Полноценная международная бизнес-франшиза. Инструменты для построения глобальной сети дистрибуции и получения пассивного дохода.",
+    partner_f1: "Лицензия независимого консультанта", partner_f2: "Интеграция в MWR Academy обучения", partner_f3: "Доход от рекомендаций подписок",
+    road_label: "Дорожная карта", road_title: "Три шага до установки терминала",
+    step1_label: "Шаг 01", step1_title: "Выбор пакета и верификация", step1_body: "Выберите уровень участия выше. Регистрационная форма MWR Life откроется автоматически — заполнение занимает пару минут.",
+    step2_label: "Шаг 02", step2_title: "Активация через Email", step2_body: "Проверить почтовый ящик, указанный при регистрации, и подтвердите создание аккаунта для защиты платежных операций.",
+    step3_label: "Шаг 03", step3_title: "Запуск приложения Travel Advantage", step3_body: "Загрузите мобильное приложение из App Store / Google Play, введите логин и получите доступ к закрытой базе бронирования.",
+    chat_trigger_text: "Задать вопрос гиду Alex", chat_sub: "Интеллектуальный помощник · 24/7"
+  },
+  en: {
+    hero_eyebrow: "Official MWR Life Gateway",
+    hero_title: "TRAVEL STATUS:<br><em>Direct Access to Wholesale Travel Pricing</em>",
+    hero_sub: "Private club platform Travel Advantage™. Book hotels, resorts, and flights directly from wholesale suppliers without retail markup.",
+    hero_cta_1: "Choose Access Level", hero_cta_2: "Step-by-Step Roadmap",
+    phil_label: "Industry Transparency",
+    phil_title: "Why Public Search Engines Are No Longer Profitable",
+    phil_quote: "«Traditional retail services spend millions on ads, packing those expenses right into your final booking bill.»",
+    stat_1: "Average Net Savings", stat_2: "Club Founded Year", stat_3: "Best Price Guarantee", stat_4: "Global Members Active",
+    tiers_label: "Authorization Options", tiers_title: "Activate Your Membership Level",
+    guest_badge: "Guest", guest_cta: "Get Guest Access",
+    guest_desc: "Free introductory access. Allows you to explore the platform interface and compare actual wholesale hotel rates.",
+    guest_f1: "Wholesale hotel booking rates", guest_f2: "Complete private dashboard", guest_f3: "Basic customer service tools",
+    vip_badge: "Optimal", vip_cta: "Activate VIP Status",
+    vip_desc: "Full suite of tools for regular travelers. Maximum discount brackets, flights, cruises, and additional account users.",
+    vip_f1: "All categories: hotels, flights, cars", vip_f2: "150% Best Price Guarantee refund", vip_f3: "Add +1 traveler to your account", vip_f4: "Accumulate loyalty Travel Credits",
+    partner_badge: "Business", partner_cta: "Launch Franchise",
+    partner_desc: "Full international business franchise license. Built-in infrastructure to scale dynamic global distribution networks.",
+    partner_f1: "Independent consultant license", partner_f2: "Full integration into MWR Academy", partner_f3: "Earn residual membership revenue",
+    road_label: "Roadmap", road_title: "Three Steps to Terminal Activation",
+    step1_label: "Step 01", step1_title: "Package Choice & Verification", step1_body: "Select your desired entry tier above. The official MWR Life form opens up immediately.",
+    step2_label: "Step 02", step2_title: "Secure Email Activation", step2_body: "Verify your profile via the automated welcome email to safeguard all your booking data.",
+    step3_label: "Step 03", step3_title: "Launch Travel Advantage App", step3_body: "Download the application from App Store or Play Store and sign in to access wholesale inventories.",
+    chat_trigger_text: "Ask Guide Alex", chat_sub: "AI Smart Assistant · 24/7"
+  },
+  de: {
+    hero_eyebrow: "Offizielles MWR Life Portal",
+    hero_title: "TRAVEL STATUS:<br><em>Direkter Zugang zu Großhandelspreisen</em>",
+    hero_sub: "Private Club-Plattform Travel Advantage™. Buchen Sie Hotels und Flüge direkt bei Großhandelslieferanten ohne Einzelhandelsaufschläge.",
+    hero_cta_1: "Zugangsstufe Wählen", hero_cta_2: "Schritt-für-Schritt-Plan",
+    phil_label: "Transparenz",
+    phil_title: "Warum öffentliche Suchmaschinen nicht mehr rentabel sind",
+    phil_quote: "«Klassische Portale geben Millionen für Werbung aus, die direkt auf Ihre Buchungsrechnung aufgeschlagen werden.»",
+    stat_1: "Durchschnittliche Ersparnis", stat_2: "Gründungsjahr des Clubs", stat_3: "Bestpreisgarantie", stat_4: "Globale Mitglieder",
+    tiers_label: "Optionen", tiers_title: "Aktivieren Sie Ihre Mitgliedsstufe",
+    guest_badge: "Gast", guest_cta: "Gastzugang Erhalten",
+    guest_desc: "Kostenloser Testzugang. Ermöglicht es Ihnen, die Plattform zu testen und Großhandelspreise für Hotels zu vergleichen.",
+    guest_f1: "Großhandelspreise für Hotels", guest_f2: "Vollständiges Dashboard", guest_f3: "Basis-Support-Tools",
+    vip_badge: "Empfohlen", vip_cta: "VIP Status Aktivieren",
+    vip_desc: "Vollständiges Set für aktive Reisende. Maximale Rabatte, Flüge, Kreuzfahrten und zusätzliche Reisende im Konto.",
+    vip_f1: "Alle Kategorien: Hotels, Flüge, Mietwagen", vip_f2: "150% Bestpreisgarantie", vip_f3: "+1 zusätzlichen Reisenden hinzufügen", vip_f4: "Sammeln von Travel-Credits",
+    partner_badge: "Business", partner_cta: "Franchise Starten",
+    partner_desc: "Globale Business-Franchise-Lizenz. Infrastruktur zum Aufbau eines weltweiten Vertriebsnetzwerks und passiven Einkommens.",
+    partner_f1: "Unabhängige Beraterlizenz", partner_f2: "Integration in die MWR Academy", partner_f3: "Einkommen aus Mitgliedschaftsempfehlungen",
+    road_label: "Roadmap", road_title: "Drei Schritte zur Aktivierung",
+    step1_label: "Schritt 01", step1_title: "Paketauswahl & Verifizierung", step1_body: "Wählen Sie oben Ihre Stufe. Das offizielle MWR Life Registrierungsformular wird geöffnet.",
+    step2_label: "Schritt 02", step2_title: "E-Mail-Aktivierung", step2_body: "Bestätigen Sie Ihr Profil über die Begrüßungs-E-Mail, um Ihre Buchungsdaten zu schützen.",
+    step3_label: "Schritt 03", step3_title: "Travel Advantage App Starten", step3_body: "Laden Sie die App aus dem App Store oder Play Store herunter und melden Sie sich an.",
+    chat_trigger_text: "Guide Alex fragen", chat_sub: "KI-Assistent · 24/7"
+  }
+};
+
+let currentLang = 'ru';
+let activeTrack = 'travel';
+let chatInitialized = false;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = translations[lang][key];
+    if (val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+  });
+  if (chatInitialized) resetChatGreeting();
+}
+
+function secureRedirect(event, targetKey) {
+  event.preventDefault();
+  const dest = LINKS[targetKey];
+  if (!dest) return;
+  setTimeout(() => { window.open(dest, '_blank', 'noopener,noreferrer'); }, 100);
+}
+
+function toggleChat() {
+  const widget = document.getElementById('chatWidget');
+  const trigger = document.getElementById('chatTrigger');
+  widget.classList.toggle('active');
+  trigger.classList.toggle('hidden');
+  if (!chatInitialized && widget.classList.contains('active')) initChatWidget();
+}
+
+function initChatWidget() {
+  chatInitialized = true;
+  buildProofRow();
+  resetChatGreeting();
+}
+
+function buildProofRow() {
+  const row = document.getElementById('chatProofRow');
+  row.innerHTML = '';
+  PROOF.forEach(p => {
+    const block = document.createElement('div');
+    block.style.display = 'inline-block';
+    block.innerHTML = `<span>${p.f}</span> <strong>${p.n}</strong> <span style="color:var(--mwr-accent)">${p.s}</span> <span style="opacity:0.6">(${p.h})</span>`;
+    row.appendChild(block);
+  });
+}
+
+function setWidgetTrack(track) {
+  if (activeTrack === track) return;
+  activeTrack = track;
+  document.getElementById('btnTrackTravel').classList.toggle('active', track === 'travel');
+  document.getElementById('btnTrackEarn').classList.toggle('active', track === 'earn');
+  document.getElementById('chatMessages').innerHTML = '';
+  resetChatGreeting();
+}
+
+function resetChatGreeting() {
+  const greeting = INIT[activeTrack][currentLang] || INIT[activeTrack].en;
+  appendMessage('a', greeting);
+}
+
+function openChatWithContext(contextStep) {
+  toggleChat();
+  let userMsg = "";
+  if (contextStep === 'step1') {
+    userMsg = currentLang === 'ru' ? "Как пройти первый шаг регистрации?" : "How do I complete step one registration?";
+  } else if (contextStep === 'step2') {
+    userMsg = currentLang === 'ru' ? "Что делать, если не приходит письмо на втором шаге?" : "What if I don't receive the email in step two?";
+  } else if (contextStep === 'step3') {
+    userMsg = currentLang === 'ru' ? "Где скачать приложение для третьего шага?" : "Where do I download the app for step three?";
+  }
+  if (userMsg) {
+    appendMessage('u', userMsg);
+    processAIQuery(userMsg);
+  }
+}
+
+function appendMessage(role, text) {
+  const container = document.getElementById('chatMessages');
+  const wrapper = document.createElement('div');
+  wrapper.className = `msg-wrapper ${role}`;
+  
+  const icon = document.createElement('div');
+  icon.className = 'msg-icon';
+  icon.innerText = role === 'u' ? '👤' : '🔵';
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerText = text;
+  
+  wrapper.appendChild(icon);
+  wrapper.appendChild(bubble);
+  container.appendChild(wrapper);
+  container.scrollTop = container.scrollHeight;
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter') sendChatMessage();
+}
+
+function sendChatMessage() {
+  const input = document.getElementById('chatInput');
+  const txt = input.value.trim();
+  if (!txt) return;
+  appendMessage('u', txt);
+  input.value = '';
+  processAIQuery(txt);
+}
+
+function processAIQuery(query) {
+  const submitBtn = document.getElementById('chatSubmit');
+  submitBtn.disabled = true;
+  
+  const typingWrapper = document.createElement('div');
+  typingWrapper.className = 'msg-wrapper a';
+  typingWrapper.innerHTML = `<div class="msg-icon">🔵</div><div class="msg-bubble" style="opacity:0.6">Alex проверяет базу MWR Life...</div>`;
+  document.getElementById('chatMessages').appendChild(typingWrapper);
+  
+  setTimeout(() => {
+    typingWrapper.remove();
+    let lower = query.toLowerCase();
+    let reply = "";
+    
+    if (currentLang === 'ru') {
+      if (lower.includes('пирамид') || lower.includes('обман') || lower.includes('млм') || lower.includes('mlm')) {
+        reply = "MWR Life — официальный закрытый клуб, запущенный в 2013 году. У нас более 700 000 участников. Модель подписки работает аналогично сервисам Netflix или Spotify, но в сфере туризма, исключая розничные комиссии посредников.";
+      } else if (lower.includes('окуп') || lower.includes('выгод') || lower.includes('стоит')) {
+        reply = "Активация VIP окупается уже при первом бронировании отеля за счет разницы с розничными ценами (средняя экономия составляет от $150 до $400 за поездку). Плюс вы получаете 150% гарантию лучшей цены.";
+      } else if (lower.includes('шаг') || lower.includes('регистр') || lower.includes('перв')) {
+        reply = `Для старта выберите нужный вариант входа на странице. Регистрация партнерских аккаунтов и франшиз доступна по прямой ссылке: ${LINKS.join}. Это займет около 3 минут.`;
+      } else if (lower.includes('приложен') || lower.includes('скачат') || lower.includes('трет')) {
+        reply = `Вам потребуется официальный терминал 'Travel Advantage', доступный в Google Play и App Store. Авторизация происходит по данным вашего созданного аккаунта. Ссылка на платформу: ${LINKS.booking}`;
+      } else if (lower.includes('бизнес') || lower.includes('заработ') || lower.includes('партн')) {
+        reply = `Пакет Partner открывает доступ к международной франшизе MWR Life (${LINKS.join}). Вы сможете получать пассивный доход от подписок вашей структуры. После авторизации вы сразу получаете доступ к Академии: ${LINKS.academy}`;
+      } else {
+        reply = `Понял ваш запрос. Чтобы бесплатно оценить интерфейс и проверить оптовые тарифы на отели, активируйте Guest-пакет: ${LINKS.guest}. Если вы планируете строить бизнес и масштабировать франшизу, используйте прямую ссылку: ${LINKS.join}.`;
+      }
+    } else {
+      if (lower.includes('mlm') || lower.includes('pyramid') || lower.includes('legit')) {
+        reply = "MWR Life is a legitimate wholesale travel club operating since 2013 with over 700k members. It cuts out booking middlemen using a subscription model like Netflix.";
+      } else {
+        reply = `To explore exclusive hotel discounts directly, active your free guest link: ${LINKS.guest}. For infrastructure, business options, and ambassador setup, access our portal: ${LINKS.join}.`;
+      }
+    }
+    
+    appendMessage('a', reply);
+    submitBtn.disabled = false;
+  }, 700);
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const browserLang = (navigator.language || 'ru').slice(0, 2).toLowerCase();
+setLang(translations[browserLang] ? browserLang : 'ru');
+</script>
+</body>
+</html>
