@@ -1,977 +1,568 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<title>TRAVEL STATUS — Global Travel Club</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #080808;
-    --surface: #111111;
-    --surface-2: #161616;
-    --border: rgba(255,255,255,0.08);
-    --border-hover: rgba(255,255,255,0.18);
-    --gold: #C9A84C;
-    --gold-light: #E8D5A3;
-    --gold-dim: rgba(201,168,76,0.12);
-    --text: #F0EDE8;
-    --text-muted: rgba(240,237,232,0.4);
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Montserrat', sans-serif;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SOMA PARADISO — Тотальная Экосистема Лайфстайл-Капитала</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body { 
+            background-color: #070708; 
+            color: #E4E4E6; 
+            font-family: 'Manrope', sans-serif; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            width: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+        }
+        
+        section { 
+            padding: 120px 0; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08); 
+            position: relative; 
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        h1, h2, h3, h4 { font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #FFFFFF; line-height: 1.2; }
+        h2 { font-size: 2.8rem; margin-bottom: 24px; }
+        .accent-text { color: #D4AF37; }
+        
+        .badge { display: inline-block; padding: 6px 18px; background: rgba(212, 175, 55, 0.07); border: 1px solid #D4AF37; color: #D4AF37; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 32px; border-radius: 2px; }
+        .lead-text { font-size: 1.3rem; font-weight: 300; color: #A1A1A5; margin-bottom: 40px; max-width: 750px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; width: 100%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; width: 100%; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 100%; }
+        
+        .btn-primary { display: inline-block; padding: 24px 48px; background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%); color: #070708; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-radius: 4px; box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); text-align: center; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(212, 175, 55, 0.45); }
+        
+        .card { background: #0E0E10; border: 1px solid rgba(255,255,255,0.03); padding: 48px; border-radius: 4px; transition: all 0.3s ease; width: 100%; }
+        .card:hover { border-color: rgba(212, 175, 55, 0.25); background: #121215; }
+        
+        .vector-card { background: #0E0E10; border-top: 3px solid rgba(212, 175, 55, 0.2); padding: 32px; border-radius: 4px; width: 100%; }
+        .vector-card:hover { border-top-color: #D4AF37; }
+        
+        .calc-box { background: #0E0E10; border: 2px solid #D4AF37; padding: 48px; border-radius: 4px; width: 100%; }
+        .calc-input { width: 100%; padding: 18px; background: #161619; border: 1px solid rgba(255,255,255,0.08); color: #FFF; font-size: 1.3rem; margin-top: 12px; margin-bottom: 24px; border-radius: 4px; }
+        
+        .split-screen { background: #0E0E10; border-radius: 6px; overflow: hidden; display: flex; border: 1px solid rgba(255,255,255,0.03); margin-top: 40px; width: 100%; }
+        .split-side { padding: 48px; flex: 1; }
+        .split-side.left { border-right: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.005); }
+        .split-side.right { background: rgba(212, 175, 55, 0.02); }
+        
+        .timer { font-size: 3.5rem; font-weight: 800; color: #D4AF37; letter-spacing: 6px; margin: 24px 0; }
+        .table-compare { width: 100%; border-collapse: collapse; text-align: left; }
+        .table-compare th, .table-compare td { padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .table-compare th { text-transform: uppercase; letter-spacing: 2px; color: #A1A1A5; font-size: 0.85rem; }
+        
+        .faq-item { margin-bottom: 24px; background: #0E0E10; padding: 28px; border-radius: 4px; border-left: 2px solid transparent; transition: all 0.3s ease; width: 100%; }
+        .faq-item:hover { border-left-color: #D4AF37; background: #121215; }
+        .faq-question { font-weight: 700; color: #FFF; font-size: 1.1rem; display: flex; justify-content: space-between; cursor: pointer; }
+        .faq-answer { color: #A1A1A5; font-size: 0.95rem; margin-top: 16px; display: block; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  html { scroll-behavior: smooth; }
-  
-  body {
-    background-color: var(--black);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--black); }
-  ::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-  /* НАВИГАЦИЯ И МОБИЛЬНОЕ МЕНЮ */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.2rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background: rgba(8, 8, 8, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .logo {
-    font-family: var(--font-serif);
-    font-size: 1.4rem;
-    letter-spacing: 0.15em;
-    color: var(--text);
-    text-decoration: none;
-    z-index: 102;
-  }
-  .logo span { color: var(--gold); }
-  
-  .nav-menu { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-link {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  .nav-link:hover { color: var(--gold); }
-
-  .burger-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 102;
-    width: 30px;
-    height: 24px;
-    position: relative;
-  }
-  .burger-line {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text);
-    margin: 5px 0;
-    transition: all 0.3s ease;
-  }
-
-  /* СЕКЦИИ */
-  section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 8rem 2rem;
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .section-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-  }
-  .text-center { text-align: center; }
-
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: 3.5rem;
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-  }
-  .left-title { text-align: left; max-width: 800px; }
-
-  .gold-line-left {
-    width: 50px;
-    height: 1px;
-    background: var(--gold);
-    margin: 0 0 4rem 0;
-  }
-  .gold-line-center {
-    width: 50px;
-    height: 1px;
-    background: var(--gold);
-    margin: 0 auto 3rem;
-  }
-
-  /* HERO */
-  .hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 2rem;
-    position: relative;
-    background: radial-gradient(circle at center, rgba(201,168,76,0.05) 0%, rgba(8,8,8,0) 70%);
-  }
-  .hero h1 {
-    font-family: var(--font-serif);
-    font-size: 5rem;
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-  .hero p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin-bottom: 3rem;
-    letter-spacing: 0.03em;
-  }
-
-  /* PHILOSOPHY */
-  .philosophy-text {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    font-style: italic;
-    font-weight: 300;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 1.6;
-    color: var(--text-muted);
-  }
-  .philosophy-text strong { color: var(--text); font-style: normal; }
-
-  /* ДИАГНОЗ РЫНКА (ДВУХКОЛОНОЧНЫЙ МАКЕТ ПО РИСУНКУ 2.PNG) */
-  .diagnosis-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-    margin-bottom: 5rem;
-  }
-  .diagnosis-quote {
-    font-family: var(--font-serif);
-    font-size: 2.2rem;
-    font-style: italic;
-    line-height: 1.4;
-    color: var(--text);
-    padding-left: 2rem;
-    border-left: 2px solid var(--gold);
-  }
-  .diagnosis-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-  }
-  .diagnosis-accent {
-    color: var(--text);
-  }
-
-  /* СТАТИСТИКА (КАРТОЧКИ В РЯД ПО РИСУНКУ 2.PNG) */
-  .stats-container {
-    background: #0c0c0c;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .stat-box {
-    padding: 3.5rem 2rem;
-    text-align: center;
-    position: relative;
-  }
-  .stat-box:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 25%;
-    height: 50%;
-    width: 1px;
-    background: var(--border);
-  }
-  .stat-num {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: 3.2rem;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-  .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-
-  /* ЮРИДИЧЕСКИЙ БЛОК ДОВЕРИЯ */
-  .trust-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  .trust-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-  }
-  .logos-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 4rem;
-  }
-  .trust-logo-wrapper {
-    height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: grayscale(1) brightness(0.9) contrast(1.2);
-    opacity: 0.5;
-    transition: all 0.3s ease;
-  }
-  .trust-logo-wrapper:hover {
-    filter: grayscale(0) brightness(1) contrast(1);
-    opacity: 1;
-  }
-  .trust-logo-wrapper img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-  }
-  .trustpilot-box {
-    border-top: 1px solid var(--border);
-    padding-top: 2rem;
-    width: 100%;
-    max-width: 500px;
-  }
-  .trust-text {
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-  }
-  .trust-text a {
-    color: var(--text);
-    text-decoration: none;
-    border-bottom: 1px solid var(--gold);
-    padding-bottom: 2px;
-    transition: color 0.2s;
-  }
-  .trust-text a:hover { color: var(--gold); }
-  .trust-star { color: #00b67a; font-size: 1.1rem; vertical-align: middle; margin-left: 4px; }
-
-  /* ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР */
-  .calc-container {
-    max-width: 700px;
-    margin: 0 auto;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 3rem 2.5rem;
-    border-radius: 4px;
-  }
-  .calc-group { margin-bottom: 2.5rem; }
-  .calc-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-    color: var(--text-muted);
-  }
-  .calc-label span strong { color: var(--gold); }
-  .calc-range {
-    width: 100%;
-    -webkit-appearance: none;
-    background: var(--surface-2);
-    height: 4px;
-    outline: none;
-    border-radius: 2px;
-  }
-  .calc-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    background: var(--gold);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.1s;
-  }
-  .calc-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
-  .calc-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .calc-option {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 0.85rem;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .calc-option.active {
-    border-color: var(--gold);
-    color: var(--gold-light);
-    background: var(--gold-dim);
-  }
-  .calc-result {
-    text-align: center;
-    border-top: 1px solid var(--border);
-    padding-top: 2rem;
-    margin-top: 1rem;
-  }
-  .calc-result-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem; }
-  .calc-result-value { font-family: var(--font-serif); font-size: 3.5rem; color: var(--gold); font-weight: 300; line-height: 1; }
-
-  /* ТАРИФЫ */
-  .tiers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin-top: 2rem;
-  }
-  .tier-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 3.5rem 2.5rem;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.4s ease;
-  }
-  .tier-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-5px);
-  }
-  .tier-card.premium {
-    background: linear-gradient(180deg, var(--surface) 0%, rgba(201,168,76,0.03) 100%);
-    border-color: rgba(201,168,76,0.3);
-  }
-  .tier-name { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; margin-bottom: 0.5rem; }
-  .tier-price { font-size: 1.1rem; color: var(--gold); margin-bottom: 2rem; font-weight: 500; }
-  .tier-features { list-style: none; margin-bottom: 3rem; flex: 1; }
-  .tier-features li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; position: relative; padding-left: 1.5rem; }
-  .tier-features li::before { content: "•"; position: absolute; left: 0; color: var(--gold); }
-
-  .btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: transparent;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    text-decoration: none;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 500;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  .btn:hover {
-    background: var(--gold);
-    color: var(--black);
-    box-shadow: 0 8px 25px rgba(201,168,76,0.2);
-  }
-
-  /* ROADMAP */
-  .roadmap-list { max-width: 700px; margin: 0 auto; position: relative; }
-  .roadmap-item { padding-left: 3rem; position: relative; margin-bottom: 3.5rem; }
-  .roadmap-item::before { content: ""; position: absolute; left: 0; top: 0.25rem; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); }
-  .roadmap-item::after { content: ""; position: absolute; left: 5px; top: 1.5rem; bottom: -3.5rem; width: 1px; background: var(--border); }
-  .roadmap-item:last-child::after { display: none; }
-  .roadmap-date { font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-  .roadmap-h3 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; margin-bottom: 0.5rem; }
-  .roadmap-p { color: var(--text-muted); font-size: 0.95rem; }
-
-  /* ЧАТ-ВИДЖЕТ */
-  .chat-trigger {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: var(--gold);
-    color: var(--black);
-    border: none;
-    padding: 1.1rem 1.8rem;
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(201,168,76,0.2);
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    z-index: 999;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .chat-trigger:hover {
-    transform: translateY(-4px);
-    background: var(--gold-light);
-  }
-
-  .chat-widget {
-    position: fixed;
-    bottom: 6.5rem;
-    right: 2rem;
-    width: 400px;
-    height: 550px;
-    background: rgba(22, 22, 22, 0.45);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(30px) scale(0.96);
-    pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .chat-widget.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-  .chat-header {
-    padding: 1.4rem; background: rgba(17, 17, 17, 0.6); border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 0.9rem; border-top-left-radius: 12px; border-top-right-radius: 12px;
-  }
-  .chat-avatar { font-size: 1.6rem; }
-  .chat-header-info { flex: 1; }
-  .chat-title { font-weight: 500; font-size: 0.95rem; }
-  .chat-sub { font-size: 0.75rem; color: var(--gold); font-weight: 500; }
-  .chat-close { background: none; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; }
-
-  .chat-messages { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.2rem; }
-  .msg-bubble { max-width: 82%; padding: 0.85rem 1.1rem; border-radius: 8px; font-size: 0.9rem; line-height: 1.55; }
-  .msg-a { background: rgba(17, 17, 17, 0.7); color: var(--text); align-self: flex-start; border: 1px solid var(--border); border-bottom-left-radius: 2px; }
-  .msg-u { background: var(--gold-dim); color: var(--gold-light); align-self: flex-end; border: 1px solid rgba(201,168,76,0.2); border-bottom-right-radius: 2px; }
-
-  .chat-input-area {
-    padding: 1.1rem; background: rgba(17, 17, 17, 0.8); border-top: 1px solid var(--border);
-    display: flex; gap: 0.6rem; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
-  }
-  .chat-input {
-    flex: 1; background: var(--black); border: 1px solid var(--border); color: var(--text);
-    padding: 0.85rem 1.2rem; border-radius: 6px; font-family: var(--font-sans); font-size: 0.9rem;
-  }
-  .chat-input:focus { border-color: var(--gold); outline: none; }
-  .chat-submit { background: var(--gold); color: var(--black); border: none; width: 44px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-
-  footer { padding: 5rem 2rem; text-align: center; background: var(--surface); border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
-  .footer-logo { display: block; font-family: var(--font-serif); font-size: 1.6rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 1.2rem; }
-
-  /* АДАПТИВНОСТЬ */
-  @media (max-width: 900px) {
-    .burger-btn { display: block; }
-    .nav-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 100%;
-      height: 100vh;
-      background: rgba(12, 12, 12, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 3rem;
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 101;
-    }
-    .nav-menu.active { right: 0; }
-    .nav-link { font-size: 1.1rem; letter-spacing: 0.18em; color: var(--text); }
-    .burger-btn.active .burger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .burger-btn.active .burger-line:nth-child(2) { opacity: 0; }
-    .burger-btn.active .burger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    
-    .hero h1 { font-size: 3.5rem; }
-    .section-title { font-size: 2.6rem; }
-    section { padding: 6rem 1.5rem; }
-    
-    .diagnosis-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .stats-container { grid-template-columns: repeat(2, 1fr); }
-    .stat-box:nth-child(2)::after { display: none; }
-    
-    .calc-container { padding: 2rem 1.5rem; }
-    .logos-row { gap: 2.5rem; }
-    .trust-logo-wrapper { height: 42px; }
-  }
-  @media (max-width: 480px) {
-    .hero h1 { font-size: 2.8rem; }
-    .stats-container { grid-template-columns: 1fr; }
-    .stat-box::after { display: none !important; }
-    .chat-widget { width: calc(100% - 2rem); right: 1rem; bottom: 5.5rem; height: 480px; }
-    .chat-trigger { right: 1rem; bottom: 1rem; padding: 0.9rem 1.3rem; }
-    .calc-selector { grid-template-columns: 1fr; gap: 0.5rem; }
-  }
-</style>
+        /* СКВОЗНОЙ МОБИЛЬНЫЙ ФИКС СЕТКИ И ВЫЛЕТОВ ПОЛЕЙ */
+        @media (max-width: 992px) {
+            html, body { overflow-x: hidden; width: 100%; position: relative; }
+            .container { padding: 0 16px; width: 100%; overflow: hidden; }
+            section { padding: 60px 0; width: 100%; }
+            
+            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr !important; gap: 24px; width: 100%; }
+            
+            h1 { font-size: 2.2rem !important; line-height: 1.2 !important; }
+            h2 { font-size: 1.8rem !important; line-height: 1.2 !important; margin-bottom: 16px; }
+            h3 { font-size: 1.3rem !important; }
+            .lead-text { font-size: 1.05rem; margin-bottom: 32px; max-width: 100%; }
+            
+            .card, .vector-card, .calc-box, .faq-item { padding: 32px 20px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box; }
+            
+            .split-screen { flex-direction: column; margin-top: 30px; width: 100%; }
+            .split-side { padding: 32px 20px; width: 100%; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.03); }
+            
+            .btn-primary { display: block !important; width: 100% !important; padding: 20px 16px; font-size: 1.1rem; box-sizing: border-box; }
+            
+            br { display: none !important; }
+            
+            /* Жесткое подавление вылетов для кастомных инлайновых фонов */
+            .mobile-bg-fix {
+                padding: 40px 20px !important;
+                height: auto !important;
+                min-height: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                display: block !important;
+            }
+            
+            /* Адаптивное сжатие критических цифр */
+            .hero h1 { font-size: 2.4rem !important; }
+            .massive-num { font-size: 3.8rem !important; line-height: 1 !important; }
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-container">
-    <a href="#" class="nav-logo logo">TRAVEL <span>STATUS</span></a>
-    
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="#diagnosis" class="nav-link" onclick="closeMenu()">Диагноз</a></li>
-      <li><a href="#guarantee" class="nav-link" onclick="closeMenu()">Гарантия</a></li>
-      <li><a href="#calculator" class="nav-link" onclick="closeMenu()">Калькулятор</a></li>
-      <li><a href="#tiers" class="nav-link" onclick="closeMenu()">Тарифы</a></li>
-      <li><a href="#roadmap" class="nav-link" onclick="closeMenu()">Маршрут</a></li>
-    </ul>
-
-    <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()" aria-label="Открыть меню">
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-    </button>
-  </div>
-</nav>
-
-<div class="hero">
-  <h1>Elite Travel Club</h1>
-  <p>Закрытая экосистема для осознанных путешественников. Прямой доступ к оптовым ценам индустрии без посредников, комиссий и спекулятивных наценок.</p>
-  <a href="#tiers" class="btn">Получить доступ</a>
-</div>
-
-<section>
-  <div class="reveal">
-    <p class="section-label text-center">Философия клуба</p>
-    <div class="philosophy-text">
-      «Мы убрали классическую рекламу и передали всю маржу резидентам. Наша цель — **обеспечить безупречный статус** и честную себестоимость каждого бронирования во всем мире.»
-    </div>
-  </div>
-</section>
-
-<section id="diagnosis" style="border-top: 1px solid var(--border);">
-  <div class="reveal">
-    <p class="section-label">Диагноз рынка</p>
-    <h2 class="section-title left-title">Почему поиск туров превратился в сложный квест?</h2>
-    <div class="gold-line-left"></div>
-  </div>
-  
-  <div class="diagnosis-grid reveal">
-    <div class="diagnosis-quote">
-      «Большинство сервисов дают лишь иллюзию выбора, оставляя вас один на один с реферальными ссылками.»
-    </div>
-    <div class="diagnosis-content">
-      <p>
-        Мы обнаружили системный сбой: индустрия предлагает отличные цены, но полностью бросает новичков без четкого алгоритма.
-      </p>
-      <p class="diagnosis-accent">
-        Platform TRAVEL STATUS меняет правила. Мы ликвидируем хаос, предоставляя готовую интеллектуальную панель управления и пошаговое сопровождение на каждом этапе вашего пути.
-      </p>
-    </div>
-  </div>
-
-  <div class="stats-container reveal">
-    <div class="stat-box">
-      <span class="stat-num">40%</span>
-      <span class="stat-label">Экономия на отелях</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">180+</span>
-      <span class="stat-label">Стран присутствия</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">24/7</span>
-      <span class="stat-label">Интеллектуальный гид</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">3</span>
-      <span class="stat-label">Варианта доступа</span>
-    </div>
-  </div>
-</section>
-
-<section class="trust-section">
-  <div class="trust-container reveal">
-    <div class="logos-row">
-      <div class="trust-logo-wrapper">
-        <img src="img/iata-tids.png" alt="IATA TIDS Sales Intermediary">
-      </div>
-      <div class="trust-logo-wrapper">
-        <img src="img/atout-france.png" alt="Atout France Operator Licence">
-      </div>
-      <div class="trust-logo-wrapper" style="height: 48px;">
-        <img src="img/etoa-2026.png" alt="ETOA Member 2026">
-      </div>
-    </div>
-    
-    <div class="trustpilot-box">
-      <p class="trust-text">
-        Убедитесь в безупречной репутации: более <a href="https://www.trustpilot.com/review/traveladvantage.com" target="_blank" rel="noopener noreferrer">1,639 живых отзывов</a> на <span class="trust-star">★</span><strong>Trustpilot</strong>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="guarantee" style="background: var(--surface-2);">
-  <div class="reveal">
-    <p class="section-label text-center">Гарантия статуса</p>
-    <h2 class="section-title text-center">150% Гарантия лучшей цены</h2>
-    <div class="gold-line-center"></div>
-  </div>
-  <p style="max-width: 720px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: var(--text-muted); line-height: 1.8;">
-    Если в течение 24 часов найдёте точно такой же отель дешевле — вернём 150% от разницы <strong>Travel-кредитами</strong>.
-  </p>
-</section>
-
-<section id="calculator">
-  <div class="reveal">
-    <p class="section-label text-center">Инструмент планирования</p>
-    <h2 class="section-title text-center">Рассчитайте свою чистую выгоду</h2>
-    <div class="gold-line-center"></div>
-  </div>
-  
-  <div class="calc-container reveal">
-    <div class="calc-group">
-      <div class="calc-label">
-        <span>Поездок в год:</span>
-        <span><strong id="calcTripsVal">3</strong></span>
-      </div>
-      <input type="range" class="calc-range" id="calcTrips" min="1" max="10" value="3" oninput="calculateSavings()">
-    </div>
-
-    <div class="calc-group">
-      <div class="calc-label">
-        <span>Ночей в одной поездке:</span>
-        <span><strong id="calcNightsVal">5</strong> дней</span>
-      </div>
-      <input type="range" class="calc-range" id="calcNights" min="1" max="14" value="5" oninput="calculateSavings()">
-    </div>
-
-    <div class="calc-group">
-      <div class="calc-label">Класс отеля и средняя цена за ночь:</div>
-      <div class="calc-selector">
-        <div class="calc-option" onclick="setHotelClass(this, 80, 0.20)">
-          <span>3-4★</span>
-          <small style="display:block; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">$80 / ночь</small>
+    <section class="hero" style="min-height: 100vh; display: flex; align-items: center; background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.07), transparent 65%);">
+        <div class="container">
+            <div class="badge">Премиальный инвайт</div>
+            <h1 style="font-size: 4.5rem; line-height: 1.1; margin-bottom: 24px;">Искусство <br><span class="accent-text">Статусного</span> Лайфстайла</h1>
+            <p class="lead-text">Закрытый международный клуб для тех, чье время стоит слишком дорого, чтобы спонсировать розничных посредников. Добро пожаловать в высшую касту путешественников.</p>
+            <a href="#action" class="btn-primary">Активировать доступ</a>
         </div>
-        <div class="calc-option active" onclick="setHotelClass(this, 180, 0.35)">
-          <span>4-5★ Бизнес</span>
-          <small style="display:block; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">$180 / ночь</small>
+    </section>
+
+    <section style="background: #09090b;">
+        <div class="container grid-2">
+            <div>
+                <div class="badge" style="border-color: #FF5555; color: #FF5555; background: rgba(255,85,85,0.05);">Глобальный заговор рынка</div>
+                <h2>Конец Эры <br><span class="accent-text">Переплат</span></h2>
+                <p class="lead-text">Маркетинговые корпорации тратят сотни миллионов долларов на агрессивную рекламу, закладывая каждый цент в ваш чек. Нам навязали модель, в которой мнимая скидка скрывает колоссальную розничную наценку.</p>
+            </div>
+            <div class="mobile-bg-fix" style="background: linear-gradient(135deg, #111114 0%, #1a1010 100%); padding: 60px 40px; border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.15); text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                <div class="massive-num" style="font-size: 5.5rem; font-weight: 900; color: #FF5555; line-height: 1; letter-spacing: -2px; margin-bottom: 10px;">90%</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;">Всего трафика</div>
+                <div style="font-size: 0.95rem; color: #A1A1A5; line-height: 1.4; text-transform: uppercase; letter-spacing: 1px;">Жестко контролируется цифровыми монополиями Booking и Expedia</div>
+            </div>
         </div>
-        <div class="calc-option" onclick="setHotelClass(this, 450, 0.45)">
-          <span>Premium / Курорты</span>
-          <small style="display:block; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">$450 / ночь</small>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="badge">Тест на касту</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Рассчитайте ваш <span class="accent-text">Индекс Свободы</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3 style="margin-bottom: 20px; color: #D4AF37; font-size: 1.2rem;">01. Лимит компромиссов</h3>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Вы до сих пор подстраиваете даты своего отпуска под искусственные рамки туроператоров и "сезонные скидки"?</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 20px; color: #D4AF37; font-size: 1.2rem;">02. Занижение статуса</h3>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Готовы ли вы и дальше выбирать отели уровнем ниже ради того, чтобы уложиться в завышенный розничный прайс посредников?</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 20px; color: #D4AF37; font-size: 1.2rem;">03. ККП капитала</h3>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Приносят ли ваши регулярные перемещения по миру твердую прибыль, или они так и остаются безвозвратной статьей расходов?</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="calc-result">
-      <div class="calc-result-title">Прогноз чистой экономии за год</div>
-      <div class="calc-result-value" id="calcResult">$945</div>
-    </div>
-  </div>
-</section>
+    <section>
+        <div class="container grid-2">
+            <div class="calc-box">
+                <label style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #A1A1A5; font-weight: 700;">Ваш ежегодный бюджет на поездки ($)</label>
+                <input type="number" class="calc-input" value="6000">
+                <div style="margin-top: 20px;">
+                    <span style="font-size: 0.85rem; color: #A1A1A5; text-transform: uppercase; letter-spacing: 1px;">Ваш скрытый налог в пользу Booking/Expedia:</span>
+                    <div style="font-size: 3rem; font-weight: 800; color: #D4AF37; margin-top: 12px;">$2,700 / год</div>
+                </div>
+            </div>
+            <div>
+                <div class="badge">Калькулятор упущенного капитала</div>
+                <h2>Хватит <br><span class="accent-text">Финансировать</span> Чужой Бизнес</h2>
+                <p class="lead-text">Эти деньги изымаются из вашего семейного бюджета или оборотного капитала компании просто за право нажать кнопку "Забронировать" на раскрученном розничном сайте.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="tiers" style="background: var(--surface-2);">
-  <div class="reveal">
-    <p class="section-label text-center">Уровни участия</p>
-    <h2 class="section-title text-center">Выберите ваш формат</h2>
-    <div class="gold-line-center"></div>
-  </div>
-  <div class="tiers-grid">
-    <div class="tier-card">
-      <div class="tier-name">Guest</div>
-      <div class="tier-price">Бесплатно</div>
-      <ul class="tier-features">
-        <li>Доступ к оптовым ценам на отели (скидки до 40%)</li>
-        <li>Бесплатный аккаунт без скрытых платежей</li>
-        <li>Полноценное мобильное приложение</li>
-      </ul>
-      <a href="https://free.traveladvantage.com/Status" target="_blank" class="btn" rel="noopener">Активировать Guest</a>
-    </div>
+    <section style="background: #0B0B0D;">
+        <div class="container">
+            <div class="badge">Мультивекторный охват</div>
+            <h2 style="text-align: center; margin-bottom: 20px;">Единый Шлюз Для <span class="accent-text">Всех Задач</span></h2>
+            <p class="lead-text" style="text-align: center; margin: 0 auto 60px; max-width: 750px;">Платформа Travel Advantage — это не просто поиск отелей. Это глобальный мультивекторный консьерж-сервис, покрывающий абсолютно все потребности современного топ-предпринимателя.</p>
+            
+            <div class="grid-3" style="margin-bottom: 32px;">
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">🏨 Отели и Курорты Premium</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Прямой доступ к оптовым тарифам в более чем 2 000 000 локаций по всему миру со сквозной гарантией лучшей цены.</p>
+                </div>
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">✈️ Авиабилеты без наценок</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Интеграция со всеми глобальными альянсами и лоукостерами. Чистый тариф без скрытых агентских сборов.</p>
+                </div>
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">🚢 Океанские и речные круизы</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Эксклюзивные контракты с топовыми круизными линиями. Путешествия лакшери-класса по оптовой стоимости.</p>
+                </div>
+            </div>
 
-    <div class="tier-card premium">
-      <div class="tier-name">VIP</div>
-      <div class="tier-price">19.97$ / мес</div>
-      <ul class="tier-features">
-        <li>Полный терминал: отели, перелеты, круизы, авто</li>
-        <li>150% Международная гарантия лучшей цены</li>
-        <li>Добавление 1 дополнительного пассажира в профиль</li>
-        <li>Накопительные кредиты лояльности</li>
-      </ul>
-      <a href="https://vip.traveladvantage.com/Status" target="_blank" class="btn" rel="noopener">Выбрать VIP</a>
-    </div>
+            <div class="grid-3">
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">🚗 Прокат авто и трансферы</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">От эконом-класса до премиальных суперкаров в любой точке планеты. Полная страховка включена в интерфейс.</p>
+                </div>
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">🔥 Flash Deals (Горящие туры)</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Срочные нераспроданные квоты пятизвездочных отелей со скидками до 83%, обновляемые каждые 24 часа.</p>
+                </div>
+                <div class="vector-card">
+                    <h4 style="color: #FFF; margin-bottom: 12px; font-size: 1.1rem;">🛍️ Закрытый Lifestyle-Молл</h4>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Брендовые дизайнерские вещи, аксессуары и электроника напрямую от модных домов со скидкой до 70% для членов клуба.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="tier-card">
-      <div class="tier-name">Partner</div>
-      <div class="tier-price">Бизнес-лицензия</div>
-      <ul class="tier-features">
-        <li>Полноценная франшиза и статус амбассадора</li>
-        <li>Доход от распределения бесплатных ваучеров Guest</li>
-        <li>Доступ к глобальному маркетинг-плану MWR Life</li>
-        <li>Обучение в закрытой международной Академии</li>
-      </ul>
-      <a href="https://join.traveladvantage.com/Status" target="_blank" class="btn" rel="noopener">Стать Партнером</a>
-    </div>
-  </div>
-</section>
+    <section>
+        <div class="container">
+            <div class="badge">Факты против маркетинга</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Анатомия Прайса: <span class="accent-text">Где Правда?</span></h2>
+            <div class="split-screen">
+                <div class="split-side left">
+                    <h3 style="color: #FF5555; margin-bottom: 12px;">Стандартная розница</h3>
+                    <div style="font-size: 1.1rem; color: #666; text-decoration: line-through;">Booking.com</div>
+                    <div class="massive-num" style="font-size: 3.5rem; font-weight: 800; margin: 20px 0; color: #FFF;">$1,450</div>
+                    <p style="font-size: 0.85rem; color: #A1A1A5;">Курортный комплекс 5★, Мальдивы. Цена включает расходы на рекламу агрегатора.</p>
+                </div>
+                <div class="split-side right">
+                    <h3 style="color: #55FF55; margin-bottom: 12px;">Оптовый закрытый шлюз</h3>
+                    <div style="font-size: 1.1rem; color: #D4AF37;">Travel Advantage</div>
+                    <div class="massive-num" style="font-size: 3.5rem; font-weight: 800; color: #D4AF37; margin: 20px 0;">$620</div>
+                    <p style="font-size: 0.85rem; color: #A1A1A5;">Тот же вилла-резорт, те же даты. Чистый опт без копейки спекулятивных наценок.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="roadmap">
-  <div class="reveal">
-    <p class="section-label text-center">Стратегия развития</p>
-    <h2 class="section-title text-center">Дорожная карта резидента</h2>
-    <div class="gold-line-center"></div>
-  </div>
-  <div class="roadmap-list">
-    <div class="roadmap-item">
-      <div class="roadmap-date">Этап 1</div>
-      <div class="roadmap-h3">Тестирование и валидация</div>
-      <div class="roadmap-p">Активация гостевого кабинета, проверка цен, сравнение реальной маржи с Booking и закрытие первых личных путешествий.</div>
-    </div>
-    <div class="roadmap-item">
-      <div class="roadmap-date">Этап 2</div>
-      <div class="roadmap-h3">Оптимизация расходов (VIP)</div>
-      <div class="roadmap-p">Переход на полноценную подписку, подключение семьи, планирование сложных трипов со скидками до 40–50% и накопление лояльности.</div>
-    </div>
-    <div class="roadmap-item">
-      <div class="roadmap-date">Этап 3</div>
-      <div class="roadmap-h3">Масштабирование доходов (Partner)</div>
-      <div class="roadmap-p">Развертывание сети, монетизация экономии других людей через раздачу Guest Passes и выход на ежедневный пассивный доход.</div>
-    </div>
-  </div>
-</section>
+    <section>
+        <div class="container">
+            <div class="badge">Бизнес-архитектура</div>
+            <h2>Как функционирует <span class="accent-text">Оптовая Модель</span></h2>
+            <p class="lead-text" style="max-width: 850px;">MWR Life полностью отказалась от розничного рынка. Компания перенаправила рекламный бюджет в пользу качества продукта и снижения цен для конечного потребителя. Вы не покупаете тур у посредника — вы получаете прямой персональный доступ к международной инфраструктуре оптовых туристических шлюзов.</p>
+        </div>
+    </section>
 
-<button class="chat-trigger" id="chatTrigger" onclick="toggleChat()">
-  <span>💬</span> <span>Задать вопрос Алексу</span>
-</button>
+    <section style="background: #0B0B0D;">
+        <div class="container grid-2">
+            <div>
+                <div class="badge">Депозитарная система</div>
+                <h2>Ваши вложения — <span class="accent-text">Это ваш Личный капитал</span></h2>
+                <p class="lead-text">Клубное членство не является невозвратной подпиской. Каждый вложенный вами доллар мгновенно конвертируется во внутренние доллары лояльности (Travel Credits), которыми вы оплачиваете свои же бронирования на платформе.</p>
+            </div>
+            <div class="card" style="border-right: 4px solid #D4AF37;">
+                <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 16px;">Математика проста:</div>
+                <p style="color: #A1A1A5; font-size: 0.95rem; line-height: 1.8;">Всего одна крупная семейная бронь отеля на платформе за год полностью окупает ваш годовой статус. Все последующие бронирования перелетов, аренды авто и круизов — ваша чистая стопроцентная выгода.</p>
+            </div>
+        </div>
+    </section>
 
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-header">
-    <div class="chat-avatar">👨‍💼</div>
-    <div class="chat-header-info">
-      <div class="chat-title">Алекс — AI-гид</div>
-      <div class="chat-sub">Интеллектуальный консьерж • 24/7</div>
-    </div>
-    <button class="chat-close" onclick="toggleChat()">×</button>
-  </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div class="chat-input-area">
-    <input type="text" class="chat-input" id="chatInput" placeholder="Напишите свой вопрос..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
-    <button class="chat-submit" onclick="sendChatMessage()">→</button>
-  </div>
-</div>
+    <section>
+        <div class="container">
+            <div class="badge">Инсайдерский опыт</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Скрытые Лайфхаки <span class="accent-text">Экосистемы</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3 style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 16px;">Хак #1: Двойной профит</h3>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Члены клуба Elite используют внутренние баллы для бронирования эксклюзивных туров Life Experience, при этом параллельно получают стандартные мили и бонусы от авиакомпаний и сетей отелей. Выгода удваивается.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 16px;">Хак #2: Умный шеринг пассов</h3>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Опытные партнеры делятся Guest Pass не хаотично, а целевым образом — среди организаторов фитнес-туров и блогеров. Один такой пасс может сгенерировать до $1,500 пассивного дохода от экономии чужих групп.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #D4AF37; font-size: 1.1rem; margin-bottom: 16px;">Хак #3: Flash Deals Спекуляция</h3>
+                    <p style="color: #A1A1A5; font-size: 0.9rem;">Использование ночных обновлений в разделе Flash Deals позволяет выкупать пятизвездочные люксы со скидкой до 80% для личных бизнес-встреч, создавая феноменальный контент для личного бренда при минимальных затратах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer>
-  <span class="footer-logo">TRAVEL STATUS</span>
-  <span class="footer-copy">© 2026 TRAVEL STATUS. Независимый информационный ресурс и помощник резидентов MWR Life. Все права защищены.</span>
-</footer>
+    <section>
+        <div class="container">
+            <div class="badge">Трансформация ценности</div>
+            <h2>Ваш отдых как инструмент <span class="accent-text">Глобального влияния</span></h2>
+            <p class="lead-text">Каждый раз, когда вы транслируете в свои социальные сети уровень своей свободы, роскошные локации и реальные чеки с платформы, ваше бизнес-окружение начинает испытывать жесткий FOMO-эффект. Им нужен этот инструмент.</p>
+        </div>
+    </section>
 
-<script>
-// ==================== CONFIGURATION ====================
-const WORKER_URL = "https://ВАШ_WORKER.workers.dev";
+    <section style="background: #0B0B0D;">
+        <div class="container grid-2">
+            <div class="card" style="text-align: center; border-bottom: 4px solid #D4AF37;">
+                <div style="font-size: 0.85rem; color: #A1A1A5; text-transform: uppercase; letter-spacing: 2px;">Ваша маржинальность</div>
+                <div class="massive-num" style="font-size: 4.5rem; font-weight: 800; color: #D4AF37; margin: 20px 0;">100% CASH</div>
+                <p style="color: #FFF; font-size: 0.95rem;">Вы дарите экономию — вы забираете эти же деньги наличными.</p>
+            </div>
+            <div>
+                <div class="badge">Архитектура Guest Pass</div>
+                <h2>Монетизация <br><span class="accent-text">Щедрости</span></h2>
+                <p class="lead-text">Вам больше не нужно заниматься агрессивным маркетингом. Вы просто делитесь бесплатными цифровыми ключами доступа к платформе. Ваш знакомый экономит реальный бюджет, а алгоритм выплачивает вам 100% от суммы его экономии живыми деньгами.</p>
+            </div>
+        </div>
+    </section>
 
-let hotelPricePerNight = 180;
-let hotelDiscountPercent = 0.35;
-let chatHistory = [];
+    <section>
+        <div class="container" style="text-align: center;">
+            <div class="badge">Абсолютная безопасность</div>
+            <h2>Мы Ликвидировали <span class="accent-text">Человеческий Фактор</span></h2>
+            <p class="lead-text" style="margin: 0 auto; max-width: 800px;">Забудьте про спам, уговоры и навязчивые звонки по старым базам. Наша команда внедрила педантичную систему цифровой дупликации. Весь процесс квалификации холодного контакта полностью автоматизирован IT-инструментами высшего уровня.</p>
+        </div>
+    </section>
 
-// ==================== MOBILE MENU ====================
-function toggleMenu() {
-  document.getElementById('navMenu').classList.toggle('active');
-  document.getElementById('burgerBtn').classList.toggle('active');
-  document.body.style.overflow = document.getElementById('navMenu').classList.contains('active') ? 'hidden' : '';
-}
+    <section>
+        <div class="container grid-2">
+            <div>
+                <div class="badge">Технологическое превосходство</div>
+                <h2>Ваш <br><span class="accent-text">Digital Twin</span></h2>
+                <p class="lead-text">Каждый партнер нашей команды получает в свое распоряжение персонального цифрового двойника воронки. Это автоматизированный интерактивный комплекс, который самостоятельно выстраивает логику общения с холодным трафиком.</p>
+            </div>
+            <div class="card" style="border-top: 2px solid #D4AF37;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 20px; color: #FFF;">Что делает Digital Twin за вас:</h3>
+                <ul style="list-style: none; color: #A1A1A5; font-size: 0.95rem; line-height: 2;">
+                    <li>🎯 Точечный захват внимания холодного лида</li>
+                    <li>📊 Автоматический скоринг его потребностей</li>
+                    <li>🔥 Прогрев через каскад триггеров</li>
+                    <li>💳 Доведение до оплаты и регистрация</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-function closeMenu() {
-  document.getElementById('navMenu').classList.remove('active');
-  document.getElementById('burgerBtn').classList.remove('active');
-  document.body.style.overflow = '';
-}
+    <section style="background: #0B0B0D;">
+        <div class="container">
+            <div class="badge">Статусный Нетворкинг</div>
+            <h2 style="text-align: center; margin-bottom: 40px;">Окружение, Которое <span class="accent-text">Создает Капитал</span></h2>
+            <p class="lead-text" style="text-align: center; margin: 0 auto 60px; max-width: 750px;">Вы заходите не просто в сетевой проект. Вы интегрируетесь в международную закрытую экосистему успешных людей, инвесторов, симметрологов и предпринимателей. Общие бизнес-форумы, закрытые выезды Life Experience на топовые виллы мира — это ваш новый стандарт жизни.</p>
+        </div>
+    </section>
 
-// ==================== CALCULATOR ====================
-function setHotelClass(element, price, discount) {
-  document.querySelectorAll('.calc-option').forEach(opt => opt.classList.remove('active'));
-  element.classList.add('active');
-  hotelPricePerNight = price;
-  hotelDiscountPercent = discount;
-  calculateSavings();
-}
+    <section style="background: #09090b;">
+        <div class="container grid-2">
+            <div class="mobile-bg-fix" style="background: linear-gradient(135deg, #111114 0%, #161a14 100%); padding: 60px 40px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                <div class="massive-num" style="font-size: 5.5rem; font-weight: 900; color: #D4AF37; line-height: 1; letter-spacing: -2px; margin-bottom: 10px;">150+</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;">Мировых столиц</div>
+                <div style="font-size: 0.95rem; color: #A1A1A5; line-height: 1.4; text-transform: uppercase; letter-spacing: 1px;">Легальное покрытие и бесперебойная работа по всему земному шару</div>
+            </div>
+            <div>
+                <div class="badge">Юридическая безупречность</div>
+                <h2>Глобальное <br><span class="accent-text">Масштаб</span></h2>
+                <p class="lead-text">MWR Life — это абсолютно прозрачный, легальный американский холдинг с безупречной десятилетней историей и строгим соблюдением международного законодательства. Платформа полностью адаптирована для бесперебойной работы на рынках СНГ, Европы и Азии.</p>
+            </div>
+        </div>
+    </section>
 
-function calculateSavings() {
-  const trips = parseInt(document.getElementById('calcTrips').value);
-  const nights = parseInt(document.getElementById('calcNights').value);
-  
-  document.getElementById('calcTripsVal').innerText = trips;
-  document.getElementById('calcNightsVal').innerText = nights;
-  
-  const totalSpentWithoutClub = trips * nights * hotelPricePerNight;
-  const totalSavings = Math.round(totalSpentWithoutClub * hotelDiscountPercent);
-  
-  document.getElementById('calcResult').innerText = `$${totalSavings}`;
-}
+    <section style="background: #0B0B0D;">
+        <div class="container">
+            <div class="badge">Твердые цифры маркетинга</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Три Шага К <span class="accent-text">Финансовой Свободе</span></h2>
+            <div class="grid-3">
+                <div class="card" style="border-top: 3px solid #D4AF37;">
+                    <div style="font-weight: 800; font-size: 1.5rem; color: #D4AF37; margin-bottom: 12px;">01. Самоокупаемость</div>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Всего 3 личных партнера в вашей структуре полностью обнуляют стоимость вашего членства. Клуб становится для вас абсолютно бесплатным.</p>
+                </div>
+                <div class="card" style="border-top: 3px solid #D4AF37;">
+                    <div style="font-weight: 800; font-size: 1.5rem; color: #D4AF37; margin-bottom: 12px;">02. Daily Residual</div>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Команда масштабируется за счет автоматической дупликации. Алгоритм включает ежедневное начисление пассивного дохода на ваш баланс.</p>
+                </div>
+                <div class="card" style="border-top: 3px solid #D4AF37;">
+                    <div style="font-weight: 800; font-size: 1.5rem; color: #D4AF37; margin-bottom: 12px;">03. Доля от Оборота</div>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">При достижении лидерских статусов вы получаете фиксированный процент от валового всемирного оборота всей компании MWR Life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// ==================== AI CHAT SYSTEM ====================
-function toggleChat() {
-  const widget = document.getElementById('chatWidget');
-  widget.classList.toggle('active');
-  if (widget.classList.contains('active') && chatHistory.length === 0) {
-    initAIChat();
-  }
-}
+    <section>
+        <div class="container">
+            <div class="badge">Доказанная результативность</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Истории <span class="accent-text">Реального Прорыва</span></h2>
+            <div class="grid-2">
+                <div class="card">
+                    <p style="font-style: italic; color: #A1A1A5; font-size: 1rem; line-height: 1.8;">«Я искал модель бизнеса, которая не привязывает к геолокации. Интеграция Digital Twin в нашей команде позволила мне за 4 месяца запустить партнерские ветки в трех странах Европы, находясь при этом на отдыхе в Юго-Восточной Азии».</p>
+                    <div style="margin-top: 28px; font-weight: 700; color: #D4AF37; text-transform: uppercase; font-size: 0.9rem;">Владимир А., Топ-Лидер команды</div>
+                </div>
+                <div class="card">
+                    <p style="font-style: italic; color: #A1A1A5; font-size: 1rem; line-height: 1.8;">«Главный страх моих людей всегда был один — где брать контакты и как продавать? После того как мы внедрили этот пошаговый лонгрид и сквозную автоматизацию, конверсия холодных регистраций выросла до рекордных показателей».</p>
+                    <div style="margin-top: 28px; font-weight: 700; color: #D4AF37; text-transform: uppercase; font-size: 0.9rem;">Карагат М., Архитектор дупликации</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function initAIChat() {
-  chatHistory = [
-    { role: "assistant", content: "Привет! Я Алекс — твой AI-гид по Travel Advantage. Расскажи, что для тебя важнее прямо сейчас — экономия на личных поездках или ещё и возможность создать стабильный заработок?" }
-  ];
-  renderMessages();
-}
+    <section style="background: #0B0B0D;">
+        <div class="container">
+            <div class="badge">Сравнительный анализ рентабельности</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Прагматичный <span class="accent-text">Выбор Модели</span></h2>
+            <div style="width: 100%; overflow-x: auto;">
+                <table class="table-compare" style="min-width: 600px;">
+                    <thead>
+                        <tr>
+                            <th>Критерии сравнения</th>
+                            <th>Традиционный бизнес / Франшиза</th>
+                            <th style="color: #D4AF37;">Партнерство в Экосистеме</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Стартовый порог</td>
+                            <td>От $20,000 + аренда и закупки</td>
+                            <td style="color: #D4AF37; font-weight: 700;">Минимальный клубный депозит</td>
+                        </tr>
+                        <tr>
+                            <td>Операционные риски</td>
+                            <td>Кассовые разрывы, логистика, выгорание</td>
+                            <td style="color: #D4AF37; font-weight: 700;">Абсолютный ноль. Готовая IT-платформа</td>
+                        </tr>
+                        <tr>
+                            <td>Скорость масштабирования</td>
+                            <td>Ограничена физической локацией</td>
+                            <td style="color: #D4AF37; font-weight: 700;">Мгновенная экспансия в 150+ стран через интернет</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-function renderMessages() {
-  const container = document.getElementById('chatMessages');
-  container.innerHTML = '';
-  chatHistory.forEach(msg => {
-    const div = document.createElement('div');
-    div.className = `msg-bubble msg-${msg.role === 'user' ? 'u' : 'a'}`;
-    div.innerText = msg.content;
-    container.appendChild(div);
-  });
-  container.scrollTop = container.scrollHeight;
-}
+    <section style="background: radial-gradient(circle at bottom left, rgba(85, 255, 85, 0.03), transparent 50%);">
+        <div class="container grid-2">
+            <div>
+                <div class="badge" style="border-color: #55FF55; color: #55FF55; background: rgba(85,255,85,0.05);">Юридический щит безопасности</div>
+                <h2><span class="accent-text" style="color: #55FF55;">14 Дней</span> Полного Тест-Драйва Без Рисков</h2>
+                <p class="lead-text">Мы убрали даже малейший намек на финансовый риск. В соответствии с международным законодательством о защите прав потребителей, у вас есть ровно 14 дней на то, чтобы протестировать платформу вдоль и поперек. Если вас не устроит качество, интерфейс или размер скидок — вы возвращаете свой депозит в один клик. Без лишних вопросов.</p>
+            </div>
+            <div class="card" style="border: 2px solid #55FF55; text-align: center; background: rgba(0,0,0,0.4);">
+                <div class="massive-num" style="font-size: 5rem; font-weight: 800; color: #55FF55;">100%</div>
+                <div style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin: 16px 0;">Гарантия возврата средств</div>
+                <p style="color: #A1A1A5; font-size: 0.9rem;">Юридическое обязательство компании перед каждым участником клуба.</p>
+            </div>
+        </div>
+    </section>
 
-async function sendChatMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
+    <section>
+        <div class="container grid-2">
+            <div class="card" style="border: 1px dashed #D4AF37; text-align: center;">
+                <div class="massive-num" style="font-size: 3rem; font-weight: 800; color: #D4AF37;">150%</div>
+                <p style="color: #FFF; margin-top: 12px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Защита от завышения цен</p>
+            </div>
+            <div>
+                <div class="badge">Ценовое превосходство</div>
+                <h2>Официальное <br><span class="accent-text">Обязательство</span></h2>
+                <p class="lead-text">If после активации вашего членства вы найдете точно такое же предложение по бронированию отеля на любом открытом розничном ресурсе дешевле — платформа компенсирует вам 150% от разницы в стоимости. Мы доминируем на рынке.</p>
+            </div>
+        </div>
+    </section>
 
-  chatHistory.push({ role: "user", content: text });
-  renderMessages();
-  input.value = "";
+    <section style="background: rgba(212, 175, 55, 0.01);">
+        <div class="container" style="text-align: center;">
+            <div class="badge" style="background: rgba(212,175,55,0.15);">Ограниченный пул</div>
+            <h2>Сквозной Трафик Сбалансирован</h2>
+            <p class="lead-text" style="margin: 0 auto 32px; max-width: 750px;">Мы не набираем массу — мы создаем качество. Автоматическая система дупликации распределяет входящие целевые лиды исключительно среди 5 новых партнеров в неделю для плотного вывода на результат. </p>
+            <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem; color: #FFF;">Свободных мест в первую линию на этой неделе: <span style="color: #FF4A4A; font-weight: 800;">1 / 5</span></div>
+        </div>
+    </section>
 
-  const container = document.getElementById('chatMessages');
-  const aiBubble = document.createElement('div');
-  aiBubble.className = "msg-bubble msg-a";
-  aiBubble.innerText = "Алекс печатает...";
-  container.appendChild(aiBubble);
-  container.scrollTop = container.scrollHeight;
+    <section>
+        <div class="container" style="text-align: center;">
+            <div class="badge">Ликвидация прокрастинации</div>
+            <h2>Резерв Места В Структуре <span class="accent-text">Истекает</span></h2>
+            <p style="color: #A1A1A5; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem;">До закрытия текущего недельного пула распределения трафика осталось:</p>
+            <div class="timer" style="font-size: calc(2rem + 3vw);">01:14:52</div>
+        </div>
+    </section>
 
-  try {
-    const response = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: chatHistory })
-    });
+    <section style="background: #0E0E10;">
+        <div class="container">
+            <div class="badge">Точка выбора</div>
+            <h2>Примите <span class="accent-text">Прагматичное Решение</span></h2>
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="card" style="opacity: 0.5;">
+                    <h3 style="margin-bottom: 16px; color: #A1A1A5;">Игнорировать реальность</h3>
+                    <p style="color: #666; font-size: 0.95rem;">Закрыть эту страницу, продолжить ежегодно отдавать тысячи долларов розничным монополистам за свой отдых и отказаться от готового автоматизированного IT-бизнеса.</p>
+                </div>
+                <div class="card" style="border: 1px solid #D4AF37;">
+                    <h3 style="margin-bottom: 16px; color: #D4AF37;">Включить масштаб</h3>
+                    <p style="color: #A1A1A5; font-size: 0.95rem;">Забрать свой гостевой ключ, активировать систему Digital Twin, задействовать 14-дневный безопасный тест и запустить генерацию пассивного дохода.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    if (!response.ok) throw new Error("Сервер не отвечает");
+    <section>
+        <div class="container">
+            <div class="badge">Градация статуса</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Уровни Интеграции <span class="accent-text">В Экосистему</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h4 style="color: #FFF; margin-bottom: 8px;">VIP</h4>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #D4AF37; margin-bottom: 20px;">Пользовательский тест</div>
+                    <p style="color: #A1A1A5; font-size: 0.9rem; line-height: 1.7;">Прямой доступ к оптовой базе отелей для личных поездок. Базовый функционал платформы без автоматизации бизнеса.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid #A1A1A5; background: #131316;">
+                    <h4 style="color: #FFF; margin-bottom: 8px;">PRO</h4>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #D4AF37; margin-bottom: 20px;">Бизнес-интеграция</div>
+                    <p style="color: #A1A1A5; font-size: 0.9rem; line-height: 1.7;">Полный доступ ко всей мультивекторной платформе (авиа, отели, авто). Подключение к базовой системе автоматического распределения лидов.</p>
+                </div>
+                <div class="card" style="border: 1px solid #D4AF37; background: linear-gradient(135deg, #0E0E10 0%, #1A150A 100%);">
+                    <h4 style="color: #D4AF37; margin-bottom: 8px;">ELITE</h4>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #FFF; margin-bottom: 20px;">Максимальное превосходство</div>
+                    <p style="color: #A1A1A5; font-size: 0.9rem; line-height: 1.7;">Полный технологический стек. Максимальный пакет Guest Pass, приоритетное включение в воронку Digital Twin, раннее бронирование Life Experience и Lifestyle-молл.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let accumulated = "";
-    aiBubble.innerText = "";
+    <section id="action" style="text-align: center; background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 75%);">
+        <div class="container">
+            <div class="badge">Финальный шаг</div>
+            <h2 style="margin-bottom: 24px;">Запустите Свой <span class="accent-text">Цифровой Двойник</span></h2>
+            <p class="lead-text" style="margin: 0 auto 40px; max-width: 700px;">Активируйте систему прямо сейчас, заберите свой бесплатный Guest Pass на 48 часов для сравнения цен и включите безопасный 14-дневный режим тест-драйва.</p>
+            <a href="#" class="btn-primary">Активировать Систему и Забрать Ключ</a>
+        </div>
+    </section>
 
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
+    <section style="background: #0B0B0D;">
+        <div class="container" style="max-width: 850px;">
+            <div class="badge">Юридический и технический разбор</div>
+            <h2 style="text-align: center; margin-bottom: 60px;">Полная Прозрачность <span class="accent-text">И Факты</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question"><span>26. Как именно работает юридическая гарантия возврата средств 14 дней?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">В течение 14 дней с момента оплаты партнерского или клиентского пакета вы имеете полное право аннулировать свой аккаунт через личный кабинет. Средства возвращаются на ту же банковскую карту в полном объеме.</div>
+            </div>
 
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.split("\n");
+            <div class="faq-item">
+                <div class="faq-question"><span>27. В чем отличие от традиционных туроператоров?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Туроператоры формируют пакетные продукты с огромной розничной маржой. Платформа Travel Advantage предоставляет вам прямой бесконкоррентный доступ к оптовой B2B-системе бронирования.</div>
+            </div>
 
-      for (const line of lines) {
-        if (line.startsWith("data: ")) {
-          const dataStr = line.slice(6).trim();
-          if (dataStr === "[DONE]") continue;
-          try {
-            const data = JSON.parse(dataStr);
-            if (data.type === "content_block_delta" && data.delta?.text) {
-              accumulated += data.delta.text;
-              aiBubble.innerText = accumulated;
-              container.scrollTop = container.scrollHeight;
-            }
-          } catch(e) {}
-        }
-      }
-    }
-    chatHistory.push({ role: "assistant", content: accumulated });
-  } catch (err) {
-    console.error(err);
-    aiBubble.innerText = "Что-то пошло не так — попробуйте отправить вопрос еще раз.";
-  }
-}
+            <div class="faq-item">
+                <div class="faq-question"><span>28. Можно ли бронировать авиабилеты со скидкой?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Наш шлюз предоставляет билеты по чистой себестоимости без агентских скрытых сборов. При этом за каждую бронь вам начисляются Travel Credits для оплаты отелей.</div>
+            </div>
 
-// ==================== INTERSECTION OBSERVER ====================
-document.addEventListener("DOMContentLoaded", () => {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
+            <div class="faq-item">
+                <div class="faq-question"><span>29. Как система автоматизации Digital Twin находит людей?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Digital Twin работает на базе отлаженных сквозных воронок захвата внимания. Система привлекает исключительно целевую, платежеспособную аудиторию, полностью исключая неэффективные контакты.</div>
+            </div>
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  calculateSavings();
-});
-</script>
+            <div class="faq-item">
+                <div class="faq-question"><span>30. Могу ли я добавить членов семьи в свой аккаунт?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Да, на пакетах PRO и ELITE вы имеете официальное право добавить дополнительных пользователей в свой личный кабинет, чтобы они путешествовали по оптовым ценам.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><span>31. Что такое закрытый Lifestyle-Молл?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Это внутренний премиальный интернет-магазин, где представлены оригинальные товары более чем 150 мировых люксовых брендов со скидками до 70%, в том числе за доллары лояльности.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><span>32. Каковы реальные временные затраты для старта бизнеса?</span> <span style="color:#D4AF37;">+</span></div>
+                <div class="faq-answer">Благодаря 95% автоматизации рутинных процессов через готовую систему дупликации, вам достаточно уделять проекту от 5 до 7 часов в неделю.</div>
+            </div>
+
+        </div>
+    </section>
+
 </body>
 </html>
