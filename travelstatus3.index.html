@@ -79,6 +79,7 @@
     font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em; 
     text-transform: uppercase; color: var(--mwr-gold); margin-bottom: 1.5rem; 
     background: rgba(212, 175, 55, 0.1); padding: 0.4rem 1rem; border-radius: 20px;
+    display: flex; align-items: center; gap: 0.5rem;
   }
   .hero-title { 
     font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.2; 
@@ -91,7 +92,8 @@
   .btn-primary, .btn-ghost {
     font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; 
     padding: 1rem 2.2rem; border-radius: var(--radius); cursor: pointer; 
-    transition: all 0.2s ease-in-out; text-decoration: none; display: inline-block;
+    transition: all 0.2s ease-in-out; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 0.5rem;
   }
   .btn-primary { color: var(--mwr-blue-dark); background: var(--mwr-gold); border: 1px solid var(--mwr-gold); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
   .btn-primary:hover { background: var(--mwr-gold-light); border-color: var(--mwr-gold-light); transform: translateY(-1px); }
@@ -116,14 +118,14 @@
   .card { background: var(--surface); padding: 3rem 2.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; transition: transform 0.3s, border-color 0.3s; }
   .card:hover { transform: translateY(-4px); border-color: rgba(10,37,64,0.15); }
   .card.featured { border: 2px solid var(--mwr-blue); background: #FFFFFF; }
-  .card.featured::before { content: 'РЕКОМЕНДУЕМ'; position: absolute; top: -12px; left: 2.5rem; background: var(--mwr-blue); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 4px; letter-spacing: 0.1em; }
+  .card.featured::before { content: '★ РЕКОМЕНДУЕМ'; position: absolute; top: -12px; left: 2.5rem; background: var(--mwr-blue); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 4px; letter-spacing: 0.1em; }
   .card-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mwr-blue); background: rgba(10,37,64,0.05); padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1.5rem; align-self: flex-start; }
-  .card-tier { font-size: 1.8rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; }
+  .card-tier { font-size: 1.8rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
   .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; flex: 1; }
   .card-features { list-style: none; margin-bottom: 2.5rem; }
   .card-features li { font-size: 0.85rem; color: var(--text-main); padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
   .card-features li::before { content: '✓'; color: var(--mwr-accent); font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
-  .card-cta { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mwr-blue); background: transparent; border: 2px solid var(--mwr-blue); padding: 0.9rem 1.5rem; border-radius: var(--radius); cursor: pointer; transition: all 0.2s; width: 100%; text-align: center; text-decoration: none; display: block; }
+  .card-cta { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mwr-blue); background: transparent; border: 2px solid var(--mwr-blue); padding: 0.9rem 1.5rem; border-radius: var(--radius); cursor: pointer; transition: all 0.2s; width: 100%; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
   .card-cta:hover { background: var(--mwr-blue); color: #FFFFFF; }
   .card.featured .card-cta { background: var(--mwr-gold); color: var(--mwr-blue-dark); border-color: var(--mwr-gold); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2); }
   .card.featured .card-cta:hover { background: var(--mwr-gold-light); border-color: var(--mwr-gold-light); }
@@ -138,7 +140,7 @@
   .roadmap-item:last-child .step-line { display: none; }
   .roadmap-content { padding-bottom: 2.5rem; }
   .step-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
-  .step-title { font-size: 1.25rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; }
+  .step-title { font-size: 1.25rem; font-weight: 700; color: var(--mwr-blue-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
   .step-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
 
   /* CORPORATE METRICS */
@@ -150,7 +152,7 @@
   /* FLOATING AI TERMINAL WIDGET */
   .chat-widget {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-    width: 380px; max-width: calc(100vw - 4rem); hieght: auto;
+    width: 380px; max-width: calc(100vw - 4rem); height: auto;
     background: #FFFFFF; border: 1px solid var(--border);
     border-radius: var(--radius-lg); overflow: hidden;
     box-shadow: 0 15px 45px rgba(10,37,64,0.18);
@@ -168,7 +170,7 @@
   .chat-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.4rem; padding: 0 0.25rem; }
   
   .chat-modes { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); background: #F8FAFC; }
-  .mode-btn { background: none; border: none; color: var(--text-muted); padding: 0.75rem; font-family: inherit; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .mode-btn { background: none; border: none; color: var(--text-muted); padding: 0.75rem; font-family: inherit; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
   .mode-btn.active { color: var(--mwr-blue); background: #FFFFFF; position: relative; }
   .mode-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: var(--mwr-blue); }
 
@@ -184,7 +186,7 @@
   .chat-input-area { padding: 0.75rem; border-top: 1px solid var(--border); background: #FFFFFF; display: flex; gap: 0.5rem; }
   .chat-input { flex: 1; background: #F8FAFC; border: 1px solid var(--border); padding: 0.6rem 0.85rem; border-radius: 6px; color: var(--text-main); font-family: inherit; font-size: 0.85rem; outline: none; }
   .chat-input:focus { border-color: var(--mwr-blue); background: #FFFFFF; }
-  .chat-submit { background: var(--mwr-blue); border: none; padding: 0 1.2rem; border-radius: 6px; color: #FFFFFF; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .chat-submit { background: var(--mwr-blue); border: none; padding: 0 1.2rem; border-radius: 6px; color: #FFFFFF; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
   .chat-submit:hover { background: var(--mwr-blue-light); }
   .chat-submit:disabled { background: #E4E7EB; color: #A0AEC0; cursor: not-allowed; }
   
@@ -199,7 +201,7 @@
   .chat-trigger:hover { background: var(--mwr-blue-light); transform: translateY(-2px); }
   .chat-trigger.hidden { opacity: 0; pointer-events: none; transform: scale(0.9); }
 
-  .chat-proof { padding: 0.5rem 1rem; background: #F8FAFC; border-top: 1px solid var(--border); display: flex; gap: 14px; overflow-x: auto; font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; }
+  .chat-proof { padding: 0.5rem 1rem; background: #F8FAFC; border-top: 1px solid var(--border); display: flex; gap: 14px; overflow-x: auto; font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; align-items: center; }
 
   footer { border-top: 1px solid var(--border); background: #FFFFFF; padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
   .footer-logo { font-size: 1rem; font-weight: 700; color: var(--mwr-blue-dark); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -231,12 +233,12 @@
 
 <div class="hero">
   <div class="hero-bg"></div>
-  <p class="hero-eyebrow" data-i18n="hero_eyebrow">Официальный шлюз MWR Life</p>
+  <p class="hero-eyebrow" data-i18n="hero_eyebrow">🌐 Официальный шлюз MWR Life</p>
   <h1 class="hero-title" data-i18n="hero_title">TRAVEL STATUS:<br><em>Прямой доступ к оптовым ценам на путешествия</em></h1>
   <p class="hero-sub" data-i18n="hero_sub">Закрытая клубная платформа Travel Advantage™. Бронирование отелей, курортов и перелетов напрямую у оптовых поставщиков без розничных наценок.</p>
   <div class="hero-cta">
-    <a href="#tiers" class="btn-primary" data-i18n="hero_cta_1">Выбрать пакет доступа</a>
-    <a href="#roadmap" class="btn-ghost" data-i18n="hero_cta_2">Пошаговый алгоритм</a>
+    <a href="#tiers" class="btn-primary" data-i18n="hero_cta_1">⚡ Выбрать пакет доступа</a>
+    <a href="#roadmap" class="btn-ghost" data-i18n="hero_cta_2">📋 Пошаговый алгоритм</a>
   </div>
 </div>
 
@@ -258,10 +260,10 @@
 
 <section style="padding-top: 0;">
   <div class="stats-row">
-    <div class="stat reveal"><span class="stat-num">40%+</span><span class="stat-label" data-i18n="stat_1">Средняя чистая экономия</span></div>
-    <div class="stat reveal reveal-delay-1"><span class="stat-num">2013</span><span class="stat-label" data-i18n="stat_2">Год основания клуба</span></div>
-    <div class="stat reveal reveal-delay-2"><span class="stat-num">150%</span><span class="stat-label" data-i18n="stat_3">Гарантия лучшей цены</span></div>
-    <div class="stat reveal reveal-delay-3"><span class="stat-num">700k+</span><span class="stat-label" data-i18n="stat_4">Участников по всему миру</span></div>
+    <div class="stat reveal"><span class="stat-num">📉 40%+</span><span class="stat-label" data-i18n="stat_1">Средняя чистая экономия</span></div>
+    <div class="stat reveal reveal-delay-1"><span class="stat-num">📅 2013</span><span class="stat-label" data-i18n="stat_2">Год основания клуба</span></div>
+    <div class="stat reveal reveal-delay-2"><span class="stat-num">🛡️ 150%</span><span class="stat-label" data-i18n="stat_3">Гарантия лучшей цены</span></div>
+    <div class="stat reveal reveal-delay-3"><span class="stat-num">👥 700k+</span><span class="stat-label" data-i18n="stat_4">Участников по всему миру</span></div>
   </div>
 </section>
 
@@ -275,19 +277,19 @@
   <div class="cards-grid reveal reveal-delay-1">
     <div class="card">
       <span class="card-badge" data-i18n="guest_badge">Гость</span>
-      <div class="card-tier">Guest</div>
+      <div class="card-tier">🔑 Guest</div>
       <p class="card-desc" data-i18n="guest_desc">Бесплатный ознакомительный доступ. Позволяет лично зайти в систему, протестировать интерфейс и сравнить цены на отели.</p>
       <ul class="card-features">
         <li data-i18n="guest_f1">Оптовые тарифы на отели</li>
         <li data-i18n="guest_f2">Полноценный личный кабинет</li>
         <li data-i18n="guest_f3">Базовая поддержка платформы</li>
       </ul>
-      <a href="#" onclick="secureRedirect(event, 'guest')" class="card-cta" data-i18n="guest_cta">Получить Guest-доступ</a>
+      <a href="#" onclick="secureRedirect(event, 'guest')" class="card-cta" data-i18n="guest_cta">Открыть доступ</a>
     </div>
 
     <div class="card featured">
       <span class="card-badge" data-i18n="vip_badge">Оптимальный</span>
-      <div class="card-tier">VIP Доступ</div>
+      <div class="card-tier">💎 VIP Доступ</div>
       <p class="card-desc" data-i18n="vip_desc">Полный набор инструментов для активных путешественников. Максимальные скидки, авиабилеты, круизы и подключение дополнительных гостей.</p>
       <ul class="card-features">
         <li data-i18n="vip_f1">Все категории: отели, перелеты, авто</li>
@@ -295,12 +297,12 @@
         <li data-i18n="vip_f3">Добавление +1 пассажира в профиль</li>
         <li data-i18n="vip_f4">Накопление лояльных Travel-кредитов</li>
       </ul>
-      <a href="#" onclick="secureRedirect(event, 'vip')" class="card-cta" data-i18n="vip_cta">Активировать статус VIP</a>
+      <a href="#" onclick="secureRedirect(event, 'vip')" class="card-cta" data-i18n="vip_cta">Активировать VIP</a>
     </div>
 
     <div class="card">
       <span class="card-badge" data-i18n="partner_badge">Бизнес</span>
-      <div class="card-tier">Partner</div>
+      <div class="card-tier">💼 Partner</div>
       <p class="card-desc" data-i18n="partner_desc">Полноценная международная бизнес-франшиза. Инструменты для построения глобальной сети дистрибуции и получения пассивного дохода.</p>
       <ul class="card-features">
         <li data-i18n="partner_f1">Лицензия независимого консультанта</li>
@@ -327,7 +329,7 @@
       </div>
       <div class="roadmap-content">
         <p class="step-label" data-i18n="step1_label">Шаг 01</p>
-        <h3 class="step-title" data-i18n="step1_title">Выбор пакета и верификация</h3>
+        <h3 class="step-title" data-i18n="step1_title">📑 Выбор пакета и верификация</h3>
         <p class="step-body" data-i18n="step1_body">Выберите уровень участия выше. Регистрационная форма MWR Life откроется автоматически — заполнение занимает пару минут.</p>
       </div>
     </div>
@@ -339,7 +341,7 @@
       </div>
       <div class="roadmap-content">
         <p class="step-label" data-i18n="step2_label">Шаг 02</p>
-        <h3 class="step-title" data-i18n="step2_title">Активация через Email</h3>
+        <h3 class="step-title" data-i18n="step2_title">✉️ Активация через Email</h3>
         <p class="step-body" data-i18n="step2_body">Проверьте почтовый ящик, указанный при регистрации, и подтвердите создание аккаунта для защиты платежных операций.</p>
       </div>
     </div>
@@ -351,7 +353,7 @@
       </div>
       <div class="roadmap-content">
         <p class="step-label" data-i18n="step3_label">Шаг 03</p>
-        <h3 class="step-title" data-i18n="step3_title">Запуск приложения Travel Advantage</h3>
+        <h3 class="step-title" data-i18n="step3_title">📱 Запуск приложения Travel Advantage</h3>
         <p class="step-body" data-i18n="step3_body">Загрузите мобильное приложение из App Store / Google Play, введите логин и получите доступ к закрытой базе бронирования.</p>
       </div>
     </div>
@@ -369,7 +371,7 @@
 
 <div class="chat-widget" id="chatWidget">
   <div class="chat-header">
-    <div class="chat-avatar" id="headerIcon">🔵</div>
+    <div class="chat-avatar" id="headerIcon">🤖</div>
     <div class="chat-header-info">
       <div class="chat-title">Alex — MWR Personal Guide</div>
       <div class="chat-sub" id="headerSub" data-i18n="chat_sub">Интеллектуальный помощник · 24/7</div>
@@ -379,8 +381,8 @@
   </div>
   
   <div class="chat-modes">
-    <button class="mode-btn mode-travel active" id="btnTrackTravel" onclick="setWidgetTrack('travel')">Путешествия</button>
-    <button class="mode-btn mode-earn" id="btnTrackEarn" onclick="setWidgetTrack('earn')">Бизнес и Франшиза</button>
+    <button class="mode-btn mode-travel active" id="btnTrackTravel" onclick="setWidgetTrack('travel')">✈️ Путешествия</button>
+    <button class="mode-btn mode-earn" id="btnTrackEarn" onclick="setWidgetTrack('earn')">💼 Бизнес</button>
   </div>
   
   <div class="chat-messages" id="chatMessages"></div>
@@ -389,7 +391,7 @@
 
   <div class="chat-input-area">
     <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос..." onkeydown="handleChatKey(event)">
-    <button class="chat-submit" id="chatSubmit" onclick="sendChatMessage()">Ок</button>
+    <button class="chat-submit" id="chatSubmit" onclick="sendChatMessage()">➡️</button>
   </div>
 </div>
 
@@ -429,78 +431,78 @@ const INIT = {
 
 const translations = {
   ru: {
-    hero_eyebrow: "Официальный шлюз MWR Life",
+    hero_eyebrow: "🌐 Официальный шлюз MWR Life",
     hero_title: "TRAVEL STATUS:<br><em>Прямой доступ к оптовым ценам на путешествия</em>",
     hero_sub: "Закрытая клубная платформа Travel Advantage™. Бронирование отелей, курортов и перелетов напрямую у оптовых поставщиков без розничных наценок.",
-    hero_cta_1: "Выбрать пакет доступа", hero_cta_2: "Пошаговый алгоритм",
+    hero_cta_1: "⚡ Выбрать пакет доступа", hero_cta_2: "📋 Пошаговый алгоритм",
     phil_label: "Прозрачность индустрии",
     phil_title: "Почему открытые поисковики больше не выгодны?",
     phil_quote: "«Классические розничные сервисы тратят миллионы на рекламу, закладывая эти расходы в конечную стоимость вашего бронирования.»",
     stat_1: "Средняя чистая экономия", stat_2: "Год основания клуба", stat_3: "Гарантия лучшей цены", stat_4: "Участников по всему миру",
     tiers_label: "Варианты авторизации", tiers_title: "Активируйте ваш уровень участия",
-    guest_badge: "Гость", guest_cta: "Получить Guest-доступ",
+    guest_badge: "Гость", guest_cta: "Открыть доступ",
     guest_desc: "Бесплатный ознакомительный доступ. Позволяет лично зайти в систему, протестировать интерфейс и сравнить цены на отели.",
     guest_f1: "Оптовые тарифы на отели", guest_f2: "Полноценный личный кабинет", guest_f3: "Базовая поддержка платформы",
-    vip_badge: "Оптимальный", vip_cta: "Активировать статус VIP",
+    vip_badge: "Оптимальный", vip_cta: "Активировать VIP",
     vip_desc: "Полный набор инструментов для активных путешественников. Максимальные скидки, авиабилеты, круизы и подключение дополнительных гостей.",
     vip_f1: "Все категории: отели, перелеты, авто", vip_f2: "150% Гарантия возврата разницы", vip_f3: "Добавление +1 пассажира в профиль", vip_f4: "Накопление лояльных Travel-кредитов",
     partner_badge: "Бизнес", partner_cta: "Запустить франшизу",
     partner_desc: "Полноценная международная бизнес-франшиза. Инструменты для построения глобальной сети дистрибуции и получения пассивного дохода.",
     partner_f1: "Лицензия независимого консультанта", partner_f2: "Интеграция в MWR Academy обучения", partner_f3: "Доход от рекомендаций подписок",
     road_label: "Дорожная карта", road_title: "Три шага до установки терминала",
-    step1_label: "Шаг 01", step1_title: "Выбор пакета и верификация", step1_body: "Выберите уровень участия выше. Регистрационная форма MWR Life откроется автоматически — заполнение занимает пару минут.",
-    step2_label: "Шаг 02", step2_title: "Активация через Email", step2_body: "Проверить почтовый ящик, указанный при регистрации, и подтвердите создание аккаунта для защиты платежных операций.",
-    step3_label: "Шаг 03", step3_title: "Запуск приложения Travel Advantage", step3_body: "Загрузите мобильное приложение из App Store / Google Play, введите логин и получите доступ к закрытой базе бронирования.",
+    step1_label: "Шаг 01", step1_title: "📑 Выбор пакета и верификация", step1_body: "Выберите уровень участия выше. Регистрационная форма MWR Life откроется автоматически — заполнение занимает пару минут.",
+    step2_label: "Шаг 02", step2_title: "✉️ Активация через Email", step2_body: "Проверить почтовый ящик, указанный при регистрации, и подтвердите создание аккаунта для защиты платежных операций.",
+    step3_label: "Шаг 03", step3_title: "📱 Запуск приложения Travel Advantage", step3_body: "Загрузите мобильное приложение из App Store / Google Play, введите логин и получите доступ к закрытой базе бронирования.",
     chat_trigger_text: "Задать вопрос гиду Alex", chat_sub: "Интеллектуальный помощник · 24/7"
   },
   en: {
-    hero_eyebrow: "Official MWR Life Gateway",
+    hero_eyebrow: "🌐 Official MWR Life Gateway",
     hero_title: "TRAVEL STATUS:<br><em>Direct Access to Wholesale Travel Pricing</em>",
     hero_sub: "Private club platform Travel Advantage™. Book hotels, resorts, and flights directly from wholesale suppliers without retail markup.",
-    hero_cta_1: "Choose Access Level", hero_cta_2: "Step-by-Step Roadmap",
+    hero_cta_1: "⚡ Choose Access Level", hero_cta_2: "📋 Step-by-Step Roadmap",
     phil_label: "Industry Transparency",
     phil_title: "Why Public Search Engines Are No Longer Profitable",
     phil_quote: "«Traditional retail services spend millions on ads, packing those expenses right into your final booking bill.»",
     stat_1: "Average Net Savings", stat_2: "Club Founded Year", stat_3: "Best Price Guarantee", stat_4: "Global Members Active",
     tiers_label: "Authorization Options", tiers_title: "Activate Your Membership Level",
-    guest_badge: "Guest", guest_cta: "Get Guest Access",
+    guest_badge: "Guest", guest_cta: "Open Access",
     guest_desc: "Free introductory access. Allows you to explore the platform interface and compare actual wholesale hotel rates.",
     guest_f1: "Wholesale hotel booking rates", guest_f2: "Complete private dashboard", guest_f3: "Basic customer service tools",
-    vip_badge: "Optimal", vip_cta: "Activate VIP Status",
+    vip_badge: "Optimal", vip_cta: "Activate VIP",
     vip_desc: "Full suite of tools for regular travelers. Maximum discount brackets, flights, cruises, and additional account users.",
     vip_f1: "All categories: hotels, flights, cars", vip_f2: "150% Best Price Guarantee refund", vip_f3: "Add +1 traveler to your account", vip_f4: "Accumulate loyalty Travel Credits",
     partner_badge: "Business", partner_cta: "Launch Franchise",
     partner_desc: "Full international business franchise license. Built-in infrastructure to scale dynamic global distribution networks.",
     partner_f1: "Independent consultant license", partner_f2: "Full integration into MWR Academy", partner_f3: "Earn residual membership revenue",
     road_label: "Roadmap", road_title: "Three Steps to Terminal Activation",
-    step1_label: "Step 01", step1_title: "Package Choice & Verification", step1_body: "Select your desired entry tier above. The official MWR Life form opens up immediately.",
-    step2_label: "Step 02", step2_title: "Secure Email Activation", step2_body: "Verify your profile via the automated welcome email to safeguard all your booking data.",
-    step3_label: "Step 03", step3_title: "Launch Travel Advantage App", step3_body: "Download the application from App Store or Play Store and sign in to access wholesale inventories.",
+    step1_label: "Step 01", step1_title: "📑 Package Choice & Verification", step1_body: "Select your desired entry tier above. The official MWR Life form opens up immediately.",
+    step2_label: "Step 02", step2_title: "✉️ Secure Email Activation", step2_body: "Verify your profile via the automated welcome email to safeguard all your booking data.",
+    step3_label: "Step 03", step3_title: "📱 Launch Travel Advantage App", step3_body: "Download the application from App Store or Play Store and sign in to access wholesale inventories.",
     chat_trigger_text: "Ask Guide Alex", chat_sub: "AI Smart Assistant · 24/7"
   },
   de: {
-    hero_eyebrow: "Offizielles MWR Life Portal",
+    hero_eyebrow: "🌐 Offizielles MWR Life Portal",
     hero_title: "TRAVEL STATUS:<br><em>Direkter Zugang zu Großhandelspreisen</em>",
     hero_sub: "Private Club-Plattform Travel Advantage™. Buchen Sie Hotels und Flüge direkt bei Großhandelslieferanten ohne Einzelhandelsaufschläge.",
-    hero_cta_1: "Zugangsstufe Wählen", hero_cta_2: "Schritt-für-Schritt-Plan",
+    hero_cta_1: "⚡ Zugangsstufe Wählen", hero_cta_2: "📋 Schritt-für-Schritt-Plan",
     phil_label: "Transparenz",
     phil_title: "Warum öffentliche Suchmaschinen nicht mehr rentabel sind",
     phil_quote: "«Klassische Portale geben Millionen für Werbung aus, die direkt auf Ihre Buchungsrechnung aufgeschlagen werden.»",
     stat_1: "Durchschnittliche Ersparnis", stat_2: "Gründungsjahr des Clubs", stat_3: "Bestpreisgarantie", stat_4: "Globale Mitglieder",
     tiers_label: "Optionen", tiers_title: "Aktivieren Sie Ihre Mitgliedsstufe",
-    guest_badge: "Gast", guest_cta: "Gastzugang Erhalten",
+    guest_badge: "Gast", guest_cta: "Zugang Erhalten",
     guest_desc: "Kostenloser Testzugang. Ermöglicht es Ihnen, die Plattform zu testen und Großhandelspreise für Hotels zu vergleichen.",
     guest_f1: "Großhandelspreise für Hotels", guest_f2: "Vollständiges Dashboard", guest_f3: "Basis-Support-Tools",
-    vip_badge: "Empfohlen", vip_cta: "VIP Status Aktivieren",
+    vip_badge: "Empfohlen", vip_cta: "VIP Aktivieren",
     vip_desc: "Vollständiges Set für aktive Reisende. Maximale Rabatte, Flüge, Kreuzfahrten und zusätzliche Reisende im Konto.",
     vip_f1: "Alle Kategorien: Hotels, Flüge, Mietwagen", vip_f2: "150% Bestpreisgarantie", vip_f3: "+1 zusätzlichen Reisenden hinzufügen", vip_f4: "Sammeln von Travel-Credits",
     partner_badge: "Business", partner_cta: "Franchise Starten",
     partner_desc: "Globale Business-Franchise-Lizenz. Infrastruktur zum Aufbau eines weltweiten Vertriebsnetzwerks und passiven Einkommens.",
     partner_f1: "Unabhängige Beraterlizenz", partner_f2: "Integration in die MWR Academy", partner_f3: "Einkommen aus Mitgliedschaftsempfehlungen",
     road_label: "Roadmap", road_title: "Drei Schritte zur Aktivierung",
-    step1_label: "Schritt 01", step1_title: "Paketauswahl & Verifizierung", step1_body: "Wählen Sie oben Ihre Stufe. Das offizielle MWR Life Registrierungsformular wird geöffnet.",
-    step2_label: "Schritt 02", step2_title: "E-Mail-Aktivierung", step2_body: "Bestätigen Sie Ihr Profil über die Begrüßungs-E-Mail, um Ihre Buchungsdaten zu schützen.",
-    step3_label: "Schritt 03", step3_title: "Travel Advantage App Starten", step3_body: "Laden Sie die App aus dem App Store oder Play Store herunter und melden Sie sich an.",
+    step1_label: "Schritt 01", step1_title: "📑 Paketauswahl & Verifizierung", step1_body: "Wählen Sie oben Ihre Stufe. Das offizielle MWR Life Registrierungsformular wird geöffnet.",
+    step2_label: "Schritt 02", step2_title: "✉️ E-Mail-Aktivierung", step2_body: "Bestätigen Sie Ihr Profil über die Begrüßungs-E-Mail, um Ihre Buchungsdaten zu schützen.",
+    step3_label: "Schritt 03", step3_title: "📱 Travel Advantage App Starten", step3_body: "Laden Sie die App aus dem App Store oder Play Store herunter und melden Sie sich an.",
     chat_trigger_text: "Guide Alex fragen", chat_sub: "KI-Assistent · 24/7"
   }
 };
@@ -565,6 +567,7 @@ function setWidgetTrack(track) {
 
 function resetChatGreeting() {
   const greeting = INIT[activeTrack][currentLang] || INIT[activeTrack].en;
+  document.getElementById('chatMessages').innerHTML = '';
   appendMessage('a', greeting);
 }
 
@@ -591,7 +594,7 @@ function appendMessage(role, text) {
   
   const icon = document.createElement('div');
   icon.className = 'msg-icon';
-  icon.innerText = role === 'u' ? '👤' : '🔵';
+  icon.innerText = role === 'u' ? '👤' : '🤖';
   
   const bubble = document.createElement('div');
   bubble.className = 'msg-bubble';
@@ -622,7 +625,7 @@ function processAIQuery(query) {
   
   const typingWrapper = document.createElement('div');
   typingWrapper.className = 'msg-wrapper a';
-  typingWrapper.innerHTML = `<div class="msg-icon">🔵</div><div class="msg-bubble" style="opacity:0.6">Alex проверяет базу MWR Life...</div>`;
+  typingWrapper.innerHTML = `<div class="msg-icon">🤖</div><div class="msg-bubble" style="opacity:0.6">Alex проверяет базу MWR Life...</div>`;
   document.getElementById('chatMessages').appendChild(typingWrapper);
   
   setTimeout(() => {
