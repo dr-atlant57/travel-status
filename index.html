@@ -76,10 +76,82 @@
         .audit-btn.active { background: #D4AF37; color: #070708; border-color: #D4AF37; }
 
         /* Крупный блок стран */
-        .countries-monolith { background: linear-gradient(135deg, #111114 0%, #070708 100%); border: 1px solid rgba(212,175,55,0.15); padding: 80px 40px; border-radius: 4px; text-align: center; box-shadow: 0 24px 70px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-        .countries-monolith::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 60%); pointer-events: none; }
-        .countries-title { font-size: 7rem; font-weight: 900; color: #FFFFFF; line-height: 1; letter-spacing: -2px; margin-bottom: 16px; text-shadow: 0 0 40px rgba(212,175,55,0.1); }
-        .countries-subtitle { font-size: 1.3rem; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 4px; }
+        .countries-monolith {
+    background: linear-gradient(135deg, #111114 0%, #070708 100%);
+    border: 1px solid rgba(212,175,55,0.15);
+    padding: 80px 40px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.countries-monolith::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.countries-title {
+    font-size: 7rem;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    text-shadow: 0 0 40px rgba(212,175,55,0.1);
+}
+
+.countries-subtitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+/* SYSTEM INSTRUCTION BLOCK */
+
+.rating-instruction {
+    margin-top: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px 28px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-left: 3px solid #D4AF37;
+    border-radius: 4px;
+    max-width: 560px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.06);
+}
+
+.rating-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #D4AF37;
+}
+
+.rating-text {
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.rating-text strong {
+    color: #D4AF37;
+    font-weight: 800;
+}
 
         @media (max-width: 992px) {
             .grid-3, .grid-2 { grid-template-columns: 1fr; gap: 32px; }
