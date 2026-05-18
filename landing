@@ -1,1 +1,1514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ к закрытым travel-тарифам | Travel Advantage</title>
+    
+    <!-- Подключение шрифтов и иконок -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-bg: #f4f7fb;
+            --card-bg: #ffffff;
+            --card-border: rgba(15, 23, 42, 0.06);
+            --accent-blue: #1e40af; /* Более глубокий, благородный синий */
+            --accent-blue-hover: #1e3a8a;
+            --accent-green: #15803d; /* Приглушенный лесной зеленый вместо неона */
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --input-bg: #f8fafc;
+            --input-border: #e2e8f0;
+            --panel-bg: #f8fbff;
+            --panel-border: #dbeafe;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #f8fbff 0%, #f4f7fb 40%, #ffffff 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 1. СТРУКТУРА И ИНТЕРФЕЙС */
+        .container {
+            max-width: 1060px; /* Сделали контейнер чуть более сфокусированным */
+            margin: 0 auto;
+            padding: 40px 20px 64px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef2ff;
+            color: var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px; /* Расслабленная, мягкая типографика */
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 44px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--text-main);
+            max-width: 880px;
+            margin: 0 auto 20px;
+            letter-spacing: -0.5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .container { padding: 24px 15px 40px; }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Эмоциональный визуальный якорь */
+        .hero-visual {
+            width: 100%;
+            height: 380px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.95);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.6) 100%);
+            padding: 30px;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .hero-overlay-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        @media (max-width: 640px) {
+            .hero-visual { height: 240px; }
+            .hero-overlay { padding: 15px; }
+            .hero-overlay-text { font-size: 14px; }
+        }
+
+        /* Блок доверия перед калькулятором */
+        .trusted-block {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        .trusted-block span {
+            color: var(--text-main);
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        /* 2. ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР */
+        .calculator-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; gap: 28px; }
+            .calculator-card { padding: 30px 20px; }
+        }
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container span {
+            position: absolute;
+            left: 20px;
+            font-size: 1.6rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        input[type="number"], select.luxury-select, input.luxury-input {
+            width: 100%;
+            padding: 18px 18px 18px 48px;
+            font-size: 24px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-weight: 700;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        select.luxury-select {
+            padding-left: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            height: 60px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        input.luxury-input {
+            font-size: 16px;
+            font-weight: 500;
+            height: 60px;
+        }
+
+        input[type="number"]:focus, select.luxury-select:focus, input.luxury-input:focus {
+            border-color: var(--accent-blue);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.08);
+        }
+
+        /* Панель результатов */
+        .results-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .result-row span:first-child {
+            color: var(--text-muted);
+        }
+
+        .result-row .value {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .result-row.total {
+            border-bottom: none;
+            border-top: 2px dashed #cbd5e1;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            padding-top: 16px;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .result-row.total span:first-child {
+            color: var(--text-main);
+        }
+
+        .result-row.total .value {
+            font-size: 34px;
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        /* Кнопки переходов (CTA) */
+        .actions-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 640px) {
+            .actions-group { flex-direction: column; }
+        }
+
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--accent-blue);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-main:hover {
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+
+        /* Позволяет кнопкам корректно делить пространство только внутри группы */
+        .actions-group .btn-main, 
+        .actions-group .btn-secondary {
+            flex: 1;
+        }
+
+        .btn-accent {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            margin: 20px auto 0 auto;
+            transition: 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .center-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* 3. PREMIUM STRIP (ЭКОСИСТЕМА ДОСТУПА) */
+        .premium-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .premium-strip span:not(:last-child)::after {
+            content: "•";
+            margin-left: 16px;
+            color: #cbd5e1;
+        }
+
+        .premium-strip strong {
+            color: var(--text-main);
+        }
+
+        /* 4. СТИЛИ ИНТЕГРАЦИИ GEMINI API (AI TRAVEL-ГИД) */
+        .ai-concierge-section {
+            margin-top: 64px;
+            scroll-behavior: smooth;
+        }
+
+        .ai-concierge-card {
+            background: #ffffff;
+            border: 1px solid var(--panel-border);
+            background-image: linear-gradient(135deg, #ffffff 0%, #fcfdfe 100%);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.04);
+            position: relative;
+        }
+
+        /* Задаем вертикальное выравнивание сверху для элементов сетки */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .ai-grid { grid-template-columns: 1fr; gap: 30px; }
+            .ai-concierge-card { padding: 30px 20px; }
+        }
+
+        .ai-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .ai-form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .ai-form-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .ai-input-wrapper {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .ai-input-icon {
+            position: absolute;
+            left: 18px;
+            top: 20px;
+            font-size: 18px;
+            color: var(--accent-blue);
+        }
+
+        .ai-response-panel {
+            background: #fdfefe;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 30px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            justify-content: center;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.01);
+        }
+
+        .ai-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14.5px;
+            max-width: 320px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .ai-placeholder i {
+            font-size: 3rem;
+            color: rgba(30, 64, 175, 0.15);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .ai-result-content {
+            display: none;
+            color: var(--text-main);
+            font-size: 14.5px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .ai-result-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-result-content p {
+            margin-bottom: 12px;
+        }
+
+        .ai-result-content ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .ai-result-content li {
+            margin-bottom: 8px;
+        }
+
+        .ai-result-content .member-advantage-tip {
+            background: rgba(22, 163, 74, 0.05);
+            border-left: 3px solid var(--accent-green);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Индикатор загрузки */
+        .ai-loader {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(30, 64, 175, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Кастомный оверлей ошибки */
+        .ai-error-box {
+            display: none;
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 20px;
+            border-radius: 12px;
+            color: #c53030;
+            font-size: 14px;
+            margin-top: 16px;
+            text-align: left;
+        }
+
+        .ai-error-box i {
+            margin-right: 8px;
+        }
+
+        /* 5. REAL PRODUCT PREVIEW (ИНТЕРФЕЙС БРОНИРОВАНИЯ) */
+        .preview-section {
+            margin-top: 64px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .preview-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+
+        .preview-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .preview-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .preview-card-body {
+            padding: 24px;
+        }
+
+        .preview-card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .preview-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .preview-pricing-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .rate-compare {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .rate-compare span {
+            text-decoration: line-through;
+            font-weight: 600;
+        }
+
+        .member-rate-box {
+            text-align: right;
+        }
+
+        .member-rate-label {
+            font-size: 11px;
+            color: var(--accent-green);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .member-rate-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent-green);
+        }
+
+        /* 6. СРАВНИТЕЛЬНЫЕ КАРТОЧКИ */
+        .comparison-section {
+            margin-top: 80px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+
+        .comparison-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+        }
+
+        .comparison-card.premium {
+            border: 1px solid var(--panel-border);
+            background: var(--panel-bg);
+        }
+
+        .comparison-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-list {
+            list-style: none;
+        }
+
+        .comparison-list li {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        .comparison-list li i {
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .comparison-list li.bad i {
+            color: #94a3b8; /* Менее агрессивный серый цвет вместо ядовито-красного */
+        }
+
+        .comparison-list li.good i {
+            color: var(--accent-green);
+        }
+
+        /* 7. ПОШАГОВЫЙ АЛГОРИТМ */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 36px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container { grid-template-columns: 1fr; }
+        }
+
+        .step-item {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.2s ease;
+        }
+
+        .step-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .step-item .index {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #f1f5f9;
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .step-icon-box {
+            width: 48px;
+            height: 48px;
+            background: #f0f6ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+        }
+
+        .step-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* 8. НОВЫЙ БЛОК: ОФИЦИАЛЬНОЕ ПРИЛОЖЕНИЕ И СОПРОВОЖДЕНИЕ */
+        .app-assistance-section {
+            margin-top: 80px;
+        }
+
+        .assistance-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+        }
+
+        .assistance-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .assistance-grid { grid-template-columns: 1fr; gap: 32px; }
+            .assistance-card { padding: 30px 20px; }
+        }
+
+        .assistance-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .assistance-info h2::after {
+            display: none; /* Убираем дефолтную полоску заголовка в этой карточке */
+        }
+
+        .assistance-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .assistance-bullets {
+            margin-bottom: 24px;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 14.5px;
+        }
+
+        .bullet-item i {
+            margin-top: 4px;
+            font-size: 18px;
+            color: var(--accent-blue);
+        }
+
+        .app-instructions-tip {
+            background: rgba(30, 64, 175, 0.04);
+            border: 1px solid rgba(30, 64, 175, 0.08);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .app-instructions-tip strong {
+            color: var(--accent-blue);
+        }
+
+        .app-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .app-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid #cbd5e1;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .assistance-action-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .assistance-action-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .assistance-action-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* 9. ФУТЕР */
+        footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        footer p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-btn:hover {
+            background: #f8fafc;
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* 10. ВИДЖЕТ WHATSAPP (ПРЕМИУМ-СТИЛЬ) */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            padding: 10px 18px;
+            border-radius: 999px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .whatsapp-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.12);
+            border-color: #25d366;
+        }
+
+        .whatsapp-icon-box {
+            width: 38px;
+            height: 38px;
+            background: #25d366;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .whatsapp-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .whatsapp-action {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        @media (max-width: 640px) {
+            .whatsapp-widget {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px;
+            }
+            .whatsapp-text {
+                display: none; /* Скрываем текст на мобильных для экономии места */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Основной интерфейс -->
+    <div class="container">
+        
+        <!-- Шапка -->
+        <header>
+            <div class="brand-badge">
+                <i class="fa-solid fa-plane-up"></i> Private Travel Network
+            </div>
+            <h1>Да, здесь можно получить оптовый пропуск от Travel Advantage</h1>
+            <p class="subtitle">Сравни текущие тарифы на привычных вам платформах с оптовыми ценами в приложении Travel Advantage до бронирования.</p>
+        </header>
+
+        <!-- Эмоциональный якорь — Визуальная проекция люксового отдыха -->
+        <div class="hero-visual">
+            <img class="hero-image" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80" alt="Премиальный курорт на рассвете">
+            <div class="hero-overlay">
+                <div class="hero-overlay-text">
+                    <i class="fa-solid fa-location-dot"></i> Уединенный курорт — Пространство ваших личных привилегий
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок доверия перед калькулятором -->
+        <div class="trusted-block">
+            Сравните с тарифами популярных сервисов: <span>Booking • Expedia • Priceline • Agoda</span>
+        </div>
+
+        <!-- Калькулятор честной стоимости -->
+        <div class="calculator-card">
+            <div class="calc-grid">
+                <!-- Ввод данных -->
+                <div class="input-block">
+                    <label for="tour-price">
+                        <i class="fa-solid fa-wallet"></i> Розничный тариф на привычном рынке:
+                    </label>
+                    <div class="input-container">
+                        <span>$</span>
+                        <input type="number" id="tour-price" placeholder="Введите цену, например: 1500" min="0" oninput="calculateFairPrice()">
+                    </div>
+                </div>
+                <!-- Вывод расчетных данных -->
+                <div class="results-panel">
+                    <div>
+                        <div class="result-row">
+                            <span>Накопительный баланс (Travel Credits):</span>
+                            <span class="value" style="color: var(--accent-blue);">$<span id="credits-fee">0</span></span>
+                        </div>
+                    </div>
+                    <div class="result-row total">
+                        <span>Тариф для владельцев оптового пропуска:</span>
+                        <span class="value">$<span id="fair-price">0</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Реферальные ссылки с высоким приоритетом -->
+            <div class="actions-group">
+                <a href="https://free.traveladvantage.com/Status" class="btn-main" target="_blank">
+                    <i class="fa-solid fa-ticket"></i> Получить гостевой пропуск
+                </a>
+                <a href="https://vip.traveladvantage.com/Status" class="btn-secondary" target="_blank">
+                    <i class="fa-solid fa-crown"></i> Активировать VIP-доступ
+                </a>
+            </div>
+        </div>
+
+        <!-- Premium Strip — Доступные типы поездок -->
+        <div class="premium-strip">
+            Доступный инвентарь: <span><strong>Hotels</strong> (Отели)</span> <span><strong>Resorts</strong> (Курорты)</span> <span><strong>Cruises</strong> (Круизы)</span> <span><strong>Villas</strong> (Виллы)</span> <span><strong>Experiences</strong> (Авторские туры)</span>
+        </div>
+
+        <!-- ИНТЕГРАЦИЯ С GEMINI API: ЛИЧНЫЙ ИИ-КОНСЬЕРЖ -->
+        <section class="ai-concierge-section" id="ai-planner">
+            <div class="ai-concierge-card">
+                <div class="ai-grid">
+                    <!-- Форма планирования -->
+                    <div class="ai-form">
+                        <h2 class="ai-form-title">Ваш персональный AI Travel-гид</h2>
+                        <p class="ai-form-desc">Введите направление и стиль путешествия. ИИ travel-помощник подберет варианты отдыха и покажет доступные клубные тарифы и привилегии.</p>
+                        
+                        <!-- Ввод направления -->
+                        <div class="ai-input-wrapper">
+                            <i class="fa-solid fa-compass ai-input-icon"></i>
+                            <input type="text" id="ai-destination" class="luxury-input" placeholder="Например: Мальдивы, Токио, Париж...">
+                        </div>
+                        
+                        <!-- Выбор стиля -->
+                        <div class="ai-input-wrapper" style="margin-bottom: 24px;">
+                            <select id="ai-style" class="luxury-select">
+                                <option value="Романтическое уединение">Романтическое уединение</option>
+                                <option value="Семейный велнес-отдых">Семейный велнес-отдых</option>
+                                <option value="Культурное погружение">Культурное погружение и гастрономия</option>
+                                <option value="Премиальный бизнес-лайфстайл">Премиальный бизнес-лайфстайл</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn-main" onclick="generateAiPlan()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Спланировать с привилегиями
+                        </button>
+                        
+                        <!-- Блок ошибок -->
+                        <div class="ai-error-box" id="ai-error">
+                            <i class="fa-solid fa-triangle-exclamation"></i> <span id="ai-error-text">Не удалось загрузить данные.</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Результат от ИИ-консьержа -->
+                    <div class="ai-response-panel">
+                        <!-- Плейсхолдер до загрузки -->
+                        <div class="ai-placeholder" id="ai-placeholder">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            Ваш индивидуальный travel-гид будет сформирован здесь в режиме реального времени.
+                        </div>
+                        
+                        <!-- Загрузчик -->
+                        <div class="ai-loader" id="ai-loader">
+                            <div class="spinner"></div>
+                            Формируем закрытый инсайдерский гид...
+                        </div>
+                        
+                        <!-- Контент ответа -->
+                        <div class="ai-result-content" id="ai-result">
+                            <!-- Контент генерируется динамически через JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок живого превью продукта (Travel UI Feel) -->
+        <div class="preview-section">
+            <h2>Оцените тарифы в привычном и закрытом интерфейсе бронирования</h2>
+            <div class="preview-grid">
+                <!-- Отель 1 -->
+                <div class="preview-card">
+                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Мальдивы">
+                    <div class="preview-card-body">
+                        <span class="preview-card-tag">Luxury Escapes</span>
+                        <div class="preview-card-title">Ayada Maldives Resort</div>
+                        <div class="preview-pricing-line">
+                            <div class="rate-compare">Публичный тариф: <br><span>$640 / ночь</span></div>
+                            <div class="member-rate-box">
+                                <div class="member-rate-label">Member Rate</div>
+                                <div class="member-rate-price">$415</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Отель 2 -->
+                <div class="preview-card">
+                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Бали">
+                    <div class="preview-card-body">
+                        <span class="preview-card-tag">Private Villas</span>
+                        <div class="preview-card-title">The Udaya Resorts & Spa Bali</div>
+                        <div class="preview-pricing-line">
+                            <div class="rate-compare">Публичный тариф: <br><span>$310 / ночь</span></div>
+                            <div class="member-rate-box">
+                                <div class="member-rate-label">Member Rate</div>
+                                <div class="member-rate-price">$198</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сравнительные Карточки -->
+        <div class="comparison-section">
+            <h2>Модели дистрибьюции: Привычный рынок и Закрытая система</h2>
+            <div class="comparison-grid">
+                <!-- Открытый рынок -->
+                <div class="comparison-card">
+                    <div class="comparison-title" style="color: var(--text-muted);">
+                        <i class="fa-solid fa-store"></i> Розничный Travel-рынок
+                    </div>
+                    <ul class="comparison-list">
+                        <li class="bad">
+                            <i class="fa-solid fa-minus"></i>
+                            <div><strong>Розничные наценки:</strong> Открытые тарифы всегда включают в себя заложенную маржу агрегаторов.</div>
+                        </li>
+                        <li class="bad">
+                            <i class="fa-solid fa-minus"></i>
+                            <div><strong>Маркетинговый бюджет:</strong> Потребитель оплачивает масштабную рекламу сервисов из своего кармана.</div>
+                        </li>
+                        <li class="bad">
+                            <i class="fa-solid fa-minus"></i>
+                            <div><strong>Виртуальная лояльность:</strong> Уровни и статусы лояльности редко превращаются в реальную денежную выгоду.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Закрытый Клуб -->
+                <div class="comparison-card premium">
+                    <div class="comparison-title" style="color: var(--accent-blue);">
+                        <i class="fa-solid fa-shield-halved"></i> Экосистема Travel Advantage
+                    </div>
+                    <ul class="comparison-list">
+                        <li class="good">
+                            <i class="fa-solid fa-check"></i>
+                            <div><strong>Прямой оптовый доступ:</strong> Конфиденциальное подключение к закрытым глобальным базам поставщиков.</div>
+                        </li>
+                        <li class="good">
+                            <i class="fa-solid fa-check"></i>
+                            <div><strong>Travel Credits:</strong> Гарантированные накопительные баллы за абсолютно каждое бронирование.</div>
+                        </li>
+                        <li class="good">
+                            <i class="fa-solid fa-check"></i>
+                            <div><strong>150% ценовая гарантия:</strong> Полная компенсация разницы, если вы обнаружите аналогичный открытый тариф дешевле.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="center-btn-wrapper">
+            <a href="https://join.traveladvantage.com/Status" class="btn-accent" target="_blank">
+                <i class="fa-solid fa-user-plus"></i> Присоединиться к клубу Travel Advantage
+            </a>
+        </div>
+
+        <!-- Пошаговое руководство -->
+        <h2>Простой порядок получения доступа</h2>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="index">01</div>
+                <div class="step-icon-box">
+                    <i class="fa-solid fa-suitcase"></i>
+                </div>
+                <div class="step-title">Укажите розничный тариф</div>
+                <div class="step-desc">Введите примерную стоимость планируемого отдыха в калькулятор выше для автоматической оценки выгоды.</div>
+            </div>
+            <div class="step-item">
+                <div class="index">02</div>
+                <div class="step-icon-box">
+                    <i class="fa-solid fa-passport"></i>
+                </div>
+                <div class="step-title">Активируйте пропуск</div>
+                <div class="step-desc">Заполните форму гостевого приглашения. После быстрой и бесплатной регистрации вы получите логин и временный пароль для входа.</div>
+            </div>
+            <div class="step-item">
+                <div class="index">03</div>
+                <div class="step-icon-box">
+                    <i class="fa-solid fa-plane"></i>
+                </div>
+                <div class="step-title">Исследуйте базу данных</div>
+                <div class="step-desc">Используйте полученные данные для входа в приложение и бронируйте отели напрямую по конфиденциальным ценам.</div>
+            </div>
+        </div>
+
+        <!-- БЛОК: МОБИЛЬНОЕ ПРИЛОЖЕНИЕ И СОПРОВОЖДЕНИЕ -->
+        <section class="app-assistance-section">
+            <div class="assistance-card">
+                <div class="assistance-grid">
+                    <div class="assistance-info">
+                        <h2>Официальное приложение и персональная поддержка</h2>
+                        <p class="assistance-desc">Поскольку регистрация на оптовой платформе Travel Advantage проходит исключительно по закрытым приглашениям — я полностью возьму на себя ваше персональное сопровождение.</p>
+                        <div class="assistance-bullets">
+                            <div class="bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <div><strong>Индивидуальный онбординг:</strong> Помогу пройти активацию, настроить личный профиль и разобраться с бонусной системой накопления Travel Credits.</div>
+                            </div>
+                            <div class="bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <div><strong>Мгновенный доступ со смартфона:</strong> Комфортное бронирование прямо с вашего мобильного устройства.</div>
+                            </div>
+                        </div>
+                        <div class="app-instructions-tip">
+                            <i class="fa-solid fa-circle-info"></i> <strong>Важный порядок действий:</strong> Для установки мобильного приложения необходимо сначала получить гостевой доступ. Пройдите быструю бесплатную регистрацию — после этого система вышлет вам логин и временный пароль для авторизации, а также предоставит официальные ссылки для скачивания приложений из App Store и Google Play.
+                        </div>
+                        
+                        <div class="app-buttons-container">
+                            <div style="margin-bottom: 8px;">
+                                <a href="https://free.traveladvantage.com/Status" class="btn-main" target="_blank">
+                                    <i class="fa-solid fa-ticket"></i> Получить гостевой пропуск
+                                </a>
+                            </div>
+                            <div class="app-buttons" style="opacity: 0.5;">
+                                <div class="app-btn">
+                                    <i class="fa-brands fa-apple"></i> Доступно в App Store
+                                </div>
+                                <div class="app-btn">
+                                    <i class="fa-brands fa-google-play"></i> Доступно в Google Play
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assistance-action-box">
+                        <div class="action-box-inner">
+                            <h3>Нужна помощь с инвайтом?</h3>
+                            <p>Напишите мне напрямую — я отправлю вам гостевой доступ, помогу зарегистрироваться, подтвердить почту и настроить приложение.</p>
+                            <a href="https://wa.me/996777066098" class="btn-main" target="_blank" style="margin-top: 16px;">
+                                <i class="fa-brands fa-whatsapp"></i> Получить сопровождение
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопка Life Experience -->
+        <div class="center-btn-wrapper">
+            <a href="https://lifeexperience.club/Status" class="btn-main" target="_blank" style="margin-top: 48px; max-width: 500px; width: 100%;">
+                <i class="fa-solid fa-earth-americas"></i> Узнать подробнее о турах Life Experience
+            </a>
+        </div>
+
+        <!-- Футер с реферальными доменами MWR Life -->
+        <footer>
+            <p>Официальные цифровые экосистемы компании MWR Life:</p>
+            <div class="footer-links-grid">
+                <a href="https://www.mwrlife.com/Status" class="footer-btn" target="_blank">
+                    <i class="fa-solid fa-building"></i> MWR Life Corporate
+                </a>
+                <a href="https://www.mwrlife.online/Status" class="footer-btn" target="_blank">
+                    <i class="fa-solid fa-globe"></i> MWR Life Online Portal
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ВИДЖЕТ WHATSAPP (ПОЛУЧИТЬ ГОСТЕВОЙ ПРОПУСК) -->
+    <a href="https://wa.me/996777066098" class="whatsapp-widget" target="_blank">
+        <div class="whatsapp-icon-box">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div class="whatsapp-text">
+            <span class="whatsapp-label">Инвайт в клуб</span>
+            <span class="whatsapp-action">Получить гостевой пропуск</span>
+        </div>
+    </a>
+
+    <!-- Интерактивная логика калькулятора -->
+    <script>
+        function calculateFairPrice() {
+            const inputPrice = parseFloat(document.getElementById('tour-price').value);
+            
+            if (!inputPrice || inputPrice <= 0) {
+                document.getElementById('credits-fee').innerText = '0';
+                document.getElementById('fair-price').innerText = '0';
+                return;
+            }
+
+            // Оптовые скидки закрытого клуба составляют около 30%
+            const markup = Math.round(inputPrice * 0.30);
+            const credits = Math.round((inputPrice - markup) * 0.04);
+            const fairPrice = Math.round(inputPrice - markup);
+
+            document.getElementById('credits-fee').innerText = credits;
+            document.getElementById('fair-price').innerText = fairPrice;
+        }
+
+        /* ИНТЕГРАЦИЯ С GEMINI API: ЛОГИКА ИИ-КОНСЬЕРЖА */
+        async function callGeminiAPI(prompt, systemInstruction) {
+            const apiKey = ""; // API-ключ предоставляется средой выполнения
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{ text: prompt }]
+                            }],
+                            systemInstruction: {
+                                parts: [{ text: systemInstruction }]
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    }
+                } catch (error) {
+                    // Ошибка игнорируется для выполнения повторной попытки (backoff)
+                }
+                
+                // Ожидание перед повторным запросом (экспоненциальный откат)
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+            throw new Error("Не удалось связаться с ИИ-консьержем. Пожалуйста, попробуйте еще раз позже.");
+        }
+
+        async function generateAiPlan() {
+            const destination = document.getElementById('ai-destination').value.trim();
+            const style = document.getElementById('ai-style').value;
+            
+            const placeholder = document.getElementById('ai-placeholder');
+            const loader = document.getElementById('ai-loader');
+            const resultBox = document.getElementById('ai-result');
+            const errorBox = document.getElementById('ai-error');
+            const errorText = document.getElementById('ai-error-text');
+
+            if (!destination) {
+                errorText.innerText = "Пожалуйста, укажите желаемое направление путешествия.";
+                errorBox.style.display = "block";
+                return;
+            }
+
+            // Сброс состояния UI
+            errorBox.style.display = "none";
+            placeholder.style.display = "none";
+            resultBox.style.display = "none";
+            loader.style.display = "flex";
+
+            const systemInstruction = `
+                Вы — элитный и интеллигентный travel-консьерж закрытого клуба Travel Advantage.
+                Ваша задача — составить персонализированное, изысканное мини-руководство для выбранного направления.
+                Стиль написания должен быть премиальным, вдохновляющим, спокойным и профессиональным. Избегайте "продающего шума", лозунгов и агрессивного маркетинга.
+                
+                Формат ответа (строго в HTML разметке, без тегов markdown \`\`\`html):
+                <h3><i class="fa-solid fa-map-location"></i> Название Направления — Специальный Гид</h3>
+                <p>Красивое, атмосферное введение (2-3 предложения), погружающее в стиль поездки.</p>
+                
+                <strong>Ключевые инсайды:</strong>
+                <ul>
+                    <li><strong>Уникальная локация:</strong> Одно действительно необычное место, скрытое от массового туриста.</li>
+                    <li><strong>Рекомендация по досугу:</strong> Опыт, который оставляет глубокие эмоции.</li>
+                </ul>
+                
+                <div class="member-advantage-tip">
+                    <i class="fa-solid fa-circle-check"></i> <strong>Клубные преимущества для этого направления:</strong>
+                    Участникам Travel Advantage здесь доступны приватные тарифы на премиальные пятизвездочные отели и виллы с возможностью оплаты до 30-45% стоимости накопленными Travel Credits, а также круглосуточная поддержка консьерж-службы.
+                </div>
+            `;
+
+            const prompt = `Пожалуйста, составь эксклюзивный мини-гид для направления: "${destination}" в стиле "${style}". Сфокусируйся на изысканном опыте.`;
+
+            try {
+                const aiResponse = await callGeminiAPI(prompt, systemInstruction);
+                
+                // Рендерим полученный HTML-контент в контейнер
+                if (aiResponse) {
+                    // Удаление возможных markdown оберток, если ИИ их вернул вопреки инструкции
+                    const cleanHtml = aiResponse.replace(/```html|```/g, "").trim();
+                    resultBox.innerHTML = cleanHtml;
+                    loader.style.display = "none";
+                    resultBox.style.display = "block";
+                } else {
+                    throw new Error("Ассистент вернул пустой ответ.");
+                }
+            } catch (err) {
+                loader.style.display = "none";
+                placeholder.style.display = "flex";
+                errorText.innerText = err.message || "Не удалось сгенерировать персональный гид. Попробуйте снова.";
+                errorBox.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
