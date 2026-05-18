@@ -417,7 +417,100 @@
             color: var(--text-main);
         }
 
-        /* 4. СТИЛИ ИНТЕГРАЦИИ GEMINI API (AI TRAVEL-ГИД) */
+        /* 4. REAL PRODUCT PREVIEW (ИНТЕРФЕЙС БРОНИРОВАНИЯ) */
+        .preview-section {
+            margin-top: 64px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .preview-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+
+        .preview-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .preview-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .preview-card-body {
+            padding: 24px;
+        }
+
+        .preview-card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .preview-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .preview-pricing-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .rate-compare {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .rate-compare span {
+            text-decoration: line-through;
+            font-weight: 600;
+        }
+
+        .member-rate-box {
+            text-align: right;
+        }
+
+        .member-rate-label {
+            font-size: 11px;
+            color: var(--accent-green);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .member-rate-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent-green);
+        }
+
+        /* 5. СТИЛИ ИНТЕГРАЦИИ GEMINI API (AI TRAVEL-ГИД) */
         .ai-concierge-section {
             margin-top: 64px;
             scroll-behavior: smooth;
@@ -591,99 +684,6 @@
 
         .ai-error-box i {
             margin-right: 8px;
-        }
-
-        /* 5. REAL PRODUCT PREVIEW (ИНТЕРФЕЙС БРОНИРОВАНИЯ) */
-        .preview-section {
-            margin-top: 64px;
-        }
-
-        .preview-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 32px;
-        }
-
-        @media (max-width: 768px) {
-            .preview-grid { grid-template-columns: 1fr; gap: 24px; }
-        }
-
-        .preview-card {
-            background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
-            transition: transform 0.3s ease;
-        }
-
-        .preview-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .preview-card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .preview-card-body {
-            padding: 24px;
-        }
-
-        .preview-card-tag {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            display: inline-block;
-        }
-
-        .preview-card-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .preview-pricing-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .rate-compare {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .rate-compare span {
-            text-decoration: line-through;
-            font-weight: 600;
-        }
-
-        .member-rate-box {
-            text-align: right;
-        }
-
-        .member-rate-label {
-            font-size: 11px;
-            color: var(--accent-green);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .member-rate-price {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent-green);
         }
 
         /* 6. СРАВНИТЕЛЬНЫЕ КАРТОЧКИ */
@@ -1063,8 +1063,8 @@
             <div class="brand-badge">
                 <i class="fa-solid fa-plane-up"></i> Private Travel Network
             </div>
-            <h1>Да, здесь можно получить оптовый пропуск от Travel Advantage</h1>
-            <p class="subtitle">Сравни текущие тарифы на привычных вам платформах с оптовыми ценами в приложении Travel Advantage до бронирования.</p>
+            <h1>Да, здесь можно получить гостевой travel-пропуск от Travel Advantage</h1>
+            <p class="subtitle">Сравни текущие тарифы на привычных вам платформах с закрытыми ценами в приложении Travel Advantage до бронирования.</p>
         </header>
 
         <!-- Эмоциональный якорь — Визуальная проекция люксового отдыха -->
@@ -1104,7 +1104,7 @@
                         </div>
                     </div>
                     <div class="result-row total">
-                        <span>Тариф для владельцев оптового пропуска:</span>
+                        <span>Тариф для владельцев закрытого travel-пропуска:</span>
                         <span class="value">$<span id="fair-price">0</span></span>
                     </div>
                 </div>
@@ -1126,6 +1126,43 @@
             Доступный инвентарь: <span><strong>Hotels</strong> (Отели)</span> <span><strong>Resorts</strong> (Курорты)</span> <span><strong>Cruises</strong> (Круизы)</span> <span><strong>Villas</strong> (Виллы)</span> <span><strong>Experiences</strong> (Авторские туры)</span>
         </div>
 
+        <!-- Блок живого превью продукта (Travel UI Feel) -->
+        <div class="preview-section">
+            <h2>Оцените тарифы в привычном и закрытом интерфейсе бронирования</h2>
+            <div class="preview-grid">
+                <!-- Отель 1 -->
+                <div class="preview-card">
+                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Мальдивы">
+                    <div class="preview-card-body">
+                        <span class="preview-card-tag">Luxury Escapes</span>
+                        <div class="preview-card-title">Ayada Maldives Resort</div>
+                        <div class="preview-pricing-line">
+                            <div class="rate-compare">Публичный тариф: <br><span>$640 / ночь</span></div>
+                            <div class="member-rate-box">
+                                <div class="member-rate-label">Member Rate</div>
+                                <div class="member-rate-price">$415</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Отель 2 -->
+                <div class="preview-card">
+                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Бали">
+                    <div class="preview-card-body">
+                        <span class="preview-card-tag">Private Villas</span>
+                        <div class="preview-card-title">The Udaya Resorts & Spa Bali</div>
+                        <div class="preview-pricing-line">
+                            <div class="rate-compare">Публичный тариф: <br><span>$310 / ночь</span></div>
+                            <div class="member-rate-box">
+                                <div class="member-rate-label">Member Rate</div>
+                                <div class="member-rate-price">$198</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ИНТЕГРАЦИЯ С GEMINI API: ЛИЧНЫЙ ИИ-КОНСЬЕРЖ -->
         <section class="ai-concierge-section" id="ai-planner">
             <div class="ai-concierge-card">
@@ -1133,7 +1170,7 @@
                     <!-- Форма планирования -->
                     <div class="ai-form">
                         <h2 class="ai-form-title">Ваш персональный AI Travel-гид</h2>
-                        <p class="ai-form-desc">Введите направление и стиль путешествия. ИИ travel-помощник подберет варианты отдыха и покажет доступные клубные тарифы и привилегии.</p>
+                        <p class="ai-form-desc">Введите направление и стиль путешествия. ИИ travel-помощник подберет варианты отдыха и покажет доступные закрытые тарифы и привилегии.</p>
                         
                         <!-- Ввод направления -->
                         <div class="ai-input-wrapper">
@@ -1184,43 +1221,6 @@
             </div>
         </section>
 
-        <!-- Блок живого превью продукта (Travel UI Feel) -->
-        <div class="preview-section">
-            <h2>Оцените тарифы в привычном и закрытом интерфейсе бронирования</h2>
-            <div class="preview-grid">
-                <!-- Отель 1 -->
-                <div class="preview-card">
-                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Мальдивы">
-                    <div class="preview-card-body">
-                        <span class="preview-card-tag">Luxury Escapes</span>
-                        <div class="preview-card-title">Ayada Maldives Resort</div>
-                        <div class="preview-pricing-line">
-                            <div class="rate-compare">Публичный тариф: <br><span>$640 / ночь</span></div>
-                            <div class="member-rate-box">
-                                <div class="member-rate-label">Member Rate</div>
-                                <div class="member-rate-price">$415</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Отель 2 -->
-                <div class="preview-card">
-                    <img class="preview-card-img" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Бали">
-                    <div class="preview-card-body">
-                        <span class="preview-card-tag">Private Villas</span>
-                        <div class="preview-card-title">The Udaya Resorts & Spa Bali</div>
-                        <div class="preview-pricing-line">
-                            <div class="rate-compare">Публичный тариф: <br><span>$310 / ночь</span></div>
-                            <div class="member-rate-box">
-                                <div class="member-rate-label">Member Rate</div>
-                                <div class="member-rate-price">$198</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Сравнительные Карточки -->
         <div class="comparison-section">
             <h2>Модели дистрибьюции: Привычный рынок и Закрытая система</h2>
@@ -1254,7 +1254,7 @@
                     <ul class="comparison-list">
                         <li class="good">
                             <i class="fa-solid fa-check"></i>
-                            <div><strong>Прямой оптовый доступ:</strong> Конфиденциальное подключение к закрытым глобальным базам поставщиков.</div>
+                            <div><strong>Прямой закрытый доступ:</strong> Конфиденциальное подключение к закрытым глобальным базам поставщиков.</div>
                         </li>
                         <li class="good">
                             <i class="fa-solid fa-check"></i>
@@ -1322,7 +1322,7 @@
                             </div>
                         </div>
                         <div class="app-instructions-tip">
-                            <i class="fa-solid fa-circle-info"></i> <strong>Важный порядок действий:</strong> Для установки мобильного приложения необходимо сначала получить гостевой доступ. Пройдите быструю бесплатную регистрацию — после этого система вышлет вам логин и временный пароль для авторизации, а также предоставит официальные ссылки для скачивания приложений из App Store и Google Play.
+                            <i class="fa-solid fa-circle-info"></i> <strong>Важный порядок действий:</strong> Для установки мобильного приложения необходимо сначала получить гостевой доступ. Пройдите быстрой бесплатной регистрации — после этого система вышлет вам логин и временный пароль для авторизации, а также предоставит официальные ссылки для скачивания приложений из App Store и Google Play.
                         </div>
                         
                         <div class="app-buttons-container">
