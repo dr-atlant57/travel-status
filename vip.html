@@ -67,6 +67,43 @@
   .reveal { transition: opacity 0.8s ease, transform 0.8s ease !important; }
   .reveal.visible { transition: opacity 0.8s ease, transform 0.8s ease !important; }
 
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher {
+    display: flex; align-items: center; gap: 3px;
+    flex-wrap: nowrap; margin-right: 12px;
+  }
+
+  .lang-btn {
+    background: none; border: 1px solid transparent;
+    color: var(--text-dim); font-family: 'Montserrat', sans-serif;
+    font-size: 10px; letter-spacing: 1px;
+    padding: 4px 6px; cursor: pointer;
+    transition: all 0.2s; border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .lang-btn:hover { color: var(--gold); border-color: rgba(201,168,76,0.3); }
+  .lang-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  [data-theme="light"] .lang-btn { color: #4A3F2F; }
+  [data-theme="light"] .lang-btn:hover { color: #8B6000; border-color: rgba(100,75,20,0.3); }
+  [data-theme="light"] .lang-btn.active { color: #8B6000; border-color: #8B6000; background: rgba(100,75,20,0.08); }
+
+  @media (max-width: 860px) {
+    .lang-switcher { 
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 8px 12px;
+      justify-content: center;
+      z-index: 99;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .lang-btn { font-size: 11px; padding: 6px 8px; }
+  }
+
   /* ── THEME TOGGLE ── */
   .theme-toggle {
     display: flex; align-items: center; gap: 8px;
@@ -954,9 +991,23 @@
     <span>Elite Lifestyle Ambassador · MWR Life / Travel Advantage</span>
   </div>
   <nav>
-    <a href="#mechanics">Как работает</a>
-    <a href="#paths">Тарифы</a>
-    <a href="#cta" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)">Получить доступ</a>
+    <a href="#mechanics" data-i18n="nav_how">Как работает</a>
+    <a href="#paths" data-i18n="nav_rates">Тарифы</a>
+    <a href="#cta" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" data-i18n="nav_access">Получить доступ</a>
+
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn active" data-lang="ru" onclick="switchLang('ru')">RU</button>
+    <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    <button class="lang-btn" data-lang="de" onclick="switchLang('de')">DE</button>
+    <button class="lang-btn" data-lang="es" onclick="switchLang('es')">ES</button>
+    <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
+    <button class="lang-btn" data-lang="it" onclick="switchLang('it')">IT</button>
+    <button class="lang-btn" data-lang="pt" onclick="switchLang('pt')">PT</button>
+    <button class="lang-btn" data-lang="ro" onclick="switchLang('ro')">RO</button>
+    <button class="lang-btn" data-lang="ko" onclick="switchLang('ko')">KO</button>
+    <button class="lang-btn" data-lang="et" onclick="switchLang('et')">ET</button>
+  </div>
     <div class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
       <span class="toggle-icon">🌙</span>
       <div class="toggle-track">
@@ -976,27 +1027,23 @@
   <!-- 1. COGNITIVE ANCHOR — категориальное объяснение -->
   <div class="hero-anchor" style="opacity:0; animation: fadeUp 0.8s ease 0.2s forwards;">
     <p class="anchor-line">
-      <span class="anchor-retail">Booking · Airbnb · Expedia</span>
-      <span class="anchor-sep">—</span>
-      <span class="anchor-label">розничные витрины travel-рынка.</span>
+      <span class="anchor-retail" data-i18n="hero_anchor1">Booking · Airbnb · Expedia — розничные витрины travel-рынка.</span>
     </p>
     <p class="anchor-line anchor-us">
-      <span class="anchor-brand">Travel Advantage</span>
-      <span class="anchor-sep">—</span>
-      <span class="anchor-label gold">оптовый слой доступа.</span>
+      <span class="anchor-brand" data-i18n="hero_anchor2_pre">Travel Advantage</span><span class="anchor-sep"> — </span><span class="anchor-label gold" data-i18n="hero_anchor2_post">оптовый слой доступа.</span>
     </p>
   </div>
 
   <!-- 2. RATIONAL REINFORCEMENT — micro-line -->
   <div class="hero-micro" style="opacity:0; animation: fadeUp 0.8s ease 0.5s forwards;">
-    <p>Большинство travel-платформ работают по розничной модели.</p>
-    <p>Мы покажем разницу между retail и direct-access тарифами.</p>
+    <p data-i18n="hero_micro1">Большинство travel-платформ работают по розничной модели.</p>
+    <p data-i18n="hero_micro2">Мы покажем разницу между retail и direct-access тарифами.</p>
   </div>
 
   <!-- 3. PERSONAL ENGAGEMENT — вопрос + пауза + посчитаем -->
   <div class="hero-question" style="opacity:0; animation: fadeUp 0.8s ease 0.8s forwards;">
-    <h1>На сколько можно было снизить<br>стоимость вашего последнего путешествия?</h1>
-    <p class="hero-invite">Посчитаем за 30 секунд?</p>
+    <h1>На сколько реально можно было снизить<br>стоимость твоего последнего путешествия?</h1>
+    <p class="hero-invite" data-i18n="hero_invite">Посчитаем?</p>
   </div>
 
   <!-- 4. КАЛЬКУЛЯТОР -->
@@ -1004,53 +1051,53 @@
     <div class="calc-inner">
       <div class="calc-row">
         <div class="calc-field">
-          <label>Сколько потратил на последнее путешествие</label>
+          <label data-i18n="calc_l1">Сколько потратил на последнее путешествие</label>
           <div class="calc-input-wrap">
             <span class="calc-currency">$</span>
             <input type="number" id="calcTotal" placeholder="1000" min="0">
           </div>
         </div>
         <div class="calc-field">
-          <label>Из них на отели и жильё</label>
+          <label data-i18n="calc_l2">Из них на отели и жильё</label>
           <div class="calc-input-wrap">
             <span class="calc-currency">$</span>
             <input type="number" id="calcHotel" placeholder="400" min="0">
           </div>
         </div>
         <div class="calc-field">
-          <label>На перелёты</label>
+          <label data-i18n="calc_l3">На перелёты</label>
           <div class="calc-input-wrap">
             <span class="calc-currency">$</span>
             <input type="number" id="calcFlight" placeholder="300" min="0">
           </div>
         </div>
       </div>
-      <button class="calc-btn" id="calcBtn" onclick="runCalc()">Посчитать</button>
+      <button class="calc-btn" id="calcBtn" onclick="runCalc()" data-i18n="calc_btn">Посчитать</button>
       <p class="calc-hint" id="calcHint"></p>
       <div class="calc-result" id="calcResult">
         <div class="calc-result-grid">
           <div class="calc-result-item">
-            <span class="calc-result-label">Заплатил</span>
+            <span class="calc-result-label" data-i18n="res_paid">Заплатил</span>
             <span class="calc-result-value" id="resTotal">—</span>
           </div>
           <div class="calc-result-item highlight">
-            <span class="calc-result-label">Мог заплатить</span>
+            <span class="calc-result-label" data-i18n="res_could">Мог заплатить</span>
             <span class="calc-result-value gold" id="resAfter">—</span>
           </div>
           <div class="calc-result-item">
-            <span class="calc-result-label">Переплата системе</span>
+            <span class="calc-result-label" data-i18n="res_over">Переплата системе</span>
             <span class="calc-result-value red" id="resSaved">—</span>
           </div>
         </div>
         <p class="calc-note" id="calcNote"></p>
-        <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-gold" style="margin-top:20px; display:inline-block;">Получить гостевой пропуск — проверить лично</a>
+        <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-gold" style="margin-top:20px; display:inline-block;" data-i18n="res_link">Получить гостевой пропуск — проверить лично</a>
       </div>
     </div>
   </div>
 
   <div class="scroll-hint">
     <div class="scroll-line"></div>
-    Листай
+    <span data-i18n="scroll">Листай</span>
   </div>
 </section>
 
@@ -1083,7 +1130,7 @@
     <div class="mech-intro reveal">
       <p class="section-label">Почему так устроено</p>
       <h2>Вся правда о том,<br>куда уходят твои деньги</h2>
-      <p>Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.</p>
+      <p data-i18n="mech_sub">Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.</p>
     </div>
 
     <div class="mech-flow">
@@ -1091,11 +1138,11 @@
       <div class="mech-row reveal">
         <div class="mech-num">1</div>
         <div class="mech-old">
-          <p class="mech-tag">Розничный агрегатор</p>
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
           <p>Ты бронируешь отель за $200. Букинг берёт до <strong style="color:#8B4444;">25% комиссии</strong> с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.</p>
         </div>
         <div class="mech-new">
-          <p class="mech-tag gold">Travel Advantage</p>
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
           <p>Мы договорились с отелями напрямую: <span class="mech-accent">максимальный поток клиентов — максимальная скидка.</span> Эту скидку мы передаём тебе, а не оставляем себе.</p>
         </div>
       </div>
@@ -1103,11 +1150,11 @@
       <div class="mech-row reveal">
         <div class="mech-num">2</div>
         <div class="mech-old">
-          <p class="mech-tag">Розничный агрегатор</p>
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
           <p>Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. <strong style="color:#8B4444;">С тобой не делятся ни центом.</strong> Ты работаешь на них бесплатно.</p>
         </div>
         <div class="mech-new">
-          <p class="mech-tag gold">Travel Advantage</p>
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
           <p>Каждый раз когда друг бронирует по твоей ссылке — <span class="mech-accent">его экономия прилетает тебе на счёт.</span> Он сэкономил $60 — ты получил $60 Travel Credits.</p>
         </div>
       </div>
@@ -1115,11 +1162,11 @@
       <div class="mech-row reveal">
         <div class="mech-num">3</div>
         <div class="mech-old">
-          <p class="mech-tag">Розничный агрегатор</p>
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
           <p>Гений третьего уровня — это скидка с их наценки. Не с реальной цены отеля. <strong style="color:#8B4444;">Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.</strong></p>
         </div>
         <div class="mech-new">
-          <p class="mech-tag gold">Travel Advantage</p>
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
           <p>Открой наше приложение и Букинг рядом. Один отель, одни даты. <span class="mech-accent">Сравни. Даже с Гением третьего уровня.</span> Цифры говорят сами.</p>
         </div>
       </div>
@@ -1127,11 +1174,11 @@
       <div class="mech-row reveal">
         <div class="mech-num">4</div>
         <div class="mech-old">
-          <p class="mech-tag">Розничный агрегатор</p>
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
           <p>Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование <strong style="color:#8B4444;">кормит посредника вместо тебя.</strong></p>
         </div>
         <div class="mech-new">
-          <p class="mech-tag gold">Travel Advantage</p>
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
           <p>Членский взнос даёт тебе доступ к оптовым ценам на <span class="mech-accent">отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки</span> и многое другое. Более 2 000 000 объектов.</p>
         </div>
       </div>
@@ -1139,7 +1186,7 @@
     </div>
 
     <p class="reveal" style="text-align:center; margin-top:48px; font-family:'Montserrat',sans-serif; font-style:normal; font-size:15px; font-weight:300; color:var(--text-dim);">
-      14 дней чтобы сравнить сам. Если не воспользовался баллами — вернём деньги.
+      <span data-i18n="mech_footer">14 дней чтобы сравнить сам. Если не воспользовался баллами — вернём деньги.</span>
     </p>
   </div>
 </section>
@@ -1155,26 +1202,26 @@
         <span class="stat-box-label">MWR Life · Реальный аккаунт · День 1</span>
         <div class="stat-box-inner">
           <div class="stat-row">
-            <span class="stat-label">🏆 Баллы лояльности</span>
+            <span class="stat-label" data-i18n="stat_pts">🏆 Баллы лояльности</span>
             <span class="stat-value">490</span>
           </div>
           <div class="stat-row">
-            <span class="stat-label">💳 Туристических кредитов</span>
-            <span class="stat-value" style="color:var(--text-dim); font-size:22px; font-family:'Montserrat';">накапливаются</span>
+            <span class="stat-label" data-i18n="stat_cred">💳 Туристических кредитов</span>
+            <span class="stat-value" style="color:var(--text-dim); font-size:22px; font-family:'Montserrat';" data-i18n="stat_cred_val">накапливаются</span>
           </div>
           <div class="stat-row">
-            <span class="stat-label">✈️ Статус</span>
+            <span class="stat-label" data-i18n="stat_status">✈️ Статус</span>
             <span class="stat-value" style="font-size:18px; font-family:'Montserrat'; letter-spacing:2px;">ELITE TURBO</span>
           </div>
           <div style="margin-top:20px; padding:16px; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.1); text-align:center;">
-            <p style="font-size:13px; letter-spacing:2px; color:var(--gold); text-transform:uppercase;">Путешествовать бесплатно!</p>
+            <p style="font-size:13px; letter-spacing:2px; color:var(--gold); text-transform:uppercase;" data-i18n="stat_free">Путешествовать бесплатно!</p>
           </div>
         </div>
       </div>
 
       <div class="live-text reveal">
-        <p class="section-label">Это не реклама</p>
-        <h3>День первый после регистрации</h3>
+        <p class="section-label" data-i18n="proof_label">Это не реклама</p>
+        <h3 data-i18n="proof_title">День первый после регистрации</h3>
         <p>На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.</p>
         <p>Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.</p>
         <p>Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.</p>
@@ -1191,9 +1238,9 @@
 <section id="paths">
   <div class="section-inner">
     <div class="paths-intro reveal">
-      <p class="section-label">Три пути входа</p>
+      <p class="section-label" data-i18n="paths_label">Три пути входа</p>
       <h2>Узнай себя<br>и выбери своё</h2>
-      <p>Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.</p>
+      <p data-i18n="paths_sub">Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.</p>
     </div>
 
     <div class="paths-grid">
@@ -1201,14 +1248,14 @@
       <!-- PATH 1 — $199 -->
       <div class="path-card reveal">
         <div class="path-header">
-          <p class="path-tag">Путь первый</p>
-          <h3 class="path-title">Путешествуй дешевле</h3>
+          <p class="path-tag" data-i18n="p1_tag">Путь первый</p>
+          <h3 class="path-title" data-i18n="p1_title">Путешествуй дешевле</h3>
           <div class="path-price">$199</div>
-          <p class="path-price-note">в год · Travel Advantage VIP</p>
-          <p class="path-tagline">Ты просто платишь меньше за то, что и так делаешь. Никакого бизнеса, никаких обязательств. Оптовый склад в твоём телефоне.</p>
+          <p class="path-price-note" data-i18n="p1_note">в год · Travel Advantage VIP</p>
+          <p class="path-tagline" data-i18n="p1_tagline">Ты просто платишь меньше за то, что и так делаешь. Никакого бизнеса, никаких обязательств. Оптовый склад в твоём телефоне.</p>
         </div>
         <button class="acc-toggle" onclick="toggleAcc(this)">
-          Все плюшки <div class="acc-icon">+</div>
+          <span data-i18n="perks_open">Все плюшки</span> <div class="acc-icon">+</div>
         </button>
         <div class="acc-body">
           <div class="acc-content">
@@ -1286,18 +1333,18 @@
         </div>
         <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
         <div style="padding: 20px 36px 32px;">
-          <a href="#" onclick="bridgeTo('https://vip.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;">Начать за $199</a>
+          <a href="#" onclick="bridgeTo('https://vip.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p1_btn">Начать за $199</a>
         </div>
       </div>
 
       <!-- PATH 2 — $340 -->
       <div class="path-card reveal">
         <div class="path-header">
-          <p class="path-tag">Путь второй</p>
-          <h3 class="path-title">Получай доход<br>с рекомендаций</h3>
+          <p class="path-tag" data-i18n="p2_tag">Путь второй</p>
+          <h3 class="path-title" data-i18n="p2_title">Получай доход<br>с рекомендаций</h3>
           <div class="path-price">$340</div>
-          <p class="path-price-note">Ambassador + Elite</p>
-          <p class="path-tagline">Пользуешься сам и рассказываешь другим. Каждый раз когда кто-то по твоей рекомендации пользуется сервисом — тебе приходят комиссионные. Легко, без давления.</p>
+          <p class="path-price-note" data-i18n="p2_note">Ambassador + Elite</p>
+          <p class="path-tagline" data-i18n="p2_tagline">Пользуешься сам и рассказываешь другим. Каждый раз когда кто-то по твоей рекомендации пользуется сервисом — тебе приходят комиссионные. Легко, без давления.</p>
         </div>
         <button class="acc-toggle" onclick="toggleAcc(this)">
           Все плюшки <div class="acc-icon">+</div>
@@ -1368,18 +1415,18 @@
         </div>
         <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
         <div style="padding: 20px 36px 32px;">
-          <a href="#" onclick="bridgeTo('https://join.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;">Начать за $340</a>
+          <a href="#" onclick="bridgeTo('https://join.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p2_btn">Начать за $340</a>
         </div>
       </div>
 
       <!-- PATH 3 — $590 -->
       <div class="path-card reveal">
         <div class="path-header">
-          <p class="path-tag">Путь третий</p>
-          <h3 class="path-title">Серьёзный бизнес</h3>
+          <p class="path-tag" data-i18n="p3_tag">Путь третий</p>
+          <h3 class="path-title" data-i18n="p3_title">Серьёзный бизнес</h3>
           <div class="path-price">$590</div>
-          <p class="path-price-note">Ambassador + Elite + Turbo</p>
-          <p class="path-tagline">Ты заходишь на полную. Это система которая работает на тебя непрерывно.</p>
+          <p class="path-price-note" data-i18n="p3_note">Ambassador + Elite + Turbo</p>
+          <p class="path-tagline" data-i18n="p3_tagline">Ты заходишь на полную. Это система которая работает на тебя непрерывно.</p>
         </div>
         <button class="acc-toggle" onclick="toggleAcc(this)">
           Все плюшки <div class="acc-icon">+</div>
@@ -1450,7 +1497,7 @@
         </div>
         <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
         <div style="padding: 20px 36px 32px;">
-          <a href="#" onclick="bridgeTo('https://www.mwrlife.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;">Начать за $590</a>
+          <a href="#" onclick="bridgeTo('https://www.mwrlife.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p3_btn">Начать за $590</a>
         </div>
       </div>
 
@@ -1463,25 +1510,25 @@
 ══════════════════════════════════════════════ -->
 <section id="guarantee">
   <div class="section-inner">
-    <p class="section-label reveal" style="text-align:center;">Почему можно доверять</p>
-    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;">Три причины рисков нет</h2>
+    <p class="section-label reveal" style="text-align:center;" data-i18n="guar_label">Почему можно доверять</p>
+    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;" data-i18n="guar_title">Три причины рисков нет</h2>
     <div class="gold-line reveal"></div>
 
     <div class="guarantee-grid">
       <div class="g-block reveal">
         <div class="g-icon">🛡️</div>
-        <h3>14 дней возврат</h3>
-        <p>В течение 14 дней — возврат средств если баллами лояльности не воспользовался. Одно письмо на почту. Условие прописано в договоре.</p>
+        <h3 data-i18n="g1_t">14 дней возврат</h3>
+        <p data-i18n="g1_p">В течение 14 дней — возврат средств если баллами лояльности не воспользовался. Одно письмо на почту. Условие прописано в договоре.</p>
       </div>
       <div class="g-block reveal">
         <div class="g-icon">🌍</div>
-        <h3>12 лет на рынке</h3>
-        <p>MWR Life основана в 2013 году. Работает в 100+ странах. Почти 700 000 участников по всему миру. Входит в топ-85 мировых компаний прямых продаж.</p>
+        <h3 data-i18n="g2_t">12 лет на рынке</h3>
+        <p data-i18n="g2_p">MWR Life основана в 2013 году. Работает в 100+ странах. Почти 700 000 участников по всему миру. Входит в топ-85 мировых компаний прямых продаж.</p>
       </div>
       <div class="g-block reveal">
         <div class="g-icon">💰</div>
-        <h3>Гарантия цены 150%</h3>
-        <p>Нашёл тот же отель дешевле после бронирования — компания вернёт полтора раза от разницы. Не просто разницу. Полтора раза.</p>
+        <h3 data-i18n="g3_t">Гарантия цены 150%</h3>
+        <p data-i18n="g3_p">Нашёл тот же отель дешевле после бронирования — компания вернёт полтора раза от разницы. Не просто разницу. Полтора раза.</p>
       </div>
     </div>
   </div>
@@ -1492,12 +1539,12 @@
 ══════════════════════════════════════════════ -->
 <section id="cta">
   <div class="cta-inner">
-    <p class="section-label reveal">Следующий шаг</p>
+    <p class="section-label reveal" data-i18n="cta_label">Следующий шаг</p>
     <h2 class="serif reveal">Ты увидел здесь<br>что-то своё?</h2>
     <p class="reveal">Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.</p>
     <div class="cta-buttons reveal">
-      <a href="#paths" class="btn-gold">Выбрать свой путь</a>
-      <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-ghost">Получить гостевой пропуск</a>
+      <a href="#paths" class="btn-gold" data-i18n="cta_btn1">Выбрать свой путь</a>
+      <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-ghost" data-i18n="cta_btn2">Получить гостевой пропуск</a>
     </div>
     <p class="cta-note reveal">
       Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>
@@ -1511,15 +1558,15 @@
 ══════════════════════════════════════════════ -->
 <section id="faq">
   <div class="section-inner">
-    <p class="section-label reveal" style="text-align:center;">Частые вопросы</p>
-    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;">Отвечаем честно</h2>
+    <p class="section-label reveal" style="text-align:center;" data-i18n="faq_label">Частые вопросы</p>
+    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;" data-i18n="faq_title">Отвечаем честно</h2>
     <div class="gold-line reveal"></div>
 
     <div class="faq-list">
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          За счёт чего формируется разница в цене?
+          <span data-i18n="fq1">За счёт чего формируется разница в цене?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1531,7 +1578,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          Чем это отличается от Гения третьего уровня на Букинге?
+          <span data-i18n="fq2">Чем это отличается от Гения третьего уровня на Букинге?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1543,7 +1590,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          Как работает гарантия лучшей цены 150%?
+          <span data-i18n="fq3">Как работает гарантия лучшей цены 150%?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1555,7 +1602,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          Что если не понравится — можно вернуть деньги?
+          <span data-i18n="fq4">Что если не понравится — можно вернуть деньги?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1567,7 +1614,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          Это финансовая пирамида?
+          <span data-i18n="fq5">Это финансовая пирамида?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1579,7 +1626,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-toggle" onclick="toggleFaq(this)">
-          Могут ли мои близкие пользоваться моим аккаунтом?
+          <span data-i18n="fq6">Могут ли мои близкие пользоваться моим аккаунтом?</span>
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
@@ -1635,8 +1682,7 @@
     document.getElementById('resTotal').textContent = '$' + total.toFixed(0);
     document.getElementById('resAfter').textContent = '$' + afterTotal.toFixed(0);
     document.getElementById('resSaved').textContent = '$' + totalSaving.toFixed(0);
-    document.getElementById('calcNote').textContent =
-      'Расчётная экономия на основе средней разницы между retail и direct-access тарифами: 22% на отели, 12% на перелёты. Реальная разница может быть выше — проверь сам с гостевым пропуском.';
+    document.getElementById('calcNote').textContent = (TRANS[currentLang] || TRANS.ru).calc_note_text;
 
     const result = document.getElementById('calcResult');
     result.classList.add('visible');
@@ -1644,6 +1690,929 @@
       result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   }
+
+
+  // ── I18N TRANSLATIONS ──
+  const TRANS = {
+"ru": {
+"nav_how": "Как работает",
+"nav_rates": "Тарифы",
+"nav_access": "Получить доступ",
+"hero_anchor1": "Booking · Airbnb · Expedia — розничные витрины travel-рынка.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— оптовый слой доступа.",
+"hero_micro1": "Большинство travel-платформ работают по розничной модели.",
+"hero_micro2": "Мы покажем разницу между retail и direct-access тарифами.",
+"hero_q": "На сколько можно было снизить стоимость вашего последнего путешествия?",
+"hero_invite": "Посчитаем?",
+"calc_l1": "Сколько потратил на последнее путешествие",
+"calc_l2": "Из них на отели и жильё",
+"calc_l3": "На перелёты",
+"calc_btn": "Посчитать",
+"calc_hint_empty": "Введите суммы расходов на путешествие",
+"calc_hint_partial": "Заполните все три поля для точного расчёта",
+"calc_note_text": "Расчётная экономия на основе средней разницы между retail и direct-access тарифами: 22% на отели, 12% на перелёты. Реальная разница может быть выше — проверь сам с гостевым пропуском.",
+"res_paid": "Заплатил",
+"res_could": "Мог заплатить",
+"res_over": "Переплата системе",
+"res_link": "Получить гостевой пропуск — проверить лично",
+"mech_label": "Почему так устроено",
+"mech_title": "Вся правда о том, куда уходят твои деньги",
+"mech_sub": "Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.",
+"mech_old": "Розничный агрегатор",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 дней чтобы сравнить сам. Если не воспользовался баллами — вернём деньги.",
+"proof_label": "Это не реклама",
+"proof_title": "День первый после регистрации",
+"proof_p1": "На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.",
+"proof_p2": "Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.",
+"proof_p3": "Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.",
+"stat_pts": "🏆 Баллы лояльности",
+"stat_cred": "💳 Туристических кредитов",
+"stat_cred_val": "накапливаются",
+"stat_status": "✈️ Статус",
+"stat_free": "Путешествовать бесплатно!",
+"paths_label": "Три пути входа",
+"paths_title": "Узнай себя и выбери своё",
+"paths_sub": "Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.",
+"p1_tag": "Путь первый",
+"p1_title": "Путешествуй дешевле",
+"p1_note": "в год · Travel Advantage VIP",
+"p1_tagline": "Ты просто платишь меньше за то, что и так делаешь. Никакого бизнеса, никаких обязательств. Оптовый склад в твоём телефоне.",
+"p1_btn": "Начать за $199",
+"p2_tag": "Путь второй",
+"p2_title": "Получай доход с рекомендаций",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Пользуешься сам и рассказываешь другим. Каждый раз когда кто-то по твоей рекомендации пользуется сервисом — тебе приходят комиссионные. Легко, без давления.",
+"p2_btn": "Начать за $340",
+"p3_tag": "Путь третий",
+"p3_title": "Серьёзный бизнес",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Ты заходишь на полную. Это система которая работает на тебя непрерывно.",
+"p3_btn": "Начать за $590",
+"perks_open": "Все плюшки",
+"perks_close": "↑ Свернуть",
+"guar_label": "Почему можно доверять",
+"guar_title": "Три причины рисков нет",
+"g1_t": "14 дней возврат",
+"g1_p": "В течение 14 дней — возврат средств если баллами лояльности не воспользовался. Одно письмо на почту. Условие прописано в договоре.",
+"g2_t": "12 лет на рынке",
+"g2_p": "MWR Life основана в 2013 году. Работает в 100+ странах. Почти 700 000 участников по всему миру. Входит в топ-85 мировых компаний прямых продаж.",
+"g3_t": "Гарантия цены 150%",
+"g3_p": "Нашёл тот же отель дешевле после бронирования — компания вернёт полтора раза от разницы. Не просто разницу. Полтора раза.",
+"cta_label": "Следующий шаг",
+"cta_title": "Ты увидел здесь что-то своё?",
+"cta_text": "Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.",
+"cta_btn1": "Выбрать свой путь",
+"cta_btn2": "Получить гостевой пропуск",
+"cta_note": "Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>Ты можешь стать следующим.",
+"faq_label": "Частые вопросы",
+"faq_title": "Отвечаем честно",
+"fq1": "За счёт чего формируется разница в цене?",
+"fa1": "Booking, Airbnb и Expedia тратят огромные бюджеты на глобальный маркетинг и рекламу — и закладывают эти расходы в твой чек. Travel Advantage работает по закрытой клубной модели: платформа закупает инвентарь напрямую у отелей без розничных наценок и передаёт чистую стоимость участникам. Ты платишь за членство — а не за чужую рекламу.",
+"fq2": "Чем это отличается от Гения третьего уровня на Букинге?",
+"fa2": "Гений третьего уровня — это скидка с наценки Букинга, а не с реальной цены отеля. То есть тебе возвращают часть того, что с тебя же и взяли. Travel Advantage даёт прямой доступ к оптовой цене — той, которую отель готов дать за гарантированный поток клиентов. Открой оба приложения, найди один и тот же отель — и сравни.",
+"fq3": "Как работает гарантия лучшей цены 150%?",
+"fa3": "Ты забронировал отель через Travel Advantage. Нашёл тот же отель, те же даты, ту же категорию номера дешевле на любой другой платформе — компания возвращает тебе полтора раза от разницы. Официальное условие членства, прописано в договоре.",
+"fq4": "Что если не понравится — можно вернуть деньги?",
+"fa4": "Да. В течение 14 дней с момента активации — возврат если баллами лояльности не воспользовался. Одно письмо на почту. Это официальное условие компании.",
+"fq5": "Это финансовая пирамида?",
+"fa5": "Нет. Есть реальный продукт — платформа бронирования с оптовыми ценами. Компания MWR Life работает с 2013 года, входит в топ-85 мировых компаний прямых продаж и является членом ETOA. Почти 700 000 участников в 100+ странах. Пирамиды столько не живут.",
+"fq6": "Могут ли мои близкие пользоваться моим аккаунтом?",
+"fa6": "Да — в зависимости от тарифа. VIP ($199) даёт +1 путешественника с личным логином. Elite ($340) — +4 путешественника. Каждый заходит самостоятельно и бронирует по тем же оптовым ценам.",
+"scroll": "Листай"
+},
+"en": {
+"nav_how": "How it works",
+"nav_rates": "Plans",
+"nav_access": "Get access",
+"hero_anchor1": "Booking · Airbnb · Expedia — retail storefronts of the travel market.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— wholesale access layer.",
+"hero_micro1": "Most travel platforms operate on a retail model.",
+"hero_micro2": "We'll show you the difference between retail and direct-access rates.",
+"hero_q": "How much could you have saved on your last trip?",
+"hero_invite": "Shall we calculate?",
+"calc_l1": "Total trip spend",
+"calc_l2": "Hotels & accommodation",
+"calc_l3": "Flights",
+"calc_btn": "Calculate",
+"calc_hint_empty": "Enter your travel expenses above",
+"calc_hint_partial": "Fill in all three fields for an accurate result",
+"calc_note_text": "Estimated savings based on average difference between retail and direct-access rates: 22% on hotels, 12% on flights. The actual difference may be higher — check it yourself with a guest pass.",
+"res_paid": "You paid",
+"res_could": "You could have paid",
+"res_over": "Overpaid to the system",
+"res_link": "Get a guest pass — check it yourself",
+"mech_label": "Why it works this way",
+"mech_title": "The truth about where your money goes",
+"mech_sub": "No secret, no conspiracy. Just mechanics you never thought to ask about — until now.",
+"mech_old": "Retail aggregator",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 days to compare yourself. If you haven't used your loyalty points — we'll refund.",
+"proof_label": "This is not an ad",
+"proof_title": "Day one after registration",
+"proof_p1": "This is a real account. First day. No trips yet. And there's already $490 on the account.",
+"proof_p2": "That's the $250 bonus points that arrive immediately when you activate the Turbo package — plus the first monthly points.",
+"proof_p3": "You paid $590 to join. And on day one you already have $490 to spend on travel.",
+"stat_pts": "🏆 Loyalty points",
+"stat_cred": "💳 Travel credits",
+"stat_cred_val": "accumulating",
+"stat_status": "✈️ Status",
+"stat_free": "Travel for free!",
+"paths_label": "Three entry paths",
+"paths_title": "Find yourself and choose your path",
+"paths_sub": "Each path is for a different person with a different goal. No pressure. You decide.",
+"p1_tag": "Path one",
+"p1_title": "Travel for less",
+"p1_note": "per year · Travel Advantage VIP",
+"p1_tagline": "You simply pay less for what you already do. No business, no obligations. A wholesale warehouse in your phone.",
+"p1_btn": "Start for $199",
+"p2_tag": "Path two",
+"p2_title": "Earn from referrals",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Use it yourself and share it with others. Every time someone uses the service through your recommendation — you receive commissions. Easy, no pressure.",
+"p2_btn": "Start for $340",
+"p3_tag": "Path three",
+"p3_title": "Serious business",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "You go all in. A system that works for you continuously.",
+"p3_btn": "Start for $590",
+"perks_open": "All benefits",
+"perks_close": "↑ Collapse",
+"guar_label": "Why you can trust",
+"guar_title": "Three reasons there's no risk",
+"g1_t": "14-day refund",
+"g1_p": "Within 14 days — full refund if you haven't used your loyalty points. One email. Stated in the agreement.",
+"g2_t": "12 years on the market",
+"g2_p": "MWR Life was founded in 2013. Active in 100+ countries. Nearly 700,000 members worldwide. Top-85 global direct sales companies.",
+"g3_t": "150% price guarantee",
+"g3_p": "Found the same hotel cheaper after booking? The company refunds one and a half times the difference. Not just the difference. One and a half times.",
+"cta_label": "Next step",
+"cta_title": "Did you see something for yourself here?",
+"cta_text": "Just want to travel cheaper — here's your path. Want to earn from referrals — here's your path. See a real business here — here's your path.<br><br>Or get a guest pass — check one hotel against Booking. Nothing to buy. Just see for yourself.",
+"cta_btn1": "Choose your path",
+"cta_btn2": "Get a guest pass",
+"cta_note": "Nearly 700,000 people worldwide have already turned this into a steady income stream.<br>You can be next.",
+"faq_label": "FAQ",
+"faq_title": "Honest answers",
+"fq1": "How does the price difference work?",
+"fa1": "Booking, Airbnb and Expedia spend massive budgets on global marketing — and pass those costs on to you. Travel Advantage works on a closed club model: direct procurement from hotels without retail markups, passing the clean price to members. You pay for membership — not for someone else's advertising.",
+"fq2": "How is this different from Booking Genius level 3?",
+"fa2": "Genius level 3 is a discount from Booking's markup, not from the hotel's actual price. They're returning part of what they took from you in the first place. Travel Advantage gives direct access to the wholesale price — what the hotel is willing to offer for a guaranteed flow of clients.",
+"fq3": "How does the 150% best price guarantee work?",
+"fa3": "You booked a hotel through Travel Advantage. Found the same hotel, same dates, same room category cheaper elsewhere — the company refunds one and a half times the difference. Official membership condition, stated in the agreement.",
+"fq4": "What if I don't like it — can I get a refund?",
+"fa4": "Yes. Within 14 days of activation — refund if you haven't used loyalty points. One email. Official company condition.",
+"fq5": "Is this a pyramid scheme?",
+"fa5": "No. There's a real product — a booking platform with wholesale prices. MWR Life has operated since 2013, is in the top-85 global direct sales companies and is an ETOA member. Nearly 700,000 participants in 100+ countries. Pyramids don't last that long.",
+"fq6": "Can my family use my account?",
+"fa6": "Yes — depending on the plan. VIP ($199) gives +1 additional traveller with their own login. Elite ($340) — +4 travellers. Each books independently at the same wholesale prices.",
+"scroll": "Scroll"
+},
+"de": {
+"nav_how": "Wie es funktioniert",
+"nav_rates": "Tarife",
+"nav_access": "Zugang erhalten",
+"hero_anchor1": "Booking · Airbnb · Expedia — Einzelhandels-Schaufenster des Reisemarktes.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— Großhandelszugang.",
+"hero_micro1": "Die meisten Reiseplattformen arbeiten nach dem Einzelhandelsmodell.",
+"hero_micro2": "Wir zeigen den Unterschied zwischen Einzel- und Direktzugangspreisen.",
+"hero_q": "Wie viel hätten Sie bei Ihrer letzten Reise sparen können?",
+"hero_invite": "Sollen wir rechnen?",
+"calc_l1": "Gesamtausgaben für die letzte Reise",
+"calc_l2": "Davon Hotel & Unterkunft",
+"calc_l3": "Flüge",
+"calc_btn": "Berechnen",
+"calc_hint_empty": "Geben Sie Ihre Reisekosten ein",
+"calc_hint_partial": "Alle drei Felder ausfüllen für genaues Ergebnis",
+"calc_note_text": "Geschätzte Ersparnis basierend auf dem durchschnittlichen Unterschied zwischen Einzel- und Direktzugangspreisen: 22% bei Hotels, 12% bei Flügen.",
+"res_paid": "Bezahlt",
+"res_could": "Hätten zahlen können",
+"res_over": "Aufpreis ans System",
+"res_link": "Gästepass erhalten — selbst prüfen",
+"mech_label": "Warum es so funktioniert",
+"mech_title": "Die Wahrheit darüber, wohin Ihr Geld fließt",
+"mech_sub": "Kein Geheimnis, keine Verschwörung. Nur Mechanismen, nach denen Sie nie gefragt haben.",
+"mech_old": "Einzelhandels-Aggregator",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 Tage zum selbst vergleichen. Keine genutzten Punkte — Geld zurück.",
+"proof_label": "Das ist keine Werbung",
+"proof_title": "Erster Tag nach der Registrierung",
+"proof_p1": "Dies ist ein echtes Konto. Erster Tag. Noch keine Reisen. Und bereits $490 auf dem Konto.",
+"proof_p2": "Das sind die $250 Bonuspunkte, die sofort bei Aktivierung des Turbo-Pakets ankommen — plus die ersten monatlichen Punkte.",
+"proof_p3": "Sie haben $590 für den Einstieg bezahlt. Und am ersten Tag sind bereits $490 auf Ihrem Konto.",
+"stat_pts": "🏆 Treuepunkte",
+"stat_cred": "💳 Reiseguthaben",
+"stat_cred_val": "wird angesammelt",
+"stat_status": "✈️ Status",
+"stat_free": "Kostenlos reisen!",
+"paths_label": "Drei Eintrittswege",
+"paths_title": "Finden Sie sich und wählen Sie Ihren Weg",
+"paths_sub": "Jeder Weg ist für einen anderen Menschen mit einem anderen Ziel. Kein Druck. Sie entscheiden.",
+"p1_tag": "Erster Weg",
+"p1_title": "Günstiger reisen",
+"p1_note": "pro Jahr · Travel Advantage VIP",
+"p1_tagline": "Sie zahlen einfach weniger für das, was Sie sowieso tun. Kein Geschäft, keine Verpflichtungen.",
+"p1_btn": "Starten für $199",
+"p2_tag": "Zweiter Weg",
+"p2_title": "Einnahmen aus Empfehlungen",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Nutzen Sie es selbst und empfehlen Sie es weiter. Jedes Mal wenn jemand den Service nutzt — erhalten Sie Provisionen.",
+"p2_btn": "Starten für $340",
+"p3_tag": "Dritter Weg",
+"p3_title": "Ernsthaftes Business",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Sie steigen voll ein. Ein System, das kontinuierlich für Sie arbeitet.",
+"p3_btn": "Starten für $590",
+"perks_open": "Alle Vorteile",
+"perks_close": "↑ Schließen",
+"guar_label": "Warum Sie vertrauen können",
+"guar_title": "Drei Gründe, kein Risiko",
+"g1_t": "14 Tage Rückgabe",
+"g1_p": "Innerhalb von 14 Tagen — Rückerstattung wenn keine Punkte genutzt. Eine E-Mail. Im Vertrag festgehalten.",
+"g2_t": "12 Jahre am Markt",
+"g2_p": "MWR Life gegründet 2013. In 100+ Ländern aktiv. Fast 700.000 Mitglieder weltweit. Top-85 globale Direktvertriebsunternehmen.",
+"g3_t": "150% Preisgarantie",
+"g3_p": "Günstigeres Hotel gefunden nach der Buchung? Das Unternehmen erstattet das Anderthalbfache der Differenz.",
+"cta_label": "Nächster Schritt",
+"cta_title": "Haben Sie hier etwas für sich gesehen?",
+"cta_text": "Möchten Sie einfach günstiger reisen — hier ist Ihr Weg. Einnahmen aus Empfehlungen — hier ist Ihr Weg. Sehen Sie ein ernsthaftes Geschäft — hier ist Ihr Weg.<br><br>Oder holen Sie sich einen Gästepass — vergleichen Sie ein Hotel mit Booking. Nichts kaufen nötig.",
+"cta_btn1": "Ihren Weg wählen",
+"cta_btn2": "Gästepass erhalten",
+"cta_note": "Fast 700.000 Menschen weltweit haben dies bereits in einen stetigen Einkommensstrom verwandelt.<br>Sie können der Nächste sein.",
+"faq_label": "Häufige Fragen",
+"faq_title": "Ehrliche Antworten",
+"fq1": "Wie entsteht der Preisunterschied?",
+"fa1": "Booking, Airbnb und Expedia investieren riesige Budgets in globales Marketing — und geben diese Kosten an Sie weiter. Travel Advantage arbeitet nach einem geschlossenen Club-Modell: direkte Beschaffung von Hotels ohne Einzelhandelsaufschläge.",
+"fq2": "Was ist der Unterschied zum Booking Genius Level 3?",
+"fa2": "Genius Level 3 ist ein Rabatt auf Bookings Aufschlag, nicht auf den tatsächlichen Hotelpreis. Sie bekommen einen Teil dessen zurück, was man Ihnen genommen hat. Travel Advantage gibt direkten Zugang zum Großhandelspreis.",
+"fq3": "Wie funktioniert die 150% Bestpreisgarantie?",
+"fa3": "Sie haben ein Hotel über Travel Advantage gebucht. Finden Sie dasselbe Hotel günstiger woanders — das Unternehmen erstattet das Anderthalbfache der Differenz. Offizielle Mitgliedschaftsbedingung.",
+"fq4": "Was wenn es mir nicht gefällt?",
+"fa4": "Innerhalb von 14 Tagen nach Aktivierung — Rückerstattung wenn keine Treuepunkte genutzt. Eine E-Mail an den Support.",
+"fq5": "Ist das ein Schneeballsystem?",
+"fa5": "Nein. Es gibt ein echtes Produkt — eine Buchungsplattform mit Großhandelspreisen. MWR Life ist seit 2013 tätig, ETOA-Mitglied, fast 700.000 Teilnehmer in 100+ Ländern.",
+"fq6": "Kann meine Familie mein Konto nutzen?",
+"fa6": "Ja — je nach Tarif. VIP ($199) gibt +1 Reisenden mit eigenem Login. Elite ($340) — +4 Reisende. Jeder bucht selbständig zu denselben Großhandelspreisen.",
+"scroll": "Scrollen"
+},
+"es": {
+"nav_how": "Cómo funciona",
+"nav_rates": "Tarifas",
+"nav_access": "Obtener acceso",
+"hero_anchor1": "Booking · Airbnb · Expedia — escaparates minoristas del mercado de viajes.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— capa de acceso mayorista.",
+"hero_micro1": "La mayoría de las plataformas de viajes operan bajo un modelo minorista.",
+"hero_micro2": "Te mostraremos la diferencia entre tarifas minoristas y de acceso directo.",
+"hero_q": "¿Cuánto podrías haber ahorrado en tu último viaje?",
+"hero_invite": "¿Calculamos?",
+"calc_l1": "Gasto total en el último viaje",
+"calc_l2": "De eso en hoteles y alojamiento",
+"calc_l3": "En vuelos",
+"calc_btn": "Calcular",
+"calc_hint_empty": "Introduce tus gastos de viaje",
+"calc_hint_partial": "Completa los tres campos para un resultado preciso",
+"calc_note_text": "Ahorro estimado basado en la diferencia media entre tarifas minoristas y de acceso directo: 22% en hoteles, 12% en vuelos.",
+"res_paid": "Pagaste",
+"res_could": "Podrías haber pagado",
+"res_over": "Sobrepago al sistema",
+"res_link": "Obtener pase de invitado — verificar personalmente",
+"mech_label": "Por qué funciona así",
+"mech_title": "La verdad sobre adónde va tu dinero",
+"mech_sub": "No es un secreto ni una conspiración. Solo mecánicas que nunca pensaste en preguntar.",
+"mech_old": "Agregador minorista",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 días para comparar tú mismo. Sin puntos usados — te devolvemos el dinero.",
+"proof_label": "Esto no es publicidad",
+"proof_title": "Primer día tras el registro",
+"proof_p1": "Esta es una cuenta real. Primer día. Sin viajes aún. Y ya hay $490 en la cuenta.",
+"proof_p2": "Son los $250 en puntos de bono que llegan inmediatamente al activar el paquete Turbo — más los primeros puntos mensuales.",
+"proof_p3": "Pagaste $590 para unirte. Y el primer día ya tienes $490 para gastar en viajes.",
+"stat_pts": "🏆 Puntos de fidelidad",
+"stat_cred": "💳 Créditos de viaje",
+"stat_cred_val": "acumulándose",
+"stat_status": "✈️ Estado",
+"stat_free": "¡Viaja gratis!",
+"paths_label": "Tres caminos de entrada",
+"paths_title": "Encuéntrate y elige tu camino",
+"paths_sub": "Cada camino es para una persona diferente con un objetivo diferente. Sin presión. Tú decides.",
+"p1_tag": "Primer camino",
+"p1_title": "Viaja más barato",
+"p1_note": "al año · Travel Advantage VIP",
+"p1_tagline": "Simplemente pagas menos por lo que ya haces. Sin negocio, sin obligaciones.",
+"p1_btn": "Empezar por $199",
+"p2_tag": "Segundo camino",
+"p2_title": "Gana con recomendaciones",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Úsalo tú mismo y compártelo. Cada vez que alguien usa el servicio por tu recomendación — recibes comisiones.",
+"p2_btn": "Empezar por $340",
+"p3_tag": "Tercer camino",
+"p3_title": "Negocio serio",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Entras a fondo. Un sistema que trabaja para ti continuamente.",
+"p3_btn": "Empezar por $590",
+"perks_open": "Todos los beneficios",
+"perks_close": "↑ Cerrar",
+"guar_label": "Por qué puedes confiar",
+"guar_title": "Tres razones sin riesgo",
+"g1_t": "Devolución en 14 días",
+"g1_p": "En 14 días — reembolso si no usaste puntos de fidelidad. Un correo. Condición en el contrato.",
+"g2_t": "12 años en el mercado",
+"g2_p": "MWR Life fundada en 2013. Activa en 100+ países. Casi 700.000 miembros en todo el mundo.",
+"g3_t": "Garantía de precio 150%",
+"g3_p": "¿Encontraste el mismo hotel más barato? La empresa reembolsa vez y media la diferencia.",
+"cta_label": "Siguiente paso",
+"cta_title": "¿Viste algo para ti aquí?",
+"cta_text": "Quieres viajar más barato — aquí está tu camino. Quieres ganar con recomendaciones — aquí está. Ves un negocio serio — aquí está.<br><br>O consigue un pase de invitado — compara un hotel con Booking. Sin compras.",
+"cta_btn1": "Elegir tu camino",
+"cta_btn2": "Obtener pase de invitado",
+"cta_note": "Casi 700.000 personas en todo el mundo ya han convertido esto en un flujo de ingresos constante.<br>Tú puedes ser el siguiente.",
+"faq_label": "Preguntas frecuentes",
+"faq_title": "Respuestas honestas",
+"fq1": "¿Cómo se forma la diferencia de precio?",
+"fa1": "Booking, Airbnb y Expedia gastan enormes presupuestos en marketing global — y repercuten esos costes en tu factura. Travel Advantage funciona bajo un modelo de club cerrado: adquisición directa a hoteles sin márgenes minoristas.",
+"fq2": "¿En qué se diferencia del Genius nivel 3 de Booking?",
+"fa2": "El nivel Genius 3 es un descuento sobre el margen de Booking, no sobre el precio real del hotel. Te devuelven parte de lo que ya te cobraron. Travel Advantage da acceso directo al precio mayorista.",
+"fq3": "¿Cómo funciona la garantía de mejor precio 150%?",
+"fa3": "Reservaste un hotel en Travel Advantage. Encontraste el mismo hotel más barato en otra plataforma — la empresa reembolsa vez y media la diferencia. Condición oficial.",
+"fq4": "¿Qué pasa si no me gusta?",
+"fa4": "En 14 días desde la activación — reembolso si no usaste puntos de fidelidad. Un correo al soporte.",
+"fq5": "¿Es un esquema piramidal?",
+"fa5": "No. Hay un producto real — una plataforma de reservas con precios mayoristas. MWR Life opera desde 2013, es miembro de ETOA, casi 700.000 participantes en 100+ países.",
+"fq6": "¿Puede mi familia usar mi cuenta?",
+"fa6": "Sí — según el plan. VIP ($199) da +1 viajero con su propio login. Elite ($340) — +4 viajeros.",
+"scroll": "Desliza"
+},
+"fr": {
+"nav_how": "Comment ça marche",
+"nav_rates": "Tarifs",
+"nav_access": "Obtenir l'accès",
+"hero_anchor1": "Booking · Airbnb · Expedia — vitrines grand public du marché du voyage.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— couche d'accès en gros.",
+"hero_micro1": "La plupart des plateformes de voyage fonctionnent selon un modèle de détail.",
+"hero_micro2": "Nous vous montrerons la différence entre les tarifs de détail et d'accès direct.",
+"hero_q": "De combien auriez-vous pu réduire le coût de votre dernier voyage?",
+"hero_invite": "On calcule?",
+"calc_l1": "Dépenses totales du dernier voyage",
+"calc_l2": "Dont hôtels et hébergement",
+"calc_l3": "Vols",
+"calc_btn": "Calculer",
+"calc_hint_empty": "Entrez vos dépenses de voyage",
+"calc_hint_partial": "Remplissez les trois champs pour un résultat précis",
+"calc_note_text": "Économies estimées basées sur la différence moyenne entre les tarifs de détail et d'accès direct: 22% sur les hôtels, 12% sur les vols.",
+"res_paid": "Vous avez payé",
+"res_could": "Vous auriez pu payer",
+"res_over": "Surpayé au système",
+"res_link": "Obtenir un laissez-passer — vérifier soi-même",
+"mech_label": "Pourquoi c'est ainsi",
+"mech_title": "La vérité sur où va votre argent",
+"mech_sub": "Pas un secret, pas une conspiration. Juste des mécanismes que vous n'avez jamais pensé à questionner.",
+"mech_old": "Agrégateur de détail",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 jours pour comparer vous-même. Points non utilisés — remboursement.",
+"proof_label": "Ce n'est pas une pub",
+"proof_title": "Premier jour après l'inscription",
+"proof_p1": "Voici un vrai compte. Premier jour. Pas encore de voyages. Et déjà $490 sur le compte.",
+"proof_p2": "Ce sont les $250 de points bonus qui arrivent immédiatement à l'activation du package Turbo.",
+"proof_p3": "Vous avez payé $590 pour rejoindre. Et dès le premier jour, $490 sont déjà disponibles.",
+"stat_pts": "🏆 Points de fidélité",
+"stat_cred": "💳 Crédits voyage",
+"stat_cred_val": "s'accumulent",
+"stat_status": "✈️ Statut",
+"stat_free": "Voyager gratuitement!",
+"paths_label": "Trois voies d'entrée",
+"paths_title": "Trouvez-vous et choisissez votre voie",
+"paths_sub": "Chaque voie est pour une personne différente avec un objectif différent. Aucune pression.",
+"p1_tag": "Première voie",
+"p1_title": "Voyagez moins cher",
+"p1_note": "par an · Travel Advantage VIP",
+"p1_tagline": "Vous payez simplement moins pour ce que vous faites déjà. Aucune obligation.",
+"p1_btn": "Commencer pour $199",
+"p2_tag": "Deuxième voie",
+"p2_title": "Gagnez avec les recommandations",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Utilisez-le et partagez-le. Chaque fois que quelqu'un utilise le service — vous recevez des commissions.",
+"p2_btn": "Commencer pour $340",
+"p3_tag": "Troisième voie",
+"p3_title": "Business sérieux",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Vous entrez à fond. Un système qui travaille pour vous en continu.",
+"p3_btn": "Commencer pour $590",
+"perks_open": "Tous les avantages",
+"perks_close": "↑ Réduire",
+"guar_label": "Pourquoi vous pouvez faire confiance",
+"guar_title": "Trois raisons sans risque",
+"g1_t": "Remboursement 14 jours",
+"g1_p": "Dans 14 jours — remboursement si points non utilisés. Un e-mail. Condition dans le contrat.",
+"g2_t": "12 ans sur le marché",
+"g2_p": "MWR Life fondée en 2013. Active dans 100+ pays. Près de 700 000 membres dans le monde.",
+"g3_t": "Garantie prix 150%",
+"g3_p": "Trouvé le même hôtel moins cher? L'entreprise rembourse une fois et demie la différence.",
+"cta_label": "Prochaine étape",
+"cta_title": "Avez-vous vu quelque chose pour vous ici?",
+"cta_text": "Vous voulez voyager moins cher — voici votre voie. Gagner avec des recommandations — voici votre voie. Vous voyez une vraie opportunité — voici votre voie.<br><br>Ou obtenez un laissez-passer — comparez un hôtel avec Booking. Rien à acheter.",
+"cta_btn1": "Choisir votre voie",
+"cta_btn2": "Obtenir un laissez-passer",
+"cta_note": "Près de 700 000 personnes dans le monde ont déjà transformé ceci en flux de revenus régulier.<br>Vous pouvez être le prochain.",
+"faq_label": "Questions fréquentes",
+"faq_title": "Réponses honnêtes",
+"fq1": "Comment se forme la différence de prix?",
+"fa1": "Booking, Airbnb et Expedia dépensent d'énormes budgets marketing — et répercutent ces coûts sur vous. Travel Advantage fonctionne sur un modèle de club fermé: achat direct aux hôtels sans marges de détail.",
+"fq2": "Quelle est la différence avec le Genius niveau 3 de Booking?",
+"fa2": "Le niveau Genius 3 est une remise sur la marge de Booking, pas sur le vrai prix de l'hôtel. Travel Advantage donne un accès direct au prix de gros.",
+"fq3": "Comment fonctionne la garantie meilleur prix 150%?",
+"fa3": "Vous avez réservé via Travel Advantage. Trouvé moins cher ailleurs — l'entreprise rembourse une fois et demie la différence. Condition officielle du contrat.",
+"fq4": "Et si ça ne me convient pas?",
+"fa4": "Dans les 14 jours — remboursement si points non utilisés. Un e-mail au support.",
+"fq5": "Est-ce un système pyramidal?",
+"fa5": "Non. Il y a un vrai produit. MWR Life opère depuis 2013, membre ETOA, près de 700 000 participants.",
+"fq6": "Ma famille peut-elle utiliser mon compte?",
+"fa6": "Oui — selon le plan. VIP ($199) donne +1 voyageur. Elite ($340) — +4 voyageurs.",
+"scroll": "Défiler"
+},
+"it": {
+"nav_how": "Come funziona",
+"nav_rates": "Tariffe",
+"nav_access": "Ottieni accesso",
+"hero_anchor1": "Booking · Airbnb · Expedia — vetrine retail del mercato dei viaggi.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— livello di accesso all'ingrosso.",
+"hero_micro1": "La maggior parte delle piattaforme di viaggio opera con un modello retail.",
+"hero_micro2": "Mostreremo la differenza tra tariffe retail e di accesso diretto.",
+"hero_q": "Di quanto avresti potuto ridurre il costo dell'ultimo viaggio?",
+"hero_invite": "Calcoliamo?",
+"calc_l1": "Spesa totale ultimo viaggio",
+"calc_l2": "Di cui hotel e alloggio",
+"calc_l3": "Voli",
+"calc_btn": "Calcola",
+"calc_hint_empty": "Inserisci le spese di viaggio",
+"calc_hint_partial": "Compila tutti e tre i campi per un risultato preciso",
+"calc_note_text": "Risparmio stimato basato sulla differenza media tra tariffe retail e accesso diretto: 22% sugli hotel, 12% sui voli.",
+"res_paid": "Hai pagato",
+"res_could": "Avresti potuto pagare",
+"res_over": "Sovrapprezzo al sistema",
+"res_link": "Ottieni pass ospite — verifica tu stesso",
+"mech_label": "Perché funziona così",
+"mech_title": "La verità su dove vanno i tuoi soldi",
+"mech_sub": "Nessun segreto, nessuna cospirazione. Solo meccanismi che non hai mai pensato di chiedere.",
+"mech_old": "Aggregatore retail",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 giorni per confrontare tu stesso. Punti non usati — rimborso.",
+"proof_label": "Questa non è pubblicità",
+"proof_title": "Primo giorno dopo la registrazione",
+"proof_p1": "Questo è un account reale. Primo giorno. Nessun viaggio ancora. E già $490 sul conto.",
+"proof_p2": "Sono i $250 in punti bonus che arrivano subito all'attivazione del pacchetto Turbo.",
+"proof_p3": "Hai pagato $590 per unirti. E il primo giorno hai già $490 da spendere in viaggi.",
+"stat_pts": "🏆 Punti fedeltà",
+"stat_cred": "💳 Crediti viaggio",
+"stat_cred_val": "si accumulano",
+"stat_status": "✈️ Stato",
+"stat_free": "Viaggia gratis!",
+"paths_label": "Tre percorsi di ingresso",
+"paths_title": "Trovati e scegli il tuo percorso",
+"paths_sub": "Ogni percorso è per una persona diversa con un obiettivo diverso. Nessuna pressione.",
+"p1_tag": "Primo percorso",
+"p1_title": "Viaggia a meno",
+"p1_note": "all'anno · Travel Advantage VIP",
+"p1_tagline": "Paghi semplicemente meno per quello che fai già. Nessun business, nessun obbligo.",
+"p1_btn": "Inizia per $199",
+"p2_tag": "Secondo percorso",
+"p2_title": "Guadagna dai referral",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Usalo tu stesso e condividilo. Ogni volta che qualcuno usa il servizio — ricevi commissioni.",
+"p2_btn": "Inizia per $340",
+"p3_tag": "Terzo percorso",
+"p3_title": "Business serio",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Entri a pieno regime. Un sistema che lavora per te continuamente.",
+"p3_btn": "Inizia per $590",
+"perks_open": "Tutti i vantaggi",
+"perks_close": "↑ Chiudi",
+"guar_label": "Perché puoi fidarti",
+"guar_title": "Tre motivi, nessun rischio",
+"g1_t": "Rimborso 14 giorni",
+"g1_p": "Entro 14 giorni — rimborso se non hai usato punti fedeltà. Una email. Condizione nel contratto.",
+"g2_t": "12 anni sul mercato",
+"g2_p": "MWR Life fondata nel 2013. Attiva in 100+ paesi. Quasi 700.000 membri nel mondo.",
+"g3_t": "Garanzia prezzo 150%",
+"g3_p": "Trovato lo stesso hotel più economico? L'azienda rimborsa una volta e mezza la differenza.",
+"cta_label": "Passo successivo",
+"cta_title": "Hai visto qualcosa per te qui?",
+"cta_text": "Vuoi viaggiare più economico — ecco il tuo percorso. Guadagnare dai referral — ecco il tuo percorso. Vedi un business serio — ecco il tuo percorso.<br><br>O ottieni un pass ospite — confronta un hotel con Booking. Niente da acquistare.",
+"cta_btn1": "Scegli il tuo percorso",
+"cta_btn2": "Ottieni pass ospite",
+"cta_note": "Quasi 700.000 persone nel mondo hanno già trasformato questo in un flusso di reddito costante.<br>Puoi essere il prossimo.",
+"faq_label": "Domande frequenti",
+"faq_title": "Risposte oneste",
+"fq1": "Come si forma la differenza di prezzo?",
+"fa1": "Booking, Airbnb ed Expedia spendono enormi budget in marketing — e trasferiscono quei costi a te. Travel Advantage funziona con un modello di club chiuso: acquisto diretto dagli hotel senza ricarichi retail.",
+"fq2": "Qual è la differenza con il Genius livello 3 di Booking?",
+"fa2": "Il Genius livello 3 è uno sconto sul margine di Booking, non sul prezzo reale dell'hotel. Travel Advantage dà accesso diretto al prezzo all'ingrosso.",
+"fq3": "Come funziona la garanzia miglior prezzo 150%?",
+"fa3": "Hai prenotato tramite Travel Advantage. Trovato più economico altrove — l'azienda rimborsa una volta e mezza la differenza. Condizione ufficiale.",
+"fq4": "E se non mi piace?",
+"fa4": "Entro 14 giorni — rimborso se punti fedeltà non usati. Una email al supporto.",
+"fq5": "È uno schema piramidale?",
+"fa5": "No. C'è un prodotto reale. MWR Life opera dal 2013, membro ETOA, quasi 700.000 partecipanti.",
+"fq6": "La mia famiglia può usare il mio account?",
+"fa6": "Sì — dipende dal piano. VIP ($199) dà +1 viaggiatore. Elite ($340) — +4 viaggiatori.",
+"scroll": "Scorri"
+},
+"pt": {
+"nav_how": "Como funciona",
+"nav_rates": "Planos",
+"nav_access": "Obter acesso",
+"hero_anchor1": "Booking · Airbnb · Expedia — vitrines de varejo do mercado de viagens.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— camada de acesso atacadista.",
+"hero_micro1": "A maioria das plataformas de viagem opera sob um modelo de varejo.",
+"hero_micro2": "Mostraremos a diferença entre tarifas de varejo e de acesso direto.",
+"hero_q": "Quanto poderia ter economizado na sua última viagem?",
+"hero_invite": "Vamos calcular?",
+"calc_l1": "Gasto total na última viagem",
+"calc_l2": "Desses em hotéis e hospedagem",
+"calc_l3": "Em voos",
+"calc_btn": "Calcular",
+"calc_hint_empty": "Insira seus gastos de viagem",
+"calc_hint_partial": "Preencha os três campos para um resultado preciso",
+"calc_note_text": "Economia estimada com base na diferença média entre tarifas de varejo e acesso direto: 22% em hotéis, 12% em voos.",
+"res_paid": "Você pagou",
+"res_could": "Poderia ter pago",
+"res_over": "Pagamento extra ao sistema",
+"res_link": "Obter passe de convidado — verificar pessoalmente",
+"mech_label": "Por que é assim",
+"mech_title": "A verdade sobre para onde vai seu dinheiro",
+"mech_sub": "Sem segredo, sem conspiração. Apenas mecânicas que você nunca pensou em questionar.",
+"mech_old": "Agregador de varejo",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 dias para comparar você mesmo. Pontos não usados — devolvemos o dinheiro.",
+"proof_label": "Isto não é publicidade",
+"proof_title": "Primeiro dia após o registro",
+"proof_p1": "Esta é uma conta real. Primeiro dia. Sem viagens ainda. E já $490 na conta.",
+"proof_p2": "São os $250 em pontos bônus que chegam imediatamente ao ativar o pacote Turbo.",
+"proof_p3": "Você pagou $590 para entrar. E no primeiro dia já tem $490 para gastar em viagens.",
+"stat_pts": "🏆 Pontos de fidelidade",
+"stat_cred": "💳 Créditos de viagem",
+"stat_cred_val": "acumulando",
+"stat_status": "✈️ Status",
+"stat_free": "Viajar de graça!",
+"paths_label": "Três caminhos de entrada",
+"paths_title": "Encontre-se e escolha seu caminho",
+"paths_sub": "Cada caminho é para uma pessoa diferente com um objetivo diferente. Sem pressão.",
+"p1_tag": "Primeiro caminho",
+"p1_title": "Viaje mais barato",
+"p1_note": "por ano · Travel Advantage VIP",
+"p1_tagline": "Você simplesmente paga menos pelo que já faz. Sem negócios, sem obrigações.",
+"p1_btn": "Começar por $199",
+"p2_tag": "Segundo caminho",
+"p2_title": "Ganhe com indicações",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Use você mesmo e compartilhe. Cada vez que alguém usa o serviço — você recebe comissões.",
+"p2_btn": "Começar por $340",
+"p3_tag": "Terceiro caminho",
+"p3_title": "Negócio sério",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Você entra com tudo. Um sistema que trabalha para você continuamente.",
+"p3_btn": "Começar por $590",
+"perks_open": "Todos os benefícios",
+"perks_close": "↑ Recolher",
+"guar_label": "Por que você pode confiar",
+"guar_title": "Três motivos sem risco",
+"g1_t": "Devolução em 14 dias",
+"g1_p": "Em 14 dias — reembolso se não usou pontos. Um e-mail. Condição no contrato.",
+"g2_t": "12 anos no mercado",
+"g2_p": "MWR Life fundada em 2013. Ativa em 100+ países. Quase 700.000 membros mundialmente.",
+"g3_t": "Garantia de preço 150%",
+"g3_p": "Encontrou o mesmo hotel mais barato? A empresa reembolsa uma vez e meia a diferença.",
+"cta_label": "Próximo passo",
+"cta_title": "Você viu algo para você aqui?",
+"cta_text": "Quer viajar mais barato — aqui está seu caminho. Ganhar com indicações — aqui está. Vê um negócio sério — aqui está.<br><br>Ou obtenha um passe de convidado — compare um hotel com o Booking. Nada para comprar.",
+"cta_btn1": "Escolher seu caminho",
+"cta_btn2": "Obter passe de convidado",
+"cta_note": "Quase 700.000 pessoas no mundo já transformaram isso em fluxo de renda constante.<br>Você pode ser o próximo.",
+"faq_label": "Perguntas frequentes",
+"faq_title": "Respostas honestas",
+"fq1": "Como se forma a diferença de preço?",
+"fa1": "Booking, Airbnb e Expedia gastam enormes orçamentos em marketing — e repassam esses custos para você. Travel Advantage opera sob um modelo de clube fechado: compra direta de hotéis sem margens de varejo.",
+"fq2": "Qual a diferença do Genius nível 3 do Booking?",
+"fa2": "O Genius nível 3 é um desconto na margem do Booking, não no preço real do hotel. Travel Advantage dá acesso direto ao preço atacadista.",
+"fq3": "Como funciona a garantia de melhor preço 150%?",
+"fa3": "Reservou via Travel Advantage. Encontrou mais barato em outro lugar — a empresa reembolsa vez e meia a diferença. Condição oficial.",
+"fq4": "E se não gostar?",
+"fa4": "Em 14 dias — reembolso se pontos não usados. Um e-mail ao suporte.",
+"fq5": "É uma pirâmide financeira?",
+"fa5": "Não. Há um produto real. MWR Life opera desde 2013, membro ETOA, quase 700.000 participantes.",
+"fq6": "Minha família pode usar minha conta?",
+"fa6": "Sim — dependendo do plano. VIP ($199) dá +1 viajante. Elite ($340) — +4 viajantes.",
+"scroll": "Role"
+},
+"ro": {
+"nav_how": "Cum funcționează",
+"nav_rates": "Tarife",
+"nav_access": "Obțineți acces",
+"hero_anchor1": "Booking · Airbnb · Expedia — vitrine cu amănuntul ale pieței de călătorii.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— nivel de acces en-gros.",
+"hero_micro1": "Majoritatea platformelor de călătorii funcționează pe baza unui model cu amănuntul.",
+"hero_micro2": "Vă vom arăta diferența dintre tarifele cu amănuntul și cele cu acces direct.",
+"hero_q": "Cu cât ați fi putut reduce costul ultimei călătorii?",
+"hero_invite": "Calculăm?",
+"calc_l1": "Cheltuieli totale ultima călătorie",
+"calc_l2": "Din care hoteluri și cazare",
+"calc_l3": "Zboruri",
+"calc_btn": "Calculează",
+"calc_hint_empty": "Introduceți cheltuielile de călătorie",
+"calc_hint_partial": "Completați toate cele trei câmpuri",
+"calc_note_text": "Economii estimate bazate pe diferența medie între tarifele cu amănuntul și accesul direct: 22% la hoteluri, 12% la zboruri.",
+"res_paid": "Ați plătit",
+"res_could": "Ați fi putut plăti",
+"res_over": "Supraplătit sistemului",
+"res_link": "Obțineți permis de oaspete — verificați personal",
+"mech_label": "De ce funcționează astfel",
+"mech_title": "Adevărul despre unde se duc banii dvs.",
+"mech_sub": "Niciun secret, nicio conspirație. Doar mecanisme pe care nu le-ați întrebat niciodată.",
+"mech_old": "Agregator cu amănuntul",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 zile pentru a compara singur. Puncte nefolosite — returnăm banii.",
+"proof_label": "Aceasta nu este reclamă",
+"proof_title": "Prima zi după înregistrare",
+"proof_p1": "Acesta este un cont real. Prima zi. Nicio călătorie încă. Și deja $490 în cont.",
+"proof_p2": "Sunt cei $250 în puncte bonus care vin imediat la activarea pachetului Turbo.",
+"proof_p3": "Ați plătit $590 pentru a vă alătura. Și în prima zi aveți deja $490 de cheltuit.",
+"stat_pts": "🏆 Puncte de loialitate",
+"stat_cred": "💳 Credite de călătorie",
+"stat_cred_val": "se acumulează",
+"stat_status": "✈️ Statut",
+"stat_free": "Călătoriți gratuit!",
+"paths_label": "Trei căi de intrare",
+"paths_title": "Găsiți-vă și alegeți calea",
+"paths_sub": "Fiecare cale este pentru o persoană diferită. Nicio presiune. Dvs. decideți.",
+"p1_tag": "Prima cale",
+"p1_title": "Călătoriți mai ieftin",
+"p1_note": "pe an · Travel Advantage VIP",
+"p1_tagline": "Plătiți pur și simplu mai puțin pentru ceea ce faceți deja. Nicio afacere, nicio obligație.",
+"p1_btn": "Începeți cu $199",
+"p2_tag": "A doua cale",
+"p2_title": "Câștigați din recomandări",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Folosiți-l și recomandați-l. De fiecare dată când cineva utilizează serviciul — primiți comisioane.",
+"p2_btn": "Începeți cu $340",
+"p3_tag": "A treia cale",
+"p3_title": "Afacere serioasă",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Intrați cu totul. Un sistem care lucrează pentru dvs. continuu.",
+"p3_btn": "Începeți cu $590",
+"perks_open": "Toate beneficiile",
+"perks_close": "↑ Restrânge",
+"guar_label": "De ce puteți avea încredere",
+"guar_title": "Trei motive fără risc",
+"g1_t": "Rambursare 14 zile",
+"g1_p": "În 14 zile — rambursare dacă nu ați folosit puncte. Un e-mail. Condiție în contract.",
+"g2_t": "12 ani pe piață",
+"g2_p": "MWR Life fondată în 2013. Activă în 100+ țări. Aproape 700.000 de membri.",
+"g3_t": "Garanție preț 150%",
+"g3_p": "Găsit același hotel mai ieftin? Compania returnează de o dată și jumătate diferența.",
+"cta_label": "Pasul următor",
+"cta_title": "Ați văzut ceva pentru dvs. aici?",
+"cta_text": "Vreți să călătoriți mai ieftin — iată calea dvs. Să câștigați din recomandări — iată. Vedeți o oportunitate serioasă — iată.<br><br>Sau obțineți un permis de oaspete — comparați un hotel cu Booking. Nimic de cumpărat.",
+"cta_btn1": "Alegeți calea dvs.",
+"cta_btn2": "Obțineți permis de oaspete",
+"cta_note": "Aproape 700.000 de oameni din întreaga lume au transformat deja aceasta într-un flux constant de venituri.<br>Puteți fi următorul.",
+"faq_label": "Întrebări frecvente",
+"faq_title": "Răspunsuri oneste",
+"fq1": "Cum se formează diferența de preț?",
+"fa1": "Booking, Airbnb și Expedia cheltuiesc bugete enorme pe marketing — și transferă aceste costuri asupra dvs. Travel Advantage funcționează pe un model de club închis: achiziție directă de la hoteluri fără adaosuri comerciale.",
+"fq2": "Ce diferență față de Booking Genius nivel 3?",
+"fa2": "Genius nivel 3 este o reducere din adaosul Booking, nu din prețul real al hotelului. Travel Advantage oferă acces direct la prețul en-gros.",
+"fq3": "Cum funcționează garanția celui mai bun preț 150%?",
+"fa3": "Ați rezervat prin Travel Advantage. Găsit mai ieftin în altă parte — compania returnează de o dată și jumătate diferența. Condiție oficială.",
+"fq4": "Ce se întâmplă dacă nu îmi place?",
+"fa4": "În 14 zile — rambursare dacă punctele nu au fost folosite. Un e-mail la suport.",
+"fq5": "Este o schemă piramidală?",
+"fa5": "Nu. Există un produs real. MWR Life funcționează din 2013, membră ETOA, aproape 700.000 de participanți.",
+"fq6": "Familia mea poate folosi contul meu?",
+"fa6": "Da — în funcție de plan. VIP ($199) oferă +1 călător. Elite ($340) — +4 călători.",
+"scroll": "Derulați"
+},
+"ko": {
+"nav_how": "작동 방식",
+"nav_rates": "요금제",
+"nav_access": "액세스 받기",
+"hero_anchor1": "Booking · Airbnb · Expedia — 여행 시장의 소매 쇼윈도.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— 도매 접근 레이어.",
+"hero_micro1": "대부분의 여행 플랫폼은 소매 모델로 운영됩니다.",
+"hero_micro2": "소매 요금과 직접 접근 요금의 차이를 보여드리겠습니다.",
+"hero_q": "마지막 여행에서 얼마나 절약할 수 있었을까요?",
+"hero_invite": "계산해볼까요?",
+"calc_l1": "마지막 여행 총 지출",
+"calc_l2": "그 중 호텔 및 숙박",
+"calc_l3": "항공편",
+"calc_btn": "계산하기",
+"calc_hint_empty": "여행 지출액을 입력하세요",
+"calc_hint_partial": "정확한 결과를 위해 세 필드를 모두 채우세요",
+"calc_note_text": "소매와 직접 접근 요금의 평균 차이를 기반으로 한 예상 절약액: 호텔 22%, 항공편 12%.",
+"res_paid": "지불한 금액",
+"res_could": "지불할 수 있었던 금액",
+"res_over": "시스템 초과 지불",
+"res_link": "게스트 패스 받기 — 직접 확인하기",
+"mech_label": "왜 이렇게 작동하나요",
+"mech_title": "당신의 돈이 어디로 가는지에 대한 진실",
+"mech_sub": "비밀도, 음모도 없습니다. 그저 한 번도 물어보지 않았던 메커니즘입니다.",
+"mech_old": "소매 집계 서비스",
+"mech_new": "Travel Advantage",
+"mech_footer": "14일 동안 직접 비교하세요. 포인트 미사용 시 환불해드립니다.",
+"proof_label": "이것은 광고가 아닙니다",
+"proof_title": "등록 후 첫 번째 날",
+"proof_p1": "이것은 실제 계정입니다. 첫날. 아직 여행 없음. 그러나 이미 계정에 $490.",
+"proof_p2": "이것은 Turbo 패키지 활성화 시 즉시 도착하는 $250 보너스 포인트입니다.",
+"proof_p3": "가입에 $590을 지불했습니다. 그리고 첫날에 이미 여행에 쓸 수 있는 $490이 있습니다.",
+"stat_pts": "🏆 로열티 포인트",
+"stat_cred": "💳 여행 크레딧",
+"stat_cred_val": "적립 중",
+"stat_status": "✈️ 상태",
+"stat_free": "무료로 여행하세요!",
+"paths_label": "세 가지 입문 경로",
+"paths_title": "자신을 찾고 경로를 선택하세요",
+"paths_sub": "각 경로는 다른 목표를 가진 다른 사람을 위한 것입니다. 압박 없음. 당신이 결정합니다.",
+"p1_tag": "첫 번째 경로",
+"p1_title": "저렴하게 여행하기",
+"p1_note": "연간 · Travel Advantage VIP",
+"p1_tagline": "이미 하고 있는 일에 더 적게 지불하세요. 비즈니스 없음, 의무 없음.",
+"p1_btn": "$199로 시작하기",
+"p2_tag": "두 번째 경로",
+"p2_title": "추천으로 수입 얻기",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "직접 사용하고 다른 사람들에게 공유하세요. 추천을 통해 누군가 서비스를 이용할 때마다 커미션을 받습니다.",
+"p2_btn": "$340으로 시작하기",
+"p3_tag": "세 번째 경로",
+"p3_title": "진지한 비즈니스",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "전력을 다해 참여하세요. 지속적으로 작동하는 시스템.",
+"p3_btn": "$590으로 시작하기",
+"perks_open": "모든 혜택",
+"perks_close": "↑ 접기",
+"guar_label": "왜 신뢰할 수 있나요",
+"guar_title": "위험 없는 세 가지 이유",
+"g1_t": "14일 환불",
+"g1_p": "14일 이내 — 로열티 포인트 미사용 시 환불. 이메일 한 통. 계약서에 명시.",
+"g2_t": "12년 시장 경험",
+"g2_p": "MWR Life 2013년 설립. 100개국 이상 활동. 전 세계 거의 700,000명의 회원.",
+"g3_t": "150% 최저가 보장",
+"g3_p": "예약 후 더 저렴한 동일 호텔을 찾으셨나요? 회사는 차액의 1.5배를 환불합니다.",
+"cta_label": "다음 단계",
+"cta_title": "여기서 당신을 위한 무언가를 발견했나요?",
+"cta_text": "저렴하게 여행하고 싶다면 — 여기 당신의 경로. 추천으로 수입을 원한다면 — 여기. 진지한 비즈니스 기회를 본다면 — 여기.<br><br>또는 게스트 패스를 받아 Booking과 호텔 하나를 비교해보세요. 구매 불필요.",
+"cta_btn1": "경로 선택하기",
+"cta_btn2": "게스트 패스 받기",
+"cta_note": "전 세계 거의 700,000명이 이미 이것을 지속적인 수입원으로 전환했습니다.<br>당신이 다음이 될 수 있습니다.",
+"faq_label": "자주 묻는 질문",
+"faq_title": "솔직한 답변",
+"fq1": "가격 차이는 어떻게 형성되나요?",
+"fa1": "Booking, Airbnb, Expedia는 글로벌 마케팅에 막대한 예산을 사용하고 그 비용을 청구서에 반영합니다. Travel Advantage는 소매 마진 없이 호텔에서 직접 구매하는 폐쇄형 클럽 모델로 운영됩니다.",
+"fq2": "Booking Genius 레벨 3과의 차이점은?",
+"fa2": "Genius 레벨 3은 Booking의 마진에 대한 할인이지 실제 호텔 가격에 대한 할인이 아닙니다. Travel Advantage는 도매가에 직접 접근할 수 있게 해줍니다.",
+"fq3": "150% 최저가 보장은 어떻게 작동하나요?",
+"fa3": "Travel Advantage를 통해 호텔을 예약했습니다. 다른 플랫폼에서 동일한 호텔을 더 저렴하게 찾았다면 — 회사는 차액의 1.5배를 환불합니다.",
+"fq4": "마음에 들지 않으면 어떻게 하나요?",
+"fa4": "활성화 후 14일 이내 — 로열티 포인트를 사용하지 않은 경우 환불. 고객지원에 이메일 한 통.",
+"fq5": "피라미드 사기인가요?",
+"fa5": "아닙니다. 실제 제품이 있습니다. MWR Life는 2013년부터 운영, ETOA 회원, 100개국 이상에서 거의 700,000명의 참가자.",
+"fq6": "가족이 내 계정을 사용할 수 있나요?",
+"fa6": "예 — 플랜에 따라 다릅니다. VIP ($199)는 +1 여행자. Elite ($340) — +4 여행자.",
+"scroll": "스크롤"
+},
+"et": {
+"nav_how": "Kuidas töötab",
+"nav_rates": "Hinnakirjad",
+"nav_access": "Hankige juurdepääs",
+"hero_anchor1": "Booking · Airbnb · Expedia — reisituru jaemüügi vitriinid.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— hulgimüügi juurdepääsu kiht.",
+"hero_micro1": "Enamik reisiplatvorme töötab jaemüügi mudeli alusel.",
+"hero_micro2": "Näitame erinevust jae- ja otsejuurdepääsu tariifide vahel.",
+"hero_q": "Kui palju oleksite saanud oma viimasel reisil kokku hoida?",
+"hero_invite": "Arvutame?",
+"calc_l1": "Viimase reisi kogukulud",
+"calc_l2": "Sellest hotellid ja majutus",
+"calc_l3": "Lennud",
+"calc_btn": "Arvuta",
+"calc_hint_empty": "Sisestage oma reisikulud",
+"calc_hint_partial": "Täitke kõik kolm välja täpse tulemuse saamiseks",
+"calc_note_text": "Hinnanguline kokkuhoid põhineb keskmistel erinevustel jae- ja otsejuurdepääsu tariifide vahel: hotellid 22%, lennud 12%.",
+"res_paid": "Maksite",
+"res_could": "Oleksite saanud maksta",
+"res_over": "Enammakse süsteemile",
+"res_link": "Hankige külalise pääs — kontrollige ise",
+"mech_label": "Miks see nii toimib",
+"mech_title": "Tõde selle kohta, kuhu teie raha läheb",
+"mech_sub": "Ei saladust ega vandenõu. Lihtsalt mehhanismid, mida te pole kunagi küsinud.",
+"mech_old": "Jaemüügi agregaator",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 päeva ise võrdlemiseks. Punkte ei kasutatud — tagastame raha.",
+"proof_label": "See ei ole reklaam",
+"proof_title": "Esimene päev pärast registreerimist",
+"proof_p1": "See on päris konto. Esimene päev. Reise pole veel olnud. Ja kontol on juba $490.",
+"proof_p2": "Need on $250 boonuspunkti, mis saabuvad kohe Turbo paketi aktiveerimisel.",
+"proof_p3": "Maksite liitumise eest $590. Ja esimesel päeval on teil juba $490 reisimiseks.",
+"stat_pts": "🏆 Lojaalsuspunktid",
+"stat_cred": "💳 Reisikrediidid",
+"stat_cred_val": "koguneb",
+"stat_status": "✈️ Staatus",
+"stat_free": "Reisi tasuta!",
+"paths_label": "Kolm sisenemisteed",
+"paths_title": "Leia ennast ja vali oma tee",
+"paths_sub": "Iga tee on mõeldud erinevale inimesele erineva eesmärgiga. Survet pole. Teie otsustate.",
+"p1_tag": "Esimene tee",
+"p1_title": "Reisi odavamalt",
+"p1_note": "aastas · Travel Advantage VIP",
+"p1_tagline": "Maksate lihtsalt vähem selle eest, mida niikuinii teete. Äri pole, kohustusi pole.",
+"p1_btn": "Alusta $199 eest",
+"p2_tag": "Teine tee",
+"p2_title": "Teeni soovitustelt",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Kasuta ise ja jaga teistega. Iga kord kui keegi kasutab teenust sinu soovitusel — saad komisjonitasud.",
+"p2_btn": "Alusta $340 eest",
+"p3_tag": "Kolmas tee",
+"p3_title": "Tõsine äri",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Astute täiel jõul sisse. Süsteem, mis töötab teie heaks pidevalt.",
+"p3_btn": "Alusta $590 eest",
+"perks_open": "Kõik eelised",
+"perks_close": "↑ Sulge",
+"guar_label": "Miks saate usaldada",
+"guar_title": "Kolm põhjust ilma riskita",
+"g1_t": "14-päevane tagastus",
+"g1_p": "14 päeva jooksul — tagasimakse kui lojaalsuspunkte ei kasutatud. Üks e-kiri. Tingimus lepingus.",
+"g2_t": "12 aastat turul",
+"g2_p": "MWR Life asutatud 2013. Aktiivne 100+ riigis. Peaaegu 700 000 liiget üle maailma.",
+"g3_t": "150% hinnagarantii",
+"g3_p": "Leidsite sama hotelli odavamalt? Ettevõte tagastab poolteist korda hinnaerinevuse.",
+"cta_label": "Järgmine samm",
+"cta_title": "Kas nägite siin midagi enda jaoks?",
+"cta_text": "Tahate odavamalt reisida — siin on teie tee. Teenida soovitustelt — siin. Näete tõsist ärivõimalust — siin.<br><br>Või hankige külalise pääs — võrrelge üht hotelli Bookingiga. Midagi osta pole vaja.",
+"cta_btn1": "Vali oma tee",
+"cta_btn2": "Hangi külalise pääs",
+"cta_note": "Peaaegu 700 000 inimest üle maailma on juba muutnud selle püsivaks sissetulekuvooluks.<br>Saate olla järgmine.",
+"faq_label": "Korduma kippuvad küsimused",
+"faq_title": "Ausad vastused",
+"fq1": "Kuidas kujuneb hinnavahe?",
+"fa1": "Booking, Airbnb ja Expedia kulutavad tohutuid eelarveid globaalsele turundusele — ja panevad need kulud teie arvele. Travel Advantage töötab suletud klubi mudeli alusel: otsene ostmine hotellidelt ilma jaemüügi lisatasudeta.",
+"fq2": "Mis vahe on Booking Genius tase 3-ga?",
+"fa2": "Genius tase 3 on allahindlus Bookingu lisatasult, mitte hotelli tegelikult hinnalt. Travel Advantage annab otsese juurdepääsu hulgihinnale.",
+"fq3": "Kuidas töötab 150% parima hinna garantii?",
+"fa3": "Broneerisite hotelli Travel Advantage kaudu. Leidsite sama hotelli mujalt odavamalt — ettevõte tagastab poolteist korda hinnaerinevuse. Ametlik tingimus.",
+"fq4": "Mis juhtub, kui mulle ei meeldi?",
+"fa4": "14 päeva jooksul — tagasimakse kui lojaalsuspunkte ei kasutatud. Üks e-kiri toele.",
+"fq5": "Kas see on püramiidskeem?",
+"fa5": "Ei. On päris toode. MWR Life tegutseb alates 2013, ETOA liige, peaaegu 700 000 osalejat.",
+"fq6": "Kas minu pere saab minu kontot kasutada?",
+"fa6": "Jah — olenevalt plaanist. VIP ($199) annab +1 reisija. Elite ($340) — +4 reisijat.",
+"scroll": "Keri"
+}
+};
+
+  let currentLang = 'ru';
+
+  function detectLang() {
+    const saved = localStorage.getItem('ts-lang');
+    if (saved && TRANS[saved]) return saved;
+    const nav = (navigator.language || navigator.userLanguage || 'ru').split('-')[0].toLowerCase();
+    const map = { 'de':'de','en':'en','es':'es','fr':'fr','it':'it','pt':'pt','ro':'ro','ko':'ko','et':'et','ru':'ru' };
+    return map[nav] || 'ru';
+  }
+
+  function applyLang(lang) {
+    if (!TRANS[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('ts-lang', lang);
+    const t = TRANS[lang];
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) {
+        if (el.tagName === 'INPUT') el.placeholder = t[key];
+        else el.innerHTML = t[key];
+      }
+    });
+
+    // Update lang switcher active state
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Update document lang
+    document.documentElement.lang = lang;
+  }
+
+  function switchLang(lang) {
+    applyLang(lang);
+  }
+
 
   // ── THEME SYSTEM ──
   function getSystemTheme() {
@@ -1660,11 +2629,14 @@
     applyTheme(current === 'dark' ? 'light' : 'dark');
   }
 
-  // Init theme on load
+  // Init theme and lang on load
   (function() {
     const saved = localStorage.getItem('ts-theme');
     const theme = saved || getSystemTheme();
     applyTheme(theme);
+    // Init language
+    const lang = detectLang();
+    applyLang(lang);
   })();
 
   // Listen for system theme changes
