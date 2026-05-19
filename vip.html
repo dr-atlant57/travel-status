@@ -70,39 +70,68 @@
 
   /* ── LANGUAGE SWITCHER ── */
   .lang-switcher {
-    display: flex; align-items: center; gap: 3px;
-    flex-wrap: nowrap; margin-right: 12px;
+    position: relative;
+    margin-right: 12px;
   }
 
-  .lang-btn {
-    background: none; border: 1px solid transparent;
-    color: var(--text-dim); font-family: 'Montserrat', sans-serif;
-    font-size: 10px; letter-spacing: 1px;
-    padding: 4px 6px; cursor: pointer;
-    transition: all 0.2s; border-radius: 3px;
-    text-transform: uppercase;
+  .lang-current {
+    display: flex; align-items: center; gap: 6px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: 1.5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .lang-current:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .lang-current svg { transition: transform 0.25s ease; flex-shrink: 0; }
+  .lang-current.open svg { transform: rotate(180deg); }
+
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    min-width: 160px;
+    z-index: 500;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: dropIn 0.2s ease;
+  }
+  .lang-dropdown.open { display: block; }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .lang-btn:hover { color: var(--gold); border-color: rgba(201,168,76,0.3); }
-  .lang-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.08); }
-
-  [data-theme="light"] .lang-btn { color: #4A3F2F; }
-  [data-theme="light"] .lang-btn:hover { color: #8B6000; border-color: rgba(100,75,20,0.3); }
-  [data-theme="light"] .lang-btn.active { color: #8B6000; border-color: #8B6000; background: rgba(100,75,20,0.08); }
-
-  @media (max-width: 860px) {
-    .lang-switcher { 
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: 8px 12px;
-      justify-content: center;
-      z-index: 99;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-    .lang-btn { font-size: 11px; padding: 6px 8px; }
+  .lang-dropdown button {
+    display: block; width: 100%;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; letter-spacing: 1px;
+    padding: 10px 16px;
+    text-align: left; cursor: pointer;
+    transition: all 0.15s;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
   }
+  .lang-dropdown button:last-child { border-bottom: none; }
+  .lang-dropdown button:hover { background: rgba(201,168,76,0.08); color: var(--gold); }
+  .lang-dropdown button.active { color: var(--gold); font-weight: 500; }
+
+  [data-theme="light"] .lang-current { color: #8B6000; border-color: rgba(100,75,20,0.25); }
+  [data-theme="light"] .lang-current:hover { background: rgba(100,75,20,0.06); }
+  [data-theme="light"] .lang-dropdown { background: #F7F3EC; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+  [data-theme="light"] .lang-dropdown button { color: #4A3F2F; border-bottom-color: rgba(100,75,20,0.08); }
+  [data-theme="light"] .lang-dropdown button:hover { background: rgba(100,75,20,0.08); color: #8B6000; }
+  [data-theme="light"] .lang-dropdown button.active { color: #8B6000; }
 
   /* ── THEME TOGGLE ── */
   .theme-toggle {
@@ -501,7 +530,7 @@
 
   .calc-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 24px;
   }
@@ -974,6 +1003,100 @@
     .path-price { font-size: 40px; }
     .pos-grid { gap: 2px; }
   }
+
+  /* MOBILE FIRST - full mobile rebuild */
+  @media (max-width: 768px) {
+    header { padding: 12px 16px; flex-wrap: nowrap; }
+    .logo { font-size: 15px; letter-spacing: 1.5px; }
+    .logo span { display: none; }
+    nav a { display: none; }
+    .theme-toggle { margin-left: 8px; }
+    .lang-switcher { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); border-top: 1px solid var(--border); padding: 8px 8px 12px; justify-content: center; z-index: 200; gap: 4px; flex-wrap: wrap; backdrop-filter: blur(10px); }
+    .lang-btn { font-size: 10px; padding: 5px 7px; }
+    body { padding-bottom: 64px; }
+    #hero { padding: 90px 16px 60px; min-height: auto; }
+    .hero-anchor { margin-bottom: 20px; }
+    .anchor-line { font-size: 13px; flex-direction: column; gap: 4px; text-align: center; }
+    .anchor-sep { display: none; }
+    .hero-micro { margin-bottom: 24px; }
+    .hero-micro p { font-size: 11px; letter-spacing: 1px; }
+    .hero-question { margin-bottom: 24px; max-width: 100%; }
+    .hero-question h1 { font-size: 24px; line-height: 1.3; }
+    .hero-invite { font-size: 26px; }
+    .calculator { margin-bottom: 40px; }
+    .calc-inner { padding: 18px 14px; }
+    .calc-row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
+    .calc-field label { font-size: 11px; margin-bottom: 6px; }
+    .calc-input-wrap input { font-size: 22px; padding: 10px 8px 10px 0; }
+    .calc-btn { padding: 14px; font-size: 10px; letter-spacing: 2px; }
+    .calc-result-grid { grid-template-columns: 1fr; gap: 2px; }
+    .calc-result-item { padding: 14px 12px; }
+    .calc-result-value { font-size: 28px; }
+    .scroll-hint { display: none; }
+    .ticker-item { font-size: 12px; }
+    .section-inner { padding: 48px 16px; }
+    .mech-intro { margin-bottom: 28px; }
+    .mech-intro h2 { font-size: 26px; }
+    .mech-intro p { font-size: 14px; }
+    .mech-row { grid-template-columns: 36px 1fr; }
+    .mech-num { font-size: 24px; }
+    .mech-old { display: none; }
+    .mech-new { padding: 14px 16px; }
+    .mech-new p { font-size: 14px; }
+    .mech-tag { font-size: 9px; }
+    .live-grid { grid-template-columns: 1fr; gap: 24px; }
+    .stat-box-inner { padding: 14px 16px 20px; }
+    .stat-label { font-size: 13px; }
+    .stat-value { font-size: 26px; }
+    .live-text h3 { font-size: 24px; }
+    .live-text p { font-size: 14px; }
+    .paths-intro h2 { font-size: 28px; }
+    .paths-intro p { font-size: 14px; }
+    .paths-grid { grid-template-columns: 1fr; gap: 2px; }
+    .path-header { padding: 24px 18px 18px; }
+    .path-tag { font-size: 9px; margin-bottom: 10px; }
+    .path-title { font-size: 20px; }
+    .path-price { font-size: 40px; }
+    .path-price-note { font-size: 12px; }
+    .path-tagline { font-size: 13px; margin-top: 12px; }
+    .acc-toggle { padding: 14px 18px; font-size: 10px; }
+    .acc-content { padding: 8px 18px 20px; }
+    .perk { gap: 10px; margin-bottom: 14px; }
+    .perk-icon { font-size: 15px; }
+    .perk-text { font-size: 13px; }
+    .perk-text strong { font-size: 13px; }
+    .path-bonus { margin: 0 18px 18px; font-size: 13px; }
+    .path-bonus strong { font-size: 13px; }
+    .guarantee-grid { grid-template-columns: 1fr; gap: 2px; }
+    .g-block { padding: 24px 18px; }
+    .g-block h3 { font-size: 18px; }
+    .g-block p { font-size: 14px; }
+    .faq-list { margin: 28px auto 0; }
+    .faq-toggle { font-size: 16px; padding: 16px 0; gap: 12px; }
+    .faq-content { font-size: 14px; }
+    .cta-inner { padding: 56px 16px; }
+    .cta-inner h2 { font-size: 32px; }
+    .cta-inner p { font-size: 14px; margin-bottom: 28px; }
+    .cta-buttons { flex-direction: column; gap: 10px; }
+    .cta-buttons a { width: 100%; text-align: center; box-sizing: border-box; }
+    .cta-note { font-size: 14px; }
+    .section-label { font-size: 11px; letter-spacing: 3px; }
+    .gold-line { margin: 14px auto; }
+    footer { padding: 24px 16px; font-size: 11px; }
+    .pos-grid { grid-template-columns: 1fr; }
+    .pos-arrow { display: none; }
+    .compare-box { grid-template-columns: 1fr; }
+    .compare-vs { writing-mode: horizontal-tb; padding: 8px; border: none; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .compare-side { padding: 20px 18px; }
+    .proof-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 375px) {
+    .hero-question h1 { font-size: 20px; }
+    .path-price { font-size: 34px; }
+    .lang-btn { font-size: 9px; padding: 4px 5px; }
+    .cta-inner h2 { font-size: 26px; }
+  }
+
 </style>
 </head>
 <body>
@@ -997,16 +1120,22 @@
 
   <!-- LANGUAGE SWITCHER -->
   <div class="lang-switcher" id="langSwitcher">
-    <button class="lang-btn active" data-lang="ru" onclick="switchLang('ru')">RU</button>
-    <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
-    <button class="lang-btn" data-lang="de" onclick="switchLang('de')">DE</button>
-    <button class="lang-btn" data-lang="es" onclick="switchLang('es')">ES</button>
-    <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
-    <button class="lang-btn" data-lang="it" onclick="switchLang('it')">IT</button>
-    <button class="lang-btn" data-lang="pt" onclick="switchLang('pt')">PT</button>
-    <button class="lang-btn" data-lang="ro" onclick="switchLang('ro')">RO</button>
-    <button class="lang-btn" data-lang="ko" onclick="switchLang('ko')">KO</button>
-    <button class="lang-btn" data-lang="et" onclick="switchLang('et')">ET</button>
+    <button class="lang-current" id="langCurrent" onclick="toggleLangDropdown(event)">
+      <span id="langCurrentText">RU</span>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <button data-lang="ru" onclick="selectLang('ru')">RU — Русский</button>
+      <button data-lang="en" onclick="selectLang('en')">EN — English</button>
+      <button data-lang="de" onclick="selectLang('de')">DE — Deutsch</button>
+      <button data-lang="es" onclick="selectLang('es')">ES — Español</button>
+      <button data-lang="fr" onclick="selectLang('fr')">FR — Français</button>
+      <button data-lang="it" onclick="selectLang('it')">IT — Italiano</button>
+      <button data-lang="pt" onclick="selectLang('pt')">PT — Português</button>
+      <button data-lang="ro" onclick="selectLang('ro')">RO — Română</button>
+      <button data-lang="ko" onclick="selectLang('ko')">KO — 한국어</button>
+      <button data-lang="et" onclick="selectLang('et')">ET — Eesti</button>
+    </div>
   </div>
     <div class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
       <span class="toggle-icon">🌙</span>
@@ -1042,7 +1171,7 @@
 
   <!-- 3. PERSONAL ENGAGEMENT — вопрос + пауза + посчитаем -->
   <div class="hero-question" style="opacity:0; animation: fadeUp 0.8s ease 0.8s forwards;">
-    <h1>На сколько реально можно было снизить<br>стоимость твоего последнего путешествия?</h1>
+    <h1 data-i18n="hero_q">На сколько реально можно было снизить стоимость твоего последнего путешествия?</h1>
     <p class="hero-invite" data-i18n="hero_invite">Посчитаем?</p>
   </div>
 
@@ -1051,24 +1180,17 @@
     <div class="calc-inner">
       <div class="calc-row">
         <div class="calc-field">
-          <label data-i18n="calc_l1">Сколько потратил на последнее путешествие</label>
+          <label data-i18n="calc_l2">На отели и жильё</label>
           <div class="calc-input-wrap">
             <span class="calc-currency">$</span>
-            <input type="number" id="calcTotal" placeholder="1000" min="0">
-          </div>
-        </div>
-        <div class="calc-field">
-          <label data-i18n="calc_l2">Из них на отели и жильё</label>
-          <div class="calc-input-wrap">
-            <span class="calc-currency">$</span>
-            <input type="number" id="calcHotel" placeholder="400" min="0">
+            <input type="number" id="calcHotel" placeholder="800" min="0">
           </div>
         </div>
         <div class="calc-field">
           <label data-i18n="calc_l3">На перелёты</label>
           <div class="calc-input-wrap">
             <span class="calc-currency">$</span>
-            <input type="number" id="calcFlight" placeholder="300" min="0">
+            <input type="number" id="calcFlight" placeholder="500" min="0">
           </div>
         </div>
       </div>
@@ -1077,7 +1199,7 @@
       <div class="calc-result" id="calcResult">
         <div class="calc-result-grid">
           <div class="calc-result-item">
-            <span class="calc-result-label" data-i18n="res_paid">Заплатил</span>
+            <span class="calc-result-label" data-i18n="res_paid">Потратил (отели + перелёты)</span>
             <span class="calc-result-value" id="resTotal">—</span>
           </div>
           <div class="calc-result-item highlight">
@@ -1128,8 +1250,8 @@
 <section id="mechanics">
   <div class="section-inner">
     <div class="mech-intro reveal">
-      <p class="section-label">Почему так устроено</p>
-      <h2>Вся правда о том,<br>куда уходят твои деньги</h2>
+      <p class="section-label" data-i18n="mech_label">Почему так устроено</p>
+      <h2 data-i18n="mech_title">Вся правда о том, куда уходят твои деньги</h2>
       <p data-i18n="mech_sub">Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.</p>
     </div>
 
@@ -1139,11 +1261,11 @@
         <div class="mech-num">1</div>
         <div class="mech-old">
           <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
-          <p>Ты бронируешь отель за $200. Букинг берёт до <strong style="color:#8B4444;">25% комиссии</strong> с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.</p>
+          <p data-i18n="m1_old">Ты бронируешь отель за $200. Букинг берёт до 25% комиссии с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.</p>
         </div>
         <div class="mech-new">
           <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
-          <p>Мы договорились с отелями напрямую: <span class="mech-accent">максимальный поток клиентов — максимальная скидка.</span> Эту скидку мы передаём тебе, а не оставляем себе.</p>
+          <p data-i18n="m1_new">Мы договорились с отелями напрямую: максимальный поток клиентов — максимальная скидка. Эту скидку мы передаём тебе, а не оставляем себе.</p>
         </div>
       </div>
 
@@ -1151,11 +1273,11 @@
         <div class="mech-num">2</div>
         <div class="mech-old">
           <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
-          <p>Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. <strong style="color:#8B4444;">С тобой не делятся ни центом.</strong> Ты работаешь на них бесплатно.</p>
+          <p data-i18n="m2_old">Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. С тобой не делятся ни центом. Ты работаешь на них бесплатно.</p>
         </div>
         <div class="mech-new">
           <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
-          <p>Каждый раз когда друг бронирует по твоей ссылке — <span class="mech-accent">его экономия прилетает тебе на счёт.</span> Он сэкономил $60 — ты получил $60 Travel Credits.</p>
+          <p data-i18n="m2_new">Каждый раз когда друг бронирует по твоей ссылке — его экономия прилетает тебе на счёт. Он сэкономил $60 — ты получил $60 Travel Credits.</p>
         </div>
       </div>
 
@@ -1163,11 +1285,11 @@
         <div class="mech-num">3</div>
         <div class="mech-old">
           <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
-          <p>Гений третьего уровня — это скидка с их наценки. Не с реальной цены отеля. <strong style="color:#8B4444;">Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.</strong></p>
+          <p data-i18n="m3_old">Гений третьего уровня — это скидка с наценки. Не с реальной цены отеля. Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.</p>
         </div>
         <div class="mech-new">
           <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
-          <p>Открой наше приложение и Букинг рядом. Один отель, одни даты. <span class="mech-accent">Сравни. Даже с Гением третьего уровня.</span> Цифры говорят сами.</p>
+          <p data-i18n="m3_new">Открой наше приложение и Букинг рядом. Один отель, одни даты. Сравни. Даже с Гением третьего уровня. Цифры говорят сами.</p>
         </div>
       </div>
 
@@ -1175,11 +1297,11 @@
         <div class="mech-num">4</div>
         <div class="mech-old">
           <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
-          <p>Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование <strong style="color:#8B4444;">кормит посредника вместо тебя.</strong></p>
+          <p data-i18n="m4_old">Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование кормит посредника вместо тебя.</p>
         </div>
         <div class="mech-new">
           <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
-          <p>Членский взнос даёт тебе доступ к оптовым ценам на <span class="mech-accent">отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки</span> и многое другое. Более 2 000 000 объектов.</p>
+          <p data-i18n="m4_new">Членский взнос даёт тебе доступ к оптовым ценам на отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки и многое другое. Более 2 000 000 объектов.</p>
         </div>
       </div>
 
@@ -1222,9 +1344,9 @@
       <div class="live-text reveal">
         <p class="section-label" data-i18n="proof_label">Это не реклама</p>
         <h3 data-i18n="proof_title">День первый после регистрации</h3>
-        <p>На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.</p>
-        <p>Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.</p>
-        <p>Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.</p>
+        <p data-i18n="proof_p1">На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.</p>
+        <p data-i18n="proof_p2">Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.</p>
+        <p data-i18n="proof_p3">Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.</p>
 
       </div>
     </div>
@@ -1239,7 +1361,7 @@
   <div class="section-inner">
     <div class="paths-intro reveal">
       <p class="section-label" data-i18n="paths_label">Три пути входа</p>
-      <h2>Узнай себя<br>и выбери своё</h2>
+      <h2 data-i18n="paths_title">Узнай себя и выбери своё</h2>
       <p data-i18n="paths_sub">Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.</p>
     </div>
 
@@ -1261,70 +1383,70 @@
           <div class="acc-content">
             <div class="perk">
               <div class="perk-icon">✈️</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p1">
                 <strong>Всё что бронируешь — по оптовым ценам</strong>
                 Отели, курорты, перелёты, круизы, аренда авто, трансферы, экскурсии, дайвинг, сафари, горнолыжные курорты, тематические парки, железнодорожные билеты. Более 2 000 000 объектов по всему миру. Всё в одном приложении.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🛡️</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p2">
                 <strong>Гарантия лучшей цены — 150%</strong>
                 Забронировал — нашёл тот же отель дешевле на Букшинге или Airbnb — компания возвращает полтора раза от разницы. Не просто разницу. Полтора раза. Официальное условие.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">👨‍👩‍👧‍👦</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p3">
                 <strong>+1 путешественник со своим логином</strong>
                 Муж, жена, друг, брат, сестра, мама, папа, бабушка, дедушка — любой близкий человек получает свой личный логин и бронирует сам. С теми же оптовыми ценами. Без доплаты к твоей подписке.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">💳</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p4">
                 <strong>Travel Credits с каждого бронирования</strong>
                 Как кешбэк — только тратишь на следующую поездку. Накапливаются, никогда не сгорают. Поделился бронированием в соцсетях — получаешь ещё +30% кредитов сверху.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🎫</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p5">
                 <strong>Гостевые пропуска для друзей</strong>
                 Цифровая ссылка — отправляешь другу, он заходит как VIP, видит реальные оптовые цены, сравнивает с Букингом, бронирует. Он сэкономил — и ровно столько же прилетает тебе на счёт Travel Credits. Вы оба в плюсе с одного бронирования.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">⚡</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p6">
                 <strong>Flash Deals — горящие предложения до −83%</strong>
                 Последние места в 4-5 звёздочных отелях. Дубай, Флорида, Мальдивы, Италия, Индонезия. Уведомление в приложение — кто первый, тот и улетел.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🛍️</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p7">
                 <strong>Lifestyle Mall — как Duty Free, только онлайн и всегда</strong>
                 Более 3 миллионов товаров по безналоговым ценам. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. Без аэропорта, без очередей — прямо с дивана.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">💳</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p8">
                 <strong>Платишь как удобно</strong>
                 Крипта, Apple Pay, Google Pay, Klarna, дебетовая или кредитная карта.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🌍</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p9">
                 <strong>Поддержка 24/7 на твоём языке</strong>
                 Три часа ночи, другая страна, что-то пошло не так с бронированием. Пишешь в чат — через минуту отвечает живой человек. На твоём языке. Не бот.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">↩️</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p1p10">
                 <strong>14 дней — полный возврат без вопросов</strong>
                 В течение 14 дней можно отменить и вернуть деньги — если баллами лояльности не воспользовался. Одно письмо на почту. Официальное условие.
               </div>
@@ -1353,56 +1475,56 @@
           <div class="acc-content">
             <div class="perk">
               <div class="perk-icon">💰</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p1">
                 <strong>Комиссионные с каждой рекомендации</strong>
                 Ты рассказал другу. Он зашёл, сравнил цены, подключился. В тот же день тебе пришли комиссионные. Ты не продавал. Ты просто поделился. Посоветуй сервис троим — и твой ежемесячный платёж полностью покрывается их подписками.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🏆</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p2">
                 <strong>$120 в месяц баллами лояльности — автоматически</strong>
                 Первого числа каждого месяца на счёт приходит $120. Просто за то что ты участник. Не нужно никуда ехать, ничего бронировать, ничего делать. Пришёл месяц — пришли деньги. Каждый балл = $1. Тратишь на отели, курорты, перелёты, круизы, аренду авто, трансферы, экскурсии, Life Experiences, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc. За год накапливается $1440 только от членства.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">✈️</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p3">
                 <strong>Мечта-поездка раз в год — полностью за баллы</strong>
                 Ты копил баллы весь год. Просто получал их каждый месяц и откладывал. Открываешь приложение, выбираешь поездку для двоих — Мальорка, Дубай, Греция, Карибы — направляешь все накопленные баллы на оплату. Полностью. Из кармана — ноль.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">👨‍👩‍👧‍👦</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p4">
                 <strong>+4 путешественника со своим логином</strong>
                 Четыре близких человека — муж, жена, дети, друг, брат, сестра, мама, папа, бабушка, дедушка — каждый получает свой личный логин, заходит сам, бронирует сам. С теми же оптовыми ценами. Один аккаунт — пять человек путешествуют по оптовым ценам.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🎫</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p5">
                 <strong>50 гостевых пропусков сразу + 20 каждый месяц</strong>
                 Ты отправляешь ссылку. Друг заходит как VIP, видит реальные оптовые цены, сравнивает с Букингом, бронирует отель на две ночи. Он сэкономил — и ровно столько же прилетает тебе на счёт Travel Credits. Вы оба в плюсе с одного бронирования.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🌟</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p6">
                 <strong>Life Experiences — кураторские поездки клуба</strong>
                 Клуб организует поездку — Марокко, четыре дня, пятизвёздочный отель, трансфер из аэропорта, приветственный коктейль, групповая экскурсия, персональный хост. $279 с человека. На Букинге только отель стоит $600.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🤖</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p7">
                 <strong>AI Trip Planner — личный цифровой турагент</strong>
                 Пишешь: "Хочу в Дубай на 5 дней с женой и двумя детьми, бюджет $2000." ИИ за секунды подбирает отель, строит маршрут по дням, добавляет экскурсии для детей, считает трансферы. Готовый план путешествия. Без турагента и его комиссии.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🎓</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p2p8">
                 <strong>Бизнес-центр — готовая система с первого дня</strong>
                 Персональный сайт с твоей ссылкой — готов сразу. Маркетинговые воронки которые работают без тебя. Бизнес-дашборд в реальном времени. QR-код для продаж. Мобильное приложение. Готовые скрипты и шаблоны для переписки. Еженедельные тренинги от топ-лидеров. Видеообучение. Сообщество предпринимателей в 100+ странах.
               </div>
@@ -1435,56 +1557,56 @@
           <div class="acc-content">
             <div class="perk">
               <div class="perk-icon">⚡</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p1">
                 <strong>$490 на счету в первый же день</strong>
                 $250 бонусных баллов приходят сразу при регистрации — плюс первые ежемесячные баллы. Ты только зарегистрировался, ещё никуда не поехал — а на счету уже $490. Используй прямо сейчас.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🏆</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p2">
                 <strong>$240 в месяц баллами лояльности — вдвое больше Elite</strong>
                 Каждый месяц приходит $240 автоматически. Просто за то что ты участник. За год на счету $2880 только от членства. Тратишь на всё: отели, курорты, перелёты, круизы, аренду авто, трансферы, экскурсии, Life Experiences, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🎫</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p3">
                 <strong>1500 путешественников ждут твоей ссылки</strong>
                 Все они путешествуют. Все платят розничные цены на Букшинге. Никто из них не знает что существует оптовый доступ. При регистрации к тебе приходит 1500 гостевых пропусков. Каждый — цифровая ссылка. Ты отправляешь. Человек видит реальные цены. Сравнивает. Бронирует. Его экономия прилетает тебе. Тебе нужно просто дать людям знать что такая возможность существует.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">⏰</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p4">
                 <strong>Ранний доступ к Life Experiences — на 2 часа раньше всех</strong>
                 Клуб объявляет поездку. Марракеш, пятизвёздочный риад, 30 мест. Все Elite получают уведомление в 12:00. Ты как Turbo — в 10:00. Ты уже выбрал лучший номер пока другие только просыпаются.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🏨</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p5">
                 <strong>Эксклюзивные Turbo-цены на отели</strong>
                 Раздел который недоступен даже Elite участникам. Цены ещё глубже чем оптовые Elite. Третий уровень склада. Самый закрытый. Самый дешёвый.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🔄</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p6">
                 <strong>Flex Traveller каждые 6 месяцев</strong>
                 Жизнь меняется. Планы меняются. Раз в полгода — возможность гибко изменить параметры бронирования без штрафов и потерь. Страховка для путешественника.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">💰</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p7">
                 <strong>Максимальные комиссионные с сети</strong>
                 Посоветовал сервис людям. Они пользуются — тебе приходят комиссионные. На Turbo уровне — максимальные. Система работает на тебя непрерывно. Ты в отпуске — она работает. Ты спишь — она работает.
               </div>
             </div>
             <div class="perk">
               <div class="perk-icon">🎁</div>
-              <div class="perk-text">
+              <div class="perk-text" data-i18n="p3p8">
                 <strong>До 100 баллов — в подарок гостю</strong>
                 Берёшь с собой друга на кураторскую поездку. Даришь ему до $100 из своих баллов прямо на его бронирование. Подарок не деньгами из кармана — а баллами которые и так лежали на счету.
               </div>
@@ -1540,15 +1662,14 @@
 <section id="cta">
   <div class="cta-inner">
     <p class="section-label reveal" data-i18n="cta_label">Следующий шаг</p>
-    <h2 class="serif reveal">Ты увидел здесь<br>что-то своё?</h2>
-    <p class="reveal">Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.</p>
+    <h2 class="serif reveal" data-i18n="cta_title">Ты увидел здесь что-то своё?</h2>
+    <p class="reveal" data-i18n="cta_text">Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.</p>
     <div class="cta-buttons reveal">
       <a href="#paths" class="btn-gold" data-i18n="cta_btn1">Выбрать свой путь</a>
       <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-ghost" data-i18n="cta_btn2">Получить гостевой пропуск</a>
     </div>
     <p class="cta-note reveal">
-      Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>
-      Ты можешь стать следующим.
+      <span data-i18n="cta_note">Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>Ты можешь стать следующим.</span>
     </p>
   </div>
 </section>
@@ -1570,7 +1691,7 @@
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <div class="faq-content">
+          <div class="faq-content" data-i18n="fa1">
             Booking, Airbnb и Expedia тратят огромные бюджеты на глобальный маркетинг и рекламу — и закладывают эти расходы в твой чек. Travel Advantage работает по закрытой клубной модели: платформа закупает инвентарь напрямую у отелей без розничных наценок и передаёт чистую стоимость участникам. Ты платишь за членство — а не за чужую рекламу.
           </div>
         </div>
@@ -1594,7 +1715,7 @@
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <div class="faq-content">
+          <div class="faq-content" data-i18n="fa2">
             Ты забронировал отель через Travel Advantage. Нашёл тот же отель, те же даты, ту же категорию номера дешевле на любой другой платформе — компания возвращает тебе полтора раза от разницы. Не просто разницу. Именно полтора раза. Официальное условие членства, прописано в договоре.
           </div>
         </div>
@@ -1618,7 +1739,7 @@
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <div class="faq-content">
+          <div class="faq-content" data-i18n="fa3">
             Нет. Есть реальный продукт — платформа бронирования с оптовыми ценами. Люди платят за доступ к реальным скидкам на реальные поездки. Компания MWR Life работает с 2013 года, входит в топ-85 мировых компаний прямых продаж и является членом ETOA. Почти 700 000 участников в 100+ странах. Пирамиды столько не живут.
           </div>
         </div>
@@ -1649,40 +1770,40 @@
     <a href="https://lifeexperience.club/Status" onclick="bridgeTo('https://lifeexperience.club/Status', event)">Life Experience Club</a>
   </p>
   <p style="margin-top:16px; font-size:12px; color:rgba(154,144,128,0.4); max-width:700px; margin-left:auto; margin-right:auto; line-height:1.7;">
-    Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает платёжные данные напрямую и направляет пользователей на официальные ресурсы компании для оформления подписок и бронирований. Результаты индивидуальны. Экономия рассчитывается как разница между публичной ценой и ценой для участников Travel Advantage.
+    <span data-i18n="footer_disc">Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает платёжные данные напрямую и направляет пользователей на официальные ресурсы компании для оформления подписок и бронирований. Результаты индивидуальны.</span>
   </p>
 </footer>
 
 <script>
   // Calculator
   function runCalc() {
-    const total = parseFloat(document.getElementById('calcTotal').value) || 0;
     const hotel = parseFloat(document.getElementById('calcHotel').value) || 0;
     const flight = parseFloat(document.getElementById('calcFlight').value) || 0;
     const hint = document.getElementById('calcHint');
+    const t = TRANS[currentLang] || TRANS.ru;
 
-    // Validation with hints
-    if (!total && !hotel && !flight) {
-      hint.textContent = 'Введите суммы расходов на путешествие';
+    if (hotel === 0 && flight === 0) {
+      hint.textContent = t.calc_hint_empty;
       return;
     }
-    if (!total || !hotel || !flight) {
-      hint.textContent = 'Заполните все три поля для точного расчёта';
+    if (hotel === 0 || flight === 0) {
+      hint.textContent = t.calc_hint_partial;
       return;
     }
 
-    // All filled — calculate
     hint.textContent = '';
 
+    const total = hotel + flight;
     const hotelSaving = hotel * 0.22;
     const flightSaving = flight * 0.12;
     const totalSaving = hotelSaving + flightSaving;
-    const afterTotal = Math.max(total - totalSaving, 0);
+    const afterTotal = total - totalSaving;
+    const pct = Math.round((totalSaving / total) * 100);
 
     document.getElementById('resTotal').textContent = '$' + total.toFixed(0);
     document.getElementById('resAfter').textContent = '$' + afterTotal.toFixed(0);
-    document.getElementById('resSaved').textContent = '$' + totalSaving.toFixed(0);
-    document.getElementById('calcNote').textContent = (TRANS[currentLang] || TRANS.ru).calc_note_text;
+    document.getElementById('resSaved').textContent = '$' + totalSaving.toFixed(0) + ' (' + pct + '%)';
+    document.getElementById('calcNote').textContent = t.calc_note_text;
 
     const result = document.getElementById('calcResult');
     result.classList.add('visible');
@@ -1695,6 +1816,41 @@
   // ── I18N TRANSLATIONS ──
   const TRANS = {
 "ru": {
+"p3p8": "<strong>До 100 баллов — в подарок гостю</strong>Берёшь с собой друга на кураторскую поездку. Даришь ему до $100 из своих баллов на его бронирование. Подарок баллами которые и так лежали на счету.",
+"p3p7": "<strong>Максимальные комиссионные с сети</strong>Посоветовал сервис людям. Они пользуются — тебе приходят комиссионные. На Turbo уровне — максимальные. Система работает на тебя непрерывно.",
+"p3p6": "<strong>Flex Traveller каждые 6 месяцев</strong>Жизнь меняется. Планы меняются. Раз в полгода — возможность гибко изменить параметры бронирования без штрафов. Страховка для путешественника.",
+"p3p5": "<strong>Эксклюзивные Turbo-цены на отели</strong>Раздел который недоступен даже Elite участникам. Цены ещё глубже чем оптовые Elite. Третий уровень склада. Самый закрытый. Самый дешёвый.",
+"p3p4": "<strong>Ранний доступ к Life Experiences — на 2 часа раньше</strong>Клуб объявляет поездку. Все Elite получают уведомление в 12:00. Ты как Turbo — в 10:00. Уже выбрал лучший номер пока другие только просыпаются.",
+"p3p3": "<strong>1500 путешественников ждут твоей ссылки</strong>Все они путешествуют и платят розничные цены. При регистрации к тебе приходит 1500 гостевых пропусков. Ты отправляешь — человек видит реальные цены, бронирует, экономит. Его экономия прилетает тебе.",
+"p3p2": "<strong>$240 в месяц баллами лояльности — вдвое больше Elite</strong>Каждый месяц приходит $240 автоматически. За год на счету $2880 только от членства. Тратишь на всё: отели, перелёты, круизы, аренду авто, экскурсии, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes и другие.",
+"p3p1": "<strong>$490 на счету в первый же день</strong>$250 бонусных баллов приходят сразу при регистрации — плюс первые ежемесячные баллы. Ещё никуда не поехал — а на счету уже $490. Используй прямо сейчас.",
+"p2p8": "<strong>Бизнес-центр — готовая система с первого дня</strong>Персональный сайт с твоей ссылкой готов сразу. Маркетинговые воронки. Бизнес-дашборд. QR-код. Скрипты и шаблоны. Еженедельные тренинги. Видеообучение. Сообщество в 100+ странах.",
+"p2p7": "<strong>AI Trip Planner — личный цифровой турагент</strong>Пишешь: \"Хочу в Дубай на 5 дней с женой и двумя детьми, бюджет $2000.\" ИИ подбирает отель, маршрут по дням, экскурсии, трансферы. Готовый план. Без турагента.",
+"p2p6": "<strong>Life Experiences — кураторские поездки клуба</strong>Клуб организует поездку — Марокко, четыре дня, пятизвёздочный отель, трансфер, коктейль, экскурсия, персональный хост. $279 с человека. На Букинге только отель стоит $600.",
+"p2p5": "<strong>50 гостевых пропусков сразу + 20 каждый месяц</strong>Ты отправляешь ссылку. Друг заходит как VIP, видит реальные цены, бронирует. Он сэкономил — ровно столько же прилетает тебе на счёт Travel Credits.",
+"p2p4": "<strong>+4 путешественника со своим логином</strong>Четыре близких человека — каждый получает личный логин, бронирует сам с теми же оптовыми ценами. Один аккаунт — пять человек путешествуют по оптовым ценам.",
+"p2p3": "<strong>Мечта-поездка раз в год — полностью за баллы</strong>Копил баллы весь год. Открываешь приложение, выбираешь поездку для двоих — Мальорка, Дубай, Греция, Карибы — и оплачиваешь баллами. Полностью. Из кармана — ноль.",
+"p2p2": "<strong>$120 в месяц баллами лояльности — автоматически</strong>Первого числа каждого месяца на счёт приходит $120. Просто за то что ты участник. Каждый балл = $1. Тратишь на отели, перелёты, круизы, аренду авто, экскурсии, Lifestyle Mall. За год накапливается $1440.",
+"p2p1": "<strong>Комиссионные с каждой рекомендации</strong>Посоветовал сервис — человек подключился — тебе пришли комиссионные. Ты не продавал. Просто поделился. Посоветуй троим — твой ежемесячный платёж полностью покрывается их подписками.",
+"p1p10": "<strong>14 дней — полный возврат</strong>В течение 14 дней можно отменить и вернуть деньги — если баллами лояльности не воспользовался. Одно письмо на почту. Официальное условие.",
+"p1p9": "<strong>Поддержка 24/7 на твоём языке</strong>Три часа ночи, другая страна, что-то пошло не так. Пишешь в чат — через минуту отвечает живой человек. На твоём языке. Не бот.",
+"p1p8": "<strong>Платишь как удобно</strong>Крипта, Apple Pay, Google Pay, Klarna, дебетовая или кредитная карта.",
+"p1p7": "<strong>Lifestyle Mall — как Duty Free, только онлайн</strong>Более 3 миллионов товаров по безналоговым ценам. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. Без аэропорта, без очередей.",
+"p1p6": "<strong>Flash Deals — горящие предложения до −83%</strong>Последние места в 4-5 звёздочных отелях. Дубай, Флорида, Мальдивы, Италия, Индонезия. Уведомление в приложение — кто первый, тот и улетел.",
+"p1p5": "<strong>Гостевые пропуска для друзей</strong>Цифровая ссылка — отправляешь другу, он заходит как VIP, видит реальные оптовые цены, бронирует. Он сэкономил — ровно столько же прилетает тебе на счёт Travel Credits.",
+"p1p4": "<strong>Travel Credits с каждого бронирования</strong>Как кешбэк — только тратишь на следующую поездку. Накапливаются, никогда не сгорают. Поделился в соцсетях — получаешь ещё +30% кредитов сверху.",
+"p1p3": "<strong>+1 путешественник со своим логином</strong>Муж, жена, друг, брат, сестра, мама, папа, бабушка, дедушка — любой близкий человек получает свой личный логин и бронирует сам. С теми же оптовыми ценами. Без доплаты.",
+"p1p2": "<strong>Гарантия лучшей цены — 150%</strong>Забронировал — нашёл тот же отель дешевле — компания возвращает полтора раза от разницы. Не просто разницу. Полтора раза. Официальное условие.",
+"p1p1": "<strong>Всё что бронируешь — по оптовым ценам</strong>Отели, курорты, перелёты, круизы, аренда авто, трансферы, экскурсии, дайвинг, сафари, горнолыжные курорты, тематические парки, железнодорожные билеты. Более 2 000 000 объектов по всему миру. Всё в одном приложении.",
+"footer_disc": "Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает платёжные данные напрямую и направляет пользователей на официальные ресурсы компании для оформления подписок и бронирований. Результаты индивидуальны.",
+"m4_new": "Членский взнос даёт тебе доступ к оптовым ценам на отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки и многое другое. Более 2 000 000 объектов.",
+"m4_old": "Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование кормит посредника вместо тебя.",
+"m3_new": "Открой наше приложение и Букинг рядом. Один отель, одни даты. Сравни. Даже с Гением третьего уровня. Цифры говорят сами.",
+"m3_old": "Гений третьего уровня — это скидка с наценки, не с реальной цены отеля. Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.",
+"m2_new": "Каждый раз когда друг бронирует по твоей ссылке — его экономия прилетает тебе на счёт. Он сэкономил $60 — ты получил $60 Travel Credits.",
+"m2_old": "Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. С тобой не делятся ни центом. Ты работаешь на них бесплатно.",
+"m1_new": "Мы договорились с отелями напрямую: максимальный поток клиентов — максимальная скидка. Эту скидку мы передаём тебе, а не оставляем себе.",
+"m1_old": "Ты бронируешь отель за $200. Букинг берёт до 25% комиссии с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.",
 "nav_how": "Как работает",
 "nav_rates": "Тарифы",
 "nav_access": "Получить доступ",
@@ -1783,6 +1939,41 @@
 "scroll": "Листай"
 },
 "en": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "This site is an independent partner resource of an MWR Life Ambassador. Created for informational purposes, does not collect payment data directly, and directs users to the company's official resources for subscriptions and bookings. Results are individual.",
+"m4_new": "Membership gives you access to wholesale prices on hotels, flights, cruises, car rentals, transfers, tours, theme parks and much more. Over 2,000,000 options.",
+"m4_old": "To use it — just download. Free. But every booking feeds the middleman instead of you.",
+"m3_new": "Open our app and Booking side by side. Same hotel, same dates. Compare. Even against Genius level 3. The numbers speak for themselves.",
+"m3_old": "Genius level 3 is a discount off their markup, not off the hotel's actual price. You think you're saving. In reality — you're just overpaying less.",
+"m2_new": "Every time a friend books through your link — their savings land in your account. They saved $60 — you got $60 Travel Credits.",
+"m2_old": "You recommend Booking to friends. They book. Booking earns on their bookings. They share nothing with you. You work for them for free.",
+"m1_new": "We agreed directly with hotels: maximum client flow — maximum discount. We pass this discount to you, not keep it ourselves.",
+"m1_old": "You book a hotel for $200. Booking takes up to 25% commission — which the hotel builds into your price. You pay for the middleman.",
 "nav_how": "How it works",
 "nav_rates": "Plans",
 "nav_access": "Get access",
@@ -1871,6 +2062,41 @@
 "scroll": "Scroll"
 },
 "de": {
+"p3p8": "<strong>Bis zu 100 Punkte — als Geschenk an einen Gast</strong>Bringen Sie einen Freund auf eine kuratierte Reise. Schenken Sie ihm bis zu $100 aus Ihren Punkten für seine Buchung.",
+"p3p7": "<strong>Maximale Provisionen aus dem Netzwerk</strong>Empfohlen — sie nutzen es — Sie erhalten Provisionen. Auf Turbo-Ebene — maximal. Das System arbeitet kontinuierlich für Sie.",
+"p3p6": "<strong>Flex Traveller alle 6 Monate</strong>Einmal alle sechs Monate — Flexibilität, Buchungsparameter ohne Strafen zu ändern.",
+"p3p5": "<strong>Exklusive Turbo-Hotelpreise</strong>Ein Bereich, der selbst Elite-Mitgliedern nicht zugänglich ist. Preise noch tiefer als Elite-Großhandel.",
+"p3p4": "<strong>Frühzeitiger Zugang zu Life Experiences — 2 Stunden früher</strong>Der Club kündigt eine Reise an. Alle Elite werden um 12:00 benachrichtigt. Als Turbo — um 10:00. Sie haben bereits das beste Zimmer gewählt.",
+"p3p3": "<strong>1.500 Reisende warten auf Ihren Link</strong>Sie alle reisen und zahlen Einzelhandelspreise. Bei der Registrierung erhalten Sie 1.500 Gästepässe. Sie senden — sie sehen echte Preise, buchen, sparen. Ihre Ersparnisse landen bei Ihnen.",
+"p3p2": "<strong>$240/Monat in Treuepunkten — doppelt so viel wie Elite</strong>$240 kommt automatisch jeden Monat. $2.880 pro Jahr nur durch die Mitgliedschaft.",
+"p3p1": "<strong>$490 auf dem Konto am ersten Tag</strong>$250 Bonuspunkte kommen sofort bei der Turbo-Registrierung an — plus erste monatliche Punkte. Noch keine Reise gemacht — aber bereits $490 auf dem Konto.",
+"p2p8": "<strong>Business-Center — fertiges System ab Tag eins</strong>Ihre persönliche Website mit Ihrem Link — sofort bereit. Marketing-Funnels. Echtzeit-Dashboard. QR-Code. Skripte und Vorlagen. Wöchentliche Trainings. Community in 100+ Ländern.",
+"p2p7": "<strong>KI-Reiseplaner — Ihr persönlicher digitaler Reiseberater</strong>Tippen Sie: \"Ich möchte nach Dubai für 5 Tage mit Frau und zwei Kindern, Budget $2.000.\" KI wählt Hotel aus, erstellt Tagesplan, fügt Kinderausflüge hinzu. Fertiger Plan. Ohne Reisebüro.",
+"p2p6": "<strong>Life Experiences — kuratierte Clubreisen</strong>Der Club organisiert eine Reise — Marokko, vier Tage, 5-Sterne-Hotel, Transfer, Willkommenscocktail, Gruppenführung. $279 pro Person. Nur das Hotel kostet bei Booking $600.",
+"p2p5": "<strong>50 Gästepässe sofort + 20 jeden Monat</strong>Sie senden den Link. Freund tritt als VIP ein, sieht echte Preise, bucht. Er spart — dieser Betrag landet in Ihrem Travel Credits-Konto.",
+"p2p4": "<strong>+4 Reisende mit eigenen Logins</strong>Vier nahestehende Personen bekommen je einen eigenen Login und buchen selbst zu denselben Großhandelspreisen.",
+"p2p3": "<strong>Traumreise einmal im Jahr — vollständig mit Punkten bezahlt</strong>Sie haben das ganze Jahr Punkte gesammelt. Wählen Sie eine Reise für zwei — Mallorca, Dubai, Griechenland, Karibik — und zahlen Sie mit Punkten. Vollständig. Null aus der Tasche.",
+"p2p2": "<strong>$120/Monat in Treuepunkten — automatisch</strong>Am 1. jeden Monats kommen $120 auf Ihr Konto. Einfach weil Sie Mitglied sind. Jeder Punkt = $1. Für Hotels, Flüge, Kreuzfahrten, Mietwagen, Touren, Lifestyle Mall. $1.440 pro Jahr.",
+"p2p1": "<strong>Provisionen bei jeder Empfehlung</strong>Sie haben den Service empfohlen — jemand ist beigetreten — Sie haben Provisionen erhalten. Empfehlen Sie drei Personen — Ihre monatliche Zahlung wird vollständig durch deren Abonnements gedeckt.",
+"p1p10": "<strong>14 Tage — volle Rückerstattung</strong>Innerhalb von 14 Tagen kündigen und Geld zurück — wenn Treuepunkte nicht genutzt. Eine E-Mail. Offizielle Bedingung.",
+"p1p9": "<strong>24/7-Support in Ihrer Sprache</strong>3 Uhr nachts, fremdes Land, etwas läuft schief. Sie schreiben im Chat — innerhalb einer Minute antwortet ein echter Mensch. In Ihrer Sprache. Kein Bot.",
+"p1p8": "<strong>Zahlen Sie wie Sie möchten</strong>Krypto, Apple Pay, Google Pay, Klarna, Debit- oder Kreditkarte.",
+"p1p7": "<strong>Lifestyle Mall — wie Duty Free, aber immer online</strong>Über 3 Millionen Artikel zu steuerfreien Preisen. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc. Kein Flughafen, keine Warteschlangen.",
+"p1p6": "<strong>Flash Deals — bis zu −83% Rabatt</strong>Letzte Plätze in 4-5-Sterne-Hotels. Dubai, Florida, Malediven, Italien, Indonesien. Push-Benachrichtigung — wer zuerst kommt, fliegt zuerst.",
+"p1p5": "<strong>Gästepässe für Freunde</strong>Ein digitaler Link — Ihr Freund tritt als VIP ein, sieht echte Großhandelspreise, bucht. Er spart — und genau dieser Betrag landet in Ihrem Travel Credits-Konto.",
+"p1p4": "<strong>Travel Credits bei jeder Buchung</strong>Wie Cashback — aber für die nächste Reise. Werden angesammelt, verfallen nie. In sozialen Medien geteilt — erhalten Sie +30% extra Credits.",
+"p1p3": "<strong>+1 Reisender mit eigenem Login</strong>Ehepartner, Freund, Geschwister, Eltern, Großeltern — jede nahestehende Person bekommt einen eigenen Login. Zu denselben Großhandelspreisen. Ohne Aufpreis.",
+"p1p2": "<strong>150% Bestpreisgarantie</strong>Gebucht — dasselbe Hotel günstiger gefunden — das Unternehmen erstattet das Anderthalbfache der Differenz. Offizielle Bedingung.",
+"p1p1": "<strong>Alles was Sie buchen — zu Großhandelspreisen</strong>Hotels, Resorts, Flüge, Kreuzfahrten, Mietwagen, Transfers, Touren, Tauchen, Safaris, Skigebiete, Freizeitparks, Bahntickets. Über 2.000.000 Angebote weltweit.",
+"footer_disc": "Diese Website ist eine unabhängige Partnerressource eines MWR Life Botschafters. Zu Informationszwecken erstellt, erhebt keine Zahlungsdaten direkt und leitet Nutzer zu den offiziellen Ressourcen des Unternehmens weiter. Ergebnisse sind individuell.",
+"m4_new": "Die Mitgliedschaft gibt Ihnen Zugang zu Großhandelspreisen für Hotels, Flüge, Kreuzfahrten, Mietwagen, Transfers, Ausflüge und mehr. Über 2.000.000 Angebote.",
+"m4_old": "Zum Nutzen — einfach herunterladen. Kostenlos. Aber jede Buchung füttert den Mittelsmann statt Sie.",
+"m3_new": "Öffnen Sie unsere App und Booking nebeneinander. Gleiches Hotel, gleiche Daten. Vergleichen Sie. Selbst gegen Genius Stufe 3.",
+"m3_old": "Genius Stufe 3 ist ein Rabatt auf ihre Marge, nicht auf den tatsächlichen Hotelpreis. Sie denken Sie sparen. In Wirklichkeit zahlen Sie weniger drauf.",
+"m2_new": "Jedes Mal wenn ein Freund über Ihren Link bucht — landet seine Ersparnis auf Ihrem Konto. Er sparte $60 — Sie erhielten $60 Travel Credits.",
+"m2_old": "Sie empfehlen Booking Freunden. Sie buchen. Booking verdient an ihren Buchungen. Mit Ihnen wird nichts geteilt. Sie arbeiten kostenlos für sie.",
+"m1_new": "Wir haben direkt mit Hotels vereinbart: maximaler Kundenstrom — maximaler Rabatt. Diesen Rabatt geben wir an Sie weiter.",
+"m1_old": "Sie buchen ein Hotel für $200. Booking nimmt bis zu 25% Provision — die das Hotel in Ihren Preis einkalkuliert. Sie zahlen für den Mittelsmann.",
 "nav_how": "Wie es funktioniert",
 "nav_rates": "Tarife",
 "nav_access": "Zugang erhalten",
@@ -1959,6 +2185,41 @@
 "scroll": "Scrollen"
 },
 "es": {
+"p3p8": "<strong>Hasta 100 puntos — de regalo para un invitado</strong>Llevas a un amigo a un viaje curado. Le regalas hasta $100 de tus puntos para su reserva.",
+"p3p7": "<strong>Comisiones máximas de la red</strong>Recomendaste — usan el servicio — recibes comisiones. En nivel Turbo — máximas. El sistema trabaja para ti continuamente.",
+"p3p6": "<strong>Flex Traveller cada 6 meses</strong>Una vez cada seis meses — flexibilidad para cambiar parámetros de reserva sin penalización.",
+"p3p5": "<strong>Precios Turbo exclusivos en hoteles</strong>Una sección inaccesible incluso para miembros Elite. Precios aún más bajos que el mayorista Elite.",
+"p3p4": "<strong>Acceso anticipado a Life Experiences — 2 horas antes</strong>El club anuncia un viaje. Todos los Elite se notifican a las 12:00. Como Turbo — a las 10:00. Ya elegiste la mejor habitación.",
+"p3p3": "<strong>1.500 viajeros esperan tu enlace</strong>Todos viajan y pagan precios de venta al público. Al registrarte recibes 1.500 pases de invitado. Envías — ven precios reales, reservan, ahorran. Sus ahorros llegan a ti.",
+"p3p2": "<strong>$240/mes en puntos de fidelidad — el doble que Elite</strong>$240 llegan automáticamente cada mes. $2.880 al año solo de la membresía.",
+"p3p1": "<strong>$490 en tu cuenta el primer día</strong>$250 en puntos de bonificación llegan inmediatamente al registrarte en Turbo — más los primeros puntos mensuales. Sin viajar todavía — ya tienes $490.",
+"p2p8": "<strong>Centro de Negocios — sistema listo desde el primer día</strong>Tu sitio personal con tu enlace — listo de inmediato. Embudos de marketing. Panel en tiempo real. Código QR. Scripts y plantillas. Entrenamientos semanales. Comunidad en 100+ países.",
+"p2p7": "<strong>AI Trip Planner — tu agente de viajes digital personal</strong>Escribes: \"Quiero ir a Dubái 5 días con mi mujer y dos hijos, presupuesto $2.000.\" La IA elige hotel, crea itinerario diario, añade tours para niños. Plan listo. Sin agencia.",
+"p2p6": "<strong>Life Experiences — viajes curados del club</strong>El club organiza un viaje — Marruecos, cuatro días, hotel de cinco estrellas, traslado, cóctel de bienvenida, tour grupal. $279 por persona. Solo el hotel en Booking cuesta $600.",
+"p2p5": "<strong>50 pases de invitado de inmediato + 20 cada mes</strong>Envías el enlace. El amigo entra como VIP, ve precios reales, reserva. Él ahorra — ese importe llega a tu Travel Credits.",
+"p2p4": "<strong>+4 viajeros con sus propios logins</strong>Cuatro personas cercanas obtienen cada una su propio login y reservan a los mismos precios mayoristas.",
+"p2p3": "<strong>Viaje soñado una vez al año — pagado totalmente con puntos</strong>Has acumulado puntos todo el año. Eliges un viaje para dos — Mallorca, Dubái, Grecia, Caribe — y pagas con puntos. Completamente. Cero de tu bolsillo.",
+"p2p2": "<strong>$120/mes en puntos de fidelidad — automáticamente</strong>El 1 de cada mes llegan $120 a tu cuenta. Solo por ser miembro. Cada punto = $1. Gástalos en hoteles, vuelos, cruceros, alquiler, tours, Lifestyle Mall. $1.440 al año.",
+"p2p1": "<strong>Comisiones por cada recomendación</strong>Recomendaste el servicio — alguien se unió — recibiste comisiones. No vendiste. Solo compartiste. Recomienda a tres personas — tu pago mensual queda cubierto por sus suscripciones.",
+"p1p10": "<strong>14 días — devolución completa</strong>En 14 días puedes cancelar y recuperar tu dinero — si no usaste puntos de fidelidad. Un correo. Condición oficial.",
+"p1p9": "<strong>Soporte 24/7 en tu idioma</strong>Las 3 de la madrugada, país extranjero, algo salió mal. Escribes al chat — en un minuto te responde una persona real. En tu idioma. No un bot.",
+"p1p8": "<strong>Paga como quieras</strong>Cripto, Apple Pay, Google Pay, Klarna, tarjeta de débito o crédito.",
+"p1p7": "<strong>Lifestyle Mall — como Duty Free, pero siempre online</strong>Más de 3 millones de artículos a precios libres de impuestos. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc. Sin aeropuerto, sin colas.",
+"p1p6": "<strong>Flash Deals — hasta −83% de descuento</strong>Últimas plazas en hoteles de 4-5 estrellas. Dubái, Florida, Maldivas, Italia, Indonesia. Notificación en la app — el primero en llegar vuela.",
+"p1p5": "<strong>Pases de invitado para amigos</strong>Un enlace digital — tu amigo entra como VIP, ve precios mayoristas reales, reserva. Él ahorra — y exactamente eso llega a tu cuenta de Travel Credits.",
+"p1p4": "<strong>Travel Credits en cada reserva</strong>Como cashback — pero lo gastas en tu próximo viaje. Se acumulan, nunca caducan. Compartiste en redes sociales — recibes +30% extra de créditos.",
+"p1p3": "<strong>+1 viajero con su propio login</strong>Cónyuge, amigo, hermano, padres, abuelos — cualquier persona cercana obtiene su propio login y reserva por sí misma. A los mismos precios mayoristas. Sin cargo adicional.",
+"p1p2": "<strong>Garantía de mejor precio 150%</strong>Reservaste — encontraste el mismo hotel más barato — la empresa reembolsa vez y media la diferencia. Condición oficial.",
+"p1p1": "<strong>Todo lo que reserves — a precios mayoristas</strong>Hoteles, resorts, vuelos, cruceros, alquiler de coches, traslados, tours, buceo, safaris, estaciones de esquí, parques temáticos, billetes de tren. Más de 2.000.000 de opciones en todo el mundo.",
+"footer_disc": "Este sitio es un recurso de socio independiente de un Embajador de MWR Life. Creado con fines informativos, no recopila datos de pago directamente y dirige a los usuarios a los recursos oficiales de la empresa. Los resultados son individuales.",
+"m4_new": "La membresía te da acceso a precios mayoristas en hoteles, vuelos, cruceros, alquiler de coches, traslados, excursiones y más. Más de 2.000.000 de ofertas.",
+"m4_old": "Para usar — solo descarga. Gratis. Pero cada reserva alimenta al intermediario en lugar de a ti.",
+"m3_new": "Abre nuestra app y Booking uno al lado del otro. Mismo hotel, mismas fechas. Compara. Incluso contra Genius nivel 3.",
+"m3_old": "Genius nivel 3 es un descuento sobre su margen, no sobre el precio real del hotel. Crees que ahorras. En realidad — pagas menos de más.",
+"m2_new": "Cada vez que un amigo reserva a través de tu enlace — sus ahorros llegan a tu cuenta. Ahorró $60 — tú recibiste $60 Travel Credits.",
+"m2_old": "Recomiendas Booking a amigos. Ellos reservan. Booking gana con sus reservas. Contigo no comparten nada. Trabajas para ellos gratis.",
+"m1_new": "Acordamos directamente con los hoteles: máximo flujo de clientes — máximo descuento. Este descuento te lo pasamos a ti.",
+"m1_old": "Reservas un hotel por $200. Booking toma hasta un 25% de comisión — que el hotel incluye en tu precio. Pagas por el intermediario.",
 "nav_how": "Cómo funciona",
 "nav_rates": "Tarifas",
 "nav_access": "Obtener acceso",
@@ -2047,6 +2308,41 @@
 "scroll": "Desliza"
 },
 "fr": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "Ce site est une ressource partenaire indépendante d'un Ambassadeur MWR Life. Créé à des fins informatives, ne collecte pas de données de paiement directement et dirige les utilisateurs vers les ressources officielles de l'entreprise. Les résultats sont individuels.",
+"m4_new": "L'adhésion vous donne accès aux prix de gros pour hôtels, vols, croisières, locations de voiture, transferts, excursions et plus. Plus de 2 000 000 offres.",
+"m4_old": "Pour l'utiliser — téléchargez simplement. Gratuit. Mais chaque réservation nourrit l'intermédiaire plutôt que vous.",
+"m3_new": "Ouvrez notre application et Booking côte à côte. Même hôtel, mêmes dates. Comparez. Même contre le Genius niveau 3.",
+"m3_old": "Le Genius niveau 3 est une remise sur leur marge, pas sur le vrai prix de l'hôtel. Vous pensez économiser. En réalité — vous surpayez moins.",
+"m2_new": "Chaque fois qu'un ami réserve via votre lien — ses économies arrivent sur votre compte. Il a économisé $60 — vous avez reçu $60 Travel Credits.",
+"m2_old": "Vous recommandez Booking à des amis. Ils réservent. Booking gagne sur leurs réservations. Rien ne vous est partagé. Vous travaillez pour eux gratuitement.",
+"m1_new": "Nous avons convenu directement avec les hôtels: flux maximum de clients — remise maximum. Nous vous transmettons cette remise.",
+"m1_old": "Vous réservez un hôtel pour $200. Booking prend jusqu'à 25% de commission — que l'hôtel intègre dans votre prix. Vous payez pour l'intermédiaire.",
 "nav_how": "Comment ça marche",
 "nav_rates": "Tarifs",
 "nav_access": "Obtenir l'accès",
@@ -2135,6 +2431,41 @@
 "scroll": "Défiler"
 },
 "it": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "Questo sito è una risorsa partner indipendente di un Ambasciatore MWR Life. Creato a scopo informativo, non raccoglie dati di pagamento direttamente e indirizza gli utenti alle risorse ufficiali dell'azienda. I risultati sono individuali.",
+"m4_new": "L'abbonamento ti dà accesso ai prezzi all'ingrosso per hotel, voli, crociere, noleggio auto, transfer, escursioni e altro. Oltre 2.000.000 di offerte.",
+"m4_old": "Per usarlo — scarica semplicemente. Gratis. Ma ogni prenotazione nutre l'intermediario invece di te.",
+"m3_new": "Apri la nostra app e Booking affiancati. Stesso hotel, stesse date. Confronta. Anche contro il Genius livello 3.",
+"m3_old": "Il Genius livello 3 è uno sconto sul loro margine, non sul prezzo reale dell'hotel. Pensi di risparmiare. In realtà — paghi meno in eccesso.",
+"m2_new": "Ogni volta che un amico prenota tramite il tuo link — i suoi risparmi arrivano sul tuo conto. Ha risparmiato $60 — tu hai ricevuto $60 Travel Credits.",
+"m2_old": "Consigli Booking agli amici. Loro prenotano. Booking guadagna sulle loro prenotazioni. Con te non condivide nulla. Lavori per loro gratis.",
+"m1_new": "Abbiamo concordato direttamente con gli hotel: massimo flusso di clienti — massimo sconto. Passiamo questo sconto a te.",
+"m1_old": "Prenoti un hotel per $200. Booking prende fino al 25% di commissione — che l'hotel include nel tuo prezzo. Paghi per l'intermediario.",
 "nav_how": "Come funziona",
 "nav_rates": "Tariffe",
 "nav_access": "Ottieni accesso",
@@ -2223,6 +2554,41 @@
 "scroll": "Scorri"
 },
 "pt": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "Este site é um recurso parceiro independente de um Embaixador da MWR Life. Criado para fins informativos, não coleta dados de pagamento diretamente e direciona usuários aos recursos oficiais da empresa. Os resultados são individuais.",
+"m4_new": "A assinatura dá acesso a preços de atacado em hotéis, voos, cruzeiros, aluguel de carros, traslados, passeios e mais. Mais de 2.000.000 de ofertas.",
+"m4_old": "Para usar — basta baixar. Grátis. Mas cada reserva alimenta o intermediário em vez de você.",
+"m3_new": "Abra nosso app e o Booking lado a lado. Mesmo hotel, mesmas datas. Compare. Mesmo contra o Genius nível 3.",
+"m3_old": "O Genius nível 3 é um desconto sobre a margem deles, não sobre o preço real do hotel. Você acha que está economizando. Na realidade — está pagando menos a mais.",
+"m2_new": "Cada vez que um amigo reserva pelo seu link — as economias dele chegam na sua conta. Ele economizou $60 — você recebeu $60 Travel Credits.",
+"m2_old": "Você recomenda o Booking a amigos. Eles reservam. O Booking ganha com as reservas deles. Nada é compartilhado com você. Você trabalha para eles de graça.",
+"m1_new": "Acordamos diretamente com os hotéis: fluxo máximo de clientes — desconto máximo. Repassamos esse desconto para você.",
+"m1_old": "Você reserva um hotel por $200. O Booking cobra até 25% de comissão — que o hotel inclui no seu preço. Você paga pelo intermediário.",
 "nav_how": "Como funciona",
 "nav_rates": "Planos",
 "nav_access": "Obter acesso",
@@ -2311,6 +2677,41 @@
 "scroll": "Role"
 },
 "ro": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "Acest site este o resursă partener independentă a unui Ambasador MWR Life. Creat în scopuri informaționale, nu colectează date de plată direct și direcționează utilizatorii către resursele oficiale ale companiei. Rezultatele sunt individuale.",
+"m4_new": "Abonamentul vă dă acces la prețuri en-gros pentru hoteluri, zboruri, croaziere, închirieri auto, transferuri, excursii și altele. Peste 2.000.000 de oferte.",
+"m4_old": "Pentru a-l folosi — descărcați pur și simplu. Gratuit. Dar fiecare rezervare hrănește intermediarul în loc de dvs.",
+"m3_new": "Deschideți aplicația noastră și Booking alăturat. Același hotel, aceleași date. Comparați. Chiar și față de Genius nivel 3.",
+"m3_old": "Genius nivel 3 este o reducere din marja lor, nu din prețul real al hotelului. Credeți că economisiți. În realitate — plătiți mai puțin în plus.",
+"m2_new": "De fiecare dată când un prieten rezervă prin linkul dvs. — economiile lui ajung în contul dvs. A economisit $60 — ați primit $60 Travel Credits.",
+"m2_old": "Recomandați Booking prietenilor. Ei rezervă. Booking câștigă din rezervările lor. Cu dvs. nu se împarte nimic. Lucrați pentru ei gratuit.",
+"m1_new": "Am convenit direct cu hotelurile: flux maxim de clienți — reducere maximă. Această reducere v-o transmitem dvs.",
+"m1_old": "Rezervați un hotel pentru $200. Booking ia până la 25% comision — pe care hotelul îl include în prețul dvs. Plătiți pentru intermediar.",
 "nav_how": "Cum funcționează",
 "nav_rates": "Tarife",
 "nav_access": "Obțineți acces",
@@ -2399,6 +2800,41 @@
 "scroll": "Derulați"
 },
 "ko": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "이 사이트는 MWR Life 앰배서더의 독립 파트너 리소스입니다. 정보 제공 목적으로 제작되었으며 결제 데이터를 직접 수집하지 않고 사용자를 회사의 공식 리소스로 안내합니다. 결과는 개인마다 다릅니다.",
+"m4_new": "멤버십은 호텔, 항공편, 크루즈, 렌터카, 이동 서비스, 투어, 테마파크 등의 도매 가격에 접근권을 드립니다. 200만 개 이상의 제안.",
+"m4_old": "사용하려면 — 그냥 다운로드하세요. 무료입니다. 하지만 모든 예약이 당신 대신 중개인을 먹입니다.",
+"m3_new": "우리 앱과 Booking을 나란히 열어보세요. 같은 호텔, 같은 날짜. 비교해보세요. Genius 레벨 3과도요.",
+"m3_old": "Genius 레벨 3은 실제 호텔 가격이 아닌 그들의 마진에 대한 할인입니다. 절약한다고 생각하지만, 실제로는 덜 과다지불하는 것입니다.",
+"m2_new": "친구가 당신의 링크를 통해 예약할 때마다 — 그의 절약액이 당신 계정에 들어옵니다. $60 절약 — 당신은 $60 Travel Credits 수령.",
+"m2_old": "친구들에게 Booking을 추천합니다. 그들이 예약합니다. Booking은 그들의 예약으로 돈을 법니다. 당신과는 아무것도 공유하지 않습니다. 무료로 일하는 셈입니다.",
+"m1_new": "우리는 호텔과 직접 합의했습니다: 최대 고객 흐름 — 최대 할인. 이 할인을 우리가 아닌 당신에게 전달합니다.",
+"m1_old": "호텔을 $200에 예약합니다. Booking은 최대 25%의 수수료를 가져갑니다 — 호텔이 당신의 가격에 포함시킨 것입니다. 당신은 중개인을 위해 돈을 냅니다.",
 "nav_how": "작동 방식",
 "nav_rates": "요금제",
 "nav_access": "액세스 받기",
@@ -2487,6 +2923,41 @@
 "scroll": "스크롤"
 },
 "et": {
+"p3p8": "<strong>Up to 100 points — as a gift to a guest</strong>Bring a friend on a curated trip. Gift them up to $100 from your points towards their booking. A gift from points that were just sitting in your account.",
+"p3p7": "<strong>Maximum commissions from your network</strong>You recommended the service to people. They use it — you receive commissions. At Turbo level — maximum. The system works for you continuously.",
+"p3p6": "<strong>Flex Traveller every 6 months</strong>Life changes. Plans change. Once every six months — flexibility to change booking parameters without penalties. Travel insurance for your plans.",
+"p3p5": "<strong>Exclusive Turbo hotel prices</strong>A section inaccessible even to Elite members. Prices even deeper than Elite wholesale. The third level of the warehouse. Most exclusive. Cheapest.",
+"p3p4": "<strong>Early access to Life Experiences — 2 hours before everyone</strong>The club announces a trip. All Elite get notified at 12:00. As Turbo — you get it at 10:00. You've already picked the best room while others are still waking up.",
+"p3p3": "<strong>1,500 travellers waiting for your link</strong>They all travel and pay retail prices. At registration you receive 1,500 guest passes. You send — they see real prices, book, save. Their savings land in your account.",
+"p3p2": "<strong>$240/month in loyalty points — twice as much as Elite</strong>$240 arrives automatically every month. $2,880 per year just from membership. Spend on everything: hotels, flights, cruises, car rental, tours, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes and more.",
+"p3p1": "<strong>$490 in your account on day one</strong>$250 bonus points arrive immediately upon Turbo registration — plus first monthly points. Haven't travelled anywhere yet — but already have $490. Use it right now.",
+"p2p8": "<strong>Business Hub — a ready system from day one</strong>Your personal site with your link — ready immediately. Marketing funnels. Real-time dashboard. QR code. Scripts and templates. Weekly trainings. Video courses. Community in 100+ countries.",
+"p2p7": "<strong>AI Trip Planner — your personal digital travel agent</strong>Type: \"I want to go to Dubai for 5 days with my wife and two kids, budget $2,000.\" AI instantly picks a hotel, builds a day-by-day itinerary, adds kids' tours, calculates transfers. Ready plan. No travel agent.",
+"p2p6": "<strong>Life Experiences — curated club trips</strong>The club organises a trip — Morocco, four days, five-star hotel, transfer, welcome cocktail, group tour, personal host. $279 per person. On Booking just the hotel costs $600.",
+"p2p5": "<strong>50 guest passes upfront + 20 every month</strong>You send the link. Friend enters as VIP, sees real prices, books. They save — and exactly that amount lands in your Travel Credits.",
+"p2p4": "<strong>+4 travellers with their own logins</strong>Four close people each get their own login and book themselves at the same wholesale prices. One account — five people travelling wholesale.",
+"p2p3": "<strong>Dream trip once a year — fully paid with points</strong>You've been accumulating points all year. Open the app, pick a trip for two — Mallorca, Dubai, Greece, Caribbean — and pay with points. Fully. Zero out of pocket.",
+"p2p2": "<strong>$120/month in loyalty points — automatically</strong>On the 1st of every month, $120 lands in your account. Just for being a member. Each point = $1. Spend on hotels, flights, cruises, car rental, tours, Lifestyle Mall. $1,440 per year.",
+"p2p1": "<strong>Commissions from every referral</strong>You recommended the service — someone joined — you received commissions. You didn't sell. You just shared. Recommend to three people — your monthly payment is fully covered by their subscriptions.",
+"p1p10": "<strong>14 days — full refund</strong>Within 14 days you can cancel and get your money back — if you haven't used your loyalty points. One email. Official condition.",
+"p1p9": "<strong>24/7 support in your language</strong>3am, foreign country, something went wrong with your booking. Message the chat — a real person replies within a minute. In your language. Not a bot.",
+"p1p8": "<strong>Pay however you like</strong>Crypto, Apple Pay, Google Pay, Klarna, debit or credit card.",
+"p1p7": "<strong>Lifestyle Mall — like Duty Free, but online always</strong>Over 3 million products at tax-free prices. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. No airport, no queues.",
+"p1p6": "<strong>Flash Deals — up to −83% off</strong>Last spots at 4-5 star hotels. Dubai, Florida, Maldives, Italy, Indonesia. Push notification — first come, first served.",
+"p1p5": "<strong>Guest passes for friends</strong>A digital link — your friend enters as VIP, sees real wholesale prices, compares with Booking, books. They save — and exactly that amount lands in your Travel Credits account.",
+"p1p4": "<strong>Travel Credits on every booking</strong>Like cashback — but you spend it on your next trip. Accumulate, never expire. Share your booking on social media — get an extra +30% credits on top.",
+"p1p3": "<strong>+1 traveller with their own login</strong>Spouse, friend, sibling, parent, grandparent — any close person gets their own login and books themselves. At the same wholesale prices. No extra charge.",
+"p1p2": "<strong>150% Best Price Guarantee</strong>Booked it — found the same hotel cheaper elsewhere — the company refunds one and a half times the difference. Not just the difference. One and a half times. Official condition.",
+"p1p1": "<strong>Everything you book — at wholesale prices</strong>Hotels, resorts, flights, cruises, car rental, transfers, tours, diving, safaris, ski resorts, theme parks, rail tickets. Over 2,000,000 options worldwide. All in one app.",
+"footer_disc": "See sait on MWR Life Ambasadori sõltumatu partnerressurss. Loodud informatiivsel eesmärgil, ei kogu maksandmeid otse ja suunab kasutajad ettevõtte ametlikele ressurssidele. Tulemused on individuaalsed.",
+"m4_new": "Liikmesus annab juurdepääsu hulgihindadele hotellidele, lendudele, kruiisidele, autorendile, transferidele, ekskursioonidele ja muule. Üle 2 000 000 pakkumise.",
+"m4_old": "Kasutamiseks — lihtsalt laadige alla. Tasuta. Kuid iga broneerimine toidab vahendajat teie asemel.",
+"m3_new": "Avage meie rakendus ja Booking kõrvuti. Sama hotell, samad kuupäevad. Võrrelge. Isegi Genius tase 3 vastu.",
+"m3_old": "Genius tase 3 on allahindlus nende marginaalilt, mitte hotelli tegelikult hinnalt. Arvate et säästate. Tegelikult — maksate vähem üle.",
+"m2_new": "Iga kord kui sõber broneerib teie lingi kaudu — tema säästud jõuavad teie kontole. Ta säästis $60 — teie saite $60 Travel Credits.",
+"m2_old": "Soovitate Bookingut sõpradele. Nad broneerivad. Booking teenib nende broneeringutel. Teiega ei jagata midagi. Töötate nende heaks tasuta.",
+"m1_new": "Leppisime otse hotellidega kokku: maksimaalne kliendivoog — maksimaalne allahindlus. Anname selle allahindluse teile, mitte ei jäta endale.",
+"m1_old": "Broneerisite hotelli $200 eest. Booking võtab kuni 25% komisjoni — mille hotell lisab teie hinnale. Maksate vahendaja eest.",
 "nav_how": "Kuidas töötab",
 "nav_rates": "Hinnakirjad",
 "nav_access": "Hankige juurdepääs",
@@ -2600,8 +3071,11 @@
       }
     });
 
-    // Update lang switcher active state
-    document.querySelectorAll('.lang-btn').forEach(btn => {
+    // Update current lang button
+    const curr = document.getElementById('langCurrentText');
+    if (curr) curr.textContent = lang.toUpperCase();
+    // Update active state in dropdown
+    document.querySelectorAll('.lang-dropdown button').forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
 
@@ -2609,9 +3083,29 @@
     document.documentElement.lang = lang;
   }
 
-  function switchLang(lang) {
+  function toggleLangDropdown(e) {
+    e.stopPropagation();
+    const btn = document.getElementById('langCurrent');
+    const dd = document.getElementById('langDropdown');
+    btn.classList.toggle('open');
+    dd.classList.toggle('open');
+  }
+
+  function selectLang(lang) {
+    const dd = document.getElementById('langDropdown');
+    const btn = document.getElementById('langCurrent');
+    dd.classList.remove('open');
+    btn.classList.remove('open');
     applyLang(lang);
   }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', () => {
+    document.getElementById('langDropdown').classList.remove('open');
+    document.getElementById('langCurrent').classList.remove('open');
+  });
+
+  function switchLang(lang) { applyLang(lang); }
 
 
   // ── THEME SYSTEM ──
