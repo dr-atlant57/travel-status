@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="meta_title">Travel Club Membership Math & ROI | TravelStatus</title>
+    <meta name="description" id="meta-desc" content="A mathematical breakdown of closed travel club memberships. Calculate the exact return on investment (ROI) and breakeven point when bypassing retail premiums.">
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1a;
+            --text-muted: #5a5a5a;
+            --accent-color: #004B87;
+            --border-color: #e5e5e5;
+            --card-bg: #f8f9fa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .lang-switcher {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #2c2c2c;
+            text-align: justify;
+        }
+        .meta-descr {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+        }
+        blockquote {
+            margin: 30px 0;
+            padding: 0 0 0 20px;
+            border-left: 3px solid var(--accent-color);
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        .bridge-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .bridge-block h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.3rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="/" class="logo">TRAVELSTATUS</a>
+        <select class="lang-switcher" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ro">Română</option>
+            <option value="ko">한국어</option>
+            <option value="et">Eesti</option>
+        </select>
+    </header>
+
+    <main>
+        <h1 data-i18n="h1">The Mathematics of Travel Clubs: Calculating Real Membership ROI</h1>
+        <p class="meta-descr" data-i18n="meta_descr">A financial audit framework to determine the breakeven metrics and long-term return on investment when utilizing paid private travel networks.</p>
+
+        <p data-i18n="p1">Paid private travel networks and closed user groups (CUGs) charge upfront entry or subscription fees to grant access to wholesale rates. To determine whether a premium membership is financially viable, travelers must strip away marketing promises and evaluate the underlying financial arbitrage equation.</p>
+
+        <blockquote data-i18n="quote">
+            A travel membership is a financial hedge: you pay a fixed operational fee to eliminate variable retail margins across your annual booking volume.
+        </blockquote>
+
+        <h2 data-i18n="h2_1">The Arbitrage Equation & Breakeven Framework</h2>
+        <p data-i18n="p2">The basic financial model behind a closed booking architecture relies on a clear margin comparison across premium hotel categories:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th data-i18n="th1">Metric Layer</th>
+                    <th data-i18n="th2">Public Retail OTA</th>
+                    <th data-i18n="th3">Private Wholesale Club</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-i18n="td1_1"><strong>Platform Monetization</strong></td>
+                    <td data-i18n="td1_2">15% – 40% commission injected into every individual transaction.</td>
+                    <td data-i18n="td1_3">Fixed, transparent subscription fee. Zero margin on transactions.</td>
+                </tr>
+                <tr>
+                    <td data-i18n="td2_1"><strong>Average Dynamic Markup</strong></td>
+                    <td data-i18n="td2_2">$45 – $120+ per night on 5-star properties.</td>
+                    <td data-i18n="td2_3">$0 per night (passed directly at raw B2B net rate).</td>
+                </tr>
+                <tr>
+                    <td><strong data-i18n="td3_1">Breakeven Threshold</strong></td>
+                    <td data-i18n="td3_2">Instant (but pays maximum friction costs on every booking).</td>
+                    <td><strong data-i18n="td3_3">Typically 4 to 7 room nights per fiscal year.</strong></td>
+                </tr>
+                <tr>
+                    <td data-i18n="td4_1"><strong>Marginal Cost per Booking</strong></td>
+                    <td data-i18n="td4_2">Escalates linearly with stay length and luxury room tiers.</td>
+                    <td data-i18n="td4_3">Stays absolute zero. High-volume users maximize financial return.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 data-i18n="h2_2">Calculating Your Personal Return on Investment</h2>
+        <p data-i18n="p3">The return matrix is directly proportional to two key variables: your annual room-night volume and your average property tier. Because wholesale net rates offer larger absolute savings on premium luxury boutique chains and 5-star properties, high-tier business and leisure travelers hit their inflection point significantly faster than low-frequency flyers.</p>
+        
+        <p data-i18n="p4">When these fixed fee structures are amortized across a multi-week travel schedule, the transactional efficiency quickly surpasses any public cash-back mechanism or legacy credit card reward points. The system converts variable retail friction directly back into consumer capital.</p>
+
+        <div class="bridge-block">
+            <h3 data-i18n="b_title">Audit Your Personal Travel Math</h3>
+            <p data-i18n="b_text">TravelStatus provides raw wholesale infrastructure data streams. Run your actual historical booking data past our architectural matrix to view your exact delta.</p>
+            <a href="/vip" class="btn" data-i18n="b_btn">Apply for Membership Status</a>
+        </div>
+
+        <h2 data-i18n="h2_3">The Structural Inversion of Risk</h2>
+        <p data-i18n="p5">Standard booking sites optimize their platforms for single-transaction conversions, spending heavily on user acquisition and passing that friction cost directly to you. Conversely, private rate infrastructures shift the risk model: by charging a predictable subscription fee, they can afford to pass raw inventory prices directly downward, aligning the network's operational longevity with your absolute transactional savings.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TravelStatus.cc. Human Infrastructure Optimization.</p>
+    </footer>
+</div>
+
+<script>
+const translations = {
+    en: {
+        meta_title: "Travel Club Membership Math & ROI | TravelStatus",
+        meta_desc: "A mathematical breakdown of closed travel club memberships. Calculate the exact return on investment (ROI) and breakeven point when bypassing retail premiums.",
+        h1: "The Mathematics of Travel Clubs: Calculating Real Membership ROI",
+        meta_descr: "A financial audit framework to determine the breakeven metrics and long-term return on investment when utilizing paid private travel networks.",
+        p1: "Paid private travel networks and closed user groups (CUGs) charge upfront entry or subscription fees to grant access to wholesale rates. To determine whether a premium membership is financially viable, travelers must strip away marketing promises and evaluate the underlying financial arbitrage equation.",
+        quote: "A travel membership is a financial hedge: you pay a fixed operational fee to eliminate variable retail margins across your annual booking volume.",
+        h2_1: "The Arbitrage Equation & Breakeven Framework",
+        p2: "The basic financial model behind a closed booking architecture relies on a clear margin comparison across premium hotel categories:",
+        th1: "Metric Layer", th2: "Public Retail OTA", th3: "Private Wholesale Club",
+        td1_1: "Platform Monetization", td1_2: "15% – 40% commission injected into every individual transaction.", td1_3: "Fixed, transparent subscription fee. Zero margin on transactions.",
+        td2_1: "Average Dynamic Markup", td2_2: "$45 – $120+ per night on 5-star properties.", td2_3: "$0 per night (passed directly at raw B2B net rate).",
+        td3_1: "Breakeven Threshold", td3_2: "Instant (but pays maximum friction costs on every booking).", td3_3: "Typically 4 to 7 room nights per fiscal year.",
+        td4_1: "Marginal Cost per Booking", td4_2: "Escalates linearly with stay length and luxury room tiers.", td4_3: "Stays absolute zero. High-volume users maximize financial return.",
+        h2_2: "Calculating Your Personal Return on Investment",
+        p3: "The return matrix is directly proportional to two key variables: your annual room-night volume and your average property tier. Because wholesale net rates offer larger absolute savings on premium luxury boutique chains and 5-star properties, high-tier business and leisure travelers hit their inflection point significantly faster than low-frequency flyers.",
+        p4: "When these fixed fee structures are amortized across a multi-week travel schedule, the transactional efficiency quickly surpasses any public cash-back mechanism or legacy credit card reward points. The system converts variable retail friction directly back into consumer capital.",
+        b_title: "Audit Your Personal Travel Math",
+        b_text: "TravelStatus provides raw wholesale infrastructure data streams. Run your actual historical booking data past our architectural matrix to view your exact delta.",
+        b_btn: "Apply for Membership Status",
+        h2_3: "The Structural Inversion of Risk",
+        p5: "Standard booking sites optimize their platforms for single-transaction conversions, spending heavily on user acquisition and passing that friction cost directly to you. Conversely, private rate infrastructures shift the risk model: by charging a predictable subscription fee, they can afford to pass raw inventory prices directly downward, aligning the network's operational longevity with your absolute transactional savings."
+    },
+    ru: {
+        meta_title: "Математика закрытых тревел-клубов и ROI | TravelStatus",
+        meta_desc: "Финансовый разбор платного членства в закрытых системах бронирования. Расчет окупаемости (ROI) и точки безубыточности при обходе розницы.",
+        h1: "Математика тревел-клубов: расчет реальной окупаемости подписки",
+        meta_descr: "Финансовый аудит для определения точек безубыточности и долгосрочного возврата инвестиций (ROI) при использовании закрытых сетей бронирования.",
+        p1: "Платные закрытые системы и приватные группы пользователей (CUG) взимают фиксированные взносы за доступ к оптовым тарифам отелей. Чтобы понять финансовую целесообразность такого членства, необходимо убрать маркетинговые обещания и проанализировать уравнение чистого ценового арбитража.",
+        quote: "Клубное членство — это финансовый хедж: вы платите фиксированную операционную стоимость, чтобы полностью ликвидировать переменную розничную маржу на весь ваш годовой объем поездок.",
+        h2_1: "Уравнение арбитража и матрица безубыточности",
+        p2: "Базовая экономическая модель закрытой архитектуры бронирования строится на сравнении структуры издержек в премиальных категориях отелей:",
+        th1: "Метрика эффективности", th2: "Публичное розничное OTA", th3: "Закрытый оптовый клуб",
+        td1_1: "Монетизация платформы", td1_2: "Комиссия от 15% до 40% закладывается внутрь каждого отдельного бронирования.", td1_3: "Фиксированная прозрачная подписка. Нулевая комиссия на транзакции.",
+        td2_1: "Средняя динамическая наценка", td2_2: "$45 – $120+ за одну ночь в отелях категории 5 звезд.", td2_3: "$0 за ночь (номера передаются строго по чистой B2B-стоимости).",
+        td3_1: "Точка безубыточности подписки", td3_2: "Мгновенно (но вы платите максимальные издержки трения при каждой сделке).", td3_3: "Обычно от 4 до 7 забронированных ночей за отчетный финансовый год.",
+        td4_1: "Маржинальный налог на объем", td4_2: "Растет линейно вместе с длительностью проживания и элитарностью номеров.", td4_3: "Остается абсолютно нулевым. Большой объем бронирований максимизирует ROI.",
+        h2_2: "Расчет индивидуального возврата инвестиций",
+        p3: "Матрица доходности напрямую привязана к двум переменным: вашему годовому объёму ночей и классу выбираемых отелей. Поскольку оптовые нетто-тарифы дают наибольшую абсолютную экономию на премиальных люксовых сетях и бутик-отелях 5*, часто путешествующие топ-менеджеры и предприниматели окупают подписку значительно быстрее.",
+        p4: "Когда фиксированные затраты на подписку распределяются на несколько недель поездок в течение года, транзакционная эффективность мгновенно превосходит любые розничные кэшбеки или классические бонусные мили банковских карт. Система превращает переменную розничную наценку обратно в ваш личный капитал.",
+        b_title: "Проверьте математику ваших поездок",
+        b_text: "TravelStatus предоставляет доступ к чистым потокам данных оптовой инфраструктуры. Пропустите историю ваших реальных бронирований через нашу матрицу для оценки точной дельты.",
+        b_btn: "Подать заявку на статус участника",
+        h2_3: "Структурная инверсия рисков",
+        p5: "Обычные сайты бронирования оптимизируют платформы под разовые продажи, тратя огромные средства на рекламу и перекладывая эти издержки на вас. Закрытые инфраструктуры меняют модель: за счет прогнозируемого дохода от подписок они могут позволить себе отдавать инвентарь по исходной цене, связывая долголетие своей сети с вашей прямой финансовой выгодой."
+    },
+    de: {
+        meta_title: "Reiseclub Mitgliedschaft Math & ROI | TravelStatus",
+        meta_desc: "Eine mathematische Analyse geschlossener Reiseclubs. Berechnen Sie den Return on Investment (ROI) und die Gewinnschwelle.",
+        h1: "Die Mathematik der Reiseclubs: Berechnung des realen ROI",
+        meta_descr: "Ein finanzieller Prüfungsrahmen zur Bestimmung der Breakeven-Metriken bei der Nutzung privater Buchungsnetzwerke.",
+        p1: "Kostenpflichtige private Reiseclubs verlangen Abonnements, um Zugang zu Großhandelspreisen zu gewähren. Um zu sehen, ob sich eine Mitgliedschaft lohnt, muss man die reine Arbitrage-Gleichung betrachten.",
+        quote: "Eine Reise-Mitgliedschaft ist eine finanzielle Absicherung: Sie zahlen eine feste Gebühr, um variable Einzelhandelsmargen zu eliminieren.",
+        h2_1: "Die Arbitrage-Gleichung & Breakeven-Matrix",
+        p2: "Das Finanzmodell hinter einer geschlossenen Buchungsarchitektur basiert auf einem klaren Margenvergleich:",
+        th1: "Metrische Ebene", th2: "Öffentliches Einzelhandels-OTA", th3: "Privater Großhandelsclub",
+        td1_1: "Plattform-Monetarisierung", td1_2: "15 % – 40 % Provision, die in jede einzelne Transaktion einfließt.", td1_3: "Feste, transparente Abonnementgebühr. Keine Transaktionsmargen.",
+        td2_1: "Durchschnittlicher Aufschlag", td2_2: "45 $ – 120 $+ pro Nacht in 5-Sterne-Hotels.", td2_3: "0 $ pro Nacht (Weitergabe direkt zum rohen B2B-Nettopreis).",
+        td3_1: "Gewinnschwelle", td3_2: "Sofort (aber Sie zahlen maximale Reibungskosten bei jeder Buchung).", td3_3: "In der Regel 4 bis 7 Zimmernächte pro Geschäftsjahr.",
+        td4_1: "Marginale Kosten pro Buchung", td4_2: "Steigt linear mit der Aufenthaltsdauer und den Luxuskategorien.", td4_3: "Bleibt absolut null. Vielreisende maximieren den finanziellen Ertrag.",
+        h2_2: "Berechnung Ihres persönlichen ROI",
+        p3: "Die Ertragsmatrix hängt von zwei Variablen ab: Ihrem jährlichen Buchungsvolumen und der Hotelkategorie. Da Großhandelspreise die größten Einsparungen bei Luxushotels bieten, erreichen anspruchsvolle Reisende die Gewinnschwelle viel schneller.",
+        p4: "Wenn diese festen Gebühren auf ein ganzes Reisejahr verteilt werden, übertrifft die Effizienz schnell herkömmliche Kreditkarten-Punkteprogramme. Das System wandelt Einzelhandelsaufschläge direkt in Ersparnisse um.",
+        b_title: "Prüfen Sie Ihre Reisemathematik",
+        b_text: "TravelStatus bietet Zugriff auf rohe Großhandelsdaten. Vergleichen Sie Ihre historischen Buchungsdaten, um Ihre exakte Ersparnis zu sehen.",
+        b_btn: "Mitgliedschaftsstatus beantragen",
+        h2_3: "Die strukturelle Umkehrung des Risikos",
+        p5: "Standard-Buchungsseiten optimieren auf Einzeltransaktionen und finanzieren teure Werbung durch Aufschläge auf Ihre Zimmer. Private Clubs ändern das Modell: Durch kalkulierbare Abonnements können sie Zimmer zu Einstandspreisen weitergeben."
+    },
+    es: {
+        meta_title: "Matemáticas de clubes de viajes y ROI | TravelStatus",
+        meta_desc: "Un desglose financiero de las membresías de clubes de viajes privados. Calcule el ROI exacto y el punto de equilibrio.",
+        h1: "La matemática de los clubes de viajes: calculando el ROI real",
+        meta_descr: "Un marco de auditoría financiera para determinar las métricas de equilibrio y el retorno de inversión a largo plazo.",
+        p1: "Los clubes de viajes privados cobran tarifas de suscripción para dar acceso a tarifas mayoristas. Para determinar si una membresía premium es viable, los viajeros deben evaluar la ecuación de arbitraje financiero.",
+        quote: "Una membresía de viajes es una cobertura financiera: pagas una tarifa fija para eliminar los márgenes minoristas variables de tus reservas.",
+        h2_1: "La ecuación de arbitraje y punto de equilibrio",
+        p2: "El modelo financiero detrás de una arquitectura de reserva cerrada se basa en una comparación directa de márgenes:",
+        th1: "Capa Métrica", th2: "OTA Minorista Pública", th3: "Club Mayorista Privado",
+        td1_1: "Monetización", td1_2: "Comisión del 15% al 40% inyectada en cada transacción individual.", td1_3: "Tarifa de suscripción fija y transparente. Sin margen en transacciones.",
+        td2_1: "Margen Promedio", td2_2: "$45 – $120+ por noche en hoteles de 5 estrellas.", td2_3: "$0 por noche (enviado directamente a tarifa neta B2B).",
+        td3_1: "Umbral de Equilibrio", td3_2: "Instantáneo (pero pagando el máximo costo de fricción en cada reserva).", td3_3: "Normalmente de 4 a 7 noches de hotel por año fiscal.",
+        td4_1: "Costo Marginal", td4_2: "Escala linealmente con la duración de la estancia y el lujo.", td4_3: "Se mantiene en cero absoluto. Los usuarios de alto volumen maximizan el ROI.",
+        h2_2: "Calculando su Retorno de Inversión personal",
+        p3: "La matriz de retorno es proporcional a dos variables: su volumen anual de noches y la categoría del hotel. Como las tarifas netas ofrecen mayores ahorros en hoteles de 5 estrellas, los viajeros premium amortizan la tarifa mucho más rápido.",
+        p4: "Al prorratear este costo fijo en varias semanas de viajes al año, la eficiencia supera rápidamente a los sistemas de recompensas tradicionales de las tarjetas de crédito. El sistema convierte la fricción minorista en capital.",
+        b_title: "Audite la matemática de sus viajes",
+        b_text: "TravelStatus proporciona flujos de datos mayoristas directos. Compare su historial de reservas para ver su delta exacta.",
+        b_btn: "Solicitar Estatus de Miembro",
+        h2_3: "La inversión estructural del riesgo",
+        p5: "Los sitios de reserva estándar optimizan para transacciones únicas y pagan publicidad costosa con los márgenes de sus habitaciones. Las redes privadas cambian el modelo: con una suscripción predecible, ofrecen inventario neto directo."
+    },
+    fr: {
+        meta_title: "Mathématiques des clubs de voyage & ROI | TravelStatus",
+        meta_desc: "Analyse financière des abonnements aux clubs de voyage privés. Calculez le ROI exact et le point de rentabilité.",
+        h1: "La mathématique des clubs de voyage : calculer le ROI réel",
+        meta_descr: "Un cadre d'audit financier pour déterminer le point de rentabilité et le retour sur investissement à long terme.",
+        p1: "Les réseaux de voyage privés facturent un abonnement pour donner accès aux tarifs de gros. Pour mesurer la viabilité financière d'un tel club, il faut évaluer l'équation d'arbitrage sous-jacente.",
+        quote: "L'adhésion à un club est une couverture financière : vous payez des frais fixes pour éliminer les marges de détail variables.",
+        h2_1: "L'équation d'arbitrage & matrice de rentabilité",
+        p2: "Le modèle financier d'une architecture de réservation fermée repose sur une comparaison claire des structures de coûts :",
+        th1: "Métrique", th2: "OTA Grand Public", th3: "Club de Gros Privé",
+        td1_1: "Monétisation", td1_2: "Commission de 15% à 40% injectée dans chaque transaction.", td1_3: "Abonnement fixe et transparent. Zéro marge sur les transactions.",
+        td2_1: "Marge Moyenne", td2_2: "45$ à 120$+ par nuit dans les propriétés 5 étoiles.", td2_3: "0$ par nuit (transmis directement au tarif net B2B brut).",
+        td3_1: "Seuil de Rentabilité", td3_2: "Immédiat (mais vous payez les frais de friction maximaux à chaque achat).", td3_3: "Généralement de 4 à 7 nuits d'hôtel par exercice annuel.",
+        td4_1: "Coût Marginal", td4_2: "Augmente linéairement selon la durée et le niveau de luxe.", td4_3: "Reste à zéro absolu. Les gros volumes maximisent le retour financier.",
+        h2_2: "Calculer votre Retour sur Investissement personnel",
+        p3: "Le rendement dépend de deux variables : votre volume annuel de nuits et la catégorie d'hôtel. Les tarifs nets offrant des économies majeures sur le segment 5*, les voyageurs fréquents atteignent le point d'équilibre plus vite.",
+        p4: "Lorsque ces frais fixes sont amortis sur plusieurs semaines de voyage, l'efficacité dépasse les programmes de fidélité des cartes de crédit. Le système transforme les marges de détail en économies directes.",
+        b_title: "Auditez vos chiffres de voyage",
+        b_text: "TravelStatus fournit des flux de données de gros bruts. Comparez votre historique de réservation pour voir votre delta exact.",
+        b_btn: "Demander le Statut de Membre",
+        h2_3: "L'inversion structurelle du risque",
+        p5: "Les sites grand public optimisent pour des ventes uniques et financent des campagnes publicitaires avec les marges de vos chambres. Les réseaux privés changent la donne : via un abonnement fixe, ils distribuent les tarifs nets d'usine."
+    },
+    it: {
+        meta_title: "Matematica dei club di viaggio e ROI | TravelStatus",
+        meta_desc: "Analisi finanziaria delle iscrizioni ai club di viaggio privati. Calcola il ROI esatto e il punto di pareggio.",
+        h1: "La matematica dei club di viaggio: calcolare il ROI reale",
+        meta_descr: "Un modello di controllo finanziario per determinare le metriche di pareggio e il ritorno sull'investimento a lungo tempo.",
+        p1: "I club di viaggio privati applicano quote di abbonamento per garantire l'accesso alle tariffe all'ingrosso. Per comprendere la convenienza di un club premium, occorre analizzare l'equazione di arbitraggio finanziario.",
+        quote: "L'iscrizione a un club è una copertura finanziaria: paghi un costo fisso per eliminare i margini commerciali variatili dalle tue prenotazioni.",
+        h2_1: "L'equazione di arbitraggio e punto di pareggio",
+        p2: "Il modello economico di una rete di prenotazione protetta si basa sul confronto diretto dei margini applicati:",
+        th1: "Livello Metrico", th2: "OTA Pubblica Consumer", th3: "Club all'Ingrosso Privato",
+        td1_1: "Monetizzazione", td1_2: "Commissioni dal 15% al 40% integrate in ogni singola transazione.", td1_3: "Quota di abbonamento fissa e trasparente. Zero commissioni sui contratti.",
+        td2_1: "Ricarico Medio", td2_2: "$45 – $120+ a notte sulle strutture a 5 stelle.", td2_3: "$0 a notte (camere passate direttamente al prezzo netto B2B).",
+        td3_1: "Soglia di Pareggio", td3_2: "Immediata (ma pagando il massimo costo di intermediazione su ogni viaggio).", td3_3: "In media da 4 a 7 notti d'albergo per anno fiscale.",
+        td4_1: "Costo Marginal", td4_2: "Cresce linearmente con la durata del soggiorno e il lusso della camera.", td4_3: "Resta a zero assoluto. Volumi elevati massimizzano il ritorno finanziario.",
+        h2_2: "Calcolare il proprio Ritorno sull'Investimento",
+        p3: "Il rendimento è proporzionale a due variabili: il numero di notti annuali e la classe degli hotel scelti. Poiché le tariffe nette garantiscono risparmi maggiori sugli hotel 5*, i viaggiatori premium ammortizzano la quota molto più rapidamente.",
+        p4: "Ripartendo questo costo fisso su più settimane di viaggio all'anno, l'efficienza supera i normali sistemi di cashback o i punti delle carte di credito. Il sistema trasforma i ricarichi dei canali di vendita in risparmio reale.",
+        b_title: "Analizza la matematica dei tuoi viaggi",
+        b_text: "TravelStatus fornisce flussi di dati all'ingrosso diretti. Verifica il tuo storico prenotazioni per scoprire il tuo delta reale.",
+        b_btn: "Richiedi lo Status di Membro",
+        h2_3: "L'inversione strutturale del rischio",
+        p5: "I portali tradizionali ottimizzano per vendite singole, finanziando costose campagne di marketing con ricarichi sulle vostre camere. Le reti private cambiano modello: con un abbonamento prevedibile, distribuiscono l'inventario a prezzo di costo."
+    },
+    pt: {
+        meta_title: "Matemática de clubes de viagens e ROI | TravelStatus",
+        meta_desc: "Análise financeira de subscrições de clubes de viagens privados. Calcule o ROI exato e o ponto de equilíbrio.",
+        h1: "A Matemática dos Clubes de Viagens: Calculando o ROI Real",
+        meta_descr: "Estrutura de auditoria financeira para determinar as métricas de equilíbrio e o retorno do investimento a longo prazo.",
+        p1: "Os clubes de viagens cobram taxas de subscrição para dar acesso a tarifas grossistas. Para determinar se uma adesão premium é viável, os viajantes devem avaliar a equação de arbitragem financeira.",
+        quote: "Uma subscrição de viagens é uma proteção financeira: paga uma taxa fixa para eliminar as margens de retalho variáveis do seu volume anual.",
+        h2_1: "A Equação de Arbitragem e Ponto de Equilíbrio",
+        p2: "O modelo financeiro por trás de uma arquitetura de reserva fechada assenta numa comparação clara de margens:",
+        th1: "Métrica", th2: "OTA de Retalho Pública", th3: "Club Grossista Privado",
+        td1_1: "Monetização", td1_2: "Comissão de 15% a 40% injetada em cada transação individual.", td1_3: "Taxa de subscrição fixa e transparente. Sem margem nas transações.",
+        td2_1: "Margem Média", td2_2: "$45 – $120+ por noite em propriedades de 5 estrelas.", td2_3: "$0 por noite (transmitido ao preço net B2B direto).",
+        td3_1: "Ponto de Equilíbrio", td3_2: "Imediato (mas pagando o custo de fricção máximo em cada reserva).", td3_3: "Normalmente 4 a 7 noites de hotel por ano fiscal.",
+        td4_1: "Custo Marginal", td4_2: "Escala linearmente com a duração da estadia e o nível de luxo.", td4_3: "Mantém-se em zero absoluto. Volumes elevados maximizam o ROI.",
+        h2_2: "Calculando o seu Retorno de Investimento pessoal",
+        p3: "A matriz de retorno é proporcional a duas variáveis: o volume anual de noites e a categoria do hotel. Como as tarifas net oferecem maior poupança em hotéis de 5*, os viajantes premium recuperam o investimento muito mais rápido.",
+        p4: "Ao diluir este custo fixo por várias semanas de viagens, a eficiência supera os sistemas tradicionais de recompensas dos cartões de crédito. O sistema converte a fricção de retalho em poupança direta.",
+        b_title: "Audite a matemática das suas viagens",
+        b_text: "A TravelStatus fornece fluxos de dados grossistas diretos. Cruze o seu histórico de reservas para ver a sua delta exata.",
+        b_btn: "Solicitar Estatuto de Membro",
+        h2_3: "A inversão estrutural do risco",
+        p5: "Os sites de retalho tradicionais otimizam para transações únicas e financiam anúncios caros com as margens dos quartos. As redes privadas mudam o modelo: com uma subscrição previsível, entregam inventário net direto."
+    },
+    ro: {
+        meta_title: "Matematica cluburilor de călătorii și ROI | TravelStatus",
+        meta_desc: "O analiză financiară a abonamentelor la cluburi de călătorie private. Calculați ROI-ul exact și punctul de rentabilitate.",
+        h1: "Matematica cluburilor de călătorie: calculul ROI-ului real",
+        meta_descr: "Un cadru de audit financiar pentru determinarea punctului de rentabilitate și a rentabilității investiției pe termen lung.",
+        p1: "Cluburile de călătorie private percep abonamente fixe pentru a oferi acces la tarifele engros. Pentru a măsura fezabilitatea financiară, călătorii trebuie să analizeze ecuația de arbitraj financiar.",
+        quote: "Abonamentul la un club este o acoperire financiară: plătești o taxă fixă pentru a elimina marjele de retail variabile din călătoriile tale.",
+        h2_1: "Ecuația de arbitraj și matricea de rentabilitate",
+        p2: "Modelul financiar al unei arhitecturi de rezervare închise se bazează pe o comparație directă a structurii costurilor:",
+        th1: "Nivel Metric", th2: "OTA de Retail Publică", th3: "Club de Gros Privat",
+        td1_1: "Monetizare", td1_2: "Comision de 15% – 40% inclus în fiecare tranzacție individuală.", td1_3: "Taxă de abonament fixă și transparentă. Zero comision pe tranzacții.",
+        td2_1: "Adaos Mediu", td2_2: "$45 – $120+ pe noapte la hotelurile de 5 stele.", td2_3: "$0 pe noapte (transmis direct la prețul net B2B brut).",
+        td3_1: "Punct de Rentabilitate", td3_2: "Instant (dar plătind costul maxim de fricțiune la fiecare rezervare).", td3_3: "De regulă între 4 și 7 nopți de cazare pe an fiscal.",
+        td4_1: "Cost Marginal", td4_2: "Crește liniar cu durata șederii și nivelul de lux al camerei.", td4_3: "Rămâne zero absolut. Volumele mari maximizează rentabilitatea financiară.",
+        h2_2: "Calculul Rentabilității Investiției personale",
+        p3: "Randamentul depinde de două variabile: volumul anual de nopți și categoria hotelurilor. Deoarece tarifele nete oferă economii mari la hotelurile de 5*, călătorii frecvenți își amortizează taxa mult mai rapid.",
+        p4: "Când aceste costuri fixe sunt amortizate pe mai multe săptămâni de călătorie, eficiența depășește sistemele clasice de cashback ale cardurilor. Sistemul transformă adaosurile de retail în capital salvat.",
+        b_title: "Verifică matematica călătoriilor tale",
+        b_text: "TravelStatus oferă acces la fluxuri de date engros brute. Introduceți istoricul rezervărilor pentru a vedea delta exactă.",
+        b_btn: "Solicită Statutul de Membru",
+        h2_3: "Inversarea structurală a riscului",
+        p5: "Site-urile standard optimizează pentru vânzări unice și finanțează campanii publicitare din adaosurile camerelor dumneavoastră. Rețelele private schimbă modelul: printr-un abonament predictibil, distribuie inventarul la preț de cost."
+    },
+    ko: {
+        meta_title: "여행 클럽 멤버십의 경제학 및 ROI | TravelStatus",
+        meta_desc: "폐쇄형 여행 클럽 멤버십에 대한 재무적 분석. 소매 마진 우회 시 발생하는 정확한 ROI 및 손익분기점 계산.",
+        h1: "여행 클럽의 경제학: 멤버십의 실제 ROI 산출 공식",
+        meta_descr: "유료 프라이빗 여행 네트워크를 이용할 때 발생하는 손익분기점 지표 및 장기적 투자 수익률(ROI)을 검증하기 위한 재무 감사 프레임워크.",
+        p1: "유료 프라이빗 여행 네트워크와 폐쇄형 이용자 그룹(CUG)은 호텔 도매가 접근 권한을 제공하는 대가로 가입비나 정기 구독료를 부과합니다. 이러한 프리미엄 멤버십이 재무적으로 타당한지 판단하려면 마케팅 수식어를 걷어내고 철저한 가격 아비트리지 공식을 따져봐야 합니다.",
+        quote: "여행 멤버십은 재무적 헤지 수단입니다. 연간 총 예약 볼륨에서 발생하는 가변적인 소매 마진을 제거하기 위해 고정된 운영 비용을 지불하는 것입니다.",
+        h2_1: "아비트리지 공식 및 손익분기점 매트릭스",
+        p2: "폐쇄형 예약 아키텍처의 기본 재무 모델은 프리미엄 호텔 카테고리 전반의 명확한 마진 비교를 바탕으로 합니다.",
+        th1: "평가 지표 레이어", th2: "공개형 소매 OTA", th3: "프라이빗 도매 클럽",
+        td1_1: "플랫폼 수익 모델", td1_2: "개별 거래마다 15% ~ 40%의 중개 수수료가 요금 내에 누적 추가됨.", td1_3: "투명한 고정 구독료 방식. 거래에 따른 플랫폼 마진 0%.",
+        td2_1: "1박당 평균 소매 마진", td2_2: "5성급 호텔 기준 1박당 최소 $45 ~ $120+ 수준.", td2_3: "1박당 $0 (원시 B2B 도매 네트가 그대로 회원에게 전달).",
+        td3_1: "멤버십 손익분기점", td3_2: "즉시 도달 (단, 예약할 때마다 매번 최대의 소매 유통 비용을 지불해야 함).", td3_3: "회계연도 기준 연간 평균 4박에서 7박 사이.",
+        td4_1: "볼륨 확대에 따른 한계 비용", td4_2: "투숙 기간이 길어지고 객실 등급이 높아질수록 소매 마진 세금이 선형으로 증가.", td4_3: "철저히 제로(0) 유지. 예약 볼륨이 클수록 이용자의 ROI 극대화.",
+        h2_2: "개인별 투자 수익률(ROI) 산출 방식",
+        p3: "멤버십의 수익 매트릭스는 연간 총 숙박 일수와 주로 이용하는 호텔 등급이라는 두 가지 핵심 변수에 직접적으로 비례합니다. 도매 네트가는 최고급 럭셔리 부티크 체인이나 5성급 호텔에서 가장 큰 절대적 절감액을 제공하므로, 프리미엄 출장자나 휴양 여행객일수록 멤버십 비용의 회수 시점이 훨씬 빨라집니다.",
+        p4: "이러한 고정 연회비 구조를 연간 여러 주에 걸친 여행 일정 전반으로 분할 상환할 경우, 그 거래 효율성은 대중적인 신용카드 포인트 적립이나 캐시백 메커니즘을 순식간에 압도하게 됩니다. 유통 과정에서 사라지던 가변 소매 마진을 소비자의 자산으로 직접 재전환하는 시스템입니다.",
+        b_title: "귀하의 실제 여행 비용을 감사해 보세요",
+        b_text: "TravelStatus는 가공 없는 도매 인프라 데이터 스트림을 제공합니다. 귀하의 실제 과거 예약 데이터를 당사의 아키텍처 매트릭스에 대입하여 정확한 절감 델타를 확인하십시오.",
+        b_btn: "멤버십 등급 신청하기",
+        h2_3: "구조적 리스크의 반전",
+        p5: "일반적인 예약 사이트들은 단발성 결제 전환에 최적화되어 있어, 막대한 고객 유치 비용을 쓰고 그 비용을 객실 소매가에 얹어 사용자에게 전가합니다. 반면 프라이빗 요금 인프라는 리스크 모델을 반전시킵니다. 예측 가능한 구독료를 기반으로 운영되므로, 인위적인 마진 왜곡 없이 원시 인벤토리를 그대로 공급하여 네트워크의 장기적 생존을 회원의 절대적 비용 절감과 일치시킵니다."
+    },
+    et: {
+        meta_title: "Reisiklubi matemaatika ja ROI | TravelStatus",
+        meta_desc: "Privaatsete reisiklubide tellimuste finantsanalüüs. Arvutage täpne ROI ja tasuvuspunkt, kui jaemüügi marginaalid on välistatud.",
+        h1: "Reisiklubide matemaatika: liikmelisuse reaalse ROI arvutamine",
+        meta_descr: "Finantsauditi raamistik tasuvuspunkti ja pikaajalise investeeringutasuvuse (ROI) määramiseks privaatsete reisivõrkude kasutamisel.",
+        p1: "Tasulised privaatsed reisivõrgud küsivad hulgihindadele ligipääsu eest fikseeritud liikmetasusid. Et mõista, kas premium-liikmelisus on finantsiliselt otstarbekas, tuleb kõrvale jätta turundus ja analüüsida reaalset arbitraaži valemit.",
+        quote: "Reisiklubi liikmelisus on finantsriski maandamine: maksate fikseeritud tasu, et kaotada muutuvad jaemüügi marginaalid oma aastasest mahust.",
+        h2_1: "Arbitraaži valem ja tasuvusmaatriks",
+        p2: "Suletud broneerimisarhitektuuri ärimudel põhineb hotellikategooriate marginaalide otsesel võrdlusel:",
+        th1: "Metrika", th2: "Avalik Jaemüügi OTA", th3: "Privaatne Hulgimüügiklubi",
+        td1_1: "Monetiseerimine", td1_2: "15% kuni 40% vahendustasu on lisatud iga üksiku tehingu sisse.", td1_3: "Fikseeritud läbipaistev tellimustasu. Tehingutelt marginaali ei võeta.",
+        td2_1: "Keskmine Juurdehindlus", td2_2: "$45 – $120+ öö kohta 5-tärni hotellides.", td2_3: "$0 öö kohta (edastatakse puhta B2B hulgimüügi netohinnaga).",
+        td3_1: "Tasuvuspunkt", td3_2: "Kohene (kuid maksate maksimaalseid vahendustasusid igalt reisilt).", td3_3: "Tavaliselt 4 kuni 7 broneeritud ööd majandusaasta jooksul.",
+        td4_1: "Marginaalkulu mahult", td4_2: "Kasvab lineaarselt koos viibimise kestuse ja luksustasemega.", td4_3: "Püsib absoluutses nullis. Suur maht maksimeerib finantstootlust.",
+        h2_2: "Teie isikliku investeeringutasuvuse arvutamine",
+        p3: "Tootlus sõltub kahest muutujast: teie aastasest ööbimisrahast ja valitud hotelliklassist. Kuna hulgimüügi netohinnad annavad suurima säästu just 5* ja luksushotellide segmentides, jõuavad ärireisijad tasuvuspunktini märkimisväärselt kiiremini.",
+        p4: "Kui fikseeritud liikmetasu jaotatakse mitmele reisinädalale aastas, ületab tehingute tõhusus kiiresti tavapärased krediitkaardipunktid. Süsteem muudab jaemüügi vahendustasud otseseks säästuks.",
+        b_title: "Kontrollige oma reiside matemaatikat",
+        b_text: "TravelStatus pakub juurdepääsu hulgimüügi infrastruktuuri puhastele andmetele. Võrrelge oma tegelikke ajaloolisi broneeringuid, et näha täpset säästu.",
+        b_btn: "Taotle Liikmelisuse Staatust",
+        h2_3: "Riskide struktuurne inversioon",
+        p5: "Tavalised broneerimissaidid optimeerivad ühekordsetele tehingutele ja rahastavad kalleid kampaaniaid teie tubade juurdehindlustest. Privaatsed võrgud muudavad mudelit: prognoositava tellimustasu toel saavad nad jagada tube sisseostuhinnaga."
+    }
+};
+
+function changeLanguage(lang) {
+    if (!translations[lang]) return;
+    document.documentElement.lang = lang;
+    
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            elem.innerHTML = translations[lang][key];
+        }
+    });
+    
+    document.title = translations[lang]['meta_title'];
+    document.getElementById('meta-desc').setAttribute('content', translations[lang]['meta_desc']);
+    document.getElementById('langSelect').value = lang;
+    localStorage.setItem('selectedLanguage', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    const browserLang = navigator.language.substring(0, 2);
+    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+    changeLanguage(defaultLang);
+});
+</script>
+
+</body>
+</html>
