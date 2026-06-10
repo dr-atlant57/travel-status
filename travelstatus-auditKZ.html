@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анатомия Travel-ресурсов: 32 аргумента против розничного рынка</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── DUAL THEME ── */
+  :root {
+    --gold: #C9A84C; --gold-dim: #8B6F35; --gold-light: #E8C97A;
+    --bg: #080808; --bg2: #141414; --bg3: #1A1A1A;
+    --text: #E8E0D0; --text-dim: #9A9080; --white: #FAF6EE;
+    --border: rgba(201,168,76,0.12);
+  }
+  [data-theme="light"] {
+    --gold: #8B6000; --gold-dim: #6B4A00;
+    --bg: #F7F3EC; --bg2: #ECEAE3; --bg3: #DEDBD2;
+    --text: #1A1208; --text-dim: #2A1F0F; --white: #0D0A04;
+    --border: rgba(100,75,20,0.2);
+  }
+  *, *::before, *::after { transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease !important; }
+  .no-trans, .no-trans * { transition: none !important; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Montserrat', sans-serif; font-weight: 300;
+    line-height: 1.7; overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(8,8,8,0.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  [data-theme="light"] header { background: rgba(247,243,236,0.97); }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 17px;
+    font-weight: 300; letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+  }
+  .logo span { display: block; font-size: 9px; letter-spacing: 3px; color: var(--text-dim); margin-top: 2px; }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+
+  /* Lang switcher */
+  .lang-switcher { position: relative; }
+  .lang-current {
+    display: flex; align-items: center; gap: 6px;
+    background: none; border: 1px solid var(--border);
+    color: var(--gold); font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: 1.5px; padding: 5px 10px;
+    cursor: pointer; border-radius: 3px; transition: all 0.2s !important;
+  }
+  .lang-current:hover { border-color: var(--gold); }
+  .lang-current svg { transition: transform 0.25s ease !important; }
+  .lang-current.open svg { transform: rotate(180deg); }
+  .lang-dropdown {
+    display: none; position: absolute; top: calc(100% + 6px); right: 0;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 4px; min-width: 150px; z-index: 500;
+    overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: dropIn 0.2s ease;
+  }
+  .lang-dropdown.open { display: block; }
+  @keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+  .lang-dropdown button {
+    display: block; width: 100%; background: none; border: none;
+    color: var(--text-dim); font-family: 'Montserrat', sans-serif;
+    font-size: 12px; letter-spacing: 1px; padding: 10px 16px;
+    text-align: left; cursor: pointer; transition: all 0.15s !important;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .lang-dropdown button:last-child { border-bottom: none; }
+  .lang-dropdown button:hover { background: rgba(201,168,76,0.08); color: var(--gold); }
+  .lang-dropdown button.active { color: var(--gold); font-weight: 500; }
+  [data-theme="light"] .lang-dropdown { background: #F7F3EC; }
+  [data-theme="light"] .lang-dropdown button { color: var(--text-dim); border-bottom-color: rgba(100,75,20,0.08); }
+
+  /* Theme toggle */
+  .theme-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .toggle-track {
+    width: 40px; height: 22px; background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border); border-radius: 11px;
+    position: relative; cursor: pointer;
+  }
+  .toggle-thumb {
+    position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--gold);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+  [data-theme="light"] .toggle-thumb { transform: translateX(18px); }
+  .toggle-icon { font-size: 13px; }
+
+  /* ── HERO ── */
+  #hero {
+    padding: 120px 40px 80px;
+    max-width: 900px; margin: 0 auto; text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px;
+  }
+  #hero h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(28px, 5vw, 56px); color: var(--white);
+    line-height: 1.15; margin-bottom: 24px;
+  }
+  #hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 14px; color: var(--text-dim); max-width: 640px;
+    margin: 0 auto 32px; line-height: 1.9;
+  }
+  .instruction-box {
+    display: inline-block; border: 1px solid var(--border);
+    padding: 14px 28px; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold-dim);
+  }
+
+  /* ── BLOCKS ── */
+  .blocks { max-width: 860px; margin: 0 auto; padding: 0 40px 80px; }
+
+  .block {
+    border-top: 1px solid var(--border);
+    padding: 56px 0;
+  }
+
+  .block-num {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-dim); margin-bottom: 16px;
+  }
+
+  .block h2 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(24px, 4vw, 40px); color: var(--white);
+    line-height: 1.2; margin-bottom: 20px;
+  }
+
+  .block h3 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: 22px; color: var(--white); margin: 24px 0 10px;
+  }
+
+  .block p { font-size: 14px; color: var(--text-dim); line-height: 1.9; margin-bottom: 12px; }
+
+  .block-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin: 24px 0;
+  }
+
+  .block-card {
+    background: var(--bg3); padding: 28px 24px;
+  }
+
+  .block-card h4 {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .block-card p { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ── RATING ── */
+  .rating-label {
+    font-size: 12px; letter-spacing: 1px; color: var(--text-dim);
+    margin: 28px 0 12px;
+  }
+
+  .rating-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+
+  .rating-btn {
+    width: 40px; height: 40px;
+    background: none; border: 1px solid var(--border);
+    color: var(--text-dim); font-family: 'Montserrat', sans-serif;
+    font-size: 13px; cursor: pointer;
+    transition: all 0.2s !important;
+    border-radius: 2px;
+  }
+  .rating-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .rating-btn.selected {
+    background: var(--gold); border-color: var(--gold);
+    color: var(--bg); font-weight: 600;
+  }
+
+  /* ── COMPARISON ── */
+  .comparison {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin: 28px 0;
+  }
+  .comp-side { padding: 32px 28px; }
+  .comp-side.retail { background: var(--bg3); }
+  .comp-side.club { background: linear-gradient(135deg, #111100, #0d0d00); border: 1px solid rgba(201,168,76,0.2); }
+  .comp-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+  .comp-tag.gold { color: var(--gold-dim); }
+  .comp-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--white); margin-bottom: 8px; }
+  .comp-price { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+  .comp-price.bad { color: #8B4444; }
+  .comp-price.good { color: var(--gold); }
+  .comp-desc { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-top: 12px; }
+
+  /* ── TABLE ── */
+  .audit-table { width: 100%; border-collapse: collapse; margin: 28px 0; }
+  .audit-table th {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-dim); padding: 12px 16px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .audit-table td {
+    font-size: 13px; color: var(--text-dim); padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top;
+    line-height: 1.7;
+  }
+  .audit-table tr:first-child td { color: var(--text); }
+  .audit-table td:first-child { color: var(--gold-dim); font-weight: 500; }
+
+  /* ── STEPS ── */
+  .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin: 28px 0; }
+  .step { background: var(--bg3); padding: 28px 24px; }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300;
+    color: rgba(201,168,76,0.2); margin-bottom: 12px;
+  }
+  .step h4 { font-size: 13px; color: var(--gold); margin-bottom: 8px; letter-spacing: 1px; }
+  .step p { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ── QUOTES ── */
+  .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; }
+  .quote { background: var(--bg3); padding: 28px 24px; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+  .quote-author { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
+
+  /* ── GUARANTEES ── */
+  .guar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; }
+  .guar-card { background: var(--bg3); padding: 28px 24px; text-align: center; }
+  .guar-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .guar-card p { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ── SCORE ── */
+  #score-block { background: var(--bg2); padding: 56px; margin: 0; border-top: 1px solid var(--border); text-align: center; }
+  .score-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 88px; font-weight: 300;
+    color: var(--gold); line-height: 1; margin: 16px 0;
+  }
+  .score-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-dim); }
+  .score-verdict { font-size: 15px; color: var(--text-dim); margin-top: 16px; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+
+  /* ── CTA ── */
+  #cta { text-align: center; padding: 80px 40px 100px; background: var(--bg); }
+  #cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px,4vw,48px); font-weight: 300; color: var(--white); margin-bottom: 20px; }
+  #cta p { font-size: 14px; color: var(--text-dim); max-width: 540px; margin: 0 auto 40px; line-height: 1.9; }
+
+  .btn-gold {
+    display: inline-block; padding: 18px 52px;
+    border: 1px solid var(--gold); color: var(--gold);
+    text-decoration: none; font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; font-family: 'Montserrat', sans-serif;
+    cursor: pointer; background: none;
+    transition: all 0.4s !important; position: relative; overflow: hidden;
+  }
+  .btn-gold::before {
+    content: ''; position: absolute; inset: 0; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease !important; z-index: -1;
+  }
+  .btn-gold:hover { color: var(--bg); }
+  .btn-gold:hover::before { transform: scaleX(1); }
+
+  /* ── FAQ ── */
+  #faq { max-width: 860px; margin: 0 auto; padding: 0 40px 80px; }
+  #faq h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--white); margin-bottom: 40px; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-toggle {
+    width: 100%; background: none; border: none; padding: 20px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; color: var(--text); font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 400; text-align: left; gap: 16px;
+    transition: color 0.2s !important;
+  }
+  .faq-toggle:hover { color: var(--gold); }
+  .faq-plus { font-size: 22px; color: var(--gold); flex-shrink: 0; transition: transform 0.3s !important; }
+  .faq-toggle.open .faq-plus { transform: rotate(45deg); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease !important; }
+  .faq-content { padding: 0 0 20px; font-size: 14px; color: var(--text-dim); line-height: 1.9; }
+
+  /* ── CALCULATOR block 06 ── */
+  .calc-box { background: var(--bg3); padding: 28px; margin: 24px 0; }
+  .calc-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; margin-bottom: 16px; }
+  .calc-input-wrap { display: flex; align-items: center; border: 1px solid var(--border); background: rgba(0,0,0,0.3); }
+  .calc-currency { padding: 0 10px; color: var(--gold-dim); font-size: 16px; }
+  .calc-input-wrap input { background: none; border: none; outline: none; color: var(--white); font-family: 'Cormorant Garamond', serif; font-size: 24px; padding: 10px 10px 10px 0; width: 140px; }
+  .calc-result-inline { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--gold); }
+  .calc-label { font-size: 12px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 6px; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; }
+  .progress-bar { height: 100%; background: var(--gold); width: 0%; transition: width 0.2s linear !important; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    header { padding: 12px 16px; }
+    .logo span { display: none; }
+    #hero { padding: 90px 20px 60px; }
+    .blocks { padding: 0 16px 60px; }
+    .block { padding: 40px 0; }
+    .block-grid { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .quotes { grid-template-columns: 1fr; }
+    .guar-grid { grid-template-columns: 1fr; }
+    .rating-btn { width: 34px; height: 34px; font-size: 12px; }
+    #score-block { padding: 40px 20px; }
+    #cta { padding: 60px 20px 80px; }
+    #faq { padding: 0 16px 60px; }
+    .block h2 { font-size: 24px; }
+    .comp-price { font-size: 36px; }
+    .score-num { font-size: 64px; }
+    .audit-table { font-size: 12px; }
+    .audit-table th, .audit-table td { padding: 10px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    Travel Status
+    <span>Elite Lifestyle Ambassador · MWR Life</span>
+  </div>
+  <div class="header-right">
+    <div class="lang-switcher">
+      <button class="lang-current" id="langCurrent" onclick="toggleLangDropdown(event)">
+        <span id="langCurrentText">RU</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button data-lang="ru" onclick="selectLang('ru')">RU — Русский</button>
+        <button data-lang="en" onclick="selectLang('en')">EN — English</button>
+        <button data-lang="kz" onclick="selectLang('kz')">KZ — Қазақша</button>
+      </div>
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <span class="toggle-icon">🌙</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+      <span class="toggle-icon">☀️</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow" data-i18n="eyebrow">01. Независимый аудит рынка</p>
+  <h1 data-i18n="h1_line1">Анатомия Travel-ресурсов:<br><em>32 аргумента против розницы</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Аналитический разбор закрытого клуба. Интуитивный тест-аудит для тех, чьё время и ресурсы стоят слишком дорого, чтобы оплачивать маркетинговые издержки открытого розничного рынка.</p>
+  <div class="instruction-box" data-i18n="instruction">Оцените каждый блок ниже по шкале от 1 до 10</div>
+</section>
+
+<!-- BLOCKS -->
+<div class="blocks">
+
+  <!-- BLOCK 02 -->
+  <div class="block">
+    <p class="block-num">02</p>
+    <h2 data-i18n="b2_h">Сокращение розничной нагрузки</h2>
+    <p data-i18n="b2_p">Глобальные розничные агрегаторы закладывают многомиллионные рекламные бюджеты в чек каждого пользователя — это скрытые расходы покупателя. Мы убираем эту надстройку, открывая прямой доступ к оптовому шлюзу.</p>
+    <p class="rating-label" data-i18n="rate_q">Насколько этот аргумент откликается и подходит вам?</p>
+    <div class="rating-row" data-key="b2"></div>
+  </div>
+
+  <!-- BLOCKS 03-05 -->
+  <div class="block">
+    <p class="block-num">03 — 05</p>
+    <h2 data-i18n="b3_h">Проверка свободы действий</h2>
+    <h3 data-i18n="b3_h3a">03. Рамки графиков</h3>
+    <p data-i18n="b3_p1">Розничный рынок навязывает неудобные условия — вам приходится подстраивать свои планы под искусственные тарифы агрегаторов.</p>
+    <h3 data-i18n="b3_h3b">04. Потеря комфорта</h3>
+    <p data-i18n="b3_p2">Согласие на более скромный уровень сервиса ради соответствия завышенному розничному прайсу — это прямая потеря личной эффективности.</p>
+    <h3 data-i18n="b3_h3c">05. Потери при перемещении</h3>
+    <p data-i18n="b3_p3">Переплаты на розничных наценках превращают поездки по миру в безвозвратные расходы вместо разумного управления бюджетом.</p>
+    <p class="rating-label" data-i18n="b3_rq">Оценка соответствия вашей философии личной эффективности:</p>
+    <div class="rating-row" data-key="b3"></div>
+  </div>
+
+  <!-- BLOCK 06 — CALCULATOR -->
+  <div class="block">
+    <p class="block-num">06</p>
+    <h2 data-i18n="b6_h">Прекратите переплачивать рынку</h2>
+    <p data-i18n="b6_p">Эти ресурсы уходят из вашего личного или семейного бюджета просто за право использовать публичные сайты — мы сохраняем эту ликвидность внутри вашего баланса.</p>
+    <div class="calc-box">
+      <div class="calc-row">
+        <div>
+          <p class="calc-label" data-i18n="calc_year">Годовые расходы на поездки ($)</p>
+          <div class="calc-input-wrap">
+            <span class="calc-currency">$</span>
+            <input type="number" id="calcYear" placeholder="5000" oninput="updateCalc()">
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <p class="calc-label" data-i18n="calc_loss">Маркетинговая наценка:</p>
+          <div class="calc-result-inline" id="calcLoss">$1,350</div>
+          <p class="calc-label" data-i18n="calc_year_label">/ год</p>
+        </div>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b6_rq">Насколько критична для вас оцифрованная упущенная выгода?</p>
+    <div class="rating-row" data-key="b6"></div>
+  </div>
+
+  <!-- BLOCKS 07-12 -->
+  <div class="block">
+    <p class="block-num">07 — 12</p>
+    <h2 data-i18n="b7_h">Единый центр управления</h2>
+    <p data-i18n="b7_intro">Платформа Travel Advantage — это закрытый технологический узел, который полностью решает задачи мобильности и сохранения ресурсов современного человека.</p>
+    <div class="block-grid">
+      <div class="block-card">
+        <h4 data-i18n="b7_c1h">07. Топовые локации</h4>
+        <p data-i18n="b7_c1p">Прямой доступ к оптовой стоимости в 2 000 000+ отелей и курортов по всему миру — единый стандарт цен без скрытых комиссий.</p>
+      </div>
+      <div class="block-card">
+        <h4 data-i18n="b7_c2h">08. Чистый авиа-тариф</h4>
+        <p data-i18n="b7_c2p">Прямая интеграция с мировыми перевозчиками. Отсутствие скрытых агентских сборов и наценок за оформление.</p>
+      </div>
+      <div class="block-card">
+        <h4 data-i18n="b7_c3h">09. Морские маршруты</h4>
+        <p data-i18n="b7_c3p">Прямые контракты с ведущими круизными линиями. Маршруты любого уровня по фиксированной клубной стоимости.</p>
+      </div>
+      <div class="block-card">
+        <h4 data-i18n="b7_c4h">10. Целевой автотранспорт</h4>
+        <p data-i18n="b7_c4p">От комфортных городских моделей до автомобилей представительского класса в любой точке мира.</p>
+      </div>
+      <div class="block-card">
+        <h4 data-i18n="b7_c5h">11. Flash Deals</h4>
+        <p data-i18n="b7_c5p">Автоматический подбор нераспроданных оптовых квот отелей высшей категории со скидками до 83% каждые 24 часа.</p>
+      </div>
+      <div class="block-card">
+        <h4 data-i18n="b7_c6h">12. Брендовый маркетплейс</h4>
+        <p data-i18n="b7_c6p">Прямые поставки от ведущих домов моды — закрытый каталог со значительными дисконтами для резидентов.</p>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b7_rq">Оцените наполнение и архитектуру шлюза Travel Advantage:</p>
+    <div class="rating-row" data-key="b7"></div>
+  </div>
+
+  <!-- BLOCK 13 — COMPARISON -->
+  <div class="block">
+    <p class="block-num">13</p>
+    <h2 data-i18n="b13_h">Разница в деталях: факты</h2>
+    <div class="comparison">
+      <div class="comp-side retail">
+        <p class="comp-tag" data-i18n="b13_retail_tag">Публичный агрегатор — Открытый интернет</p>
+        <p class="comp-price bad">$1,450</p>
+        <p class="comp-desc" data-i18n="b13_retail_desc">Курортный комплекс 5★. Цена включает огромные затраты посредника на рекламу и продвижение сайта.</p>
+      </div>
+      <div class="comp-side club">
+        <p class="comp-tag gold" data-i18n="b13_club_tag">Закрытый шлюз — Travel Advantage</p>
+        <p class="comp-price good">$620</p>
+        <p class="comp-desc" style="color:#8B7A50;" data-i18n="b13_club_desc">Тот же объект, те же даты — чистая базовая стоимость без посреднических наценок и переплат.</p>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b13_rq">Насколько убедительна для вас разница в стоимости бронирования?</p>
+    <div class="rating-row" data-key="b13"></div>
+  </div>
+
+  <!-- BLOCK 14 -->
+  <div class="block">
+    <p class="block-num">14</p>
+    <h2 data-i18n="b14_h">Клубная платформенная модель</h2>
+    <p data-i18n="b14_p">MWR Life полностью изолировала свой продукт от массового ритейла — компания не тратит ресурсы на рекламу, а направляет их на развитие технологий и удержание минимальной стоимости. Вы получаете прямой персональный доступ к оптовой B2B-системе.</p>
+    <p class="rating-label" data-i18n="b14_rq">Откликается ли вам закрытый клубный формат MWR Life?</p>
+    <div class="rating-row" data-key="b14"></div>
+  </div>
+
+  <!-- BLOCK 15 -->
+  <div class="block">
+    <p class="block-num">15</p>
+    <h2 data-i18n="b15_h">Сохранение баланса</h2>
+    <p data-i18n="b15_p">Клубное членство исключает потерю средств — каждый взнос полностью возвращается вам в виде внутренних баллов (Travel Credits) для оплаты ваших будущих поездок и бронирований.</p>
+    <p data-i18n="b15_math" style="color:var(--gold); font-family:'Cormorant Garamond',serif; font-size:18px; margin-top:16px;">Даже одна крупная поездка семьи за год полностью окупает стоимость членства — все последующие бронирования приносят прямую чистую экономию.</p>
+    <p class="rating-label" data-i18n="b15_rq">Подходит ли вам концепция возврата взносов в Travel Credits?</p>
+    <div class="rating-row" data-key="b15"></div>
+  </div>
+
+  <!-- BLOCKS 16-18 -->
+  <div class="block">
+    <p class="block-num">16 — 18</p>
+    <h2 data-i18n="b16_h">Управление бюджетом поездок</h2>
+    <h3 data-i18n="b16_h3a">16. Двойная выгода</h3>
+    <p data-i18n="b16_p1">Резиденты со статусом Elite используют внутренние лимиты для закрытых туров Life Experience, при этом продолжая копить баллы лояльности — эффективное распределение ресурсов.</p>
+    <h3 data-i18n="b16_h3b">17. Доход на гостевых пропусках</h3>
+    <p data-i18n="b16_p2">Передача бесплатных гостевых пропусков вашему окружению приносит доход — платформа выплачивает вам вознаграждение, когда ваши знакомые экономят на своих поездках.</p>
+    <h3 data-i18n="b16_h3c">18. Усиление личного бренда</h3>
+    <p data-i18n="b16_p3">Доступ к Flash Deals позволяет регулярно посещать пятизвёздочные отели по минимальной стоимости — отличный инструмент для создания качественного контента.</p>
+    <p class="rating-label" data-i18n="b16_rq">Насколько актуальны для вас инструменты Elite, Life Experience и Flash Deals?</p>
+    <div class="rating-row" data-key="b16"></div>
+  </div>
+
+  <!-- BLOCK 19 -->
+  <div class="block">
+    <p class="block-num">19</p>
+    <h2 data-i18n="b19_h">Ваш стиль жизни — лучшая рекомендация</h2>
+    <p data-i18n="b19_p">Когда ваши партнеры и друзья видят ваш уровень комфорта, топовые локации и реальные закрытые цены платформы, они начинают интересоваться закрытым клубом — запускается процесс органического копирования вашей модели потребления.</p>
+    <p class="rating-label" data-i18n="b19_rq">Откликается ли вам эффект органического интереса окружения?</p>
+    <div class="rating-row" data-key="b19"></div>
+  </div>
+
+  <!-- BLOCK 20 -->
+  <div class="block">
+    <p class="block-num">20</p>
+    <h2 data-i18n="b20_h">Система компенсации</h2>
+    <p data-i18n="b20_p">Никаких навязчивых продаж — вы просто дарите человеку бесплатный гостевой пропуск. Пользователь получает реальную скидку, а алгоритм начисляет вам 100% от суммы сэкономленных им денег на ваш баланс.</p>
+    <p class="rating-label" data-i18n="b20_rq">Насколько подходит вам пассивный алгоритм гостевых пропусков?</p>
+    <div class="rating-row" data-key="b20"></div>
+  </div>
+
+  <!-- BLOCK 21 -->
+  <div class="block">
+    <p class="block-num">21</p>
+    <h2 data-i18n="b21_h">Исключение рутины</h2>
+    <p data-i18n="b21_p">Никакого спама, навязчивых звонков и хаотичных переписок — большая часть рутинных операций полностью автоматизирована. Программный комплекс самостоятельно берет на себя информирование и подготовку заинтересованных пользователей.</p>
+    <p class="rating-label" data-i18n="b21_rq">Важность автоматизации рутины для вашего графика:</p>
+    <div class="rating-row" data-key="b21"></div>
+  </div>
+
+  <!-- BLOCK 22 -->
+  <div class="block">
+    <p class="block-num">22</p>
+    <h2 data-i18n="b22_h">Ваш персональный Digital Twin</h2>
+    <p data-i18n="b22_p">Каждый ключевой партнер получает доступ к цифровому помощнику — интерактивному комплексу, который самостоятельно ведет диалог с трафиком, пока вы заняты делами или находитесь в поездке.</p>
+    <p class="rating-label" data-i18n="b22_rq">Насколько вам необходим Digital Twin для ведения диалогов?</p>
+    <div class="rating-row" data-key="b22"></div>
+  </div>
+
+  <!-- BLOCK 23 -->
+  <div class="block">
+    <p class="block-num">23</p>
+    <h2 data-i18n="b23_h">Развитие в кругу единомышленников</h2>
+    <p data-i18n="b23_p">Вы присоединяетесь не просто к проекту — вы становитесь частью закрытого международного сообщества предпринимателей, инвесторов и экспертов. Совместные форумы и выезды Life Experience формируют новый уровень ваших деловых связей.</p>
+    <p class="rating-label" data-i18n="b23_rq">Ценность закрытого нетворкинг-поля для вашей системы связей:</p>
+    <div class="rating-row" data-key="b23"></div>
+  </div>
+
+  <!-- BLOCK 24 -->
+  <div class="block">
+    <p class="block-num">24</p>
+    <h2 data-i18n="b24_h">Глобальное признание</h2>
+    <p data-i18n="b24_p">MWR Life — это прозрачный американский холдинг с двенадцатилетней историей и строгим соблюдением международных законов. Платформа полностью адаптирована для стабильной работы в СНГ, Европе и Азии. Входит в топ-85 мировых компаний прямых продаж. Почти 700 000 участников в 100+ странах.</p>
+    <p class="rating-label" data-i18n="b24_rq">Насколько для вас важна географическая широта в 100+ странах?</p>
+    <div class="rating-row" data-key="b24"></div>
+  </div>
+
+  <!-- BLOCK 25 — STEPS -->
+  <div class="block">
+    <p class="block-num">25</p>
+    <h2 data-i18n="b25_h">Три шага к географической независимости</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4 data-i18n="b25_s1h">Окупаемость</h4>
+        <p data-i18n="b25_s1p">Всего 3 активных резидента в вашей команде полностью перекрывают стоимость вашего участия — баланс выходит в ноль.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4 data-i18n="b25_s2h">Стабильный доход</h4>
+        <p data-i18n="b25_s2p">Рост команды за счет готовых инструментов — алгоритм включает регулярные ежедневные начисления.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4 data-i18n="b25_s3h">Бонусные пулы</h4>
+        <p data-i18n="b25_s3p">Выход на лидерские позиции открывает прямой доступ к глобальной incentive-модели и международным программам поощрения.</p>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b25_rq">Оценка прозрачности и потенциала финансовой модели:</p>
+    <div class="rating-row" data-key="b25"></div>
+  </div>
+
+  <!-- BLOCKS 26-27 — QUOTES -->
+  <div class="block">
+    <p class="block-num">26 — 27</p>
+    <h2 data-i18n="b26_h">Реальный опыт участников</h2>
+    <div class="quotes">
+      <div class="quote">
+        <p class="quote-text" data-i18n="b26_q1">«Я искал бизнес-модель без привязки к офису. Использование цифрового помощника помогло мне за 4 месяца развернуть партнерскую сеть в трех странах, пока я сам путешествовал по Азии».</p>
+        <p class="quote-author">Владимир А., Лидер направления</p>
+      </div>
+      <div class="quote">
+        <p class="quote-text" data-i18n="b26_q2">«Раньше у людей был страх продаж. После запуска пошаговой автоматизации конверсия в регистрации выросла до рекордных показателей без лишних уговоров».</p>
+        <p class="quote-author">Карагат М., Специалист по автоматизации</p>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b26_rq">Насколько убедителен для вас реальный опыт участников?</p>
+    <div class="rating-row" data-key="b26"></div>
+  </div>
+
+  <!-- BLOCK 28 — TABLE -->
+  <div class="block">
+    <p class="block-num">28</p>
+    <h2 data-i18n="b28_h">Прагматичный подход к выбору дела</h2>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th data-i18n="b28_th1">Критерии</th>
+          <th data-i18n="b28_th2">Традиционный бизнес / Франшизы</th>
+          <th data-i18n="b28_th3">Партнёрство в экосистеме</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-i18n="b28_r1c1">Стартовый капитал</td>
+          <td data-i18n="b28_r1c2">От $20 000 + аренда, закупки и текущие расходы</td>
+          <td data-i18n="b28_r1c3">Минимальный клубный депозит</td>
+        </tr>
+        <tr>
+          <td data-i18n="b28_r2c1">Операционные риски</td>
+          <td data-i18n="b28_r2c2">Кассовые разрывы, проблемы с логистикой, кризисы</td>
+          <td data-i18n="b28_r2c3">Отсутствуют — используете готовую IT-платформу</td>
+        </tr>
+        <tr>
+          <td data-i18n="b28_r3c1">Масштабирование</td>
+          <td data-i18n="b28_r3c2">Ограничено городом и наймом штата</td>
+          <td data-i18n="b28_r3c3">Мгновенный выход на 100+ стран через интернет</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="rating-label" data-i18n="b28_rq">Оцените прагматичность партнёрской модели для вас:</p>
+    <div class="rating-row" data-key="b28"></div>
+  </div>
+
+  <!-- BLOCKS 29-30 — GUARANTEES -->
+  <div class="block">
+    <p class="block-num">29 — 30</p>
+    <h2 data-i18n="b29_h">Полная гарантия безопасности</h2>
+    <div class="guar-grid">
+      <div class="guar-card">
+        <div class="guar-num">100%</div>
+        <h4 style="font-size:11px; letter-spacing:2px; color:var(--gold); margin-bottom:8px;" data-i18n="b29_g1h">14 дней тест-драйва</h4>
+        <p data-i18n="b29_g1p">В течение 14 дней с момента активации — возврат средств если баллами лояльности не воспользовались. Одно письмо на почту. Условие прописано в договоре.</p>
+      </div>
+      <div class="guar-card">
+        <div class="guar-num">150%</div>
+        <h4 style="font-size:11px; letter-spacing:2px; color:var(--gold); margin-bottom:8px;" data-i18n="b29_g2h">Гарантия лучшей цены</h4>
+        <p data-i18n="b29_g2p">Нашли точно такое же предложение дешевле на любом открытом ресурсе — платформа компенсирует 150% от разницы в стоимости.</p>
+      </div>
+    </div>
+    <p class="rating-label" data-i18n="b29_rq">Насколько важны для вас обе гарантии?</p>
+    <div class="rating-row" data-key="b29"></div>
+  </div>
+
+  <!-- BLOCK 31 -->
+  <div class="block">
+    <p class="block-num">31</p>
+    <h2 data-i18n="b31_h">Доступ открывается поэтапно</h2>
+    <p data-i18n="b31_p">Мы не работаем на массовый хаотичный поток — для нас важно сохранить высокое качество каждого подключения. Новые резиденты подключаются волнами, чтобы гарантировать результат каждому.</p>
+    <p class="rating-label" data-i18n="b31_rq">Насколько вам подходит поэтапный формат подключения?</p>
+    <div class="rating-row" data-key="b31"></div>
+  </div>
+
+</div>
+
+<!-- SCORE -->
+<div id="score-block">
+  <p class="score-label" data-i18n="score_label">Ваш персональный индекс совпадения</p>
+  <div class="score-num" id="scoreNum">—</div>
+  <p class="score-verdict" id="scoreVerdict" data-i18n="score_placeholder">Пожалуйста, выставьте оценки блокам выше, чтобы система сформировала точный вердикт.</p>
+</div>
+
+<!-- CTA -->
+<section id="cta">
+  <p style="font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px;" data-i18n="cta_label">32. Финальный шаг</p>
+  <h2 data-i18n="cta_h">Раскрыть архитектуру терминала</h2>
+  <p data-i18n="cta_p">Если вердикт системы подтверждает совместимость целей — активируйте доступ для детального ознакомления с тремя путями входа и выбора вашего уровня.</p>
+  <a href="https://travelstatus.cc/vip" class="btn-gold" data-i18n="cta_btn">Перейти к выбору тарифа →</a>
+</section>
+
+<!-- FAQ -->
+<div id="faq">
+  <h2 data-i18n="faq_h">Полная прозрачность и факты</h2>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq1">Как именно работает юридическая гарантия возврата?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa1">В течение 14 дней с момента активации — возврат средств если баллами лояльности не воспользовались. Все операции защищены международным правом.</div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq2">В чем ключевое отличие от обычных турагентств?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa2">Классические компании продают готовые розничные пакеты со своей наценкой — Travel Advantage дает прямой доступ к базовой B2B-системе, где нет розничных тарифов и переплат за маркетинг.</div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq3">Можно ли покупать авиабилеты по оптовой стоимости?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa3">На авиабилеты установлены жесткие правила самих перевозчиков — наш шлюз дает билеты без агентских накруток, параллельно начисляя баллы лояльности для полной оплаты отелей.</div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq4">Могу ли я добавить членов семьи в свой аккаунт?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa4">Да, на пакетах Elite и Turbo вы можете добавить дополнительных путешественников в свой личный кабинет — они смогут самостоятельно бронировать по тем же оптовым ценам.</div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq5">Что представляет собой закрытый маркетплейс?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa5">Это внутренний магазин клуба — оригинальные товары 150+ мировых брендов закупаются напрямую у производителей и доступны членам клуба со скидками до 70%, в том числе за баллы лояльности.</div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-toggle" onclick="toggleFaq(this)">
+      <span data-i18n="fq6">Сколько времени нужно уделять этому направлению?</span>
+      <span class="faq-plus">+</span>
+    </button>
+    <div class="faq-body"><div class="faq-content" data-i18n="fa6">Благодаря автоматизации, процессам достаточно уделять от 5 до 7 часов в неделю — фокус направлен на работу с входящими запросами и масштабирование вашей истории.</div></div>
+  </div>
+
+</div>
+
+<footer style="padding:32px 40px; border-top:1px solid var(--border); text-align:center; font-size:11px; color:var(--text-dim);">
+  <p>© 2026 Travel Status · Albert Stohl · Elite Lifestyle Ambassador, MWR Life</p>
+  <p style="margin-top:8px; opacity:0.5;" data-i18n="footer_disc">Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life. Результаты индивидуальны.</p>
+</footer>
+
+<script>
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────────
+const TRANS = {
+ru: {
+  eyebrow:'01. Независимый аудит рынка',
+  h1_line1:'Анатомия Travel-ресурсов:<br><em>32 аргумента против розницы</em>',
+  hero_sub:'Аналитический разбор закрытого клуба. Интуитивный тест-аудит для тех, чьё время и ресурсы стоят слишком дорого, чтобы оплачивать маркетинговые издержки открытого розничного рынка.',
+  instruction:'Оцените каждый блок ниже по шкале от 1 до 10',
+  rate_q:'Насколько этот аргумент откликается и подходит вам?',
+  b2_h:'Сокращение розничной нагрузки',
+  b2_p:'Глобальные розничные агрегаторы закладывают многомиллионные рекламные бюджеты в чек каждого пользователя — это скрытые расходы покупателя. Мы убираем эту надстройку, открывая прямой доступ к оптовому шлюзу.',
+  b3_h:'Проверка свободы действий',
+  b3_h3a:'03. Рамки графиков',
+  b3_p1:'Розничный рынок навязывает неудобные условия — вам приходится подстраивать свои планы под искусственные тарифы агрегаторов.',
+  b3_h3b:'04. Потеря комфорта',
+  b3_p2:'Согласие на более скромный уровень сервиса ради соответствия завышенному розничному прайсу — это прямая потеря личной эффективности.',
+  b3_h3c:'05. Потери при перемещении',
+  b3_p3:'Переплаты на розничных наценках превращают поездки по миру в безвозвратные расходы вместо разумного управления бюджетом.',
+  b3_rq:'Оценка соответствия вашей философии личной эффективности:',
+  b6_h:'Прекратите переплачивать рынку',
+  b6_p:'Эти ресурсы уходят из вашего личного или семейного бюджета просто за право использовать публичные сайты — мы сохраняем эту ликвидность внутри вашего баланса.',
+  calc_year:'Годовые расходы на поездки ($)',
+  calc_loss:'Маркетинговая наценка:',
+  calc_year_label:'/ год',
+  b6_rq:'Насколько критична для вас оцифрованная упущенная выгода?',
+  b7_h:'Единый центр управления',
+  b7_intro:'Платформа Travel Advantage — это закрытый технологический узел, который полностью решает задачи мобильности и сохранения ресурсов современного человека.',
+  b7_c1h:'07. Топовые локации',b7_c1p:'Прямой доступ к оптовой стоимости в 2 000 000+ отелей и курортов по всему миру — единый стандарт цен без скрытых комиссий.',
+  b7_c2h:'08. Чистый авиа-тариф',b7_c2p:'Прямая интеграция с мировыми перевозчиками. Отсутствие скрытых агентских сборов.',
+  b7_c3h:'09. Морские маршруты',b7_c3p:'Прямые контракты с ведущими круизными линиями. Маршруты любого уровня по фиксированной клубной стоимости.',
+  b7_c4h:'10. Целевой автотранспорт',b7_c4p:'От комфортных городских моделей до автомобилей представительского класса в любой точке мира.',
+  b7_c5h:'11. Flash Deals',b7_c5p:'Автоматический подбор нераспроданных оптовых квот отелей высшей категории со скидками до 83% каждые 24 часа.',
+  b7_c6h:'12. Брендовый маркетплейс',b7_c6p:'Прямые поставки от ведущих домов моды — закрытый каталог со значительными дисконтами.',
+  b7_rq:'Оцените наполнение и архитектуру шлюза Travel Advantage:',
+  b13_h:'Разница в деталях: факты',
+  b13_retail_tag:'Публичный агрегатор — Открытый интернет',
+  b13_retail_desc:'Курортный комплекс 5★. Цена включает огромные затраты посредника на рекламу.',
+  b13_club_tag:'Закрытый шлюз — Travel Advantage',
+  b13_club_desc:'Тот же объект, те же даты — чистая базовая стоимость без посреднических наценок.',
+  b13_rq:'Насколько убедительна для вас разница в стоимости бронирования?',
+  b14_h:'Клубная платформенная модель',
+  b14_p:'MWR Life полностью изолировала свой продукт от массового ритейла — компания не тратит ресурсы на рекламу, а направляет их на развитие технологий. Вы получаете прямой персональный доступ к оптовой B2B-системе.',
+  b14_rq:'Откликается ли вам закрытый клубный формат MWR Life?',
+  b15_h:'Сохранение баланса',
+  b15_p:'Клубное членство исключает потерю средств — каждый взнос полностью возвращается вам в виде внутренних баллов (Travel Credits) для оплаты ваших будущих поездок.',
+  b15_math:'Даже одна крупная поездка семьи за год полностью окупает стоимость членства.',
+  b15_rq:'Подходит ли вам концепция возврата взносов в Travel Credits?',
+  b16_h:'Управление бюджетом поездок',
+  b16_h3a:'16. Двойная выгода',b16_p1:'Резиденты со статусом Elite используют внутренние лимиты для закрытых туров Life Experience, при этом продолжая копить баллы лояльности.',
+  b16_h3b:'17. Доход на гостевых пропусках',b16_p2:'Передача бесплатных гостевых пропусков вашему окружению приносит доход — платформа выплачивает вознаграждение когда ваши знакомые экономят.',
+  b16_h3c:'18. Усиление личного бренда',b16_p3:'Доступ к Flash Deals позволяет регулярно посещать пятизвёздочные отели по минимальной стоимости — отличный инструмент для создания контента.',
+  b16_rq:'Насколько актуальны для вас инструменты Elite, Life Experience и Flash Deals?',
+  b19_h:'Ваш стиль жизни — лучшая рекомендация',
+  b19_p:'Когда ваши партнеры и друзья видят ваш уровень комфорта и реальные закрытые цены платформы, они начинают интересоваться закрытым клубом.',
+  b19_rq:'Откликается ли вам эффект органического интереса окружения?',
+  b20_h:'Система компенсации',
+  b20_p:'Никаких навязчивых продаж — вы просто дарите человеку бесплатный гостевой пропуск. Пользователь получает реальную скидку, а алгоритм начисляет вам 100% от суммы сэкономленных им денег.',
+  b20_rq:'Насколько подходит вам пассивный алгоритм гостевых пропусков?',
+  b21_h:'Исключение рутины',
+  b21_p:'Никакого спама, навязчивых звонков и хаотичных переписок — большая часть рутинных операций полностью автоматизирована.',
+  b21_rq:'Важность автоматизации рутины для вашего графика:',
+  b22_h:'Ваш персональный Digital Twin',
+  b22_p:'Каждый ключевой партнер получает доступ к цифровому помощнику — интерактивному комплексу, который самостоятельно ведет диалог с трафиком пока вы в поездке.',
+  b22_rq:'Насколько вам необходим Digital Twin для ведения диалогов?',
+  b23_h:'Развитие в кругу единомышленников',
+  b23_p:'Вы присоединяетесь к закрытому международному сообществу предпринимателей, инвесторов и экспертов. Совместные форумы и выезды Life Experience формируют новый уровень ваших деловых связей.',
+  b23_rq:'Ценность закрытого нетворкинг-поля для вашей системы связей:',
+  b24_h:'Глобальное признание',
+  b24_p:'MWR Life — прозрачный американский холдинг с двенадцатилетней историей. Входит в топ-85 мировых компаний прямых продаж. Почти 700 000 участников в 100+ странах.',
+  b24_rq:'Насколько для вас важна географическая широта в 100+ странах?',
+  b25_h:'Три шага к географической независимости',
+  b25_s1h:'Окупаемость',b25_s1p:'Всего 3 активных резидента в вашей команде полностью перекрывают стоимость вашего участия — баланс выходит в ноль.',
+  b25_s2h:'Стабильный доход',b25_s2p:'Рост команды за счет готовых инструментов — алгоритм включает регулярные ежедневные начисления.',
+  b25_s3h:'Бонусные пулы',b25_s3p:'Выход на лидерские позиции открывает прямой доступ к глобальной incentive-модели.',
+  b25_rq:'Оценка прозрачности и потенциала финансовой модели:',
+  b26_h:'Реальный опыт участников',
+  b26_q1:'«Я искал бизнес-модель без привязки к офису. Использование цифрового помощника помогло мне за 4 месяца развернуть партнерскую сеть в трех странах».',
+  b26_q2:'«Раньше у людей был страх продаж. После запуска автоматизации конверсия в регистрации выросла до рекордных показателей».',
+  b26_rq:'Насколько убедителен для вас реальный опыт участников?',
+  b28_h:'Прагматичный подход к выбору дела',
+  b28_th1:'Критерии',b28_th2:'Традиционный бизнес / Франшизы',b28_th3:'Партнёрство в экосистеме',
+  b28_r1c1:'Стартовый капитал',b28_r1c2:'От $20 000 + аренда, закупки',b28_r1c3:'Минимальный клубный депозит',
+  b28_r2c1:'Операционные риски',b28_r2c2:'Кассовые разрывы, кризисы',b28_r2c3:'Отсутствуют — готовая IT-платформа',
+  b28_r3c1:'Масштабирование',b28_r3c2:'Ограничено городом и штатом',b28_r3c3:'100+ стран через интернет',
+  b28_rq:'Оцените прагматичность партнёрской модели для вас:',
+  b29_h:'Полная гарантия безопасности',
+  b29_g1h:'14 дней тест-драйва',b29_g1p:'В течение 14 дней — возврат средств если баллами не воспользовались. Одно письмо. Условие в договоре.',
+  b29_g2h:'Гарантия лучшей цены',b29_g2p:'Нашли дешевле на любом ресурсе — платформа компенсирует 150% от разницы.',
+  b29_rq:'Насколько важны для вас обе гарантии?',
+  b31_h:'Доступ открывается поэтапно',
+  b31_p:'Мы не работаем на массовый хаотичный поток — новые резиденты подключаются волнами чтобы гарантировать результат каждому.',
+  b31_rq:'Насколько вам подходит поэтапный формат подключения?',
+  score_label:'Ваш персональный индекс совпадения',
+  score_placeholder:'Пожалуйста, выставьте оценки блокам выше, чтобы система сформировала точный вердикт.',
+  cta_label:'32. Финальный шаг',
+  cta_h:'Раскрыть архитектуру терминала',
+  cta_p:'Если вердикт системы подтверждает совместимость целей — активируйте доступ для детального ознакомления с тремя путями входа и выбора вашего уровня.',
+  cta_btn:'Перейти к выбору тарифа →',
+  faq_h:'Полная прозрачность и факты',
+  fq1:'Как именно работает юридическая гарантия возврата?',fa1:'В течение 14 дней с момента активации — возврат средств если баллами лояльности не воспользовались. Все операции защищены международным правом.',
+  fq2:'В чем ключевое отличие от обычных турагентств?',fa2:'Классические компании продают готовые розничные пакеты со своей наценкой — Travel Advantage дает прямой доступ к базовой B2B-системе, где нет розничных тарифов.',
+  fq3:'Можно ли покупать авиабилеты по оптовой стоимости?',fa3:'Наш шлюз дает билеты без агентских накруток, параллельно начисляя баллы лояльности для полной оплаты отелей.',
+  fq4:'Могу ли я добавить членов семьи в свой аккаунт?',fa4:'Да, на пакетах Elite и Turbo вы можете добавить дополнительных путешественников — они смогут самостоятельно бронировать по тем же оптовым ценам.',
+  fq5:'Что представляет собой закрытый маркетплейс?',fa5:'Внутренний магазин клуба — товары 150+ мировых брендов напрямую от производителей со скидками до 70%, в том числе за баллы лояльности.',
+  fq6:'Сколько времени нужно уделять этому направлению?',fa6:'Благодаря автоматизации, достаточно 5-7 часов в неделю — фокус на работу с входящими запросами.',
+  footer_disc:'Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life. Результаты индивидуальны.',
+  score_low:'Некоторые блоки не вызвали отклика. Возможно, текущий момент — не лучшее время. Но оставьте контакт — мы пришлём материалы когда придёт время.',
+  score_mid:'Хороший уровень совпадения. Несколько аргументов резонируют сильно. Рекомендуем ознакомиться с тремя путями входа — возможно найдёте оптимальный формат.',
+  score_high:'Высокий уровень совпадения. Платформа соответствует вашим целям и философии. Переходите к выбору тарифа — следующий шаг уже очевиден.',
+},
+en: {"eyebrow": "01. Independent Market Audit", "h1_line1": "Anatomy of Travel Resources:<br><em>32 Arguments Against Retail</em>", "hero_sub": "An analytical breakdown of the closed club. An intuitive test-audit for those whose time and resources are too valuable to pay for the marketing costs of the open retail travel market.", "instruction": "Rate each block below on a scale from 1 to 10", "rate_q": "How much does this argument resonate with you?", "b2_h": "Reducing Retail Overhead", "b2_p": "Global retail aggregators embed multi-million dollar advertising budgets into every user's bill — these are hidden costs for the buyer. We remove this layer, opening direct access to the wholesale gateway.", "b3_h": "Testing Freedom of Action", "b3_h3a": "03. Schedule Constraints", "b3_p1": "The retail market imposes inconvenient conditions — you have to adapt your plans to the artificial tariffs of aggregators.", "b3_h3b": "04. Loss of Comfort", "b3_p2": "Settling for a more modest service level to match the inflated retail price list is a direct loss of personal efficiency.", "b3_h3c": "05. Losses in Transit", "b3_p3": "Overpaying on retail markups turns world travel into irrecoverable expenses instead of smart budget management.", "b3_rq": "Rating of alignment with your personal efficiency philosophy:", "b6_h": "Stop Overpaying the Market", "b6_p": "These resources leave your personal or family budget simply for the right to use public websites — we keep this liquidity within your balance.", "calc_year": "Annual travel expenses ($)", "calc_loss": "Marketing markup:", "calc_year_label": "/ year", "b6_rq": "How critical is the quantified opportunity cost for you?", "b7_h": "Unified Management Center", "b7_intro": "The Travel Advantage platform is a closed technology hub that fully addresses the mobility and resource preservation needs of the modern person.", "b7_c1h": "07. Top Locations", "b7_c1p": "Direct access to wholesale pricing at 2,000,000+ hotels and resorts worldwide — a single price standard with no hidden commissions.", "b7_c2h": "08. Clean Air Fare", "b7_c2p": "Direct integration with global carriers. No hidden agency fees or processing markups.", "b7_c3h": "09. Sea Routes", "b7_c3p": "Direct contracts with leading cruise lines. Routes of any level at fixed club pricing.", "b7_c4h": "10. Target Transport", "b7_c4p": "From comfortable city models to executive-class vehicles anywhere in the world.", "b7_c5h": "11. Flash Deals", "b7_c5p": "Automatic selection of unsold wholesale quotas at top-tier hotels with up to 83% discounts every 24 hours.", "b7_c6h": "12. Brand Marketplace", "b7_c6p": "Direct supply from leading fashion houses — a closed catalog with significant discounts for residents.", "b7_rq": "Rate the content and architecture of the Travel Advantage gateway:", "b13_h": "The Difference in Detail: Facts", "b13_retail_tag": "Public Aggregator — Open Internet", "b13_retail_desc": "5★ resort complex. Price includes huge intermediary costs for advertising.", "b13_club_tag": "Closed Gateway — Travel Advantage", "b13_club_desc": "Same property, same dates — clean base cost with no intermediary markups.", "b13_rq": "How convincing is the booking price difference for you?", "b14_h": "Club Platform Model", "b14_p": "MWR Life has completely isolated its product from mass retail — the company doesn't spend resources on advertising, directing them instead to technology development. You get direct personal access to the wholesale B2B system.", "b14_rq": "Does the closed club format of MWR Life resonate with you?", "b15_h": "Balance Preservation", "b15_p": "Club membership eliminates loss of funds — every contribution is fully returned to you as internal points (Travel Credits) for your future trips and bookings.", "b15_math": "Even one major family trip per year fully pays for your club membership — all subsequent bookings bring direct pure savings.", "b15_rq": "Does the concept of converting contributions to Travel Credits work for you?", "b16_h": "Travel Budget Management", "b16_h3a": "16. Double Benefit", "b16_p1": "Elite status residents use internal limits for closed Life Experience tours while continuing to accumulate loyalty points.", "b16_h3b": "17. Income from Guest Passes", "b16_p2": "Sharing free guest passes with your network generates income — the platform pays you when your contacts save money on their trips.", "b16_h3c": "18. Personal Brand Enhancement", "b16_p3": "Flash Deals access lets you regularly stay at five-star hotels at minimal cost — an excellent tool for creating quality content.", "b16_rq": "How relevant are the Elite, Life Experience and Flash Deals tools for you?", "b19_h": "Your Lifestyle is the Best Recommendation", "b19_p": "When your partners and friends see your comfort level, top locations and real closed platform prices, they start asking about the closed club — organic copying of your consumption model begins.", "b19_rq": "Does the organic interest effect from your network resonate with you?", "b20_h": "Compensation System", "b20_p": "No pushy sales — you simply give someone a free guest pass. The user gets a real discount, and the algorithm credits 100% of their savings to your balance.", "b20_rq": "How suitable is the passive guest pass algorithm for you?", "b21_h": "Eliminating Routine", "b21_p": "No spam, pushy calls or chaotic messaging — most routine operations are fully automated. The software complex independently handles informing and preparing interested users.", "b21_rq": "Importance of routine automation for your schedule:", "b22_h": "Your Personal Digital Twin", "b22_p": "Every key partner gets access to a digital assistant — an interactive complex that independently conducts dialogue with traffic while you're busy or traveling.", "b22_rq": "How much do you need a Digital Twin for conducting dialogues?", "b23_h": "Development Among Like-Minded People", "b23_p": "You're not just joining a project — you become part of a closed international community of entrepreneurs, investors and experts.", "b23_rq": "Value of the closed networking field for your connection system:", "b24_h": "Global Recognition", "b24_p": "MWR Life is a transparent American holding with a twelve-year history. Top-85 global direct sales companies. Nearly 700,000 participants in 100+ countries.", "b24_rq": "How important is the geographic scope of 100+ countries for you?", "b25_h": "Three Steps to Geographic Independence", "b25_s1h": "Breakeven", "b25_s1p": "Just 3 active residents in your team fully cover your participation cost — balance reaches zero.", "b25_s2h": "Stable Income", "b25_s2p": "Team growth through ready-made duplication tools — the algorithm activates regular daily accruals.", "b25_s3h": "Bonus Pools", "b25_s3p": "Reaching leadership positions opens direct access to the global incentive model.", "b25_rq": "Rating of the financial model's transparency and potential:", "b26_h": "Real Participant Experience", "b26_q1": "\"I was looking for a business model not tied to an office. Using the digital assistant helped me deploy a partner network in three countries in 4 months while traveling Asia.\"", "b26_q2": "\"People used to have a fear of sales. After launching step-by-step automation, conversion to registrations grew to record levels without extra convincing.\"", "b26_rq": "How convincing is the real participant experience for you?", "b28_h": "A Pragmatic Approach to Choosing a Business", "b28_th1": "Criteria", "b28_th2": "Traditional Business / Franchises", "b28_th3": "Partnership in the Ecosystem", "b28_r1c1": "Starting capital", "b28_r1c2": "From $20,000 + rent, purchases", "b28_r1c3": "Minimal club deposit", "b28_r2c1": "Operational risks", "b28_r2c2": "Cash gaps, crises", "b28_r2c3": "None — ready IT platform", "b28_r3c1": "Scaling", "b28_r3c2": "Limited by city and staff", "b28_r3c3": "Instant reach to 100+ countries online", "b28_rq": "Rate the pragmatism of the partnership model for you:", "b29_h": "Full Security Guarantee", "b29_g1h": "14-Day Test Drive", "b29_g1p": "Within 14 days — refund if loyalty points weren't used. One email. Stated in the agreement.", "b29_g2h": "Best Price Guarantee", "b29_g2p": "Found the same offer cheaper anywhere — platform compensates 150% of the price difference.", "b29_rq": "How important are both guarantees for you?", "b31_h": "Access Opens in Stages", "b31_p": "We don't work with mass chaotic flow — new residents connect in waves to guarantee results for everyone.", "b31_rq": "How suitable is the staged connection format for you?", "score_label": "Your Personal Compatibility Index", "score_placeholder": "Please rate the blocks above so the system can form an accurate verdict.", "cta_label": "32. Final Step", "cta_h": "Reveal the Terminal Architecture", "cta_p": "If the system's verdict confirms goal compatibility — activate access for a detailed overview of the three entry paths and choose your level.", "cta_btn": "Proceed to Plan Selection →", "faq_h": "Full Transparency and Facts", "fq1": "How exactly does the legal refund guarantee work?", "fa1": "Within 14 days of activation — refund if loyalty points weren't used. All operations protected by international law.", "fq2": "What is the key difference from regular travel agencies?", "fa2": "Classic companies sell ready retail packages with their markup — Travel Advantage gives direct access to the base B2B system with no retail tariffs.", "fq3": "Can I buy airline tickets at wholesale prices?", "fa3": "Our gateway provides tickets without agency markups, simultaneously accruing loyalty points for full hotel payment.", "fq4": "Can I add family members to my account?", "fa4": "Yes, on Elite and Turbo packages you can add additional travellers — they can independently book at the same wholesale prices.", "fq5": "What is the closed marketplace?", "fa5": "The club's internal store — original goods from 150+ global brands sourced directly from manufacturers, available to members with up to 70% discounts.", "fq6": "How much time do I need to dedicate?", "fa6": "Thanks to automation, 5-7 hours per week is sufficient — focus on working with incoming requests.", "footer_disc": "This site is an independent partner resource of an MWR Life Ambassador. Results are individual.", "score_low": "Some blocks didn't resonate strongly. Perhaps the timing isn't right. But leave your contact — we'll send materials when the time comes.", "score_mid": "Good compatibility level. Several arguments resonated strongly. We recommend exploring the three entry paths — you may find the optimal format.", "score_high": "High compatibility level. The platform aligns with your goals and philosophy. Proceed to plan selection — the next step is already clear."},
+kz: {
+  eyebrow:'01. Тәуелсіз нарық аудиті',
+  h1_line1:'Travel-ресурстарының анатомиясы:<br><em>Бөлшек саудаға қарсы 32 аргумент</em>',
+  hero_sub:'Жабық клубтың аналитикалық талдауы. Уақыты мен ресурстары ашық бөлшек нарықтың маркетингтік шығындарын төлеу үшін тым қымбатқа тұратындарға арналған интуитивті тест-аудит.',
+  instruction:'Төмендегі әр блокты 1-ден 10-ға дейін бағалаңыз',
+  rate_q:'Бұл аргумент сізге қаншалықты сәйкес келеді?',
+  b2_h:'Бөлшек сауда жүктемесін азайту',
+  b2_p:'Жаһандық бөлшек агрегаторлар әр пайдаланушының шотына миллиондаған жарнама бюджеттерін салады — бұл сатып алушының жасырын шығыны. Біз бұл қондырманы алып тастап, көтерме шлюзге тікелей қатынасты ашамыз.',
+  b3_h:'Еркіндік аудиті',
+  b3_h3a:'03. Кесте шектеулері',
+  b3_p1:'Бөлшек нарық ыңғайсыз жағдайларды таңады — агрегаторлардың жасанды тарифтеріне жоспарларыңызды бейімдеуге мәжбүр боласыз.',
+  b3_h3b:'04. Комфорт жоғалту',
+  b3_p2:'Жоғары бөлшек баға тізіміне сәйкес келу үшін неғұрлым қарапайым қызмет деңгейімен келісу — бұл жеке тиімділіктің тікелей жоғалуы.',
+  b3_h3c:'05. Жылжу кезіндегі шығындар',
+  b3_p3:'Бөлшек үстемеақылардағы артық төлемдер дүниежүзілік сапарларды ақылға қонымды бюджет басқару орнына қайтарылмас шығынға айналдырады.',
+  b3_rq:'Жеке тиімділік философияңызға сәйкестік бағасы:',
+  b6_h:'Нарыққа артық төлеуді тоқтатыңыз',
+  b6_p:'Бұл ресурстар жалпыға қол жетімді сайттарды пайдалану құқығы үшін ғана сіздің жеке немесе отбасы бюджетіңізден кетеді — біз бұл өтімділікті сіздің балансыңызда сақтаймыз.',
+  calc_year:'Сапарларға жылдық шығын ($)',
+  calc_loss:'Маркетингтік үстемеақы:',
+  calc_year_label:'/ жыл',
+  b6_rq:'Жоғалтқан пайданы цифрландыру сіз үшін қаншалықты маңызды?',
+  b7_h:'Басқарудың бірыңғай орталығы',
+  b7_intro:'Travel Advantage платформасы — заманауи адамның мобильділік және ресурстарды сақтау міндеттерін толықтай шешетін жабық технологиялық түйін.',
+  b7_c1h:'07. Топтық локациялар',b7_c1p:'Дүниежүзі бойынша 2 000 000+ қонақүй мен курорттарда жасырын комиссиясыз бірыңғай баға стандартымен көтерме құнға тікелей қол жеткізу.',
+  b7_c2h:'08. Таза авиа-тариф',b7_c2p:'Әлемдік тасымалдаушылармен тікелей интеграция. Жасырын агенттік алымдар мен рәсімдеу үстемеақылары жоқ.',
+  b7_c3h:'09. Теңіз маршруттары',b7_c3p:'Жетекші круиздік желілермен тікелей келісімшарттар. Кез келген деңгейдегі маршруттар тіркелген клуб бағасымен.',
+  b7_c4h:'10. Нысаналы автокөлік',b7_c4p:'Дүниежүзінің кез келген нүктесінде комфортты қалалық модельдерден өкілдіктік класс автомобильдеріне дейін.',
+  b7_c5h:'11. Flash Deals',b7_c5p:'Жоғары санаттағы қонақүйлердің сатылмаған көтерме квоталарын 83%-ке дейін жеңілдікпен 24 сағат сайын автоматты іздеу.',
+  b7_c6h:'12. Брендтік маркетплейс',b7_c6p:'Жетекші сән үйлерінен тікелей жеткізу — резиденттерге елеулі жеңілдіктермен жабық каталог.',
+  b7_rq:'Travel Advantage шлюзінің толықтығы мен архитектурасын бағалаңыз:',
+  b13_h:'Егжей-тегжейлі фактілер',
+  b13_retail_tag:'Жалпыға қол жетімді агрегатор — Ашық интернет',
+  b13_retail_desc:'5★ курорттық кешен. Баға делдалдың жарнамаға жұмсаған үлкен шығындарын қамтиды.',
+  b13_club_tag:'Жабық шлюз — Travel Advantage',
+  b13_club_desc:'Сол нысан, сол күндер — делдалдық үстемеақысыз таза базалық құн.',
+  b13_rq:'Броньдау құнындағы айырма сіз үшін қаншалықты сенімді?',
+  b14_h:'Клубтық платформалық модель',
+  b14_p:'MWR Life өз өнімін бұқаралық ритейлдан толықтай оқшаулады — компания жарнамаға ресурс жұмсамайды, оларды технологияларды дамытуға бағыттайды. Сіз оптовалық B2B жүйесіне тікелей жеке қол жеткізу аласыз.',
+  b14_rq:'MWR Life-тың жабық клуб форматы сізге сәйкес келе ме?',
+  b15_h:'Баланс сақтау',
+  b15_p:'Клубтық мүшелік қаражатты жоғалтпайды — әр жарна толықтай сіздің болашақ сапарларыңызды төлеуге арналған ішкі ұпайлар (Travel Credits) ретінде қайтарылады.',
+  b15_math:'Отбасының бір ірі сапары ғана жыл ішінде мүшелік құнын толықтай өтейді.',
+  b15_rq:'Жарналарды Travel Credits-ке қайтару тұжырымдамасы сізге сәйкес келе ме?',
+  b16_h:'Сапар бюджетін басқару',
+  b16_h3a:'16. Қос пайда',b16_p1:'Elite мәртебесіндегі резиденттер Life Experience-тің жабық турлары үшін ішкі лимиттерді пайдалана отырып, адалдық ұпайларын жинауды жалғастырады.',
+  b16_h3b:'17. Қонақ өткізу жолдомаларынан табыс',b16_p2:'Қоршаған ортаңызға тегін қонақ өткізу жолдомаларын беру табыс әкеледі — танысыңыз үнемдеген кезде платформа сізге сыйақы төлейді.',
+  b16_h3c:'18. Жеке брендті нығайту',b16_p3:'Flash Deals-ке қол жеткізу бес жұлдызды қонақүйлерді минималды бағамен үнемі баруға мүмкіндік береді — сапалы контент жасауға тамаша құрал.',
+  b16_rq:'Elite, Life Experience және Flash Deals құралдары сіз үшін қаншалықты өзекті?',
+  b19_h:'Сіздің өмір салтыңыз — ең жақсы ұсыныс',
+  b19_p:'Серіктестеріңіз бен достарыңыз сіздің жайлылық деңгейіңізді, жоғары локацияларды және платформаның нақты жабық бағаларын көргенде жабық клубқа қызыға бастайды.',
+  b19_rq:'Қоршаған ортаның органикалық қызығушылық әсері сізге сәйкес келе ме?',
+  b20_h:'Өтемақы жүйесі',
+  b20_p:'Ешқандай жылтыр сату жоқ — сіз жай ғана адамға тегін қонақ өткізу жолдомасын сыйлайсыз. Пайдаланушы нақты жеңілдік алады, ал алгоритм оның үнемдеген ақшасының 100%-ін сіздің балансыңызға есептейді.',
+  b20_rq:'Қонақ өткізу жолдомаларының пассивті алгоритмі сізге қаншалықты сәйкес?',
+  b21_h:'Рутинаны жою',
+  b21_p:'Ешқандай спам, жылтыр қоңыраулар немесе хаотикалық хат алмасу жоқ — рутиналық операциялардың көп бөлігі толықтай автоматтандырылған.',
+  b21_rq:'Рутинаны автоматтандырудың сіздің кестеңіз үшін маңыздылығы:',
+  b22_h:'Сіздің жеке Digital Twin-іңіз',
+  b22_p:'Әрбір негізгі серіктес цифрлық көмекшіге қол жеткізеді — сіз іс-шаралармен немесе сапарда болған кезде трафикпен диалогты өз бетімен жүргізетін интерактивті кешен.',
+  b22_rq:'Диалогтар жүргізу үшін Digital Twin сізге қаншалықты қажет?',
+  b23_h:'Пікірлестер арасында даму',
+  b23_p:'Сіз жай ғана жобаға қосылмайсыз — сіз кәсіпкерлердің, инвесторлар мен сарапшылардың жабық халықаралық қауымдастығының бір бөлігіне айналасыз.',
+  b23_rq:'Жабық нетворкинг алаңының сіздің байланыстар жүйесіне пайдасы:',
+  b24_h:'Жаһандық тану',
+  b24_p:'MWR Life — он екі жылдық тарихы бар мөлдір американдық холдинг. Тікелей сату компанияларының жаһандық ТОП-85 ине кіреді. 100+ елде шамамен 700 000 қатысушы.',
+  b24_rq:'100+ елдегі географиялық кеңдік сіз үшін қаншалықты маңызды?',
+  b25_h:'Географиялық тәуелсіздікке үш қадам',
+  b25_s1h:'Өтелім',b25_s1p:'Командаңыздағы 3 белсенді резидент ғана сіздің қатысу құнын толықтай жабады — баланс нөлге шығады.',
+  b25_s2h:'Тұрақты кіріс',b25_s2p:'Дайын құралдар арқылы командалық өсу — алгоритм тұрақты күнделікті есептеулерді қосады.',
+  b25_s3h:'Бонустық пулдар',b25_s3p:'Лидерлік позицияларға шығу жаһандық ынталандыру моделіне тікелей қол жеткізуді ашады.',
+  b25_rq:'Қаржылық модельдің ашықтығы мен әлеуетін бағалаңыз:',
+  b26_h:'Қатысушылардың нақты тәжірибесі',
+  b26_q1:'«Мен кеңсеге байланбайтын бизнес-модель іздедім. Цифрлық көмекшіні пайдалану 4 айда үш елде серіктестік желіні орнатуға көмектесті».',
+  b26_q2:'«Бұрын адамдарда сату қорқынышы болды. Автоматтандыруды іске қосқаннан кейін тіркелімдегі конверсия рекордтық деңгейге жетті».',
+  b26_rq:'Қатысушылардың нақты тәжірибесі сіз үшін қаншалықты сенімді?',
+  b28_h:'Бизнесті таңдауға прагматикалық көзқарас',
+  b28_th1:'Критерийлер',b28_th2:'Дәстүрлі бизнес / Франшиза',b28_th3:'Экожүйедегі серіктестік',
+  b28_r1c1:'Стартап капитал',b28_r1c2:'$20 000 + жалдау, сатып алулар',b28_r1c3:'Минималды клубтық депозит',
+  b28_r2c1:'Операциялық тәуекелдер',b28_r2c2:'Кассалық алшақтықтар, дағдарыстар',b28_r2c3:'Жоқ — дайын IT-платформа',
+  b28_r3c1:'Масштабтау',b28_r3c2:'Қала мен штатпен шектелген',b28_r3c3:'Интернет арқылы 100+ елге шықсаңыз',
+  b28_rq:'Серіктестік моделінің прагматизмін бағалаңыз:',
+  b29_h:'Толық қауіпсіздік кепілдігі',
+  b29_g1h:'14 күндік тест-драйв',b29_g1p:'14 күн ішінде — адалдық ұпайларын пайдаланбаса ақшаны қайтарамыз. Бір хат. Шартта жазылған.',
+  b29_g2h:'Ең жақсы баға кепілдігі',b29_g2p:'Кез келген ресурста арзанырақ таптыңыздар — платформа айырмашылықтың 150%-ін өтейді.',
+  b29_rq:'Екі кепілдік те сіз үшін қаншалықты маңызды?',
+  b31_h:'Қатынас кезеңмен ашылады',
+  b31_p:'Біз жаппай хаотикалық ағынмен жұмыс жасамаймыз — жаңа резиденттер толқындармен қосылады, әр адамға нәтижені кепілдендіру үшін.',
+  b31_rq:'Кезеңдік қосылу форматы сізге қаншалықты сәйкес?',
+  score_label:'Сіздің жеке сәйкестік индексіңіз',
+  score_placeholder:'Нақты тұжырым жасау үшін жоғарыдағы блоктарды бағалаңыз.',
+  cta_label:'32. Соңғы қадам',
+  cta_h:'Терминал архитектурасын ашу',
+  cta_p:'Жүйенің тұжырымы мақсаттардың үйлесімділігін растаса — кіру деңгейін таңдауды егжей-тегжейлі танысу үшін қатынасты белсендіріңіз.',
+  cta_btn:'Тариф таңдауға өтіңіз →',
+  faq_h:'Толық ашықтық және фактілер',
+  fq1:'Заңды қайтару кепілдігі қалай жұмыс істейді?',fa1:'Белсендіруден 14 күн ішінде — адалдық ұпайларын пайдаланбасаңыз қаражатты қайтарамыз. Барлық операциялар халықаралық құқықпен қорғалған.',
+  fq2:'Кәдімгі туристік агенттіктерден айырмашылығы неде?',fa2:'Классикалық компаниялар өз үстемеақысымен дайын бөлшек пакеттерін сатады — Travel Advantage бөлшек тарифтер мен маркетингтік артық төлем жоқ B2B жүйесіне тікелей қол жеткізу береді.',
+  fq3:'Авиабилеттерді көтерме бағамен сатып алуға бола ма?',fa3:'Шлюзіміз агенттік үстемеақысыз билет ұсынады, бір мерзімде қонақүйлерді толық төлеуге арналған адалдық ұпайларды есептейді.',
+  fq4:'Отбасы мүшелерімді аккаунтыма қоса аламын ба?',fa4:'Иә, Elite және Turbo пакеттерінде жеке кабинетке қосымша жолаушылар қоса аласыз — олар сол көтерме бағалармен дербес броньдай алады.',
+  fq5:'Жабық маркетплейс деген не?',fa5:'Клубтың ішкі дүкені — 150+ әлемдік брендтердің тауарлары тікелей өндірушілерден, клуб мүшелеріне 70%-ке дейін жеңілдікпен, оның ішінде адалдық ұпайларымен.',
+  fq6:'Бұл бағытқа қанша уақыт бөлу керек?',fa6:'Автоматтандырудың арқасында аптасына 5-7 сағат жеткілікті — назар кіріс сұраулармен жұмыс жасауға және тарихыңызды масштабтауға бағытталған.',
+  footer_disc:'Бұл сайт MWR Life компаниясының тәуелсіз серіктес ресурсы болып табылады. Нәтижелер жеке.',
+  score_low:'Кейбір блоктар үнемдеді. Мүмкін, қазіргі уақыт ең жақсы кез емес. Бірақ байланысыңызды қалдырыңыз.',
+  score_mid:'Жақсы сәйкестік деңгейі. Бірнеше аргумент күшті ынтаны туғызды. Үш кіру жолымен танысуды ұсынамыз.',
+  score_high:'Жоғары сәйкестік деңгейі. Платформа сіздің мақсаттарыңыз бен философияңызға сәйкес келеді. Тариф таңдауға өтіңіз.',
+}
+};
+
+// ── I18N ─────────────────────────────────────────────────────────────────────
+let currentLang = 'ru';
+
+function applyLang(lang) {
+  if (!TRANS[lang]) return;
+  currentLang = lang;
+  localStorage.setItem('ts-lang', lang);
+  const t = TRANS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.getElementById('langCurrentText').textContent = lang.toUpperCase();
+  document.querySelectorAll('.lang-dropdown button').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  document.documentElement.lang = lang;
+  updateScore();
+}
+
+function toggleLangDropdown(e) {
+  e.stopPropagation();
+  document.getElementById('langCurrent').classList.toggle('open');
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+function selectLang(lang) {
+  document.getElementById('langDropdown').classList.remove('open');
+  document.getElementById('langCurrent').classList.remove('open');
+  applyLang(lang);
+}
+document.addEventListener('click', () => {
+  document.getElementById('langDropdown').classList.remove('open');
+  document.getElementById('langCurrent').classList.remove('open');
+});
+
+// ── THEME ────────────────────────────────────────────────────────────────────
+function getSystemTheme() { return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : '');
+  localStorage.setItem('ts-theme', t);
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+// ── RATING BUTTONS ────────────────────────────────────────────────────────────
+const scores = {};
+
+document.querySelectorAll('.rating-row').forEach(row => {
+  const key = row.getAttribute('data-key');
+  scores[key] = 0;
+  for (let i = 1; i <= 10; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'rating-btn';
+    btn.textContent = i;
+    btn.onclick = () => {
+      row.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      scores[key] = i;
+      updateScore();
+    };
+    row.appendChild(btn);
+  }
+});
+
+function updateScore() {
+  const vals = Object.values(scores).filter(v => v > 0);
+  const el = document.getElementById('scoreNum');
+  const verdict = document.getElementById('scoreVerdict');
+  const t = TRANS[currentLang] || TRANS.ru;
+  if (vals.length === 0) {
+    el.textContent = '—';
+    verdict.innerHTML = t.score_placeholder;
+    return;
+  }
+  const avg = (vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(1);
+  el.textContent = avg;
+  if (avg < 5) verdict.innerHTML = t.score_low;
+  else if (avg < 7.5) verdict.innerHTML = t.score_mid;
+  else verdict.innerHTML = t.score_high;
+}
+
+// ── CALCULATOR ────────────────────────────────────────────────────────────────
+function updateCalc() {
+  const y = parseFloat(document.getElementById('calcYear').value) || 5000;
+  const loss = Math.round(y * 0.27);
+  document.getElementById('calcLoss').textContent = '$' + loss.toLocaleString();
+}
+updateCalc();
+
+// ── FAQ ───────────────────────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-toggle.open').forEach(b => { b.classList.remove('open'); b.nextElementSibling.style.maxHeight = null; });
+  if (!isOpen) { btn.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+
+// ── PROGRESS BAR ──────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = (window.scrollY / total * 100) + '%';
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.block').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  observer.observe(el);
+});
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+(function() {
+  const savedTheme = localStorage.getItem('ts-theme') || getSystemTheme();
+  applyTheme(savedTheme);
+  const savedLang = localStorage.getItem('ts-lang');
+  const nav = (navigator.language || 'ru').split('-')[0].toLowerCase();
+  const map = { 'ru':'ru', 'kk':'kz', 'kz':'kz', 'en':'en' };
+  applyLang(savedLang || map[nav] || 'ru');
+})();
+</script>
+</body>
+</html>
