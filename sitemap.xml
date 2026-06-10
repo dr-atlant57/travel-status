@@ -1,488 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="meta_title">The Mechanics of Travel Subscription Clubs | TravelStatus</title>
-    <meta name="description" id="meta-desc" content="An institutional analysis of subscription-based travel networks. Learn how recurring revenue models eliminate traditional booking markups.">
-    <style>
-        :root {
-            --bg-color: #fdfdfd;
-            --text-color: #1a1a1a;
-            --text-muted: #5a5a5a;
-            --accent-color: #004B87;
-            --border-color: #e5e5e5;
-            --card-bg: #f8f9fa;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        header {
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        .lang-switcher {
-            padding: 6px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            background-color: #fff;
-            color: var(--text-color);
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        h1 {
-            font-size: 2.2rem;
-            line-height: 1.2;
-            letter-spacing: -0.03em;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            margin-top: 35px;
-            margin-bottom: 15px;
-        }
-        p {
-            margin-bottom: 20px;
-            color: #2c2c2c;
-            text-align: justify;
-        }
-        .meta-descr {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95rem;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-        th {
-            background-color: var(--card-bg);
-            font-weight: 600;
-        }
-        blockquote {
-            margin: 30px 0;
-            padding: 0 0 0 20px;
-            border-left: 3px solid var(--accent-color);
-            font-style: italic;
-            color: var(--text-muted);
-        }
-        .bridge-block {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 30px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        .bridge-block h3 {
-            margin-top: 0;
-            font-size: 1.3rem;
-        }
-        .btn {
-            display: inline-block;
-            background-color: var(--text-color);
-            color: #fff;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-            margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn:hover {
-            background-color: var(--accent-color);
-        }
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-        @media (max-width: 600px) {
-            h1 { font-size: 1.75rem; }
-            h2 { font-size: 1.3rem; }
-            table { font-size: 0.8rem; }
-            th, td { padding: 8px; }
-        }
-    </style>
-</head>
-<body>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-<div class="container">
-    <header>
-        <a href="/" class="logo">TRAVELSTATUS</a>
-        <select class="lang-switcher" id="langSelect" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-            <option value="de">Deutsch</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
-            <option value="ro">Română</option>
-            <option value="ko">한국어</option>
-            <option value="et">Eesti</option>
-        </select>
-    </header>
+  <!-- 1. Главная страница / Индекс -->
+  <url>
+    <loc>https://travelstatus.cc/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/"/>
+  </url>
 
-    <main>
-        <h1 data-i18n="h1">The Subscription Architecture: Decoding the Economics of Closed Travel Clubs</h1>
-        <p class="meta-descr" data-i18n="meta_descr">An analytical breakdown of how subscription-based travel models realign platform incentives and dismantle retail booking margins.</p>
+  <!-- 2. Аудит цен на путешествия -->
+  <url>
+    <loc>https://travelstatus.cc/travel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/travel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/travel-pricing-audit"/>
+  </url>
 
-        <p data-i18n="p1">Public online travel agencies (OTAs) operate on a fundamental structural mismatch: their profitability relies entirely on transaction friction. The higher the markup they inject into a booking, the more capital they generate. Closed subscription clubs invert this financial architecture by decoupling platform monetization from the cost of the travel asset itself.</p>
+  <!-- 3. Разница в ценах на отели -->
+  <url>
+    <loc>https://travelstatus.cc/hotel-price-differences-explained</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/hotel-price-differences-explained"/>
+  </url>
 
-        <blockquote data-i18n="quote">
-            When infrastructure is funded by recurring membership fees, the transaction margin loses its economic purpose. The platform becomes an incentive-aligned routing layer.
-        </blockquote>
+  <!-- 4. Скрытые гостиничные сборы -->
+  <url>
+    <loc>https://travelstatus.cc/hidden-hotel-fees-exposed</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/hidden-hotel-fees-exposed"/>
+  </url>
 
-        <h2 data-i18n="h2_1">Economic Models: Retail Platforms vs. Membership Infrastructure</h2>
-        <p data-i18n="p2">The divergence between public retail interfaces and closed ecosystems stems directly from their primary monetization engines:</p>
+  <!-- 5. Оптимизация корпоративных путешествий -->
+  <url>
+    <loc>https://travelstatus.cc/corporate-travel-optimization</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/corporate-travel-optimization"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/corporate-travel-optimization"/>
+  </url>
 
-        <table>
-            <thead>
-                <tr>
-                    <th data-i18n="th1">Operational Vector</th>
-                    <th data-i18n="th2">Public Retail Model (OTA)</th>
-                    <th data-i18n="th3">Closed Subscription Model</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td data-i18n="td1_1"><strong>Primary Revenue Driver</strong></td>
-                    <td data-i18n="td1_2">Transactional markups, booking commissions, and dynamic ad placement.</td>
-                    <td data-i18n="td1_3">Predictable recurring membership and subscription dues.</td>
-                </tr>
-                <tr>
-                    <td data-i18n="td2_1"><strong>Platform Incentive</strong></td>
-                    <td data-i18n="td2_2">Maximize total transaction cost to scale gross commission value.</td>
-                    <td data-i18n="td2_3">Maximize retention by liquidating margins and reducing net costs.</td>
-                </tr>
-                <tr>
-                    <td><strong data-i18n="td3_1">Inventory Pricing</strong></td>
-                    <td data-i18n="td3_2">Artificial consumer-facing retail rates dictated by rate parity policies.</td>
-                    <td><strong data-i18n="td3_3">Raw B2B wholesale rates routed directly with zero markups.</strong></td>
-                </tr>
-                <tr>
-                    <td data-i18n="td4_1"><strong>User Engagement Strategy</strong></td>
-                    <td data-i18n="td4_2">Aggressive retargeting, scarcity psychological triggers, and cookie tracking.</td>
-                    <td data-i18n="td4_3">Credentialed access, user data privacy, and optimized utility interfaces.</td>
-                </tr>
-            </tbody>
-        </table>
+  <!-- 6. Как устроена дистрибуция отелей -->
+  <url>
+    <loc>https://travelstatus.cc/how-hotel-distribution-works</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/how-hotel-distribution-works"/>
+  </url>
 
-        <h2 data-i18n="h2_2">The Power of Predictable Recurring Capital</h2>
-        <p data-i18n="p3">Public platforms face highly volatile consumer acquisition costs, spending billions annually on programmatic search ads to recapture the same transient users. Subscription architectures eliminate this massive overhead. By securing recurring capital upfront, a closed network stabilizes its revenue stream independent of seasonal booking behaviors.</p>
-        
-        <p data-i18n="p4">This financial predictability allows the platform to function strictly as a utility layer. Instead of engineering complex pricing algorithms designed to test the upper limits of consumer price tolerance, the infrastructure focuses entirely on high-speed API data routing, ensuring members get direct access to institutional inventory blocks at baseline cost.</p>
+  <!-- 7. Альтернативы бронирования отелей -->
+  <url>
+    <loc>https://travelstatus.cc/hotel-booking-alternatives</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/hotel-booking-alternatives"/>
+  </url>
 
-        <div class="bridge-block">
-            <h3 data-i18n="b_title">Settle the True Cost of Mobility</h3>
-            <p data-i18n="b_text">TravelStatus removes transaction-based exploitation by operating a pure subscription model built for absolute financial clarity.</p>
-            <a href="/vip" class="btn" data-i18n="b_btn">Review Membership Tiers</a>
-        </div>
+  <!-- 8. Математика клубного членства -->
+  <url>
+    <loc>https://travelstatus.cc/travel-membership-pricing</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/travel-membership-pricing"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/travel-membership-pricing"/>
+  </url>
 
-        <h2 data-i18n="h2_3">Bypassing Rate Parity Behind Credentialed Firewalls</h2>
-        <p data-i18n="p5">Global hotel brands enforce strict public rate parity agreements to prevent retail platforms from openly undercutting direct brand channels. However, these legal restrictions apply exclusively to public, unauthenticated search spaces. By enclosing inventory behind a mandatory user authentication wall, subscription networks operate outside the scope of public rate parity, enabling the seamless distribution of un-marked wholesale rates.</p>
-    </main>
+  <!-- 9. Почему цены на отели отличаются -->
+  <url>
+    <loc>https://travelstatus.cc/why-hotel-prices-differ</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+  </url>
 
-    <footer>
-        <p>&copy; 2026 TravelStatus.cc. Human Infrastructure Optimization.</p>
-    </footer>
-</div>
-
-<script>
-const translations = {
-    en: {
-        meta_title: "The Mechanics of Travel Subscription Clubs | TravelStatus",
-        meta_desc: "An institutional analysis of subscription-based travel networks. Learn how recurring revenue models eliminate traditional booking markups.",
-        h1: "The Subscription Architecture: Decoding the Economics of Closed Travel Clubs",
-        meta_descr: "An analytical breakdown of how subscription-based travel models realign platform incentives and dismantle retail booking margins.",
-        p1: "Public online travel agencies (OTAs) operate on a fundamental structural mismatch: their profitability relies entirely on transaction friction. The higher the markup they inject into a booking, the more capital they generate. Closed subscription clubs invert this financial architecture by decoupling platform monetization from the cost of the travel asset itself.",
-        quote: "When infrastructure is funded by recurring membership fees, the transaction margin loses its economic purpose. The platform becomes an incentive-aligned routing layer.",
-        h2_1: "Economic Models: Retail Platforms vs. Membership Infrastructure",
-        p2: "The divergence between public retail interfaces and closed ecosystems stems directly from their primary monetization engines:",
-        th1: "Operational Vector", th2: "Public Retail Model (OTA)", th3: "Closed Subscription Model",
-        td1_1: "Primary Revenue Driver", td1_2: "Transactional markups, booking commissions, and dynamic ad placement.", td1_3: "Predictable recurring membership and subscription dues.",
-        td2_1: "Platform Incentive", td2_2: "Maximize total transaction cost to scale gross commission value.", td2_3: "Maximize retention by liquidating margins and reducing net costs.",
-        td3_1: "Inventory Pricing", td3_2: "Artificial consumer-facing retail rates dictated by rate parity policies.", td3_3: "Raw B2B wholesale rates routed directly with zero markups.",
-        td4_1: "User Engagement Strategy", td4_2: "Aggressive retargeting, scarcity psychological triggers, and cookie tracking.", td4_3: "Credentialed access, user data privacy, and optimized utility interfaces.",
-        h2_2: "The Power of Predictable Recurring Capital",
-        p3: "Public platforms face highly volatile consumer acquisition costs, spending billions annually on programmatic search ads to recapture the same transient users. Subscription architectures eliminate this massive overhead. By securing recurring capital upfront, a closed network stabilizes its revenue stream independent of seasonal booking behaviors.",
-        p4: "This financial predictability allows the platform to function strictly as a utility layer. Instead of engineering complex pricing algorithms designed to test the upper limits of consumer price tolerance, the infrastructure focuses entirely on high-speed API data routing, ensuring members get direct access to institutional inventory blocks at baseline cost.",
-        b_title: "Settle the True Cost of Mobility",
-        b_text: "TravelStatus removes transaction-based exploitation by operating a pure subscription model built for absolute financial clarity.",
-        b_btn: "Review Membership Tiers",
-        h2_3: "Bypassing Rate Parity Behind Credentialed Firewalls",
-        p5: "Global hotel brands enforce strict public rate parity agreements to prevent retail platforms from openly undercutting direct brand channels. However, these legal restrictions apply exclusively to public, unauthenticated search spaces. By enclosing inventory behind a mandatory user authentication wall, subscription networks operate outside the scope of public rate parity, enabling the seamless distribution of un-marked wholesale rates."
-    },
-    ru: {
-        meta_title: "Механика закрытых клубов подписок | TravelStatus",
-        meta_desc: "Институциональный анализ клубной модели в туризме. Как подписной доход ликвидирует классические посреднические наценки систем бронирования.",
-        h1: "Архитектура подписок: дешифровка экономики закрытых туристических клубов",
-        meta_descr: "Аналитический разбор того, как подписные бизнес-модели меняют стимулы платформ и ликвидируют розничные торговые наценки.",
-        p1: "Публичные онлайн-агентства (OTA) функционируют в условиях структурного конфликта интересов: их прибыльность целиком зависит от транзакционных издержек. Чем выше наценка, которую они закладывают в бронирование, тем больше их доход. Закрытые клубы подписок переворачивают эту финансовую схему, отделяя монетизацию платформы от стоимости самого туристического продукта.",
-        quote: "Когда содержание инфраструктуры финансируется за счет регулярных членских взносов, транзакционная маржа теряет экономический смысл. Платформа превращается в чистый логистический шлюз.",
-        h2_1: "Экономические модели: розничные платформы против клубной инфраструктуры",
-        p2: "Принципиальное различие между открытыми розничными витринами и закрытыми экосистемами напрямую вытекает из их базовой модели монетизации:",
-        th1: "Операционный вектор", th2: "Публичная розничная модель (OTA)", th3: "Закрытая модель подписки",
-        td1_1: "Основной источник дохода", td1_2: "Транзакционные наценки, комиссии с каждого бронирования и рекламные доходы.", td1_3: "Прогнозируемые регулярные членские взносы участников клуба.",
-        td2_1: "Главный стимул платформы", td2_2: "Максимизировать итоговую стоимость транзакции для увеличения абсолютной комиссии.", td2_3: "Максимизировать удержание пользователей за счет ликвидации маржи и снижения цен.",
-        td3_1: "Ценообразование инвентаря", td3_2: "Искусственные розничные тарифы, ограниченные правилами паритета открытого рынка.", td3_3: "Прямая трансляция чистых B2B-тарифов с нулевой внутренней наценкой.",
-        td4_1: "Стратегия работы с клиентом", td4_2: "Агрессивный ретаргетинг, психологическое давление дефицитом и отслеживание профиля.", td4_3: "Доступ строго по учетным данным, конфиденциальность и фокус на утилитарности.",
-        h2_2: "Сила прогнозируемого регулярного капитала",
-        p3: "Публичные платформы зажаты в тиски нестабильной стоимости привлечения клиентов, ежегодно сжигая миллиарды долларов на контекстную рекламу ради удержания случайного трафика. Клубная архитектура полностью устраняет эти накладные расходы. Получая оборотный капитал авансом в виде подписок, закрытая сеть стабилизирует свой финансовый поток независимо от сезонных колебаний спроса.",
-        p4: "Эта финансовая стабильность позволяет сервису функционировать исключительно как технологический слой. Вместо разработки алгоритмов динамического ценообразования, тестирующих верхнюю границу платежеспособности клиента, закрытая инфраструктура фокусируется на оптимизации API-потоков, отдавая участникам базовую себестоимость инвентаря.",
-        b_title: "Оплачивайте чистую стоимость мобильности",
-        b_text: "TravelStatus исключает транзакционную эксплуатацию, работая по прозрачной модели подписки ради абсолютной финансовой чистоты.",
-        b_btn: "Обзор уровней членства",
-        h2_3: "Обход паритета цен за экранами авторизации",
-        p5: "Мировые отельные сети жестко контролируют правила открытого паритета цен, чтобы не позволить розничным агрегаторам открыто демпинговать. Однако эти юридические ограничения распространяются только на публичное, неавторизованное интернет-пространство. Закрывая инвентарь за обязательным экраном авторизации, клубные сети выходят из-под действия правил паритета, получая легальное право распределять чистые оптовые цены."
-    },
-    de: {
-        meta_title: "Die Mechanik von Reise-Abo-Clubs | TravelStatus",
-        meta_desc: "Eine institutionelle Analyse von Reise-Abo-Netzwerken. Erfahren Sie, wie wiederkehrende Einnahmen traditionelle Buchungsaufschläge eliminieren.",
-        h1: "Die Abo-Architektur: Die Ökonomie geschlossener Reise-Clubs entschlüsselt",
-        meta_descr: "Eine analytische Aufschlüsselung, wie abonnementbasierte Reisemodelle Plattform-Anreize neu ausrichten und Handelsmargen abbauen.",
-        p1: "Öffentliche Online-Reisebüros (OTAs) operieren mit einem grundlegenden strukturellen Fehlanreiz: Ihre Profitabilität hängt vollständig von Transaktionsaufschlägen ab. Geschlossene Abo-Clubs invertieren diese Finanzarchitektur, indem sie die Monetarisierung der Plattform von den Kosten der Reiseleistung entkoppeln.",
-        quote: "Wenn die Infrastruktur durch wiederkehrende Mitgliedsbeiträge finanziert wird, verliert die Transaktionsmarge ihren wirtschaftlichen Zweck. Die Plattform wird zum reinen Logistik-Gateway.",
-        h2_1: "Wirtschaftsmodelle: Einzelhandelsplattformen vs. Abo-Infrastruktur",
-        p2: "Die Diskrepanz zwischen offenen Portalen und geschlossenen Ökosystemen resultiert direkt aus ihren Monetarisierungsmodellen:",
-        th1: "Operativer Vektor", th2: "Öffentliches Einzelhandelsmodell (OTA)", th3: "Geschlossenes Abo-Modell",
-        td1_1: "Haupteinnahmequelle", td1_2: "Transaktionsaufschläge, Buchungsprovisionen und dynamische Werbeplätze.", td1_3: "Prognostizierbare, wiederkehrende Mitglieds- und Abonnementgebühren.",
-        td2_1: "Plattform-Anreiz", td2_2: "Maximierung der Transaktionskosten, um das absolute Provisionsvolumen zu steigern.", td2_3: "Maximierung der Mitgliederbindung durch Eliminierung jeglicher Margen.",
-        td3_1: "Inventar-Preise", td3_2: "Künstliche Endkundenpreise, diktiert durch die Ratenparität des offenen Marktes.", td3_3: "Direkte Weiterleitung von B2B-Nettotarifen mit null Aufschlag.",
-        td4_1: "Nutzerbindungs-Strategie", td4_2: "Aggressives Retargeting, künstliche Verknappung und Cookie-Tracking.", td4_3: "Zugang nur mit Login, absoluter Datenschutz und Fokus auf Effizienz.",
-        h2_2: "Die Kraft prognostizierbaren, wiederkehrenden Kapitals",
-        p3: "Öffentliche Portale leiden unter extrem volatilen Kundenakquisitionskosten und investieren jährlich Milliarden in Suchmaschinenwerbung. Abo-Architekturen eliminieren diesen massiven Overhead. Durch die Absicherung des Kapitals im Voraus über Abonnements stabilisiert ein geschlossenes Netzwerk seine Einnahmen unabhängig von saisonalen Buchungsschwankungen.",
-        p4: "Diese finanzielle Planbarkeit erlaubt es der Plattform, sich rein als technologisches Werkzeug zu verstehen. Statt Algorithmen zur künstlichen Preiserhöhung zu entwickeln, konzentriert sich die Infrastruktur auf die Optimierung der API-Datenströme, um den Mitgliedern die nackten Einkaufspreise zu sichern.",
-        b_title: "Zahlen Sie die echten Kosten der Mobilität",
-        b_text: "TravelStatus eliminiert transaktionsbasierte Aufschläge und operiert als reines Abo-Modell für absolute finanzielle Klarheit.",
-        b_btn: "Mitgliedschafts-Stufen prüfen",
-        h2_3: "Umgehung der Ratenparität hinter geschlossenen Login-Bereichen",
-        p5: "Globale Hotelketten erzwingen strenge Ratenparitäten, damit öffentliche Portale die Direktpreise der Hotels nicht unterbieten. Diese rechtlichen Beschränkungen gelten jedoch ausschließlich für den öffentlichen, nicht authentifizierten Suchraum. Durch den Schutz des Inventars hinter einem Login fallen Abo-Netzwerke aus diesen Beschränkungen heraus und können B2B-Nettopreise legal verteilen."
-    },
-    es: {
-        meta_title: "La mecánica de los clubes de viajes por suscripción | TravelStatus",
-        meta_desc: "Un análisis institucional de las redes de viajes basadas en suscripción. Cómo los ingresos recurrentes eliminan los márgenes tradicionales.",
-        h1: "La arquitectura de suscripción: Descodificando la economía de los clubes de viajes cerrados",
-        meta_descr: "Un desglose analítico de cómo los modelos de suscripción realinean los incentivos de la plataforma y eliminan los márgenes minoristas.",
-        p1: "Las agencias de viajes en línea (OTA) públicas operan bajo un conflicto de intereses estructural: su rentabilidad depende de los márgenes de transacción. Los clubes de suscripción cerrados invierten esta arquitectura financiera al desvincular la monetización de la plataforma del costo del inventario de viajes.",
-        quote: "Cuando la infraestructura se financia con cuotas de membresía recurrentes, el margen de transacción pierde su propósito económico. La plataforma se convierte en un nodo logístico neutral.",
-        h2_1: "Modelos económicos: Plataformas minoristas frente a infraestructura de miembros",
-        p2: "La divergencia entre las interfaces minoristas públicas y los ecosistemas cerrados surge directamente de sus motores de monetización principales:",
-        th1: "Vector Operativo", th2: "Modelo Minorista Público (OTA)", th3: "Modelo de Suscripción Cerrado",
-        td1_1: "Motor de Ingresos", td1_2: "Márgenes transaccionales, comisiones por reserva y anuncios dinámicos.", td1_3: "Cuotas de membresía y suscripciones recurrentes y previsibles.",
-        td2_1: "Incentivo de la Plataforma", td2_2: "Maximizar el costo total de la transacción para escalar la comisión absoluta.", td2_3: "Maximizar la retención eliminando márgenes y reduciendo los costos netos.",
-        td3_1: "Precios de Inventario", td3_2: "Tarifas minoristas artificiales dictadas por políticas de paridad de precios.", td3_3: "Tarifas mayoristas B2B puras canalizadas directamente con cero márgenes.",
-        td4_1: "Estrategia de Usuario", td4_2: "Retargeting agresivo, disparadores psicológicos de escasez y rastreo de cookies.", td4_3: "Acceso con credenciales, privacidad de datos y enfoque en la utilidad pura.",
-        h2_2: "El poder del capital recurrente previsible",
-        p3: "Las plataformas públicas enfrentan costos de adquisición de usuarios altamente volátiles, gastando miles de millones al año en publicidad digital. Las arquitecturas de suscripción eliminan este gasto masivo. Al asegurar el capital por adelantado, una red cerrada estabiliza su flujo de ingresos independientemente de los comportamientos estacionales.",
-        p4: "Esta previsibilidad financiera permite que la plataforma funcione estrictamente como una capa de utilidad técnica. En lugar de diseñar algoritmos de precios dinámicos para exprimir la tolerancia del consumidor, la infraestructura se enfoca en optimizar los flujos API para entregar el costo base original.",
-        b_title: "Pague el costo real de la movilidad",
-        b_text: "TravelStatus elimina la explotación transaccional al operar bajo un modelo de suscripción pura para una claridad financiera absoluta.",
-        b_btn: "Ver niveles de membresía",
-        h2_3: "Evitando la paridad de tarifas detrás de muros de autenticación",
-        p5: "Las cadenas hoteleras globales imponen estrictos acuerdos de paridad de tarifas públicas para evitar el descuento abierto en la web. Sin embargo, estas restricciones legales se aplican exclusivamente al espacio de búsqueda público y no autenticado. Al cerrar el inventario tras un inicio de sesión obligatorio, las redes de suscripción operan fuera de la paridad pública, distribuyendo tarifas netas B2B de forma legal."
-    },
-    fr: {
-        meta_title: "La mécanique des clubs de voyage par abonnement | TravelStatus",
-        meta_desc: "Une analyse institutionnelle des réseaux de voyage par abonnement. Comment les revenus récurrents éliminent les marges de réservation.",
-        h1: "L'architecture de l'abonnement : Décryptage de l'économie des clubs de voyage privés",
-        meta_descr: "Une analyse stratégique montrant comment les modèles par abonnement réalignent les incitations des plateformes et suppriment les marges de détail.",
-        p1: "Les agences de voyage en ligne (OTA) publiques reposent sur un conflit d'intérêts structurel : leur rentabilité dépend directement des marges appliquées aux transactions. Les clubs privés inversent cette architecture financière en découplant la monétisation de la plateforme du coût de l'actif de voyage lui-même.",
-        quote: "Lorsque l'infrastructure est financée par des cotisations récurrentes, la marge transactionnelle perd sa raison d'être économique. La plateforme devient un canal de routage neutre.",
-        h2_1: "Modèles économiques : Plateformes de détail vs Infrastructure d'abonnés",
-        p2: "La divergence entre les interfaces publiques et les écosystèmes fermés découle directement de leur moteur de monétisation principal :",
-        th1: "Vecteur Opérationnel", th2: "Modèle de Détail Public (OTA)", th3: "Modèle d'Abonnement Privé",
-        td1_1: "Source de Revenus", td1_2: "Marges transactionnelles, commissions sur les réservations et espaces publicitaires.", td1_3: "Cotisations et abonnements récurrents et prévisibles.",
-        td2_1: "Objectif de la Plateforme", td2_2: "Maximiser le coût total de la transaction pour augmenter la commission brute.", td2_3: "Maximiser la fidélisation en éliminant les marges et en réduisant les coûts nets.",
-        td3_1: "Tarification des Stocks", td3_2: "Tarifs de détail artificiels dictés par les politiques de parité grand public.", td3_3: "Tarifs de gros B2B bruts acheminés directement sans aucune marge.",
-        td4_1: "Stratégie d'Engagement", td4_2: "Retargeting agressif, urgence psychologique artificielle et suivi par cookies.", td4_3: "Accès sécurisé par identifiants, confidentialité des données et interface épurée.",
-        h2_2: "La puissance d'un capital récurrent et prévisible",
-        p3: "Les plateformes publiques subissent des coûts d'acquisition clients extrêmement volatils, dépensant des milliards chaque année en publicité pour capter un trafic éphémère. Le modèle par abonnement supprime ces frais généraux. En sécurisant le capital en amont, un réseau privé stabilise ses flux de revenus, indépendamment de la saisonnalité.",
-        p4: "Cette visibilité financière permet à la plateforme de fonctionner uniquement comme un outil technique. Plutôt que de développer des algorithmes de tarification dynamique visant à tester la limite budgétaire des clients, l'infrastructure optimise les flux API pour délivrer le stock à son coût d'usine brut.",
-        b_title: "Réglez le coût réel de votre mobilité",
-        b_text: "TravelStatus supprime l'exploitation transactionnelle en exploitant un modèle d'abonnement pur, conçu pour une clarté financière absolue.",
-        b_btn: "Consulter les offres d'adhésion",
-        h2_3: "Contourner la parité tarifaire derrière des espaces sécurisés",
-        p5: "Les chaînes hôtelières internationales imposent des règles strictes de parité tarifaire publique pour empêcher le dumping ouvert. Cependant, ces contraintes légales s'appliquent exclusivement aux espaces de recherche publics non authentifiés. En enfermant l'inventaire derrière une authentification obligatoire, les réseaux d'abonnés opèrent hors parité, distribuant légalement des tarifs nets B2B."
-    },
-    it: {
-        meta_title: "La meccanica dei club di viaggio in abbonamento | TravelStatus",
-        meta_desc: "Un'analisi istituzionale delle reti di viaggio basate su abbonamento. Come le entrate ricorrenti eliminano i ricarichi delle prenotazioni.",
-        h1: "L'architettura dell'abbonamento: Decodificare l'economia dei club di viaggio chiusi",
-        meta_descr: "Un'analisi dettagliata di come i modelli di viaggio in abbonamento riallineino gli incentivi delle piattaforme ed eliminino i ricarichi retail.",
-        p1: "Le agenzie di viaggio online (OTA) pubbliche operano su un disallineamento strutturale: la loro redditività dipende interamente dai ricarichi sulle transazioni. I club di viaggio privati invertono questa architettura finanziaria scollegando la monetizzazione della piattaforma dal costo della camera stessa.",
-        quote: "Quando l'infrastruttura è finanziata da quote associative ricorrenti, il margine di transazione perde il suo scopo economico. La piattaforma diventa un nodo di instradamento neutro.",
-        h2_1: "Modelli economici: Piattaforme retail vs Infrastrutture di membri",
-        p2: "La divergenza tra le interfacce retail pubbliche e gli ecosistemi chiusi deriva direttamente dal loro modello di monetizzazione principale:",
-        th1: "Vettore Operativo", th2: "Modello Retail Pubblico (OTA)", th3: "Modello in Abbonamento Chiuso",
-        td1_1: "Fattore di Reddito", td1_2: "Ricarichi sulle transazioni, commissioni di prenotazione e annunci pubblicitari.", td1_3: "Quote associative e canoni di abbonamento ricorrenti e prevedibili.",
-        td2_1: "Incentivo del Servizio", td2_2: "Massimizzare il costo totale della transazione per aumentare la commissione assoluta.", td2_3: "Massimizzare la fidelizzazione eliminando i margini e riducendo i costi netti.",
-        td3_1: "Prezzi dell'Inventario", td3_2: "Tariffe retail artificiali dettate dalle politiche di parità di prezzo pubbliche.", td3_3: "Tariffe all'ingrosso B2B pure distribuite direttamente con zero ricarichi.",
-        td4_1: "Strategia di Coinvolgimento", td4_2: "Retargeting aggressivo, leve psicologiche sulla scarsità e tracciamento dei cookie.", td4_3: "Accesso protetto da credenziali, riservatezza dei dati e focus sulla pura utilità.",
-        h2_2: "Il potere del capitale ricorrente e prevedibile",
-        p3: "Le piattaforme pubbliche affrontano costi di acquisizione utenti altamente volatili, spendendo miliardi ogni anno in annunci sui motori di ricerca. Le architetture in abbonamento eliminano questa spesa. Assicurando il capitale in anticipo, una rete chiusa stabilizza il proprio flusso di entrate indipendentemente dalle fluttuazioni stagionali.",
-        p4: "Questa prevedibilità finanziaria consente alla piattaforma di funzionare strettamente come livello di utilità tecnica. Invece di sviluppare algoritmi di prezzo dinamici per testare la massima tolleranza di spesa dell'utente, l'infrastruttura si concentra sull'ottimizzazione dei flussi API per erogare il costo netto all'origine.",
-        b_title: "Paga il costo reale della mobilità",
-        b_text: "TravelStatus elimina lo sfruttamento transazionale operando con un modello di puro abbonamento integrato per un'assoluta trasparenza finanziaria.",
-        b_btn: "Esplora i livelli di iscrizione",
-        h2_3: "Aggirare la parità tariffaria dietro aree di accesso riservate",
-        p5: "Le catene alberghiere globali impongono rigidi accordi pubblici di parità tariffaria per impedire sconti aperti sul web. Tuttavia, queste restrizioni legali si applicano esclusivamente agli spazi di ricerca pubblici non autenticati. Proteggendo l'inventario dietro un login obbligatorio, le reti in abbonamento operano al di fuori della parità pubblica, distribuendo tariffe nette B2B in modo del tutto legale."
-    },
-    pt: {
-        meta_title: "A mecânica dos clubes de viagens por subscrição | TravelStatus",
-        meta_desc: "Uma análise institucional das redes de viagens baseadas em subscrição. Saiba como a receita recorrente elimina as margens das reservas.",
-        h1: "A arquitetura de subscrição: Descodificando a economia dos clubes de viagens fechados",
-        meta_descr: "Uma análise detalhada de como os modelos de subscrição realinham os incentivos da plataforma e eliminam as comissões do varejo.",
-        p1: "As agências de viagens online (OTAs) públicas operam sob um conflito de interesses estrutural: a sua rentabilidade depende inteiramente das margens de transação. Os clubes de subscrição fechados invertem esta arquitetura financeira ao desvincular a monetização da plataforma do custo do inventário de viagens em si.",
-        quote: "Quando a infraestrutura é financiada por quotas recorrentes, a margem de transação perde o seu propósito económico. A plataforma torna-se um canal de distribuição neutro.",
-        h2_1: "Modelos económicos: Plataformas de varejo vs Infraestrutura de membros",
-        p2: "A divergência entre as interfaces públicas de varejo e os ecossistemas fechados resulta diretamente dos seus motores de monetização principais:",
-        th1: "Vetor Operativo", th2: "Modelo de Varejo Público (OTA)", th3: "Modelo de Subscrição Fechado",
-        td1_1: "Fonte de Receita Principal", td1_2: "Margens transacionais, comissões por reserva e anúncios dinâmicos.", td1_3: "Quotas de membro e subscrições recorrentes e previsíveis.",
-        td2_1: "Incentivo da Plataforma", td2_2: "Maximizar o custo total da transação para aumentar a comissão bruta total.", td2_3: "Maximizar a retenção eliminando margens e reduzindo os custos net.",
-        td3_1: "Preços de Inventário", td3_2: "Tarifas de varejo artificiais ditadas por políticas de paridade de preços públicas.", td3_3: "Tarifas grossistas B2B puras entregues diretamente com zero comissões.",
-        td4_1: "Estratégia de Utilizador", td4_2: "Retargeting agressivo, gatilhos psicológicos de escassez e rastreio de cookies.", td4_3: "Acesso protegido por login, privacidade de dados e foco na utilidade técnica.",
-        h2_2: "O poder do capital recorrente previsível",
-        p3: "As plataformas públicas enfrentam custos de aquisição de utilizadores altamente voláteis, gastando milhares de milhões anualmente em anúncios digitais. As arquiteturas de subscrição eliminam estes custos fixos. Ao assegurar o capital por adiantado, uma rede fechada estabiliza o seu fluxo de receitas, independentemente da sazonalidade.",
-        p4: "Esta previsibilidade financeira permite que a plataforma funcione estritamente como uma camada utilitária. Em vez de criar algoritmos de preços dinâmicos para testar o limite de gastos do consumidor, a infraestrutura foca-se na otimização de integrações API para fornecer o custo líquido de fábrica.",
-        b_title: "Pague o custo real da mobilidade",
-        b_text: "A TravelStatus elimina a exploração transacional ao operar num modelo de subscrição pura para uma clareza financeira absoluta.",
-        b_btn: "Analisar níveis de adesão",
-        h2_3: "Contornando a paridade de tarifas atrás de firewalls de autenticação",
-        p5: "As marcas hoteleiras globais impõem acordos estritos de paridade de tarifas públicas para evitar descontos abertos na web. No entanto, estas restrições legais aplicam-se exclusivamente ao espaço de busca público e não autenticado. Ao fechar o stock atrás de um ecrã de login obrigatório, as redes de subscrição operam fora da paridade pública, distribuindo tarifas net B2B legalmente."
-    },
-    ro: {
-        meta_title: "Mecanismul cluburilor de turism pe abonament | TravelStatus",
-        meta_desc: "O analiză instituțională a rețelelor de turism bazate pe abonament. Cum elimină veniturile recurente adaosurile tradiționale de rezervare.",
-        h1: "Arhitectura abonamentului: Decodificarea economiei cluburilor închise de turism",
-        meta_descr: "O analiză strategică a modului în care modelele bazate pe abonament realiniază stimulentele platformelor și elimină marjele de retail.",
-        p1: "Agențiile publice de turism online (OTA) operează pe baza unui dezechilibru structural: profitabilitatea lor depinde în întregime de adaosurile tranzacționale. Cluburile închise pe abonament inversează această arhitectură financiară prin decuplarea monetizării platformei de costul serviciului de călătorie în sine.",
-        quote: "Când infrastructura este finanțată din cotizații recurente de membru, marja tranzacțională își pierde scopul economic. Platforma devine un canal de distribuție neutru.",
-        h2_1: "Modele economice: Platforme de retail vs Infrastructură de membri",
-        p2: "Divergența dintre interfețele publice de retail și ecosistemele închise provine direct din motoarele lor principale de monetizare:",
-        th1: "Vector Operațional", th2: "Model de Retail Public (OTA)", th3: "Model de Abonament Închis",
-        td1_1: "Sursa Principală de Venit", td1_2: "Adaosuri tranzacționale, comisioane de rezervare și publicitate dinamică.", td1_3: "Cotizații de membru și abonamente recurente și previzibile.",
-        td2_1: "Stimulentul Platformei", td2_2: "Maximizarea costului total al tranzacției pentru a crește comisionul absolut.", td2_3: "Maximizarea retenției prin eliminarea marjelor și reducerea costurilor nete.",
-        td3_1: "Prețul Inventarului", td3_2: "Tarife de retail artificiale impuse de politicile publice de paritate a prețurilor.", td3_3: "Tarife nete angro B2B transmise direct, cu zero adaosuri comerciale.",
-        td4_1: "Strategia de Angajament", td4_2: "Retargeting agresiv, presiune psihologică prin urgență și urmărire prin cookie-uri.", td4_3: "Acces securizat prin autentificare, confidențialitatea datelor și accent pe utilitate.",
-        h2_2: "Puterea capitalului recurent și previzibil",
-        p3: "Platformele publice se confruntă cu costuri extrem de volatile de achiziție a clienților, cheltuind miliarde anual pe publicitate online pentru a capta utilizatori temporari. Arhitecturile bazate pe abonament elimină aceste costuri masive. Prin securizarea capitalului în avans, o rețea închisă își stabilizează fluxul de venituri independent de sezonalitate.",
-        p4: "Această predictibilitate financiară permite platformei să funcționeze strict ca un instrument tehnic. În loc să dezvolte algoritmi de prețuri dinamice concepuți pentru a testa limitele bugetare ale consumatorilor, infrastructura se concentrează pe optimizarea fluxurilor API pentru a livra costul net original.",
-        b_title: "Plătiți costul real al mobilității",
-        b_text: "TravelStatus elimină exploatarea tranzacțională operând un model de abonament pur, construit pentru o claritate financiară absolută.",
-        b_btn: "Consultă nivelurile de membru",
-        h2_3: "Ocolirea parității tarifelor în spatele ecranelor de autentificare",
-        p5: "Lanțurile hoteliere globale impun acorduri stricte de paritate a tarifelor publice pentru a preveni reducerea deschisă a prețurilor pe internet. Cu toate acestea, aceste restricții legale se aplică exclusiv spațiilor publice de căutare, neautentificate. Prin securizarea inventarului în spatele unui login obligatoriu, rețelele pe abonament operează în afara parității publice, distribuind legal tarife nete B2B."
-    },
-    ko: {
-        meta_title: "정기 구독형 여행 클럽의 경제학 개론 | TravelStatus",
-        meta_desc: "구독 기반 여행 네트워크에 대한 제도적 분석. 반복적 수익 모델이 전통적인 예약 마진을 소멸시키는 메커니즘.",
-        h1: "구독 아키텍처: 폐쇄형 회원제 여행 클럽의 경제학 해독",
-        meta_descr: "구독 기반 여행 비즈니스 모델이 플랫폼의 이해관계를 재정렬하고 소매 유통 마진을 해체하는 방식에 대한 분석.",
-        p1: "공개형 온라인 여행사(OTA)들은 비즈니스 구조적 이해상충 관계 위에서 운영됩니다. 이들의 수익성은 전적으로 거래 마찰 비용에 의존하며, 예약 데이터에 높은 마진을 부과할수록 플랫폼의 이익이 커집니다. 반면, 폐쇄형 구독 클럽은 플랫폼의 수익 구조를 여행 자산 자체의 원가와 완전히 분리함으로써 이러한 금융 아키텍처를 반전시킵니다.",
-        quote: "정기 회원 유치 비용으로 인프라가 운영될 때, 거래 마진은 경제적 목적을 상실합니다. 플랫폼은 이해관계가 완벽히 일치된 데이터 라우팅 레이어로 기능합니다.",
-        h2_1: "경제적 모델 비교: 소매 플랫폼 vs 회원제 인프라",
-        p2: "공개형 소매 인터페이스와 폐쇄형 생태계의 근본적인 차이는 핵심 모네타이제이션 엔진에서 비롯됩니다.",
-        th1: "운영 벡터", th2: "공개형 소매 모델 (OTA)", th3: "폐쇄형 구독 모델",
-        td1_1: "주요 수익 엔진", td1_2: "거래별 유통 마진, 예약 수수료 및 동적 광고 구좌 판매 수익.", td1_3: "예측 가능한 정기 회원권 및 구독료 매출.",
-        td2_1: "플랫폼의 지향점", td2_2: "최종 거래 단가를 극대화하여 절대적인 총 수수료 볼륨을 확장.", td2_3: "유통 마진을 소멸시키고 네트 원가를 낮추어 회원 유지율을 극대화.",
-        td3_1: "인벤토리 가격 책정", td3_2: "공개 시장의 요금 parity 정책에 의해 통제되는 인위적인 소매 가격.", td3_3: "중간 마진이 완전히 제거되어 직결되는 원시 B2B 도매 네트 요금.",
-        td4_1: "사용자 참여 전략", td4_2: "공격적인 리타게팅, 인위적 매진 임박 심리 자극 및 쿠키 추적.", td4_3: "인증 기반 접근 권한 제어, 사용자 데이터 프라이버시 및 유틸리티 최적화.",
-        h2_2: "예측 가능한 반복적 자본이 지닌 힘",
-        p3: "공개형 플랫폼들은 극도로 불안정하고 가변적인 고객 획득 비용(CAC)에 노출되어 있으며, 일회성 트래픽을 재포착하기 위해 매년 수십억 달러를 포털 광고에 소모합니다. 구독 아키텍처는 이러한 대규모 나клад 비용을 원천 제거합니다. 구독료를 통해 선제적으로 자본을 확보함으로써, 폐쇄형 네트워크는 시즌별 예약 변동성과 무관하게 안정적인 현금 흐름을 유지합니다.",
-        p4: "이러한 재무적 예측 가능성은 플랫폼이 오직 기술적 유틸리티 레이어로만 기능할 수 있도록 지원합니다. 소비자의 가격 저항선 상한선을 테스트하기 위한 복잡한 동적 가격 책정 알고리즘을 설계하는 대신, 시스템 인프라는 고속 API 데이터 라우팅 최적화에만 집중하여 회원들에게 도매 원가를 그대로 보존하여 전달합니다.",
-        b_title: "이동에 소요되는 순수 원가만을 정산하십시오",
-        b_text: "TravelStatus는 거래 기반의 마진 착취 모델을 거부하며, 절대적인 재무 투명성을 위해 정제된 구독형 모델을 운영합니다.",
-        b_btn: "멤버십 등급 체계 검토",
-        h2_3: "보안 인증 방화벽을 통한 요금 Parity 정책의 합법적 우회",
-        p5: "글로벌 호텔 브랜드들은 유통 플랫폼들이 브랜드 직판 가격을 공개적으로 덤핑하는 것을 막기 위해 엄격한 가격 파리에이티(Rate Parity) 협정을 적용합니다. 그러나 이러한 법적 제약은 오직 인증되지 않은 '공개형 검색 공간'에만 국한됩니다. 필수 사용자 인증 장벽 뒤로 인벤토리를 격리함으로써, 구독 네트워크는 공개 파리티 규제 권역 외곽에서 동작하며 네트 B2B 도매 요금을 합법적으로 공급합니다."
-    },
-    et: {
-        meta_title: "Reisi-abo-klubide hinnamudelid | TravelStatus",
-        meta_desc: "Institutsionaalne analüüs tellimuspõhistest reisivõrgustikest. Vaata lähemalt, kuidas korduvad liikmetasud kaotavad jaemüügi marginaalid.",
-        h1: "Tellimusarhitektuur: Suletud reisiklubide majandusmudeli dešifreerimine",
-        meta_descr: "Analüütiline ülevaade sellest, kuidas püsitasudel põhinevad reisimudelid muudavad platvormide stiimuleid ja kaotavad jaemüügi vahendustasud.",
-        p1: "Avalikud veebipõhised reisibürood (OTA) töötavad struktuurse huvide konflikti tingimustes: nende kasumlikkus sõltub täielikult transaktsioonitasudest. Suletud tellimusklubid pööravad selle finantsarhitektuuri ümber, eraldades platvormi tulu reisiteenuse tegelikust maksumusest.",
-        quote: "Kui infrastruktuuri rahastatakse korduvatest liikmetasudest, kaotab transaktsioonimarginaal oma majandusliku eesmärgi. Platvormist saab neutraalne andmete suunamise kiht.",
-        h2_1: "Majandusmudelid: Jaemüügiplatvormid vs Liikmesuse infrastruktuur",
-        p2: "Erinevus avalike jaemüügiliideste ja suletud ökosüsteemide vahel tuleneb otse nende peamisest monetiseerimismootorist:",
-        th1: "Operatiivne suund", th2: "Avalik jaemüügimudel (OTA)", th3: "Suletud tellimusmudel",
-        td1_1: "Peamine tulujuht", td1_2: "Transaktsioonitasud, broneerimisvahendustasud ja dünaamiline reklaamimüük.", td1_3: "Prognoositavad korduvad liikme- ja tellimustasud.",
-        td2_1: "Platvormi stiimul", td2_2: "Maksimeerida tehingu kogumaksumust, et kasvatada absoluutset komisjonitasu.", td2_3: "Maksimeerida kasutajate hoidmist läbi marginaalide kaotamise ja hindade alandamise.",
-        td3_1: "Varude hinnastamine", td3_2: "Tehislikud jaemüügihinnad, mida dikteerivad avaliku turu hinnanõuded.", td3_3: "Puhtad B2B hulgihinnad, mis edastatakse otse ilma juurdehindluseta.",
-        td4_1: "Kasutajate kaasamine", td4_2: "Agressiivne retargeting, tehislik kiiruse surve ja küpsiste jälgimine.", td4_3: "Sisselogimisega ligipääs, andmete privaatsus ja fookus puhtal kasulikkusel.",
-        h2_2: "Prognoositava püsikapitali väärtus",
-        p3: "Avalikud platvormid puutuvad kokku äärmiselt kõikuva kliendihankekuluga, kulutades igal aastal miljardeid otsingureklaamidele, et püüda ajutist liiklust. Tellimusarhitektuurid kaotavad need suured püsikulud. Kindlustades kapitali ette läbi liikmetasude, stabiliseerib suletud võrgustik oma tuluvoo sõltumata hooajalisusest.",
-        p4: "See finantsiline stabiilsus võimaldab platvormil toimida rangelt tehnilise tööriistana. Selle asemel, et luua dünaamilisi hinnakujunduse algoritme tarbija maksevõime testimiseks, keskendub infrastruktuur API andmevoogude optimeerimisele, et anda edasi tehase netohind.",
-        b_title: "Tasuge liikuvuse tegelik maksumus",
-        b_text: "TravelStatus välistab tehingupõhise kasumivõtu, töötades puhta tellimusmudeli alusel absoluutse finantsilise selguse tagamiseks.",
-        b_btn: "Vaata liikmesuse tasemeid",
-        h2_3: "Hinnapariteedi vältimine sisselogimisekraanide taga",
-        p5: "Globaalsed hotelliketid kehtestavad rangeid avalikke hinnapariteedi lepinguid, et vältida jaemüügiplatvormide avatud dumpingut. Need õiguslikud piirangud kehtivad aga eranditult avalikus, sisselogimata otsinguruumis. Sulgedes andmed kohustusliku sisselogimise taha, toimivad tellimusvõrgustikud väljaspool avalikku pariteeti, levitades B2B netohindu täiesti legaalselt."
-    }
-};
-
-function changeLanguage(lang) {
-    if (!translations[lang]) return;
-    document.documentElement.lang = lang;
-    
-    document.querySelectorAll('[data-i18n]').forEach(elem => {
-        const key = elem.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-            elem.innerHTML = translations[lang][key];
-        }
-    });
-    
-    document.title = translations[lang]['meta_title'];
-    document.getElementById('meta-desc').setAttribute('content', translations[lang]['meta_desc']);
-    document.getElementById('langSelect').value = lang;
-    localStorage.setItem('selectedLanguage', lang);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('selectedLanguage');
-    const browserLang = navigator.language.substring(0, 2);
-    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
-    changeLanguage(defaultLang);
-});
-</script>
-
-</body>
-</html>
+</urlset>
