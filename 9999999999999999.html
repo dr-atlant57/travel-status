@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Status — Multi-Layer Mobility Infrastructure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-dim: rgba(201, 168, 76, 0.15);
+    --gold-bright: #E8C97A;
+    --black: #111111;
+    --dark: #161616;
+    --dark-card: #1C1C1C;
+    --text: #F0EAE1;
+    --text-dim: #B1A89A;
+    --white: #FAF6EE;
+    --border: rgba(201, 168, 76, 0.09);
+    --green-chip: #4CAF50;
+    --green-dim: rgba(76, 175, 80, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--black); }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, .serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 25px;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; width: 100%; z-index: 1000;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    background: rgba(17, 17, 17, 0.85);
+    transition: all 0.3s ease;
+  }
+
+  .nav-container { display: flex; justify-content: space-between; align-items: center; }
+  .logo {
+    font-size: 19px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .logo span { color: var(--gold); }
+  .logo-sub {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  #routing-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--black);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.6s ease;
+  }
+  #routing-overlay.active { opacity: 1; pointer-events: auto; }
+  
+  #routing-overlay.bleaching {
+    background-color: #FAF6EE;
+    box-shadow: inset 0 0 100px rgba(201, 168, 76, 0.1);
+  }
+  
+  .routing-loader { 
+    text-align: center; 
+    max-width: 460px; 
+    padding: 30px; 
+    transform: translateY(15px);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  #routing-overlay.active .routing-loader { transform: translateY(0); }
+  
+  #routing-overlay.bleaching .routing-loader {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  
+  .routing-spinner {
+    width: 32px; height: 32px; border: 2px solid var(--gold-dim); border-top-color: var(--gold);
+    border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 25px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  
+  .routing-loader h3 { 
+    font-size: 24px; 
+    margin-bottom: 14px; 
+    color: var(--white); 
+  }
+  .routing-loader p { 
+    font-size: 14px; 
+    color: var(--text-dim); 
+    letter-spacing: 0.3px; 
+    line-height: 1.6;
+  }
+
+  .gate-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    overflow: hidden;
+  }
+
+  .bg-node {
+    position: absolute;
+    right: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 550px;
+    height: 550px;
+    border: 1px solid rgba(201, 168, 76, 0.03);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .gate-content { max-width: 880px; position: relative; z-index: 2; }
+  .tagline {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 25px;
+    display: inline-block;
+    font-weight: 500;
+  }
+  .gate-section h1 {
+    font-size: clamp(36px, 5.5vw, 58px);
+    line-height: 1.3;
+    margin-bottom: 30px;
+  }
+  .gate-section p {
+    font-size: clamp(16px, 1.8vw, 18px);
+    color: var(--text-dim);
+    margin-bottom: 35px;
+    max-width: 700px;
+  }
+  .human-sensation-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-bright);
+    font-size: 19px;
+    margin-bottom: 35px;
+    display: block;
+    max-width: 640px;
+    line-height: 1.5;
+  }
+
+  .cta-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 50px;
+  }
+  .btn-system-route {
+    display: inline-block;
+    padding: 18px 45px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 11px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+    cursor: pointer;
+  }
+  .btn-system-route:hover {
+    background: var(--gold);
+    color: var(--black);
+    box-shadow: 0 0 25px rgba(201, 168, 76, 0.18);
+  }
+  .cta-friction-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+  }
+
+  .instant-anchor {
+    border-top: 1px dashed var(--border);
+    padding-top: 25px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .anchor-item { font-size: 12px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .anchor-item strong { color: var(--gold-bright); font-weight: 500; }
+  .anchor-item span.old-price { text-decoration: line-through; opacity: 0.5; }
+  
+  .chip {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .chip.verified { background: var(--green-dim); color: var(--green-chip); border: 1px solid rgba(76, 175, 80, 0.2); }
+  .chip.live { background: rgba(201, 168, 76, 0.05); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.2); }
+
+  .flow-section { padding: 90px 0; background: var(--dark); border-top: 1px solid var(--border); position: relative; }
+  .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 45px; position: relative; }
+  
+  .flow-grid::before {
+    content: '';
+    position: absolute;
+    top: 40px; left: 30px; right: 30px; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim) 0%, rgba(201,168,76,0.01) 100%);
+    z-index: 1;
+  }
+  @media (max-width: 768px) { .flow-grid::before { display: none; } }
+
+  .flow-step { position: relative; z-index: 2; background: var(--dark); padding-right: 15px; }
+  .flow-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; display: inline-block; }
+  .flow-step h3 { font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; color: var(--white); }
+  .flow-step p { font-size: 14.5px; color: var(--text-dim); line-height: 1.65; }
+
+  .proof-stats-section {
+    padding: 80px 0;
+    background: var(--black);
+    border-top: 1px solid var(--border);
+  }
+  .stats-matrix { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  @media (min-width: 768px) { .stats-matrix { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+  .stat-node { text-align: center; padding: 15px; border-right: 1px solid var(--border); }
+  .stat-node:last-child { border-right: none; }
+  @media (max-width: 767px) { .stat-node-value { font-size: 38px; } .stat-node:nth-child(even) { border-right: none; } }
+  .stat-node-value { font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--gold-bright); line-height: 1; margin-bottom: 8px; font-weight: 400; }
+  .stat-node-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1.5px; }
+
+  .proof-section { padding: 120px 0; background: var(--black); }
+  .section-header { max-width: 720px; margin-bottom: 70px; }
+  .section-header h2 { font-size: clamp(32px, 4vw, 44px); margin-bottom: 22px; line-height: 1.3; }
+  .section-header p { color: var(--text-dim); font-size: 15.5px; }
+
+  .terminal-box { background: var(--dark); border: 1px solid var(--border); padding: 35px; position: relative; }
+  .slider-container { margin-bottom: 45px; }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+  }
+  .slider-label span:last-child { color: var(--gold); font-weight: 500; }
+  .range-slider { width: 100%; -webkit-appearance: none; background: var(--dark-card); height: 4px; outline: none; }
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; cursor: pointer; transition: transform 0.2s;
+  }
+
+  .comparison-wrapper { position: relative; }
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
+  @media (max-width: 992px) { .comparison-grid { grid-template-columns: 1fr; gap: 25px; } }
+
+  .floating-delta {
+    position: absolute;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: var(--black); border: 1px solid var(--gold); padding: 12px 22px; text-align: center; z-index: 10;
+  }
+  @media (max-width: 992px) { .floating-delta { position: static; transform: none; margin: 15px auto; width: fit-content; } }
+  .delta-label { font-size: 9px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
+  .delta-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold-bright); font-weight: 600; }
+
+  .sector-card { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.005); padding: 35px; }
+  .sector-card.active-status {
+    border: 1px solid var(--gold-dim);
+    background: linear-gradient(180deg, var(--dark-card) 0%, rgba(201,168,76,0.01) 100%);
+  }
+  .sector-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
+  .sector-card.active-status .sector-title { color: var(--gold); }
+  .sector-title::before { content: ''; width: 5px; height: 5px; background: currentColor; border-radius: 50%; }
+
+  .price-display { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 4.5vw, 58px); color: var(--white); line-height: 1; margin-bottom: 20px; }
+  .breakdown-list { list-style: none; }
+  .breakdown-list li { font-size: 13.5px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.03); color: var(--text-dim); display: flex; justify-content: space-between; }
+  .breakdown-list li span:last-child { color: var(--white); }
+  .sector-card.active-status .breakdown-list li span:last-child { color: var(--gold); }
+
+  .breathing-trigger { padding: 65px 0; text-align: center; background: var(--dark); }
+  .breathing-trigger p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--white); letter-spacing: 0.5px; }
+
+  .evidence-section { padding: 120px 0; background: var(--black); }
+  .evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 50px; }
+  @media (max-width: 992px) { .evidence-grid { grid-template-columns: 1fr; } }
+  
+  .mock-screen { background: #181818; border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden; position: relative; }
+  .mock-screen.advantage-system { border: 1px solid var(--border); background: var(--dark-card); }
+  .screen-top {
+    background: #1E1E1E; padding: 12px 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .advantage-system .screen-top { background: rgba(201,168,76,0.03); border-bottom: 1px solid rgba(201,168,76,0.1); color: var(--gold); }
+  .screen-dot-group { display: flex; gap: 5px; }
+  .screen-dot { width: 7px; height: 7px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+  
+  .screen-body { padding: 28px; }
+  .system-artifacts {
+    display: flex; justify-content: space-between; font-size: 9px; font-family: monospace;
+    color: rgba(255,255,255,0.15); margin-bottom: 18px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 8px;
+  }
+  .hotel-meta-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; color: var(--white); margin-bottom: 4px; }
+  .hotel-meta-loc { font-size: 11px; color: var(--text-dim); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+  
+  .price-row-item { display: flex; justify-content: space-between; font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-dim); }
+  .price-row-item.total-final { border-bottom: none; padding-top: 18px; margin-top: 8px; }
+  .price-row-item.total-final span:last-child { font-size: 28px; font-family: 'Cormorant Garamond', serif; color: var(--white); font-weight: 600; }
+  .advantage-system .price-row-item.total-final span:last-child { color: var(--gold-bright); }
+
+  .tactile-section { padding: 120px 0; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .dashboard-mockup { background: var(--black); border: 1px solid var(--border); padding: 35px; margin-top: 50px; }
+  .db-header {
+    display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201, 168, 76, 0.1); padding-bottom: 20px; margin-bottom: 30px;
+  }
+  @media (max-width: 768px) { .db-header { flex-direction: column; align-items: flex-start; gap: 12px; } }
+  .db-user-info { display: flex; align-items: center; gap: 12px; }
+  .db-avatar-status { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+  .db-username { font-size: 13px; font-weight: 500; letter-spacing: 1px; color: var(--white); text-transform: uppercase; }
+  .db-tier-badge { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); background: rgba(201,168,76,0.03); padding: 4px 10px; border: 1px solid rgba(201,168,76,0.15); }
+  
+  .db-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 35px; }
+  .db-stat-card { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.02); padding: 22px; }
+  .db-stat-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 8px; }
+  .db-stat-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--white); }
+
+  .db-inventory-box { background: rgba(22, 22, 22, 0.6); border: 1px solid rgba(201, 168, 76, 0.05); padding: 25px; }
+  .db-inventory-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+  .db-inventory-title::before { content: ''; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  .db-row { display: flex; justify-content: space-between; font-size: 13.5px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.02); color: var(--text-dim); }
+  .db-row span:last-child { color: var(--white); }
+
+  .経済-section { padding: 120px 0; background: var(--black); }
+  .elevation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 50px; }
+  @media (max-width: 768px) { .elevation-grid { grid-template-columns: 1fr; gap: 35px; } }
+  .elevation-block h3 { font-size: 26px; color: var(--white); margin-bottom: 16px; line-height: 1.3; }
+  .elevation-block p { font-size: 15.5px; color: var(--text-dim); line-height: 1.7; }
+
+  .scenarios-section { padding: 120px 0; background: var(--dark); border-top: 1px solid var(--border); }
+  .scenarios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 25px; margin-top: 50px; }
+  .scenario-card { background: var(--black); border: 1px solid var(--border); padding: 35px; }
+  .scenario-meta { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .scenario-card h3 { font-size: 22px; margin-bottom: 12px; color: var(--white); }
+  .scenario-card p { font-size: 14.5px; color: var(--text-dim); margin-bottom: 25px; line-height: 1.65; }
+  .scenario-math { border-top: 1px solid rgba(201, 168, 76, 0.1); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .math-label { font-size: 11px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
+  .math-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold-bright); font-weight: 600; }
+
+  .podcast-section { padding: 100px 0; background: var(--black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .podcast-panel {
+    background: linear-gradient(135deg, var(--dark-card) 0%, #222222 100%); border: 1px solid var(--border);
+    padding: 50px; display: flex; align-items: center; justify-content: space-between; gap: 40px; cursor: pointer;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .podcast-panel:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.04);
+  }
+  @media (max-width: 992px) { .podcast-panel { flex-direction: column; align-items: flex-start; padding: 35px; } }
+  .podcast-info { max-width: 520px; }
+  .podcast-info h3 { font-size: 32px; color: var(--white); margin-bottom: 15px; line-height: 1.3; }
+  .podcast-info p { color: var(--text-dim); font-size: 15.5px; margin-bottom: 25px; }
+  
+  .podcast-tracks { list-style: none; }
+  .podcast-tracks li { font-size: 13.5px; color: var(--text-dim); padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: space-between; }
+  .podcast-tracks li.active-track { color: var(--gold-bright); }
+
+  .audio-player-mock { 
+    display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; max-width: 350px; 
+    background: var(--black); padding: 25px; border: 1px solid rgba(201, 168, 76, 0.05);
+    transition: border-color 0.4s ease;
+  }
+  .podcast-panel:hover .audio-player-mock { border-color: rgba(201, 168, 76, 0.2); }
+  .player-controls { display: flex; align-items: center; gap: 15px; width: 100%; }
+  .play-btn {
+    width: 48px; height: 48px; border-radius: 50%; background: transparent; border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center; color: var(--gold); transition: all 0.3s ease; flex-shrink: 0;
+  }
+  .podcast-panel:hover .play-btn { background: rgba(201, 168, 76, 0.08); transform: scale(1.03); }
+  .wave-animation { display: flex; align-items: center; gap: 3px; width: 100%; height: 30px; }
+  .wave-bar { width: 2px; background: rgba(201, 168, 76, 0.15); height: 10px; transition: background-color 0.3s ease; }
+  .wave-bar:nth-child(even) { height: 18px; }
+  .wave-bar:nth-child(3) { height: 26px; }
+  .podcast-panel:hover .wave-bar { background: var(--gold); animation: pulseWave 0.6s ease-in-out infinite alternate; }
+  @keyframes pulseWave { 0% { transform: scaleY(0.8); } 100% { transform: scaleY(1.4); } }
+  .player-status { font-size: 9px; font-family: monospace; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); width: 100%; display: flex; justify-content: space-between; }
+
+  .matrix-section { padding: 120px 0; background: var(--black); }
+  .matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 28px; margin-top: 50px; }
+  .matrix-card {
+    background: var(--dark-card); border: 1px solid rgba(255,255,255,0.01); padding: 45px 30px;
+    display: flex; flex-direction: column; position: relative; transition: all 0.35s ease;
+  }
+  .matrix-card:hover { border-color: var(--gold-dim); }
+  .matrix-card.featured { border: 1px solid var(--gold); background: linear-gradient(180deg, var(--dark-card) 0%, #202020 100%); }
+  
+  .tier-badge { position: absolute; top: 25px; right: 30px; font-size: 8px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); border: 1px solid var(--gold); padding: 4px 12px; }
+  .tier-num { font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+  .matrix-card h3 { font-size: 30px; color: var(--white); margin-bottom: 8px; }
+  .tier-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold-bright); margin-bottom: 30px; }
+  
+  .tier-features { list-style: none; margin-bottom: 40px; flex-grow: 1; }
+  .tier-features li { font-size: 14px; color: var(--text-dim); margin-bottom: 14px; padding-left: 20px; position: relative; }
+  .tier-features li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+  
+  .matrix-card .btn-system-route { width: 100%; text-align: center; padding: 16px 0; }
+  .matrix-card .cta-wrapper { width: 100%; margin-bottom: 0; }
+
+  .faq-section { padding: 120px 0; background: var(--dark); border-top: 1px solid var(--border); }
+  .faq-container { max-width: 800px; margin: 50px auto 0; }
+  .faq-item { border-bottom: 1px solid rgba(201, 168, 76, 0.08); margin-bottom: 15px; }
+  .faq-toggle {
+    width: 100%; background: transparent; border: none; color: var(--white); text-align: left;
+    padding: 22px 0; font-size: 17px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+  }
+  .faq-toggle::after { content: '+'; font-size: 22px; color: var(--gold); transition: transform 0.3s; }
+  .faq-toggle.open::after { transform: rotate(45deg); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1); color: var(--text-dim); font-size: 15px; }
+  .faq-content { padding-bottom: 22px; line-height: 1.7; }
+
+  footer { padding: 70px 0; background: var(--black); border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-dim); letter-spacing: 0.5px; }
+  footer a { color: var(--gold); text-decoration: none; margin: 0 5px; }
+  .disclaimer { max-width: 900px; margin: 30px auto 0; font-size: 11px; color: #6E6659; text-align: center; border-top: 1px solid rgba(201, 168, 76, 0.05); padding-top: 22px; line-height: 1.7; }
+
+  @media (max-width: 768px) {
+    body { line-height: 1.82; }
+    .tier-features li { line-height: 1.8; }
+    .faq-content { line-height: 1.8; }
+    .db-row { line-height: 1.8; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="routing-overlay">
+  <div class="routing-loader">
+    <div class="routing-spinner"></div>
+    <h3 id="routing-title">Подключение к защищенному шлюзу...</h3>
+    <p id="routing-text">Ваш доступ подготовлен. Вы переходите в официальный контур платформы. Авторизация сессии проходит внутри официального контура инфраструктуры.</p>
+  </div>
+</div>
+
+<header>
+  <div class="container nav-container">
+    <a href="#" class="logo">Travel<span>Status</span><span class="logo-sub">Независимый партнерский проект</span></a>
+  </div>
+</header>
+
+<section class="gate-section">
+  <div class="bg-node"></div>
+  <div class="container">
+    <div class="gate-content">
+      <span class="tagline">Привилегия инсайдерского доступа</span>
+      <h1>Публичный travel — для потребителей.<br>Закрытый inventory — для людей с доступом.</h1>
+      <p>Перейдите из категории пассивного покупателя в статус человека, главного распорядителя ресурсов. Экономьте на travel-расходах через чистую стоимость закрытого склада — без розничных наценок, рекламных сборов и посредников.</p>
+      
+      <span class="human-sensation-note">Вы почувствуете это в момент прибытия: абсолютное спокойствие, свобода движения и рассвет над океаном, когда цена больше не имеет значения.</span>
+
+      <div class="cta-wrapper">
+        <div class="btn-system-route" onclick="executeRoute('free')">Открыть Insider Access</div>
+        <span class="cta-friction-text">Активация личного доступа занимает 2 минуты — без ввода платежных данных</span>
+      </div>
+
+      <div class="instant-anchor">
+        <div class="anchor-item"><span class="chip live">Live Rate</span></div>
+        <div class="anchor-item">Мальдивы: <span class="old-price">$6400</span> &rarr; <strong>$4150</strong> <span class="chip verified">Wholesale</span></div>
+        <div class="anchor-item">Дубай: <span class="old-price">$3200</span> &rarr; <strong>$2100</strong> <span class="chip verified">Wholesale</span></div>
+        <div class="anchor-item">Париж: <span class="old-price">$2100</span> &rarr; <strong>$1350</strong> <span class="chip verified">Wholesale</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow-section">
+  <div class="container">
+    <div class="flow-grid">
+      <div class="flow-step reveal">
+        <span class="flow-num">01</span>
+        <h3>Получаете Guest Access</h3>
+        <p>Мгновенная авторизация в системе по пригласительному коду без привязки карт.</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-num">02</span>
+        <h3>Сравниваете инвентарь</h3>
+        <p>Сопоставляете цены на отели напрямую с текущими открытыми тарифами рынка.</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-num">03</span>
+        <h3>Бронируете напрямую</h3>
+        <p>Фиксируете чистую контрактную стоимость и убираете лишние расходы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-stats-section">
+  <div class="container">
+    <div class="stats-matrix reveal">
+      <div class="stat-node">
+        <div class="stat-node-value">120+</div>
+        <div class="stat-node-label">Стран присутствия</div>
+      </div>
+      <div class="stat-node">
+        <div class="stat-node-value">1.2M+</div>
+        <div class="stat-node-label">Объектов инвентаря</div>
+      </div>
+      <div class="stat-node">
+        <div class="stat-node-value">340k+</div>
+        <div class="stat-node-label">Участников системы</div>
+      </div>
+      <div class="stat-node">
+        <div class="stat-node-value">100%</div>
+        <div class="stat-node-label">Пмямой паритет</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="proof-section" id="proof">
+  <div class="container">
+    
+    <div class="section-header reveal">
+      <h2>Большинство видит цену. Вы видите исходную стоимость.</h2>
+      <p>Розничная цена — это спонсирование чужих рекламных бюджетов. Посмотрите, как очищается стоимость бронирования при переходе в закрытый сектор доступа.</p>
+    </div>
+
+    <div class="terminal-box reveal">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Локация назначения:</span>
+          <span id="location-name">Мальдивы (Премиум-вилла, 7 ночей)</span>
+        </div>
+        <input type="range" min="1" max="3" value="1" class="range-slider" id="dest-slider" oninput="updateCalculator(this.value)">
+      </div>
+
+      <div class="comparison-wrapper">
+        <div class="floating-delta">
+          <span class="delta-label">Wholesale Delta</span>
+          <span class="delta-value" id="delta-display">SAVE $2250</span>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="sector-card">
+            <div class="sector-title">Массовый розничный сектор</div>
+            <div class="price-display" id="retail-price">$6 400</div>
+            <ul class="breakdown-list">
+              <li><span>Маркетинговый сбор платформ</span> <span>Включено в чек</span></li>
+              <li><span>Комиссионная маржа агентств</span> <span>+15% — 22%</span></li>
+              <li><span>Расходы на глобальную рекламу</span> <span>Оплачено вами</span></li>
+              <li><span>Статус пользователя</span> <span>Рядовой потребитель</span></li>
+            </ul>
+          </div>
+
+          <div class="sector-card active-status">
+            <div class="sector-title">Сектор закрытого склада</div>
+            <div class="price-display" id="status-price">$4 150</div>
+            <ul class="breakdown-list">
+              <li><span>Прямой контрактный шлюз</span> <span>Чистая себестоимость</span></li>
+              <li><span>Посреднические надстройки</span> <span>0%</span></li>
+              <li><span>Гарантия паритета стоимости</span> <span>150% защиты</span></li>
+              <li><span>Ваш статус в системе</span> <span>Человек с доступом</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="breathing-trigger">
+  <div class="container">
+    <p>«Движение без лишних посредников возвращает путешествиям их изначальный смысл — чистую свободу.»</p>
+  </div>
+</div>
+
+<section class="evidence-section" id="evidence">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Tactile Evidence — Верификация доступа</h2>
+      <p>Фактическое сопоставление открытых публичных источников и закрытой базы платформы. Подтверждение разницы без маркетинговых манипуляций.</p>
+    </div>
+
+    <div class="evidence-grid">
+      <div class="mock-screen reveal">
+        <div class="screen-top">
+          <div class="screen-dot-group">
+            <div class="screen-dot"></div><div class="screen-dot"></div><div class="screen-dot"></div>
+          </div>
+          <span>Публичный розничный агрегатор</span>
+        </div>
+        <div class="screen-body">
+          <div class="system-artifacts">
+            <span>PING: 42ms</span>
+            <span>SECURE_ID: B-2026-X8</span>
+            <span>TIMESTAMP: SYNC_OK</span>
+          </div>
+          <div class="hotel-meta-title">Kandolhu Maldives</div>
+          <div class="hotel-meta-loc">Мальдивы / Премиум-вилла</div>
+          <div class="price-row-item"><span>Базовый розничный тариф (7 ночей)</span><span>$5 120</span></div>
+          <div class="price-row-item"><span>Маркетинговая наценка сервиса</span><span>+$860</span></div>
+          <div class="price-row-item"><span>Локальные налоги и сборы платформы</span><span>+$420</span></div>
+          <div class="price-row-item total-final"><span>Итоговый чек к оплате</span><span>$6 400</span></div>
+        </div>
+      </div>
+
+      <div class="mock-screen advantage-system reveal">
+        <div class="screen-top">
+          <div class="screen-dot-group">
+            <div class="screen-dot"></div><div class="screen-dot"></div><div class="screen-dot"></div>
+          </div>
+          <span>Официальный шлюз: Travel Advantage</span>
+        </div>
+        <div class="screen-body">
+          <div class="system-artifacts">
+            <span>LATENCY: 14ms</span>
+            <span>GATEWAY: TA-441-VERIFIED</span>
+            <span>DATA: DIRECT_STREAM</span>
+          </div>
+          <div class="hotel-meta-title">Kandolhu Maldives</div>
+          <div class="hotel-meta-loc">Закрытый уровень / Прямой контрактный шлюз</div>
+          <div class="price-row-item"><span>Чистая оптовая стоимость (7 ночей)</span><span>$4 150</span></div>
+          <div class="price-row-item"><span>Посредническая маржа агрегаторов</span><span>$0</span></div>
+          <div class="price-row-item"><span>Прямые налоги поставщика</span><span>Включено</span></div>
+          <div class="price-row-item total-final"><span>Ваша стоимость в системе</span><span>$4 150</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tactile-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Архитектура продукта: Личный кабинет</h2>
+      <p>Персональный пульт управления ресурсами. Никакого визуального шума розничных витрин — только чистые показатели прямого шлюза.</p>
+    </div>
+
+    <div class="dashboard-mockup reveal">
+      <div class="db-header">
+        <div class="db-user-info">
+          <div class="db-avatar-status"></div>
+          <div class="db-username">ID: SYSTEM_USER_8841</div>
+        </div>
+        <div class="db-tier-badge">Закрытый уровень: Insider Tier</div>
+      </div>
+
+      <div class="db-stats-grid">
+        <div class="db-stat-card">
+          <div class="db-stat-label">Текущий статус доступа</div>
+          <div class="db-stat-value" style="color: var(--gold);">ACTIVE</div>
+        </div>
+        <div class="db-stat-card">
+          <div class="db-stat-label">Доступный инвентарь</div>
+          <div class="db-stat-value">1.2M+ отелей</div>
+        </div>
+        <div class="db-stat-card">
+          <div class="db-stat-label">Loyalty Credits</div>
+          <div class="db-stat-value" style="color: var(--gold-bright);">$420.50</div>
+        </div>
+      </div>
+
+      <div class="db-inventory-box">
+        <div class="db-inventory-title">Активность закрытого инвентаря</div>
+        <div class="db-row">
+          <span>Режим работы шлюза: Париж / Дубай / Мальдивы</span>
+          <span>Доступ открыт</span>
+        </div>
+        <div class="db-row">
+          <span>Паритет стоимости относительно открытого рынка</span>
+          <span>—32% в среднем по сессии</span>
+        </div>
+        <div class="db-row">
+          <span>Протокол защиты транзакций</span>
+          <span>150% Best Price Guarantee</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="elevation-section">
+  <div class="container">
+    <div class="elevation-grid">
+      <div class="elevation-block reveal">
+        <h3>Убрать посредников — это внутренний стандарт.</h3>
+        <p>Вы возвращаете контроль над своими ресурсами себе. Переход на оптовую модель бронирования — это не просто экономия денег, это прекращение спонсирования массового маркетинга розничных сетей. Это выбор прагматичной эффективности.</p>
+      </div>
+      <div class="elevation-block reveal">
+        <h3>Ощущение свободы и абсолютного паритета.</h3>
+        <p>Когда вы перестаете зависеть от скрытых наценок, меняется сама психология движения. Вы бронируете отели высшего класса, зная точную исходную стоимость каждого дня вашего пребывания. Это новое качество уверенности.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scenarios-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Сценарии статуса в реальном мире</h2>
+      <p>Как выглядит интеграция в закрытую экосистему на практике. Реальные маршруты людей, переросших публичный рынок.</p>
+    </div>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card reveal">
+        <span class="scenario-meta">Семейный отдых <span>14 nights / January</span></span>
+        <h3>Вилла над водой на Мальдивах</h3>
+        <p>Семейные каникулы премиального уровня. Задействован прямой шлюз закрытого склада. Тот же курорт, те же даты и безупречный рассвет над океаном — но без переплат за маркетинг агрегатора.</p>
+        <div class="scenario-math">
+          <span class="math-label">Чистая сохраненная сумма</span>
+          <span class="math-value">€1 420</span>
+        </div>
+      </div>
+
+      <div class="scenario-card reveal">
+        <span class="scenario-meta">Цифровая мобильность <span>Business Bay / 30 Days</span></span>
+        <h3>Маршрут Дубай — Бали</h3>
+        <p>Предприниматель, постоянно перемещающийся между ключевыми мировыми хабами. Использование платформы как основного инструмента долгосрочного проживания полностью ликвидировало агентские маржинальные накрутки.</p>
+        <div class="scenario-math">
+          <span class="math-label">Сохранено за сессию</span>
+          <span class="math-value">$3 180</span>
+        </div>
+      </div>
+
+      <div class="scenario-card reveal">
+        <span class="scenario-meta">Выходные в Европе <span>Boutique Hotel / 3 Nights</span></span>
+        <h3>Уикенд в Париже</h3>
+        <p>Поездка в исторический центр города. За счет накопленных внутренних кредитов системы участников совершили бесплатный апгрейд номера до категории люкс, получив полное спокойствие без мыслей о расходах.</p>
+        <div class="scenario-math">
+          <span class="math-label">Эквивалент апгрейда</span>
+          <span class="math-value">$540</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="podcast-section reveal">
+  <div class="container">
+    <div class="podcast-panel" onclick="executeRoute('lifestyle')">
+      <div class="podcast-info">
+        <h3>Аудио-манифест: Access Economy</h3>
+        <p>Краткие, плотные 3-минутные инсайдерские сессии о механике современной клубной экономики, причинах удержания цен монополиями и способах вернуть контроль над своей мобильностью. Перейдите во вселенную трансформационного опыта.</p>
+        <ul class="podcast-tracks">
+          <li class="active-track"><span>Сессия 01: Скрытые наценки розничных платформ</span></li>
+          <li><span>Сессия 02: Зарождение Access Economy</span></li>
+          <li><span>Сессия 03: Новые стандарты умного статуса</span></li>
+        </ul>
+      </div>
+      <div class="audio-player-mock">
+        <div class="player-status">
+          <span>Слушать демо сессии 01</span>
+          <span>00:42 / 03:14</span>
+        </div>
+        <div class="player-controls">
+          <button class="play-btn" aria-label="Воспроизвести сессию">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="wave-animation">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="matrix-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Уровни интеграции в систему</h2>
+      <p>Выберите масштаб своего присутствия внутри закрытой экосистемы. Мы предлагаем максимальную степень контроля над личными ресурсами.</p>
+    </div>
+
+    <div class="matrix-grid">
+      <div class="matrix-card reveal">
+        <span class="tier-num">Уровень 1</span>
+        <h3>Смарт-статус</h3>
+        <div class="tier-price">$199 / год</div>
+        <ul class="tier-features">
+          <li>Полный доступ к оптовой базе отелей и мировых курортов</li>
+          <li>150% компенсация разницы при нарушении паритета цен</li>
+          <li>Прагматичный баланс стоимости при семейном отдыхе</li>
+          <li>Право регистрации 1 дополнительного пользователя</li>
+          <li>15 гостевых пропусков для активации окружения</li>
+        </ul>
+        <div class="cta-wrapper">
+          <div class="btn-system-route" onclick="executeRoute('join')">Активировать доступ</div>
+          <span class="cta-friction-text">Подключение через официальный gateway</span>
+        </div>
+      </div>
+
+      <div class="matrix-card featured reveal">
+        <span class="tier-badge">Приоритет</span>
+        <span class="tier-num">Уровень 2</span>
+        <h3>Амбассадор Elite</h3>
+        <div class="tier-price">$340</div>
+        <ul class="tier-features">
+          <li>Elite identity & бизнес-инфраструктура партнера</li>
+          <li>Предельная глубина тарифов закрытого склада</li>
+          <li>Расширение доступа на 4 дополнительных участников</li>
+          <li>50 стартовых гостевых пакетов + 20 ежемесячно</li>
+          <li>Высокая окупаемость — всего 3 личные рекомендации</li>
+        </ul>
+        <div class="cta-wrapper">
+          <div class="btn-system-route" onclick="executeRoute('mwr')">Запустить проект</div>
+          <span class="cta-friction-text">Авторизация центрального узла Амбассадоров</span>
+        </div>
+      </div>
+
+      <div class="matrix-card reveal">
+        <span class="tier-num">Уровень 3</span>
+        <h3>Расширенный пакет</h3>
+        <div class="tier-price">$590</div>
+        <ul class="tier-features">
+          <li>Лицензия Амбассадора + Максимальный статус в системе</li>
+          <li>Предельная скорость развертывания личных хабов доступа</li>
+          <li>Приоритетное распределение внутренних преимуществ</li>
+          <li>Готовые решения для лидеров экосистемы мобильности</li>
+          <li>Оптимальный алгоритм для масштабирования структуры</li>
+        </ul>
+        <div class="cta-wrapper">
+          <div class="btn-system-route" onclick="executeRoute('vip')">Включить Turbo-режим</div>
+          <span class="cta-friction-text">Маршрутизация через выделенный VIP-коридор</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Детали и регламенты</h2>
+    </div>
+    <div class="faq-container reveal">
+      <div class="faq-item">
+        <button class="faq-toggle" onclick="toggleFaq(this)">В чём разница между уровнями за $340 и $590?</button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Уровень за $340 — это полноценная интеграция в платформу с лицензией Амбассадора и статусом Elite, дающая сбалансированный доступ к бизнес-инструментам. Расширение за $590 представляет собой уровень расширенного доступа, созданный для системных участников, ориентированных на масштабное развертывание и масштабирование партнерской инфраструктуры через выделенные VIP-шлюзы.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-toggle" onclick="toggleFaq(this)">Как функционирует оптовая модель?</button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Глобальная технологическая平台 закупает бронирования крупными пулами напрямую у поставщиков, минуя розничные надстройки. Через независимый ресурс Travel Status вы получаете прямой инсайдерский пропуск к этой закрытой базе, исключая оплату маркетинговых бюджетов сторонних агрегаторов.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-toggle" onclick="toggleFaq(this)">Как работают гостевые пропуски?</button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Это ваши цифровые маркеры доступа. Предоставляя их людям из своего окружения, вы даете им возможность совершить умную сделку и получить прямую выгоду от закрытых цен — при этом платформа начисляет вам реальные бонусы за каждую совершенную ими бронь.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Travel Status &middot; Независимый информационный ресурс партнеров клуба &middot; <a href="#">Условия</a> &middot; <a href="#">Политика</a></p>
+    <div class="disclaimer">
+      <strong>Дисклеймер:</strong> Данный сайт является независимым партнерским ресурсом, разработанным официальным дистрибьютором (Амбассадором) компании MWR Life и платформы Travel Advantage. Сайт не является официальным представительством или корпоративным порталом MWR Life. Все торговые марки, логотипы и названия продуктов принадлежат их законным правообладателям. Архитектура распределения трафика использует дополнительные доменные шлюзы и альтернативную инфраструктуру маршрутизации для авторизации на оригинальных серверах. Экономия рассчитывается как разница между розничной ценой на рынке и внутренней закрытой стоимостью для участников платформы. Доступ к регистрации предоставляется строго по пригласительным кодам действующих партнеров.
+    </div>
+  </div>
+</footer>
+
+<script>
+  const systemGateways = {
+    free: { url: "https://free.traveladvantage.com/Status", title: "Подключение к шлюзу платформы...", text: "Синхронизация персонального доступа с открытым инвентарем. Активация гостевой сессии проходит внутри официального контура." },
+    join: { url: "https://join.traveladvantage.com/Status", title: "Авторизация членства...", text: "Переход в систему закрытых контрактных тарифов. Перенаправление в официальный шлюз платформы." },
+    mwr: { url: "https://www.mwrlife.com/Status", title: "Запуск инфраструктуры...", text: "Подключение к главному узлу Амбассадоров MWR Life. Авторизация бизнес-протоколов." },
+    vip: { url: "https://vip.traveladvantage.com/Status", title: "Выделенный коридор...", text: "Развертывание сессии повышенного статуса через защищенный VIP-интерфейс." },
+    lifestyle: { url: "https://lifeexperience.club/Status", title: "Вход в медиа-пространство...", text: "Переход из плоскости бронирования к трансляции аудио-манифестов и закрытых сессий сообщества." }
+  };
+
+  function executeRoute(gatewayKey) {
+    const gateway = systemGateways[gatewayKey];
+    if (!gateway) return;
+
+    const overlay = document.getElementById('routing-overlay');
+    const titleEl = document.getElementById('routing-title');
+    const textEl = document.getElementById('routing-text');
+
+    titleEl.innerText = gateway.title;
+    textEl.innerText = gateway.text;
+    
+    overlay.className = 'active'; 
+
+    setTimeout(() => {
+      overlay.classList.add('bleaching');
+    }, 300);
+
+    setTimeout(() => {
+      window.location.href = gateway.url;
+    }, 600); 
+  }
+
+  const destinationData = {
+    1: { name: "Мальдивы (Премиум-резорт, 7 ночей)", retail: "$6 400", status: "$4 150", delta: "SAVE $2250" },
+    2: { name: "Дубай (Люкс с видом на Бурдж-Халифа, 5 ночей)", retail: "$3 200", status: "$2 100", delta: "SAVE $1100" },
+    3: { name: "Париж (Исторический центр, Boutique Hotel, 4 ночи)", retail: "$2 100", status: "$1 350", delta: "SAVE $750" }
+  };
+
+  function updateCalculator(val) {
+    const data = destinationData[val];
+    document.getElementById('location-name').innerText = data.name;
+    document.getElementById('retail-price').innerText = data.retail;
+    document.getElementById('status-price').innerText = data.status;
+    document.getElementById('delta-display').innerText = data.delta;
+  }
+
+  function toggleFaq(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    
+    document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = null);
+    document.querySelectorAll('.faq-toggle').forEach(t => t.classList.remove('open'));
+    
+    if (!isOpen) {
+      btn.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + "px";
+    }
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 40);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.03 });
+  reveals.forEach(el => observer.observe(el));
+
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.style.background = 'rgba(17, 17, 17, 0.95)';
+      header.style.padding = '14px 0';
+    } else {
+      header.style.background = 'rgba(17, 17, 17, 0.85)';
+      header.style.padding = '20px 0';
+    }
+  });
+</script>
+</body>
+</html>
