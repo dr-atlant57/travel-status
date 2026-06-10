@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- ================= CORE & TECH PAGES ================= -->
+
   <!-- 1. Главная страница / Индекс -->
   <url>
     <loc>https://travelstatus.cc/</loc>
@@ -162,6 +164,189 @@
     <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/why-hotel-prices-differ"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/why-hotel-prices-differ"/>
     <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/why-hotel-prices-differ"/>
+  </url>
+
+
+  <!-- ================= GEO HUB PAGES ================= -->
+
+  <!-- 10. Дубай -->
+  <url>
+    <loc>https://travelstatus.cc/dubai-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/dubai-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 11. Мальдивы -->
+  <url>
+    <loc>https://travelstatus.cc/maldives-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/maldives-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 12. Париж -->
+  <url>
+    <loc>https://travelstatus.cc/paris-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/paris-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 13. Рим -->
+  <url>
+    <loc>https://travelstatus.cc/rome-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/rome-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 14. Нью-Йорк -->
+  <url>
+    <loc>https://travelstatus.cc/new-york-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/new-york-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 15. Токио -->
+  <url>
+    <loc>https://travelstatus.cc/tokyo-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/tokyo-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 16. Лондон -->
+  <url>
+    <loc>https://travelstatus.cc/london-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/london-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 17. Сингапур -->
+  <url>
+    <loc>https://travelstatus.cc/singapore-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/singapore-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 18. Барселона -->
+  <url>
+    <loc>https://travelstatus.cc/barcelona-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/barcelona-hotel-pricing-audit"/>
+  </url>
+
+  <!-- 19. Сейшелы -->
+  <url>
+    <loc>https://travelstatus.cc/seychelles-hotel-pricing-audit</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
+    <xhtml:link rel="alternate" hreflang="et" href="https://travelstatus.cc/seychelles-hotel-pricing-audit"/>
   </url>
 
 </urlset>
