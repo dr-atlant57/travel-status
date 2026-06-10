@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Status · Оптовые цены на путешествия</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ══════════════════════════════════
+     DUAL THEME SYSTEM
+  ══════════════════════════════════ */
+
+  /* DARK THEME (default) */
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8B6F35;
+    --bg: #080808;
+    --bg2: #141414;
+    --bg3: #1A1A1A;
+    --text: #E8E0D0;
+    --text-dim: #9A9080;
+    --white: #FAF6EE;
+    --border: rgba(201,168,76,0.12);
+    --mech-old-bg: #141414;
+    --mech-new-bg: rgba(201,168,76,0.04);
+    --shadow: rgba(0,0,0,0.4);
+    --ticker-bg: #141414;
+    --toggle-track: rgba(255,255,255,0.08);
+    --toggle-thumb: #C9A84C;
+    --toggle-icon-dark: '🌙';
+    --toggle-icon-light: '☀️';
+  }
+
+  /* LIGHT THEME */
+  [data-theme="light"] {
+    --gold: #8B6000;
+    --gold-light: #A07828;
+    --gold-dim: #6B4A00;
+    --bg: #F7F3EC;
+    --bg2: #ECEAE3; 
+    --bg3: #DEDBD2;
+    --text: #1A1208;
+    --text-dim: #2A1F0F;
+    --white: #0D0A04;
+    --border: rgba(100,75,20,0.2);
+    --mech-old-bg: #ECEAE3;
+    --mech-new-bg: rgba(100,75,20,0.06);
+    --shadow: rgba(0,0,0,0.15);
+    --ticker-bg: #E8E4DB;
+    --toggle-track: rgba(0,0,0,0.1);
+    --toggle-thumb: #8B6000;
+  }
+
+  /* Smooth theme transition */
+  *, *::before, *::after {
+    transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease !important;
+  }
+
+  /* Override transition for animations that shouldn't be affected */
+  .ticker, .bridge-line, .scroll-line, .wave-bar,
+  .reveal, .acc-body, .faq-body {
+    transition: none !important;
+  }
+  .acc-body { transition: max-height 0.5s ease !important; }
+  .faq-body { transition: max-height 0.4s ease !important; }
+  .reveal { transition: opacity 0.8s ease, transform 0.8s ease !important; }
+  .reveal.visible { transition: opacity 0.8s ease, transform 0.8s ease !important; }
+
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher {
+    position: relative;
+    margin-right: 12px;
+  }
+
+  .lang-current {
+    display: flex; align-items: center; gap: 6px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: 1.5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .lang-current:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .lang-current svg { transition: transform 0.25s ease; flex-shrink: 0; }
+  .lang-current.open svg { transform: rotate(180deg); }
+
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    min-width: 160px;
+    z-index: 500;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: dropIn 0.2s ease;
+  }
+  .lang-dropdown.open { display: block; }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .lang-dropdown button {
+    display: block; width: 100%;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; letter-spacing: 1px;
+    padding: 10px 16px;
+    text-align: left; cursor: pointer;
+    transition: all 0.15s;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .lang-dropdown button:last-child { border-bottom: none; }
+  .lang-dropdown button:hover { background: rgba(201,168,76,0.08); color: var(--gold); }
+  .lang-dropdown button.active { color: var(--gold); font-weight: 500; }
+
+  [data-theme="light"] .lang-current { color: #8B6000; border-color: rgba(100,75,20,0.25); }
+  [data-theme="light"] .lang-current:hover { background: rgba(100,75,20,0.06); }
+  [data-theme="light"] .lang-dropdown { background: #F7F3EC; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+  [data-theme="light"] .lang-dropdown button { color: #4A3F2F; border-bottom-color: rgba(100,75,20,0.08); }
+  [data-theme="light"] .lang-dropdown button:hover { background: rgba(100,75,20,0.08); color: #8B6000; }
+  [data-theme="light"] .lang-dropdown button.active { color: #8B6000; }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; user-select: none;
+  }
+
+  .toggle-icon {
+    font-size: 14px; line-height: 1;
+    transition: opacity 0.3s ease !important;
+  }
+
+  .toggle-track {
+    width: 44px; height: 24px;
+    background: var(--toggle-track);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.3s ease !important;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+
+  [data-theme="light"] .toggle-thumb {
+    transform: translateX(20px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── LIGHT THEME OVERRIDES ── */
+  [data-theme="light"] body { background: var(--bg); color: var(--text); }
+  [data-theme="light"] header { background: rgba(247,243,236,0.97) !important; border-bottom: 1px solid var(--border); }
+  [data-theme="light"] .logo { color: #8B6000; }
+  [data-theme="light"] .logo span { color: #4A3F2F; }
+  [data-theme="light"] nav a { color: #4A3F2F; }
+  [data-theme="light"] nav a:hover { color: #8B6000; }
+  [data-theme="light"] #hero::before { background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(100,75,20,0.06) 0%, transparent 70%); }
+  [data-theme="light"] .anchor-retail { color: #2A1F0F; }
+  [data-theme="light"] .anchor-label { color: #2A1F0F; }
+  [data-theme="light"] .hero-micro p { color: #3A2F1F; }
+  [data-theme="light"] .hero-question h1 { color: #1A1208; }
+  [data-theme="light"] .hero-invite { color: #8B6000; }
+  [data-theme="light"] .calc-inner { background: #ECEAE3; border-color: rgba(100,75,20,0.25); }
+  [data-theme="light"] .calc-field label { color: #4A3F2F; }
+  [data-theme="light"] .calc-input-wrap { background: #F7F3EC; border-color: rgba(100,75,20,0.3); }
+  [data-theme="light"] .calc-input-wrap input { color: #1A1208; }
+  [data-theme="light"] .calc-input-wrap input::placeholder { color: rgba(26,18,8,0.25); }
+  [data-theme="light"] .calc-currency { color: #8B6000; }
+  [data-theme="light"] .calc-result-item { background: #DEDBD2; }
+  [data-theme="light"] .calc-result-label { color: #4A3F2F; }
+  [data-theme="light"] .calc-result-value { color: #1A1208; }
+  [data-theme="light"] .mech-row { background: #ECEAE3; }
+  [data-theme="light"] .mech-row:hover { background: #DEDBD2; }
+  [data-theme="light"] .mech-num { color: rgba(100,75,20,0.2); }
+  [data-theme="light"] .mech-old p { color: #2A1F0F; }
+  [data-theme="light"] .mech-new p { color: #0D0800; font-weight: 400; }
+  [data-theme="light"] .mech-tag { color: #2A1F0F; font-weight: 500; }
+  [data-theme="light"] .mech-tag.gold { color: #8B6000; }
+  [data-theme="light"] .mech-accent { color: #8B6000; }
+  [data-theme="light"] .stat-box { background: #FFFFFF; border: 2px solid rgba(100,75,20,0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  [data-theme="light"] .stat-box-label { background: rgba(100,75,20,0.08); border-bottom-color: rgba(100,75,20,0.2); color: #6B4A00; font-weight: 600; }
+  [data-theme="light"] .stat-box-inner { background: #FFFFFF; }
+  [data-theme="light"] .stat-label { color: #2A1F0F; font-weight: 500; }
+  [data-theme="light"] .stat-value { color: #6B4A00; }
+  [data-theme="light"] .live-text h3 { color: #1A1208; }
+  [data-theme="light"] .live-text p { color: #3A2F1F; }
+  [data-theme="light"] .live-quote { color: #6B4A00; font-weight: 400; }
+  [data-theme="light"] #live { background: #F0EBE0; }
+  [data-theme="light"] #mechanics { background: #EDE8DE; }
+  [data-theme="light"] #paths { background: #E8E3D8; }
+  [data-theme="light"] #guarantee { background: #F0EBE0; }
+  [data-theme="light"] #cta { background: #EDE8DE; }
+  [data-theme="light"] #faq { background: #F0EBE0; }
+  [data-theme="light"] .cta-inner h2 { color: #1A1208; }
+  [data-theme="light"] .cta-inner p { color: #1A1208; }
+  [data-theme="light"] .paths-intro h2 { color: #1A1208; }
+  [data-theme="light"] .mech-intro h2 { color: #1A1208; }
+  [data-theme="light"] .mech-intro p { color: #1A1208; }
+  [data-theme="light"] .g-block h3 { color: #1A1208; }
+  [data-theme="light"] .g-block p { color: #3A2F1F; }
+  [data-theme="light"] .path-card { background: #ECEAE3; }
+  [data-theme="light"] .path-header { background: #DEDBD2 !important; }
+  [data-theme="light"] .path-tag { color: #8B6000; }
+  [data-theme="light"] .path-title { color: #1A1208; }
+  [data-theme="light"] .path-price { color: #8B6000; }
+  [data-theme="light"] .path-price-note { color: #2A1F0F; }
+  [data-theme="light"] .path-tagline { color: #2A1F0F; }
+  [data-theme="light"] .acc-toggle { color: #8B6000; border-top-color: rgba(100,75,20,0.15); }
+  [data-theme="light"] .acc-toggle:hover { background: rgba(100,75,20,0.06); }
+  [data-theme="light"] .acc-icon { border-color: rgba(100,75,20,0.4); }
+  [data-theme="light"] .perk-text { color: #2A1F0F; }
+  [data-theme="light"] .perk-text strong { color: #1A1208; }
+  [data-theme="light"] .path-bonus { background: rgba(100,75,20,0.06); border-color: rgba(100,75,20,0.2); }
+  [data-theme="light"] .path-bonus strong { color: #8B6000; }
+  [data-theme="light"] .acc-collapse-bar { background: rgba(100,75,20,0.08); border-top-color: rgba(100,75,20,0.15); color: #8B6000; }
+  [data-theme="light"] .g-block { background: #ECEAE3; }
+  [data-theme="light"] .g-block h3 { color: #1A1208; }
+  [data-theme="light"] .g-block p { color: #4A3F2F; }
+  [data-theme="light"] .section-label { color: #8B6000; }
+  [data-theme="light"] .gold-line { background: linear-gradient(90deg, transparent, #8B6000, transparent); }
+  [data-theme="light"] .faq-toggle { color: #1A1208; }
+  [data-theme="light"] .faq-toggle:hover { color: #8B6000; }
+  [data-theme="light"] .faq-plus { color: #8B6000; border-color: rgba(100,75,20,0.3); }
+  [data-theme="light"] .faq-content { color: #1A1208; }
+  [data-theme="light"] .faq-item { border-bottom-color: rgba(100,75,20,0.15); }
+  [data-theme="light"] .ticker-wrap { background: #E8E4DB; border-color: rgba(100,75,20,0.12); }
+  [data-theme="light"] .ticker-item { color: #2A1F0F; }
+  [data-theme="light"] .ticker-item .dest { color: #1A1208; }
+  [data-theme="light"] .ticker-item .retail { color: #3A2F1F; }
+  [data-theme="light"] .ticker-item .member { color: #8B6000; }
+  [data-theme="light"] footer { border-top-color: rgba(100,75,20,0.15); color: #4A3F2F; }
+  [data-theme="light"] footer a { color: #8B6000; }
+  [data-theme="light"] .scroll-hint { color: #2A1F0F; }
+  [data-theme="light"] .scroll-line { background: linear-gradient(180deg, #8B6000, transparent); }
+  [data-theme="light"] .v-block { background: #ECEAE3; }
+  [data-theme="light"] .v-num { color: rgba(100,75,20,0.1); }
+  [data-theme="light"] .mech-intro p { color: #4A3F2F; }
+  [data-theme="light"] .paths-intro p { color: #1A1208; }
+  [data-theme="light"] .cta-note { color: #1A1208; }
+
+  /* ── BRIDGE TRANSITION ── */
+  #bridge {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: none;
+    align-items: center; justify-content: center; flex-direction: column;
+    gap: 20px;
+    transition: background 0.15s ease;
+  }
+  #bridge.active { display: flex; }
+  .bridge-line {
+    width: 80px; height: 1px;
+    background: var(--gold);
+    animation: lineGlow 1.2s infinite ease-in-out;
+  }
+  .bridge-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    opacity: 0; animation: textIn 0.3s ease forwards;
+  }
+  @keyframes lineGlow {
+    0%,100% { opacity: 0.2; transform: scaleX(0.4); }
+    50% { opacity: 1; transform: scaleX(1.1); }
+  }
+  @keyframes textIn { to { opacity: 1; } }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--bg2);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    padding: 16px 0;
+    overflow: hidden;
+    position: relative; z-index: 1;
+  }
+  .ticker {
+    display: flex; white-space: nowrap;
+    animation: ticker 50s linear infinite;
+    gap: 80px;
+  }
+  .ticker:hover { animation-play-state: paused; }
+  .ticker-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--text-dim); letter-spacing: 0.5px;
+  }
+  .ticker-item .dest { color: var(--text); }
+  .ticker-item .retail { color: var(--text-dim); text-decoration: line-through; }
+  .ticker-item .member { color: var(--gold); font-weight: 500; }
+  .ticker-item .save { color: #6BAA6B; font-size: 12px; letter-spacing: 1px; }
+  @keyframes ticker {
+    0% { transform: translate3d(0,0,0); }
+    100% { transform: translate3d(-50%,0,0); }
+  }
+
+  /* ── FAQ ── */
+  #faq { background: var(--bg); }
+
+  .faq-list { max-width: 800px; margin: 60px auto 0; }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .faq-toggle {
+    width: 100%; background: none; border: none;
+    padding: 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400;
+    text-align: left; gap: 20px;
+    transition: color 0.2s;
+  }
+  .faq-toggle:hover { color: var(--gold); }
+
+  .faq-plus {
+    width: 24px; height: 24px; flex-shrink: 0;
+    border: 1px solid var(--gold-dim); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--gold);
+    transition: transform 0.3s; font-style: normal;
+  }
+  .faq-toggle.open .faq-plus { transform: rotate(45deg); }
+
+  .faq-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .faq-content {
+    padding: 0 0 24px;
+    font-size: 15px; color: var(--text-dim); line-height: 1.9;
+  }
+
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.15; }
+
+  .gold-line {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 16px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(8,8,8,0.97) 0%, transparent 100%);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+    gap: 16px;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 300;
+    letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .logo span {
+    color: var(--text-dim); font-weight: 300; font-size: 10px;
+    letter-spacing: 2px; display: block; margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  nav {
+    display: flex; align-items: center; gap: 0;
+    flex-shrink: 0;
+  }
+
+  nav a {
+    color: var(--text-dim); text-decoration: none;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-left: 20px; transition: color 0.3s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--gold); }
+
+  .theme-toggle { margin-left: 20px; }
+
+  /* Hamburger for small screens */
+  .nav-links { display: flex; align-items: center; }
+
+  @media (max-width: 860px) {
+    header { padding: 14px 20px; }
+    .logo span { display: none; }
+    .nav-links a { display: none; }
+    .logo { font-size: 16px; }
+  }
+
+  @media (max-width: 600px) {
+    nav a { margin-left: 12px; font-size: 9px; letter-spacing: 1px; }
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 140px 40px 100px;
+    position: relative; overflow: hidden;
+    gap: 0;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+
+  /* 1. COGNITIVE ANCHOR */
+  .hero-anchor {
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+
+  .anchor-line {
+    font-size: clamp(15px, 2.2vw, 20px);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.9;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-wrap: wrap;
+  }
+
+  .anchor-retail { color: var(--text-dim); }
+  .anchor-sep { color: rgba(255,255,255,0.15); }
+  .anchor-label { color: var(--text-dim); }
+  .anchor-label.gold { color: var(--gold); }
+  .anchor-brand { color: var(--gold); font-weight: 500; }
+
+  /* 2. MICRO-LINE */
+  .hero-micro {
+    margin-bottom: 48px;
+    position: relative; z-index: 1;
+  }
+
+  .hero-micro p {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: rgba(154,144,128,0.6);
+    line-height: 2;
+    text-transform: uppercase;
+  }
+
+  /* 3. QUESTION */
+  .hero-question {
+    margin-bottom: 48px;
+    position: relative; z-index: 1;
+    max-width: 820px;
+  }
+
+  .hero-question h1 {
+    font-size: clamp(28px, 5vw, 64px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+
+  .hero-invite {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  /* 4. CALCULATOR */
+  .calculator {
+    width: 100%; max-width: 760px;
+    position: relative; z-index: 1;
+    margin-bottom: 60px;
+  }
+
+  .calc-inner {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 36px;
+  }
+
+  .calc-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .calc-input-wrap {
+    display: flex; align-items: center;
+    border: 1px solid rgba(201,168,76,0.2);
+    background: rgba(0,0,0,0.3);
+    transition: border-color 0.3s;
+  }
+
+  .calc-input-wrap:focus-within {
+    border-color: var(--gold);
+  }
+
+  .calc-currency {
+    padding: 0 12px;
+    color: var(--gold-dim);
+    font-size: 16px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .calc-input-wrap input {
+    background: none; border: none; outline: none;
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300;
+    padding: 12px 12px 12px 0;
+    width: 100%;
+  }
+
+  .calc-input-wrap input::placeholder { color: rgba(255,255,255,0.15); }
+
+  .calc-btn {
+    width: 100%; padding: 16px;
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .calc-hint {
+    text-align: center;
+    font-size: 14px;
+    color: var(--gold-dim);
+    font-style: normal;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    margin-top: 12px;
+    min-height: 24px;
+    transition: opacity 0.3s ease !important;
+  }
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease; z-index: -1;
+  }
+
+  .calc-btn:hover { color: var(--bg); }
+  .calc-btn:hover::before { transform: scaleX(1); }
+
+  .calc-result {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease !important;
+  }
+
+  .calc-result.visible {
+    opacity: 1;
+    max-height: 600px;
+  }
+
+  .calc-result-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-bottom: 20px;
+  }
+
+  .calc-result-item {
+    background: var(--bg3);
+    padding: 20px 16px; text-align: center;
+  }
+
+  .calc-result-item.highlight {
+    background: linear-gradient(135deg, #111100, #0d0d00);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .calc-result-label {
+    display: block; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 8px;
+  }
+
+  .calc-result-value {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; color: var(--text);
+  }
+
+  .calc-result-value.gold { color: var(--gold); }
+  .calc-result-value.red { color: #c0604a; }
+
+  .calc-note {
+    font-size: 13px; color: var(--text-dim);
+    line-height: 1.8; font-style: normal;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--text-dim); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1s ease 1.6s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.3; } 50% { opacity: 1; }
+  }
+
+  /* ── BUTTONS ── */
+  .btn-gold {
+    display: inline-block; padding: 16px 44px;
+    border: 1px solid var(--gold); color: var(--gold);
+    text-decoration: none; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    transition: all 0.4s; position: relative; overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .btn-gold::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--gold); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s ease; z-index: -1;
+  }
+  .btn-gold:hover { color: var(--bg); }
+  .btn-gold:hover::before { transform: scaleX(1); }
+
+  .btn-ghost {
+    display: inline-block; padding: 16px 44px;
+    border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim);
+    text-decoration: none; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── MOBILE CALC ── */
+  @media (max-width: 768px) {
+    .calc-row { grid-template-columns: 1fr; }
+    .calc-result-grid { grid-template-columns: 1fr; }
+    .anchor-line { font-size: 13px; }
+    .hero-question h1 { font-size: 26px; }
+    .hero-invite { font-size: 28px; }
+  }
+  section { position: relative; z-index: 1; }
+
+  .section-inner {
+    max-width: 1000px; margin: 0 auto; padding: 100px 40px;
+  }
+
+  .section-label {
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+
+  /* ── MECHANICS — КАК УСТРОЕН МИР ── */
+  #mechanics { background: var(--bg2); }
+
+  .mech-intro {
+    max-width: 640px; margin-bottom: 64px;
+  }
+  .mech-intro h2 { font-size: 48px; color: var(--white); margin-bottom: 16px; }
+  .mech-intro p { font-size: 15px; color: var(--text-dim); line-height: 1.9; }
+
+  .mech-flow {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  .mech-row {
+    display: grid; grid-template-columns: 80px 1fr 1fr;
+    background: var(--bg3); overflow: hidden;
+    transition: background 0.3s;
+  }
+  .mech-row:hover { background: #1f1f1f; }
+
+  .mech-num {
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300;
+    color: rgba(201,168,76,0.15);
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .mech-old {
+    padding: 28px 32px;
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .mech-new {
+    padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent);
+  }
+
+  .mech-tag {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 10px;
+  }
+  .mech-tag.gold { color: var(--gold-dim); }
+
+  .mech-old p { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+  .mech-new p { font-size: 14px; color: var(--text); line-height: 1.8; }
+
+  .mech-accent { color: var(--gold); font-weight: 500; }
+
+  /* ── LIVE PROOF ── */
+  #live { background: var(--bg); }
+
+  .live-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center; margin-top: 60px;
+  }
+
+  .stat-box {
+    background: var(--bg3);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 0; position: relative;
+    overflow: hidden;
+  }
+
+  .stat-box-label {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+    background: rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+    white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stat-box-inner { padding: 24px 36px 36px; }
+
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 0; border-bottom: 1px solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; }
+
+  .stat-label { font-size: 14px; color: var(--text-dim); letter-spacing: 1px; }
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; color: var(--gold);
+  }
+
+  .live-text h3 { font-size: 36px; color: var(--white); margin-bottom: 20px; }
+  .live-text p { font-size: 15px; color: var(--text-dim); line-height: 1.9; margin-bottom: 14px; }
+  .live-quote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1.6;
+    margin-top: 24px;
+  }
+
+  .acc-close {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 16px 36px;
+    background: none; border: none; border-top: 1px solid rgba(201,168,76,0.08);
+    cursor: pointer; color: var(--text-dim);
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    transition: color 0.2s;
+  }
+  .acc-close:hover { color: var(--gold); }
+  .acc-close-icon {
+    width: 22px; height: 22px;
+    border: 1px solid currentColor; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; line-height: 1;
+    transform: rotate(45deg);
+  }
+
+  .acc-collapse-bar {
+    display: none;
+    width: 100%;
+    padding: 16px;
+    background: rgba(201,168,76,0.06);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    text-align: center;
+    cursor: pointer;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 2px;
+    transition: background 0.2s;
+  }
+  .acc-collapse-bar:hover { background: rgba(201,168,76,0.12); }
+  .acc-collapse-bar.visible { display: block; }
+
+  /* ── PATHS ── */
+  #paths { background: var(--bg2); }
+
+  .paths-intro { text-align: center; max-width: 600px; margin: 0 auto 70px; }
+  .paths-intro h2 { font-size: 48px; color: var(--white); margin-bottom: 16px; }
+  .paths-intro p { color: var(--text-dim); font-size: 15px; line-height: 1.8; }
+
+  .paths-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+
+  .path-card { background: var(--bg3); overflow: hidden; transition: transform 0.3s; }
+  .path-card:hover { transform: translateY(-4px); }
+
+  .path-header {
+    padding: 44px 36px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    position: relative; overflow: hidden;
+  }
+  .path-card:nth-child(2) .path-header { background: linear-gradient(135deg, #111100, #0d0d00); }
+  .path-card:nth-child(3) .path-header { background: linear-gradient(135deg, #0a0800, #080600); }
+
+  .path-tag {
+    font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-dim); margin-bottom: 20px;
+  }
+  .path-title { font-size: 24px; color: var(--white); margin-bottom: 8px; }
+  .path-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1;
+  }
+  .path-price-note { font-size: 11px; color: var(--text-dim); margin-top: 6px; letter-spacing: 1px; }
+  .path-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-style: normal; font-weight: 300;
+    color: var(--text-dim); margin-top: 20px; line-height: 1.8;
+  }
+
+  /* Accordion */
+  .acc-toggle {
+    width: 100%; background: none; border: none;
+    padding: 20px 36px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; color: var(--gold);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    transition: background 0.2s;
+  }
+  .acc-toggle:hover { background: rgba(201,168,76,0.04); }
+
+  .acc-icon {
+    width: 20px; height: 20px;
+    border: 1px solid var(--gold-dim); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; transition: transform 0.3s; flex-shrink: 0;
+  }
+  .acc-toggle.open .acc-icon { transform: rotate(45deg); }
+
+  .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+  .acc-body.open { max-height: 3000px; }
+
+  .acc-content { padding: 8px 36px 36px; }
+
+  .perk { display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start; }
+  .perk-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .perk-text { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+  .perk-text strong {
+    color: var(--text); font-weight: 500; display: block;
+    margin-bottom: 5px; font-size: 14px;
+  }
+
+  .path-bonus {
+    margin: 0 36px 28px;
+    padding: 16px 20px;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.12);
+    font-size: 12px; color: var(--gold-dim); line-height: 1.6;
+  }
+  .path-bonus strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 14px; }
+
+  /* ── GUARANTEES ── */
+  #guarantee { background: var(--bg); }
+
+  .guarantee-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-top: 60px;
+  }
+
+  .g-block {
+    background: var(--bg3); padding: 44px 36px; text-align: center;
+  }
+  .g-icon { font-size: 36px; margin-bottom: 20px; }
+  .g-block h3 { font-size: 20px; color: var(--white); margin-bottom: 12px; }
+  .g-block p { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ── CTA ── */
+  #cta { background: var(--bg2); text-align: center; }
+
+  .cta-inner { max-width: 700px; margin: 0 auto; padding: 120px 40px; }
+  .cta-inner h2 { font-size: 56px; color: var(--white); margin-bottom: 20px; }
+  .cta-inner p { font-size: 15px; color: var(--text-dim); line-height: 1.9; margin-bottom: 48px; }
+
+  .cta-buttons {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+
+  .cta-note {
+    margin-top: 36px; font-size: 15px; color: var(--text-dim);
+    font-family: 'Montserrat', sans-serif; font-style: normal; font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px; border-top: 1px solid rgba(255,255,255,0.04);
+    text-align: center; font-size: 11px; color: var(--text-dim); letter-spacing: 1px;
+  }
+  footer a { color: var(--gold-dim); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    header { padding: 16px 20px; }
+    nav { display: none; }
+    .section-inner { padding: 70px 20px; }
+    .pos-grid { grid-template-columns: 1fr; }
+    .pos-arrow { display: none; }
+    .mech-row { grid-template-columns: 48px 1fr; }
+    .mech-old { display: none; }
+    .live-grid { grid-template-columns: 1fr; }
+    .paths-grid { grid-template-columns: 1fr; }
+    .guarantee-grid { grid-template-columns: 1fr; }
+    #hero h1 { font-size: 32px; }
+    .path-price { font-size: 40px; }
+    .pos-grid { gap: 2px; }
+  }
+
+  /* MOBILE FIRST - full mobile rebuild */
+  @media (max-width: 768px) {
+    header { padding: 12px 16px; flex-wrap: nowrap; }
+    .logo { font-size: 15px; letter-spacing: 1.5px; }
+    .logo span { display: none; }
+    nav a { display: none; }
+    .theme-toggle { margin-left: 8px; }
+    .lang-switcher { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); border-top: 1px solid var(--border); padding: 8px 8px 12px; justify-content: center; z-index: 200; gap: 4px; flex-wrap: wrap; backdrop-filter: blur(10px); }
+    .lang-btn { font-size: 10px; padding: 5px 7px; }
+    body { padding-bottom: 64px; }
+    #hero { padding: 90px 16px 60px; min-height: auto; }
+    .hero-anchor { margin-bottom: 20px; }
+    .anchor-line { font-size: 13px; flex-direction: column; gap: 4px; text-align: center; }
+    .anchor-sep { display: none; }
+    .hero-micro { margin-bottom: 24px; }
+    .hero-micro p { font-size: 11px; letter-spacing: 1px; }
+    .hero-question { margin-bottom: 24px; max-width: 100%; }
+    .hero-question h1 { font-size: 24px; line-height: 1.3; }
+    .hero-invite { font-size: 26px; }
+    .calculator { margin-bottom: 40px; }
+    .calc-inner { padding: 18px 14px; }
+    .calc-row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
+    .calc-field label { font-size: 11px; margin-bottom: 6px; }
+    .calc-input-wrap input { font-size: 22px; padding: 10px 8px 10px 0; }
+    .calc-btn { padding: 14px; font-size: 10px; letter-spacing: 2px; }
+    .calc-result-grid { grid-template-columns: 1fr; gap: 2px; }
+    .calc-result-item { padding: 14px 12px; }
+    .calc-result-value { font-size: 28px; }
+    .scroll-hint { display: none; }
+    .ticker-item { font-size: 12px; }
+    .section-inner { padding: 48px 16px; }
+    .mech-intro { margin-bottom: 28px; }
+    .mech-intro h2 { font-size: 26px; }
+    .mech-intro p { font-size: 14px; }
+    .mech-row { grid-template-columns: 36px 1fr; }
+    .mech-num { font-size: 24px; }
+    .mech-old { display: none; }
+    .mech-new { padding: 14px 16px; }
+    .mech-new p { font-size: 14px; }
+    .mech-tag { font-size: 9px; }
+    .live-grid { grid-template-columns: 1fr; gap: 24px; }
+    .stat-box-inner { padding: 14px 16px 20px; }
+    .stat-label { font-size: 13px; }
+    .stat-value { font-size: 26px; }
+    .live-text h3 { font-size: 24px; }
+    .live-text p { font-size: 14px; }
+    .paths-intro h2 { font-size: 28px; }
+    .paths-intro p { font-size: 14px; }
+    .paths-grid { grid-template-columns: 1fr; gap: 2px; }
+    .path-header { padding: 24px 18px 18px; }
+    .path-tag { font-size: 9px; margin-bottom: 10px; }
+    .path-title { font-size: 20px; }
+    .path-price { font-size: 40px; }
+    .path-price-note { font-size: 12px; }
+    .path-tagline { font-size: 13px; margin-top: 12px; }
+    .acc-toggle { padding: 14px 18px; font-size: 10px; }
+    .acc-content { padding: 8px 18px 20px; }
+    .perk { gap: 10px; margin-bottom: 14px; }
+    .perk-icon { font-size: 15px; }
+    .perk-text { font-size: 13px; }
+    .perk-text strong { font-size: 13px; }
+    .path-bonus { margin: 0 18px 18px; font-size: 13px; }
+    .path-bonus strong { font-size: 13px; }
+    .guarantee-grid { grid-template-columns: 1fr; gap: 2px; }
+    .g-block { padding: 24px 18px; }
+    .g-block h3 { font-size: 18px; }
+    .g-block p { font-size: 14px; }
+    .faq-list { margin: 28px auto 0; }
+    .faq-toggle { font-size: 16px; padding: 16px 0; gap: 12px; }
+    .faq-content { font-size: 14px; }
+    .cta-inner { padding: 56px 16px; }
+    .cta-inner h2 { font-size: 32px; }
+    .cta-inner p { font-size: 14px; margin-bottom: 28px; }
+    .cta-buttons { flex-direction: column; gap: 10px; }
+    .cta-buttons a { width: 100%; text-align: center; box-sizing: border-box; }
+    .cta-note { font-size: 14px; }
+    .section-label { font-size: 11px; letter-spacing: 3px; }
+    .gold-line { margin: 14px auto; }
+    footer { padding: 24px 16px; font-size: 11px; }
+    .pos-grid { grid-template-columns: 1fr; }
+    .pos-arrow { display: none; }
+    .compare-box { grid-template-columns: 1fr; }
+    .compare-vs { writing-mode: horizontal-tb; padding: 8px; border: none; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .compare-side { padding: 20px 18px; }
+    .proof-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 375px) {
+    .hero-question h1 { font-size: 20px; }
+    .path-price { font-size: 34px; }
+    .lang-btn { font-size: 9px; padding: 4px 5px; }
+    .cta-inner h2 { font-size: 26px; }
+  }
+
+
+  @media (max-width: 768px) {
+    .lang-switcher { margin-right: 8px; }
+    .lang-current { padding: 4px 8px; font-size: 11px; }
+    .lang-dropdown { right: 0; min-width: 140px; }
+    .lang-dropdown button { font-size: 13px; padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BRIDGE TRANSITION OVERLAY -->
+<div id="bridge">
+  <div class="bridge-line"></div>
+  <div class="bridge-text" id="bridge-text">Подготовка доступа...</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    Travel Status
+    <span>Elite Lifestyle Ambassador · MWR Life / Travel Advantage</span>
+  </div>
+  <nav>
+    <a href="#mechanics" data-i18n="nav_how">Как работает</a>
+    <a href="#paths" data-i18n="nav_rates">Тарифы</a>
+    <a href="#cta" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" data-i18n="nav_access">Получить доступ</a>
+
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-current" id="langCurrent" onclick="toggleLangDropdown(event)">
+      <span id="langCurrentText">RU</span>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <button data-lang="ru" onclick="selectLang('ru')">RU — Русский</button>
+      <button data-lang="kz" onclick="selectLang('kz')">KZ — Қазақша</button>
+    </div>
+  </div>
+    <div class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
+      <span class="toggle-icon">🌙</span>
+      <div class="toggle-track">
+        <div class="toggle-thumb"></div>
+      </div>
+      <span class="toggle-icon">☀️</span>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 1 — ГЕРОЙ
+     Psychological flow: понимание → рационализация → вовлечение
+══════════════════════════════════════════════ -->
+<section id="hero">
+
+  <!-- 1. COGNITIVE ANCHOR — категориальное объяснение -->
+  <div class="hero-anchor" style="opacity:0; animation: fadeUp 0.8s ease 0.2s forwards;">
+    <p class="anchor-line">
+      <span class="anchor-retail" data-i18n="hero_anchor1">Booking · Airbnb · Expedia — розничные витрины travel-рынка.</span>
+    </p>
+    <p class="anchor-line anchor-us">
+      <span class="anchor-brand" data-i18n="hero_anchor2_pre">Travel Advantage</span><span class="anchor-sep"> — </span><span class="anchor-label gold" data-i18n="hero_anchor2_post">оптовый слой доступа.</span>
+    </p>
+  </div>
+
+  <!-- 2. RATIONAL REINFORCEMENT — micro-line -->
+  <div class="hero-micro" style="opacity:0; animation: fadeUp 0.8s ease 0.5s forwards;">
+    <p data-i18n="hero_micro1">Большинство travel-платформ работают по розничной модели.</p>
+    <p data-i18n="hero_micro2">Мы покажем разницу между retail и direct-access тарифами.</p>
+  </div>
+
+  <!-- 3. PERSONAL ENGAGEMENT — вопрос + пауза + посчитаем -->
+  <div class="hero-question" style="opacity:0; animation: fadeUp 0.8s ease 0.8s forwards;">
+    <h1 data-i18n="hero_q">На сколько реально можно было снизить стоимость твоего последнего путешествия?</h1>
+    <p class="hero-invite" data-i18n="hero_invite">Посчитаем?</p>
+  </div>
+
+  <!-- 4. КАЛЬКУЛЯТОР -->
+  <div class="calculator" style="opacity:0; animation: fadeUp 0.8s ease 1.1s forwards;">
+    <div class="calc-inner">
+      <div class="calc-row">
+        <div class="calc-field">
+          <label data-i18n="calc_l2">На отели и жильё</label>
+          <div class="calc-input-wrap">
+            <span class="calc-currency">$</span>
+            <input type="number" id="calcHotel" placeholder="800" min="0">
+          </div>
+        </div>
+        <div class="calc-field">
+          <label data-i18n="calc_l3">На перелёты</label>
+          <div class="calc-input-wrap">
+            <span class="calc-currency">$</span>
+            <input type="number" id="calcFlight" placeholder="500" min="0">
+          </div>
+        </div>
+      </div>
+      <button class="calc-btn" id="calcBtn" onclick="runCalc()" data-i18n="calc_btn">Посчитать</button>
+      <p class="calc-hint" id="calcHint"></p>
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-grid">
+          <div class="calc-result-item">
+            <span class="calc-result-label" data-i18n="res_paid">Потратил (отели + перелёты)</span>
+            <span class="calc-result-value" id="resTotal">—</span>
+          </div>
+          <div class="calc-result-item highlight">
+            <span class="calc-result-label" data-i18n="res_could">Мог заплатить</span>
+            <span class="calc-result-value gold" id="resAfter">—</span>
+          </div>
+          <div class="calc-result-item">
+            <span class="calc-result-label" data-i18n="res_over">Переплата системе</span>
+            <span class="calc-result-value red" id="resSaved">—</span>
+          </div>
+        </div>
+        <p class="calc-note" id="calcNote"></p>
+        <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-gold" style="margin-top:20px; display:inline-block;" data-i18n="res_link">Получить гостевой пропуск — проверить лично</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span data-i18n="scroll">Листай</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><span class="dest">Maldives / Overwater Villa</span>&nbsp;<span class="retail">$1,420</span>&nbsp;→&nbsp;<span class="member">$840</span>&nbsp;<span class="save">−41%</span></div>
+    <div class="ticker-item"><span class="dest">Dubai / Business Bay</span>&nbsp;<span class="retail">$680</span>&nbsp;→&nbsp;<span class="member">$410</span>&nbsp;<span class="save">−39%</span></div>
+    <div class="ticker-item"><span class="dest">Paris / Boutique Stay</span>&nbsp;<span class="retail">$490</span>&nbsp;→&nbsp;<span class="member">$310</span>&nbsp;<span class="save">−36%</span></div>
+    <div class="ticker-item"><span class="dest">Rome / Historic Center</span>&nbsp;<span class="retail">$460</span>&nbsp;→&nbsp;<span class="member">$290</span>&nbsp;<span class="save">−37%</span></div>
+    <div class="ticker-item"><span class="dest">Tokyo / City Hotel</span>&nbsp;<span class="retail">$380</span>&nbsp;→&nbsp;<span class="member">$240</span>&nbsp;<span class="save">−37%</span></div>
+    <div class="ticker-item"><span class="dest">Bali / Resort Villa</span>&nbsp;<span class="retail">$520</span>&nbsp;→&nbsp;<span class="member">$315</span>&nbsp;<span class="save">−39%</span></div>
+    <div class="ticker-item"><span class="dest">Barcelona / Center</span>&nbsp;<span class="retail">$340</span>&nbsp;→&nbsp;<span class="member">$215</span>&nbsp;<span class="save">−36%</span></div>
+    <div class="ticker-item"><span class="dest">Maldives / Overwater Villa</span>&nbsp;<span class="retail">$1,420</span>&nbsp;→&nbsp;<span class="member">$840</span>&nbsp;<span class="save">−41%</span></div>
+    <div class="ticker-item"><span class="dest">Dubai / Business Bay</span>&nbsp;<span class="retail">$680</span>&nbsp;→&nbsp;<span class="member">$410</span>&nbsp;<span class="save">−39%</span></div>
+    <div class="ticker-item"><span class="dest">Paris / Boutique Stay</span>&nbsp;<span class="retail">$490</span>&nbsp;→&nbsp;<span class="member">$310</span>&nbsp;<span class="save">−36%</span></div>
+    <div class="ticker-item"><span class="dest">Rome / Historic Center</span>&nbsp;<span class="retail">$460</span>&nbsp;→&nbsp;<span class="member">$290</span>&nbsp;<span class="save">−37%</span></div>
+    <div class="ticker-item"><span class="dest">Tokyo / City Hotel</span>&nbsp;<span class="retail">$380</span>&nbsp;→&nbsp;<span class="member">$240</span>&nbsp;<span class="save">−37%</span></div>
+    <div class="ticker-item"><span class="dest">Bali / Resort Villa</span>&nbsp;<span class="retail">$520</span>&nbsp;→&nbsp;<span class="member">$315</span>&nbsp;<span class="save">−39%</span></div>
+    <div class="ticker-item"><span class="dest">Barcelona / Center</span>&nbsp;<span class="retail">$340</span>&nbsp;→&nbsp;<span class="member">$215</span>&nbsp;<span class="save">−36%</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 2 — МЕХАНИКА
+     Было / Стало — параллельные строки
+══════════════════════════════════════════════ -->
+<section id="mechanics">
+  <div class="section-inner">
+    <div class="mech-intro reveal">
+      <p class="section-label" data-i18n="mech_label">Почему так устроено</p>
+      <h2 data-i18n="mech_title">Вся правда о том, куда уходят твои деньги</h2>
+      <p data-i18n="mech_sub">Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.</p>
+    </div>
+
+    <div class="mech-flow">
+
+      <div class="mech-row reveal">
+        <div class="mech-num">1</div>
+        <div class="mech-old">
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
+          <p data-i18n="m1_old">Ты бронируешь отель за $200. Букинг берёт до 25% комиссии с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.</p>
+        </div>
+        <div class="mech-new">
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
+          <p data-i18n="m1_new">Мы договорились с отелями напрямую: максимальный поток клиентов — максимальная скидка. Эту скидку мы передаём тебе, а не оставляем себе.</p>
+        </div>
+      </div>
+
+      <div class="mech-row reveal">
+        <div class="mech-num">2</div>
+        <div class="mech-old">
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
+          <p data-i18n="m2_old">Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. С тобой не делятся ни центом. Ты работаешь на них бесплатно.</p>
+        </div>
+        <div class="mech-new">
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
+          <p data-i18n="m2_new">Каждый раз когда друг бронирует по твоей ссылке — его экономия прилетает тебе на счёт. Он сэкономил $60 — ты получил $60 Travel Credits.</p>
+        </div>
+      </div>
+
+      <div class="mech-row reveal">
+        <div class="mech-num">3</div>
+        <div class="mech-old">
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
+          <p data-i18n="m3_old">Гений третьего уровня — это скидка с наценки. Не с реальной цены отеля. Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.</p>
+        </div>
+        <div class="mech-new">
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
+          <p data-i18n="m3_new">Открой наше приложение и Букинг рядом. Один отель, одни даты. Сравни. Даже с Гением третьего уровня. Цифры говорят сами.</p>
+        </div>
+      </div>
+
+      <div class="mech-row reveal">
+        <div class="mech-num">4</div>
+        <div class="mech-old">
+          <p class="mech-tag" data-i18n="mech_old">Розничный агрегатор</p>
+          <p data-i18n="m4_old">Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование кормит посредника вместо тебя.</p>
+        </div>
+        <div class="mech-new">
+          <p class="mech-tag gold" data-i18n="mech_new">Travel Advantage</p>
+          <p data-i18n="m4_new">Членский взнос даёт тебе доступ к оптовым ценам на отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки и многое другое. Более 2 000 000 объектов.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="reveal" style="text-align:center; margin-top:48px; font-family:'Montserrat',sans-serif; font-style:normal; font-size:15px; font-weight:300; color:var(--text-dim);">
+      <span data-i18n="mech_footer">14 дней чтобы сравнить сам. Если не воспользовался баллами — вернём деньги.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 3 — ЖИВОЕ ДОКАЗАТЕЛЬСТВО
+     Скриншот реального аккаунта
+══════════════════════════════════════════════ -->
+<section id="live">
+  <div class="section-inner">
+    <div class="live-grid">
+      <div class="stat-box reveal">
+        <span class="stat-box-label">MWR Life · Реальный аккаунт · День 1</span>
+        <div class="stat-box-inner">
+          <div class="stat-row">
+            <span class="stat-label" data-i18n="stat_pts">🏆 Баллы лояльности</span>
+            <span class="stat-value">490</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label" data-i18n="stat_cred">💳 Туристических кредитов</span>
+            <span class="stat-value" style="color:var(--text-dim); font-size:22px; font-family:'Montserrat';" data-i18n="stat_cred_val">накапливаются</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label" data-i18n="stat_status">✈️ Статус</span>
+            <span class="stat-value" style="font-size:18px; font-family:'Montserrat'; letter-spacing:2px;">ELITE TURBO</span>
+          </div>
+          <div style="margin-top:20px; padding:16px; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.1); text-align:center;">
+            <p style="font-size:13px; letter-spacing:2px; color:var(--gold); text-transform:uppercase;" data-i18n="stat_free">Путешествовать бесплатно!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="live-text reveal">
+        <p class="section-label" data-i18n="proof_label">Это не реклама</p>
+        <h3 data-i18n="proof_title">День первый после регистрации</h3>
+        <p data-i18n="proof_p1">На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.</p>
+        <p data-i18n="proof_p2">Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.</p>
+        <p data-i18n="proof_p3">Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.</p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 4 — ТРИ ПУТИ
+     Человек выбирает себя
+══════════════════════════════════════════════ -->
+<section id="paths">
+  <div class="section-inner">
+    <div class="paths-intro reveal">
+      <p class="section-label" data-i18n="paths_label">Три пути входа</p>
+      <h2 data-i18n="paths_title">Узнай себя и выбери своё</h2>
+      <p data-i18n="paths_sub">Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.</p>
+    </div>
+
+    <div class="paths-grid">
+
+      <!-- PATH 1 — $199 -->
+      <div class="path-card reveal">
+        <div class="path-header">
+          <p class="path-tag" data-i18n="p1_tag">Путь первый</p>
+          <h3 class="path-title" data-i18n="p1_title">Путешествуй дешевле</h3>
+          <div class="path-price">$199</div>
+          <p class="path-price-note" data-i18n="p1_note">в год · Travel Advantage VIP</p>
+          <p class="path-tagline" data-i18n="p1_tagline">Ты просто платишь меньше за то, что и так делаешь. Никакого бизнеса, никаких обязательств. Оптовый склад в твоём телефоне.</p>
+        </div>
+        <button class="acc-toggle" onclick="toggleAcc(this)">
+          <span data-i18n="perks_open">Все плюшки</span> <div class="acc-icon">+</div>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="perk">
+              <div class="perk-icon">✈️</div>
+              <div class="perk-text" data-i18n="p1p1">
+                <strong>Всё что бронируешь — по оптовым ценам</strong>
+                Отели, курорты, перелёты, круизы, аренда авто, трансферы, экскурсии, дайвинг, сафари, горнолыжные курорты, тематические парки, железнодорожные билеты. Более 2 000 000 объектов по всему миру. Всё в одном приложении.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🛡️</div>
+              <div class="perk-text" data-i18n="p1p2">
+                <strong>Гарантия лучшей цены — 150%</strong>
+                Забронировал — нашёл тот же отель дешевле на Букшинге или Airbnb — компания возвращает полтора раза от разницы. Не просто разницу. Полтора раза. Официальное условие.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">👨‍👩‍👧‍👦</div>
+              <div class="perk-text" data-i18n="p1p3">
+                <strong>+1 путешественник со своим логином</strong>
+                Муж, жена, друг, брат, сестра, мама, папа, бабушка, дедушка — любой близкий человек получает свой личный логин и бронирует сам. С теми же оптовыми ценами. Без доплаты к твоей подписке.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">💳</div>
+              <div class="perk-text" data-i18n="p1p4">
+                <strong>Travel Credits с каждого бронирования</strong>
+                Как кешбэк — только тратишь на следующую поездку. Накапливаются, никогда не сгорают. Поделился бронированием в соцсетях — получаешь ещё +30% кредитов сверху.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🎫</div>
+              <div class="perk-text" data-i18n="p1p5">
+                <strong>Гостевые пропуска для друзей</strong>
+                Цифровая ссылка — отправляешь другу, он заходит как VIP, видит реальные оптовые цены, сравнивает с Букингом, бронирует. Он сэкономил — и ровно столько же прилетает тебе на счёт Travel Credits. Вы оба в плюсе с одного бронирования.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">⚡</div>
+              <div class="perk-text" data-i18n="p1p6">
+                <strong>Flash Deals — горящие предложения до −83%</strong>
+                Последние места в 4-5 звёздочных отелях. Дубай, Флорида, Мальдивы, Италия, Индонезия. Уведомление в приложение — кто первый, тот и улетел.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🛍️</div>
+              <div class="perk-text" data-i18n="p1p7">
+                <strong>Lifestyle Mall — как Duty Free, только онлайн и всегда</strong>
+                Более 3 миллионов товаров по безналоговым ценам. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. Без аэропорта, без очередей — прямо с дивана.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">💳</div>
+              <div class="perk-text" data-i18n="p1p8">
+                <strong>Платишь как удобно</strong>
+                Крипта, Apple Pay, Google Pay, Klarna, дебетовая или кредитная карта.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🌍</div>
+              <div class="perk-text" data-i18n="p1p9">
+                <strong>Поддержка 24/7 на твоём языке</strong>
+                Три часа ночи, другая страна, что-то пошло не так с бронированием. Пишешь в чат — через минуту отвечает живой человек. На твоём языке. Не бот.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">↩️</div>
+              <div class="perk-text" data-i18n="p1p10">
+                <strong>14 дней — полный возврат без вопросов</strong>
+                В течение 14 дней можно отменить и вернуть деньги — если баллами лояльности не воспользовался. Одно письмо на почту. Официальное условие.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
+        <div style="padding: 20px 36px 32px;">
+          <a href="#" onclick="bridgeTo('https://vip.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p1_btn">Начать за $199</a>
+        </div>
+      </div>
+
+      <!-- PATH 2 — $340 -->
+      <div class="path-card reveal">
+        <div class="path-header">
+          <p class="path-tag" data-i18n="p2_tag">Путь второй</p>
+          <h3 class="path-title" data-i18n="p2_title">Получай доход<br>с рекомендаций</h3>
+          <div class="path-price">$340</div>
+          <p class="path-price-note" data-i18n="p2_note">Ambassador + Elite</p>
+          <p class="path-tagline" data-i18n="p2_tagline">Пользуешься сам и рассказываешь другим. Каждый раз когда кто-то по твоей рекомендации пользуется сервисом — тебе приходят комиссионные. Легко, без давления.</p>
+        </div>
+        <button class="acc-toggle" onclick="toggleAcc(this)">
+          Все плюшки <div class="acc-icon">+</div>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="perk">
+              <div class="perk-icon">💰</div>
+              <div class="perk-text" data-i18n="p2p1">
+                <strong>Комиссионные с каждой рекомендации</strong>
+                Ты рассказал другу. Он зашёл, сравнил цены, подключился. В тот же день тебе пришли комиссионные. Ты не продавал. Ты просто поделился. Посоветуй сервис троим — и твой ежемесячный платёж полностью покрывается их подписками.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🏆</div>
+              <div class="perk-text" data-i18n="p2p2">
+                <strong>$120 в месяц баллами лояльности — автоматически</strong>
+                Первого числа каждого месяца на счёт приходит $120. Просто за то что ты участник. Не нужно никуда ехать, ничего бронировать, ничего делать. Пришёл месяц — пришли деньги. Каждый балл = $1. Тратишь на отели, курорты, перелёты, круизы, аренду авто, трансферы, экскурсии, Life Experiences, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc. За год накапливается $1440 только от членства.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">✈️</div>
+              <div class="perk-text" data-i18n="p2p3">
+                <strong>Мечта-поездка раз в год — полностью за баллы</strong>
+                Ты копил баллы весь год. Просто получал их каждый месяц и откладывал. Открываешь приложение, выбираешь поездку для двоих — Мальорка, Дубай, Греция, Карибы — направляешь все накопленные баллы на оплату. Полностью. Из кармана — ноль.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">👨‍👩‍👧‍👦</div>
+              <div class="perk-text" data-i18n="p2p4">
+                <strong>+4 путешественника со своим логином</strong>
+                Четыре близких человека — муж, жена, дети, друг, брат, сестра, мама, папа, бабушка, дедушка — каждый получает свой личный логин, заходит сам, бронирует сам. С теми же оптовыми ценами. Один аккаунт — пять человек путешествуют по оптовым ценам.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🎫</div>
+              <div class="perk-text" data-i18n="p2p5">
+                <strong>50 гостевых пропусков сразу + 20 каждый месяц</strong>
+                Ты отправляешь ссылку. Друг заходит как VIP, видит реальные оптовые цены, сравнивает с Букингом, бронирует отель на две ночи. Он сэкономил — и ровно столько же прилетает тебе на счёт Travel Credits. Вы оба в плюсе с одного бронирования.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🌟</div>
+              <div class="perk-text" data-i18n="p2p6">
+                <strong>Life Experiences — кураторские поездки клуба</strong>
+                Клуб организует поездку — Марокко, четыре дня, пятизвёздочный отель, трансфер из аэропорта, приветственный коктейль, групповая экскурсия, персональный хост. $279 с человека. На Букинге только отель стоит $600.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🤖</div>
+              <div class="perk-text" data-i18n="p2p7">
+                <strong>AI Trip Planner — личный цифровой турагент</strong>
+                Пишешь: "Хочу в Дубай на 5 дней с женой и двумя детьми, бюджет $2000." ИИ за секунды подбирает отель, строит маршрут по дням, добавляет экскурсии для детей, считает трансферы. Готовый план путешествия. Без турагента и его комиссии.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🎓</div>
+              <div class="perk-text" data-i18n="p2p8">
+                <strong>Бизнес-центр — готовая система с первого дня</strong>
+                Персональный сайт с твоей ссылкой — готов сразу. Маркетинговые воронки которые работают без тебя. Бизнес-дашборд в реальном времени. QR-код для продаж. Мобильное приложение. Готовые скрипты и шаблоны для переписки. Еженедельные тренинги от топ-лидеров. Видеообучение. Сообщество предпринимателей в 100+ странах.
+              </div>
+            </div>
+          </div>
+          <div class="path-bonus">
+            <strong>🗺️ Бонус после покупки — Бизнес-навигатор $340</strong>
+            Готовая карта как превратить членство в доход. 6 живых моделей которые работают прямо сейчас. Вручается торжественно после регистрации.
+          </div>
+        </div>
+        <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
+        <div style="padding: 20px 36px 32px;">
+          <a href="#" onclick="bridgeTo('https://join.traveladvantage.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p2_btn">Начать за $340</a>
+        </div>
+      </div>
+
+      <!-- PATH 3 — $590 -->
+      <div class="path-card reveal">
+        <div class="path-header">
+          <p class="path-tag" data-i18n="p3_tag">Путь третий</p>
+          <h3 class="path-title" data-i18n="p3_title">Серьёзный бизнес</h3>
+          <div class="path-price">$590</div>
+          <p class="path-price-note" data-i18n="p3_note">Ambassador + Elite + Turbo</p>
+          <p class="path-tagline" data-i18n="p3_tagline">Ты заходишь на полную. Это система которая работает на тебя непрерывно.</p>
+        </div>
+        <button class="acc-toggle" onclick="toggleAcc(this)">
+          Все плюшки <div class="acc-icon">+</div>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="perk">
+              <div class="perk-icon">⚡</div>
+              <div class="perk-text" data-i18n="p3p1">
+                <strong>$490 на счету в первый же день</strong>
+                $250 бонусных баллов приходят сразу при регистрации — плюс первые ежемесячные баллы. Ты только зарегистрировался, ещё никуда не поехал — а на счету уже $490. Используй прямо сейчас.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🏆</div>
+              <div class="perk-text" data-i18n="p3p2">
+                <strong>$240 в месяц баллами лояльности — вдвое больше Elite</strong>
+                Каждый месяц приходит $240 автоматически. Просто за то что ты участник. За год на счету $2880 только от членства. Тратишь на всё: отели, курорты, перелёты, круизы, аренду авто, трансферы, экскурсии, Life Experiences, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🎫</div>
+              <div class="perk-text" data-i18n="p3p3">
+                <strong>1500 путешественников ждут твоей ссылки</strong>
+                Все они путешествуют. Все платят розничные цены на Букшинге. Никто из них не знает что существует оптовый доступ. При регистрации к тебе приходит 1500 гостевых пропусков. Каждый — цифровая ссылка. Ты отправляешь. Человек видит реальные цены. Сравнивает. Бронирует. Его экономия прилетает тебе. Тебе нужно просто дать людям знать что такая возможность существует.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">⏰</div>
+              <div class="perk-text" data-i18n="p3p4">
+                <strong>Ранний доступ к Life Experiences — на 2 часа раньше всех</strong>
+                Клуб объявляет поездку. Марракеш, пятизвёздочный риад, 30 мест. Все Elite получают уведомление в 12:00. Ты как Turbo — в 10:00. Ты уже выбрал лучший номер пока другие только просыпаются.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🏨</div>
+              <div class="perk-text" data-i18n="p3p5">
+                <strong>Эксклюзивные Turbo-цены на отели</strong>
+                Раздел который недоступен даже Elite участникам. Цены ещё глубже чем оптовые Elite. Третий уровень склада. Самый закрытый. Самый дешёвый.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🔄</div>
+              <div class="perk-text" data-i18n="p3p6">
+                <strong>Flex Traveller каждые 6 месяцев</strong>
+                Жизнь меняется. Планы меняются. Раз в полгода — возможность гибко изменить параметры бронирования без штрафов и потерь. Страховка для путешественника.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">💰</div>
+              <div class="perk-text" data-i18n="p3p7">
+                <strong>Максимальные комиссионные с сети</strong>
+                Посоветовал сервис людям. Они пользуются — тебе приходят комиссионные. На Turbo уровне — максимальные. Система работает на тебя непрерывно. Ты в отпуске — она работает. Ты спишь — она работает.
+              </div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🎁</div>
+              <div class="perk-text" data-i18n="p3p8">
+                <strong>До 100 баллов — в подарок гостю</strong>
+                Берёшь с собой друга на кураторскую поездку. Даришь ему до $100 из своих баллов прямо на его бронирование. Подарок не деньгами из кармана — а баллами которые и так лежали на счету.
+              </div>
+            </div>
+          </div>
+          <div class="path-bonus">
+            <strong>🗺️ Бонус после покупки — Бизнес-навигатор $590</strong>
+            7 живых бизнес-моделей как реализовать потенциал 1500 пропусков. Хак первого в городе, хак якорного клиента, хак корпоративных командировок, хак контентной машины, хак дублирования, хак экспертного позиционирования, хак статусного промокода. Вручается торжественно после регистрации.
+          </div>
+        </div>
+        <div class="acc-collapse-bar" onclick="closeAcc(this)">↑</div>
+        <div style="padding: 20px 36px 32px;">
+          <a href="#" onclick="bridgeTo('https://www.mwrlife.com/Status', event)" class="btn-gold" style="display:block; text-align:center; width:100%;" data-i18n="p3_btn">Начать за $590</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 5 — ГАРАНТИИ
+══════════════════════════════════════════════ -->
+<section id="guarantee">
+  <div class="section-inner">
+    <p class="section-label reveal" style="text-align:center;" data-i18n="guar_label">Почему можно доверять</p>
+    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;" data-i18n="guar_title">Три причины рисков нет</h2>
+    <div class="gold-line reveal"></div>
+
+    <div class="guarantee-grid">
+      <div class="g-block reveal">
+        <div class="g-icon">🛡️</div>
+        <h3 data-i18n="g1_t">14 дней возврат</h3>
+        <p data-i18n="g1_p">В течение 14 дней — возврат средств если баллами лояльности не воспользовался. Одно письмо на почту. Условие прописано в договоре.</p>
+      </div>
+      <div class="g-block reveal">
+        <div class="g-icon">🌍</div>
+        <h3 data-i18n="g2_t">12 лет на рынке</h3>
+        <p data-i18n="g2_p">MWR Life основана в 2013 году. Работает в 100+ странах. Почти 700 000 участников по всему миру. Входит в топ-85 мировых компаний прямых продаж.</p>
+      </div>
+      <div class="g-block reveal">
+        <div class="g-icon">💰</div>
+        <h3 data-i18n="g3_t">Гарантия цены 150%</h3>
+        <p data-i18n="g3_p">Нашёл тот же отель дешевле после бронирования — компания вернёт полтора раза от разницы. Не просто разницу. Полтора раза.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     БЛОК 6 — ФИНАЛЬНЫЙ CTA
+══════════════════════════════════════════════ -->
+<section id="cta">
+  <div class="cta-inner">
+    <p class="section-label reveal" data-i18n="cta_label">Следующий шаг</p>
+    <h2 class="serif reveal" data-i18n="cta_title">Ты увидел здесь что-то своё?</h2>
+    <p class="reveal" data-i18n="cta_text">Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.</p>
+    <div class="cta-buttons reveal">
+      <a href="#paths" class="btn-gold" data-i18n="cta_btn1">Выбрать свой путь</a>
+      <a href="#" onclick="bridgeTo('https://free.traveladvantage.com/Status', event)" class="btn-ghost" data-i18n="cta_btn2">Получить гостевой пропуск</a>
+    </div>
+    <p class="cta-note reveal">
+      <span data-i18n="cta_note">Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>Ты можешь стать следующим.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════ -->
+<section id="faq">
+  <div class="section-inner">
+    <p class="section-label reveal" style="text-align:center;" data-i18n="faq_label">Частые вопросы</p>
+    <h2 class="reveal" style="font-size:48px; color:var(--white); text-align:center;" data-i18n="faq_title">Отвечаем честно</h2>
+    <div class="gold-line reveal"></div>
+
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq1">За счёт чего формируется разница в цене?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content" data-i18n="fa1">
+            Booking, Airbnb и Expedia тратят огромные бюджеты на глобальный маркетинг и рекламу — и закладывают эти расходы в твой чек. Travel Advantage работает по закрытой клубной модели: платформа закупает инвентарь напрямую у отелей без розничных наценок и передаёт чистую стоимость участникам. Ты платишь за членство — а не за чужую рекламу.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq2">Чем это отличается от Гения третьего уровня на Букинге?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Гений третьего уровня — это скидка с наценки Букинга, а не с реальной цены отеля. То есть тебе возвращают часть того, что с тебя же и взяли. Travel Advantage даёт прямой доступ к оптовой цене — той, которую отель готов дать за гарантированный поток клиентов. Открой оба приложения, найди один и тот же отель — и сравни.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq3">Как работает гарантия лучшей цены 150%?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content" data-i18n="fa2">
+            Ты забронировал отель через Travel Advantage. Нашёл тот же отель, те же даты, ту же категорию номера дешевле на любой другой платформе — компания возвращает тебе полтора раза от разницы. Не просто разницу. Именно полтора раза. Официальное условие членства, прописано в договоре.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq4">Что если не понравится — можно вернуть деньги?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Да. В течение 14 дней с момента активации — полный возврат без вопросов и без объяснений. Одно письмо на почту службы поддержки. Это официальное условие компании. За это время ты успеешь зайти в платформу, сравнить цены с Букингом и Airbnb, и сам всё понять.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq5">Это финансовая пирамида?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content" data-i18n="fa3">
+            Нет. Есть реальный продукт — платформа бронирования с оптовыми ценами. Люди платят за доступ к реальным скидкам на реальные поездки. Компания MWR Life работает с 2013 года, входит в топ-85 мировых компаний прямых продаж и является членом ETOA. Почти 700 000 участников в 100+ странах. Пирамиды столько не живут.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-toggle" onclick="toggleFaq(this)">
+          <span data-i18n="fq6">Могут ли мои близкие пользоваться моим аккаунтом?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <div class="faq-content">
+            Да — в зависимости от тарифа. VIP ($199) даёт +1 дополнительного путешественника с личным логином. Elite ($340) — +4 путешественника. Каждый из них заходит самостоятельно и бронирует по тем же оптовым ценам. Плюс гостевые пропуска — цифровые ссылки которые можно отправить любому другу для разового доступа.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Travel Status · Albert Stohl · Elite Lifestyle Ambassador, MWR Life</p>
+  <p style="margin-top:8px;">
+    <a href="https://www.mwrlife.com/Status" onclick="bridgeTo('https://www.mwrlife.com/Status', event)">mwrlife.com</a> ·
+    <a href="https://join.traveladvantage.com/Status" onclick="bridgeTo('https://join.traveladvantage.com/Status', event)">Travel Advantage</a> ·
+    <a href="https://lifeexperience.club/Status" onclick="bridgeTo('https://lifeexperience.club/Status', event)">Life Experience Club</a>
+  </p>
+  <p style="margin-top:16px; font-size:12px; color:rgba(154,144,128,0.4); max-width:700px; margin-left:auto; margin-right:auto; line-height:1.7;">
+    <span data-i18n="footer_disc">Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает платёжные данные напрямую и направляет пользователей на официальные ресурсы компании для оформления подписок и бронирований. Результаты индивидуальны.</span>
+  </p>
+</footer>
+
+<script>
+  // Calculator
+  function runCalc() {
+    const hotel = parseFloat(document.getElementById('calcHotel').value) || 0;
+    const flight = parseFloat(document.getElementById('calcFlight').value) || 0;
+    const hint = document.getElementById('calcHint');
+    const t = TRANS[currentLang] || TRANS.ru;
+
+    if (hotel === 0 && flight === 0) {
+      hint.textContent = t.calc_hint_empty;
+      return;
+    }
+    if (hotel === 0 || flight === 0) {
+      hint.textContent = t.calc_hint_partial;
+      return;
+    }
+
+    hint.textContent = '';
+
+    const total = hotel + flight;
+    const hotelSaving = hotel * 0.22;
+    const flightSaving = flight * 0.12;
+    const totalSaving = hotelSaving + flightSaving;
+    const afterTotal = total - totalSaving;
+    const pct = Math.round((totalSaving / total) * 100);
+
+    document.getElementById('resTotal').textContent = '$' + total.toFixed(0);
+    document.getElementById('resAfter').textContent = '$' + afterTotal.toFixed(0);
+    document.getElementById('resSaved').textContent = '$' + totalSaving.toFixed(0) + ' (' + pct + '%)';
+    document.getElementById('calcNote').textContent = t.calc_note_text;
+
+    const result = document.getElementById('calcResult');
+    result.classList.add('visible');
+    setTimeout(() => {
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+
+
+  // ── I18N TRANSLATIONS ──
+  const TRANS = {
+"ru": {
+"p3p8": "<strong>До 100 баллов — в подарок гостю</strong>Берёшь с собой друга на кураторскую поездку. Даришь ему до $100 из своих баллов на его бронирование. Подарок баллами которые и так лежали на счету.",
+"p3p7": "<strong>Максимальные комиссионные с сети</strong>Посоветовал сервис людям. Они пользуются — тебе приходят комиссионные. На Turbo уровне — максимальные. Система работает на тебя непрерывно.",
+"p3p6": "<strong>Flex Traveller каждые 6 месяцев</strong>Жизнь меняется. Планы меняются. Раз в полгода — возможность гибко изменить параметры бронирования без штрафов. Страховка для путешественника.",
+"p3p5": "<strong>Эксклюзивные Turbo-цены на отели</strong>Раздел который недоступен даже Elite участникам. Цены ещё глубже чем оптовые Elite. Третий уровень склада. Самый закрытый. Самый дешёвый.",
+"p3p4": "<strong>Ранний доступ к Life Experiences — на 2 часа раньше</strong>Клуб объявляет поездку. Все Elite получают уведомление в 12:00. Ты как Turbo — в 10:00. Уже выбрал лучший номер пока другие только просыпаются.",
+"p3p3": "<strong>1500 путешественников ждут твоей ссылки</strong>Все они путешествуют и платят розничные цены. При регистрации к тебе приходит 1500 гостевых пропусков. Ты отправляешь — человек видит реальные цены, бронирует, экономит. Его экономия прилетает тебе.",
+"p3p2": "<strong>$240 в месяц баллами лояльности — вдвое больше Elite</strong>Каждый месяц приходит $240 автоматически. За год на счету $2880 только от членства. Тратишь на всё: отели, перелёты, круизы, аренду авто, экскурсии, Lifestyle Mall — Gucci, Prada, Dior, Armani, Hermes и другие.",
+"p3p1": "<strong>$490 на счету в первый же день</strong>$250 бонусных баллов приходят сразу при регистрации — плюс первые ежемесячные баллы. Ещё никуда не поехал — а на счету уже $490. Используй прямо сейчас.",
+"p2p8": "<strong>Бизнес-центр — готовая система с первого дня</strong>Персональный сайт с твоей ссылкой готов сразу. Маркетинговые воронки. Бизнес-дашборд. QR-код. Скрипты и шаблоны. Еженедельные тренинги. Видеообучение. Сообщество в 100+ странах.",
+"p2p7": "<strong>AI Trip Planner — личный цифровой турагент</strong>Пишешь: \"Хочу в Дубай на 5 дней с женой и двумя детьми, бюджет $2000.\" ИИ подбирает отель, маршрут по дням, экскурсии, трансферы. Готовый план. Без турагента.",
+"p2p6": "<strong>Life Experiences — кураторские поездки клуба</strong>Клуб организует поездку — Марокко, четыре дня, пятизвёздочный отель, трансфер, коктейль, экскурсия, персональный хост. $279 с человека. На Букинге только отель стоит $600.",
+"p2p5": "<strong>50 гостевых пропусков сразу + 20 каждый месяц</strong>Ты отправляешь ссылку. Друг заходит как VIP, видит реальные цены, бронирует. Он сэкономил — ровно столько же прилетает тебе на счёт Travel Credits.",
+"p2p4": "<strong>+4 путешественника со своим логином</strong>Четыре близких человека — каждый получает личный логин, бронирует сам с теми же оптовыми ценами. Один аккаунт — пять человек путешествуют по оптовым ценам.",
+"p2p3": "<strong>Мечта-поездка раз в год — полностью за баллы</strong>Копил баллы весь год. Открываешь приложение, выбираешь поездку для двоих — Мальорка, Дубай, Греция, Карибы — и оплачиваешь баллами. Полностью. Из кармана — ноль.",
+"p2p2": "<strong>$120 в месяц баллами лояльности — автоматически</strong>Первого числа каждого месяца на счёт приходит $120. Просто за то что ты участник. Каждый балл = $1. Тратишь на отели, перелёты, круизы, аренду авто, экскурсии, Lifestyle Mall. За год накапливается $1440.",
+"p2p1": "<strong>Комиссионные с каждой рекомендации</strong>Посоветовал сервис — человек подключился — тебе пришли комиссионные. Ты не продавал. Просто поделился. Посоветуй троим — твой ежемесячный платёж полностью покрывается их подписками.",
+"p1p10": "<strong>14 дней — полный возврат</strong>В течение 14 дней можно отменить и вернуть деньги — если баллами лояльности не воспользовался. Одно письмо на почту. Официальное условие.",
+"p1p9": "<strong>Поддержка 24/7 на твоём языке</strong>Три часа ночи, другая страна, что-то пошло не так. Пишешь в чат — через минуту отвечает живой человек. На твоём языке. Не бот.",
+"p1p8": "<strong>Платишь как удобно</strong>Крипта, Apple Pay, Google Pay, Klarna, дебетовая или кредитная карта.",
+"p1p7": "<strong>Lifestyle Mall — как Duty Free, только онлайн</strong>Более 3 миллионов товаров по безналоговым ценам. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc, Tom Ford, Dolce & Gabbana. Без аэропорта, без очередей.",
+"p1p6": "<strong>Flash Deals — горящие предложения до −83%</strong>Последние места в 4-5 звёздочных отелях. Дубай, Флорида, Мальдивы, Италия, Индонезия. Уведомление в приложение — кто первый, тот и улетел.",
+"p1p5": "<strong>Гостевые пропуска для друзей</strong>Цифровая ссылка — отправляешь другу, он заходит как VIP, видит реальные оптовые цены, бронирует. Он сэкономил — ровно столько же прилетает тебе на счёт Travel Credits.",
+"p1p4": "<strong>Travel Credits с каждого бронирования</strong>Как кешбэк — только тратишь на следующую поездку. Накапливаются, никогда не сгорают. Поделился в соцсетях — получаешь ещё +30% кредитов сверху.",
+"p1p3": "<strong>+1 путешественник со своим логином</strong>Муж, жена, друг, брат, сестра, мама, папа, бабушка, дедушка — любой близкий человек получает свой личный логин и бронирует сам. С теми же оптовыми ценами. Без доплаты.",
+"p1p2": "<strong>Гарантия лучшей цены — 150%</strong>Забронировал — нашёл тот же отель дешевле — компания возвращает полтора раза от разницы. Не просто разницу. Полтора раза. Официальное условие.",
+"p1p1": "<strong>Всё что бронируешь — по оптовым ценам</strong>Отели, курорты, перелёты, круизы, аренда авто, трансферы, экскурсии, дайвинг, сафари, горнолыжные курорты, тематические парки, железнодорожные билеты. Более 2 000 000 объектов по всему миру. Всё в одном приложении.",
+"footer_disc": "Данный сайт является независимым партнёрским ресурсом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает платёжные данные напрямую и направляет пользователей на официальные ресурсы компании для оформления подписок и бронирований. Результаты индивидуальны.",
+"m4_new": "Членский взнос даёт тебе доступ к оптовым ценам на отели, перелёты, круизы, аренду авто, трансферы, экскурсии, тематические парки и многое другое. Более 2 000 000 объектов.",
+"m4_old": "Чтобы пользоваться — просто скачай. Бесплатно. Но каждое бронирование кормит посредника вместо тебя.",
+"m3_new": "Открой наше приложение и Букинг рядом. Один отель, одни даты. Сравни. Даже с Гением третьего уровня. Цифры говорят сами.",
+"m3_old": "Гений третьего уровня — это скидка с наценки, не с реальной цены отеля. Ты думаешь что экономишь. На самом деле — меньше переплачиваешь.",
+"m2_new": "Каждый раз когда друг бронирует по твоей ссылке — его экономия прилетает тебе на счёт. Он сэкономил $60 — ты получил $60 Travel Credits.",
+"m2_old": "Ты советуешь Букинг друзьям. Они бронируют. Букинг зарабатывает на их бронированиях. С тобой не делятся ни центом. Ты работаешь на них бесплатно.",
+"m1_new": "Мы договорились с отелями напрямую: максимальный поток клиентов — максимальная скидка. Эту скидку мы передаём тебе, а не оставляем себе.",
+"m1_old": "Ты бронируешь отель за $200. Букинг берёт до 25% комиссии с отеля — которую тот закладывает в твою цену. Ты платишь за посредника.",
+"nav_how": "Как работает",
+"nav_rates": "Тарифы",
+"nav_access": "Получить доступ",
+"hero_anchor1": "Booking · Airbnb · Expedia — розничные витрины travel-рынка.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— оптовый слой доступа.",
+"hero_micro1": "Большинство travel-платформ работают по розничной модели.",
+"hero_micro2": "Мы покажем разницу между retail и direct-access тарифами.",
+"hero_q": "На сколько можно было снизить стоимость вашего последнего путешествия?",
+"hero_invite": "Посчитаем?",
+"calc_l1": "Сколько потратил на последнее путешествие",
+"calc_l2": "Из них на отели и жильё",
+"calc_l3": "На перелёты",
+"calc_btn": "Посчитать",
+"calc_hint_empty": "Введите суммы расходов на путешествие",
+"calc_hint_partial": "Заполните все три поля для точного расчёта",
+"calc_note_text": "Расчётная экономия на основе средней разницы между retail и direct-access тарифами: 22% на отели, 12% на перелёты. Реальная разница может быть выше — проверь сам с гостевым пропуском.",
+"res_paid": "Заплатил",
+"res_could": "Мог заплатить",
+"res_over": "Переплата системе",
+"res_link": "Получить гостевой пропуск — проверить лично",
+"mech_label": "Почему так устроено",
+"mech_title": "Вся правда о том, куда уходят твои деньги",
+"mech_sub": "Это не секрет и не заговор. Просто механика которую ты никогда не спрашивал — а мы сейчас покажем.",
+"mech_old": "Розничный агрегатор",
+"mech_new": "Travel Advantage",
+"mech_footer": "14 дней чтобы сравнить сам. Если не воспользовался баллами — вернём деньги.",
+"proof_label": "Это не реклама",
+"proof_title": "День первый после регистрации",
+"proof_p1": "На скриншоте — реальный аккаунт. Первый день. Ни одной поездки ещё не было. А на счету уже $490.",
+"proof_p2": "Это $250 бонусных баллов которые приходят сразу при подключении Turbo пакета — плюс первые ежемесячные баллы.",
+"proof_p3": "Ты заплатил $590 за вход. И в первый же день на счету $490 которые уже можно тратить на поездки.",
+"stat_pts": "🏆 Баллы лояльности",
+"stat_cred": "💳 Туристических кредитов",
+"stat_cred_val": "накапливаются",
+"stat_status": "✈️ Статус",
+"stat_free": "Путешествовать бесплатно!",
+"paths_label": "Три пути входа",
+"paths_title": "Узнай себя и выбери своё",
+"paths_sub": "Каждый путь — для разного человека с разной целью. Никакого давления. Ты сам решаешь.",
+"p1_tag": "Путь первый",
+"p1_title": "Путешествуй дешевле",
+"p1_note": "в год · Travel Advantage VIP",
+"p1_tagline": "Ты просто платишь меньше за то, что и так делаешь. Никакого бизнеса, никаких обязательств. Оптовый склад в твоём телефоне.",
+"p1_btn": "Начать за $199",
+"p2_tag": "Путь второй",
+"p2_title": "Получай доход с рекомендаций",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Пользуешься сам и рассказываешь другим. Каждый раз когда кто-то по твоей рекомендации пользуется сервисом — тебе приходят комиссионные. Легко, без давления.",
+"p2_btn": "Начать за $340",
+"p3_tag": "Путь третий",
+"p3_title": "Серьёзный бизнес",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Ты заходишь на полную. Это система которая работает на тебя непрерывно.",
+"p3_btn": "Начать за $590",
+"perks_open": "Все плюшки",
+"perks_close": "↑ Свернуть",
+"guar_label": "Почему можно доверять",
+"guar_title": "Три причины рисков нет",
+"g1_t": "14 дней возврат",
+"g1_p": "В течение 14 дней — возврат средств если баллами лояльности не воспользовался. Одно письмо на почту. Условие прописано в договоре.",
+"g2_t": "12 лет на рынке",
+"g2_p": "MWR Life основана в 2013 году. Работает в 100+ странах. Почти 700 000 участников по всему миру. Входит в топ-85 мировых компаний прямых продаж.",
+"g3_t": "Гарантия цены 150%",
+"g3_p": "Нашёл тот же отель дешевле после бронирования — компания вернёт полтора раза от разницы. Не просто разницу. Полтора раза.",
+"cta_label": "Следующий шаг",
+"cta_title": "Ты увидел здесь что-то своё?",
+"cta_text": "Хочешь просто путешествовать дешевле — вот твой путь. Хочешь получать доход с рекомендаций — вот твой путь. Видишь здесь серьёзный бизнес — вот твой путь.<br><br>Или получи гостевой пропуск — зайди, сравни один отель с Букингом. Ничего не нужно покупать. Просто посмотри своими глазами.",
+"cta_btn1": "Выбрать свой путь",
+"cta_btn2": "Получить гостевой пропуск",
+"cta_note": "Почти 700 000 человек по всему миру уже превратили это в постоянный финансовый поток.<br>Ты можешь стать следующим.",
+"faq_label": "Частые вопросы",
+"faq_title": "Отвечаем честно",
+"fq1": "За счёт чего формируется разница в цене?",
+"fa1": "Booking, Airbnb и Expedia тратят огромные бюджеты на глобальный маркетинг и рекламу — и закладывают эти расходы в твой чек. Travel Advantage работает по закрытой клубной модели: платформа закупает инвентарь напрямую у отелей без розничных наценок и передаёт чистую стоимость участникам. Ты платишь за членство — а не за чужую рекламу.",
+"fq2": "Чем это отличается от Гения третьего уровня на Букинге?",
+"fa2": "Гений третьего уровня — это скидка с наценки Букинга, а не с реальной цены отеля. То есть тебе возвращают часть того, что с тебя же и взяли. Travel Advantage даёт прямой доступ к оптовой цене — той, которую отель готов дать за гарантированный поток клиентов. Открой оба приложения, найди один и тот же отель — и сравни.",
+"fq3": "Как работает гарантия лучшей цены 150%?",
+"fa3": "Ты забронировал отель через Travel Advantage. Нашёл тот же отель, те же даты, ту же категорию номера дешевле на любой другой платформе — компания возвращает тебе полтора раза от разницы. Официальное условие членства, прописано в договоре.",
+"fq4": "Что если не понравится — можно вернуть деньги?",
+"fa4": "Да. В течение 14 дней с момента активации — возврат если баллами лояльности не воспользовался. Одно письмо на почту. Это официальное условие компании.",
+"fq5": "Это финансовая пирамида?",
+"fa5": "Нет. Есть реальный продукт — платформа бронирования с оптовыми ценами. Компания MWR Life работает с 2013 года, входит в топ-85 мировых компаний прямых продаж и является членом ETOA. Почти 700 000 участников в 100+ странах. Пирамиды столько не живут.",
+"fq6": "Могут ли мои близкие пользоваться моим аккаунтом?",
+"fa6": "Да — в зависимости от тарифа. VIP ($199) даёт +1 путешественника с личным логином. Elite ($340) — +4 путешественника. Каждый заходит самостоятельно и бронирует по тем же оптовым ценам.",
+"scroll": "Листай"
+},
+"kz": {
+"nav_how": "Қалай жұмыс істейді",
+"nav_rates": "Тарифтер",
+"nav_access": "Қол жеткізу",
+"hero_anchor1": "Booking · Airbnb · Expedia — туристік нарықтың бөлшек сауда витриналары.",
+"hero_anchor2_pre": "Travel Advantage",
+"hero_anchor2_post": "— көтерме қатынас деңгейі.",
+"hero_micro1": "Туристік платформалардың көпшілігі бөлшек сауда үлгісімен жұмыс істейді.",
+"hero_micro2": "Бөлшек және тікелей қатынас тарифтерінің айырмашылығын көрсетеміз.",
+"hero_q": "Соңғы саяхатыңыздың құнын шынымен қаншалықты төмендетуге болатын еді?",
+"hero_invite": "Есептейік?",
+"calc_l1": "Соңғы саяхатқа жалпы шығын",
+"calc_l2": "Соның ішінде қонақүй және тұрғын үй",
+"calc_l3": "Ұшақ билеті",
+"calc_btn": "Есептеу",
+"calc_hint_empty": "Саяхат шығындарыңызды енгізіңіз",
+"calc_hint_partial": "Дәл нәтиже алу үшін екі өрісті толтырыңыз",
+"calc_note_text": "Бөлшек және тікелей қатынас тарифтерінің орташа айырмашылығына негізделген болжамды үнемдеу: қонақүйлерде 22%, ұшақ билеттерінде 12%.",
+"res_paid": "Жалпы шығын",
+"res_could": "Төлеуге болатын еді",
+"res_over": "Жүйеге артық төлем",
+"res_link": "Қонақ өткізу жолдамасын алу — өзіңіз тексеру",
+"mech_label": "Неліктен бұлай жұмыс істейді",
+"mech_title": "Ақшаңыздың қайда кететіні туралы шындық",
+"mech_sub": "Бұл құпия да, қастандық та емес. Жай ғана сіз ешқашан сұрамаған механизм.",
+"mech_old": "Бөлшек агрегатор",
+"mech_new": "Travel Advantage",
+"mech_footer": "Өзіңіз салыстыру үшін 14 күн. Ұпайларды пайдаланбасаңыз — ақшаны қайтарамыз.",
+"proof_label": "Бұл жарнама емес",
+"proof_title": "Тіркелгеннен кейінгі бірінші күн",
+"proof_p1": "Скриншотта — нақты аккаунт. Бірінші күн. Әлі бірде-бір сапар болған жоқ. Ал шотта $490 бар.",
+"proof_p2": "Бұл Turbo пакетін қосқанда бірден түсетін $250 бонустық ұпай — плюс алғашқы ай сайынғы ұпайлар.",
+"proof_p3": "Кіру үшін $590 төледіңіз. Ал бірінші күні шотта сапарға жұмсауға болатын $490 бар.",
+"stat_pts": "🏆 Адалдық ұпайлары",
+"stat_cred": "💳 Туристік кредиттер",
+"stat_cred_val": "жиналуда",
+"stat_status": "✈️ Мәртебе",
+"stat_free": "Тегін саяхаттаңыз!",
+"paths_label": "Кіру үш жолы",
+"paths_title": "Өзіңізді тауып, жолыңызды таңдаңыз",
+"paths_sub": "Әр жол — әр түрлі мақсаты бар әр түрлі адамға арналған. Қысым жоқ. Сіз шешесіз.",
+"p1_tag": "Бірінші жол",
+"p1_title": "Арзанырақ саяхаттаңыз",
+"p1_note": "жылына · Travel Advantage VIP",
+"p1_tagline": "Сіз жасайтын нәрсені жай ғана аз төлеп жасайсыз. Бизнес жоқ, міндеттеме жоқ. Телефонңыздағы көтерме қойма.",
+"p1_btn": "$199-дан бастаңыз",
+"p2_tag": "Екінші жол",
+"p2_title": "Ұсыныстардан табыс алыңыз",
+"p2_note": "Ambassador + Elite",
+"p2_tagline": "Өзіңіз пайдаланып, басқаларға ұсыныңыз. Сіздің ұсынысыңыз арқылы біреу қызметті пайдаланған сайын сізге комиссиялар келеді.",
+"p2_btn": "$340-тан бастаңыз",
+"p3_tag": "Үшінші жол",
+"p3_title": "Байыпты бизнес",
+"p3_note": "Ambassador + Elite + Turbo",
+"p3_tagline": "Толық кіресіз. Үздіксіз сіз үшін жұмыс істейтін жүйе.",
+"p3_btn": "$590-нан бастаңыз",
+"perks_open": "Барлық артықшылықтар",
+"perks_close": "↑ Жабу",
+"guar_label": "Неге сенуге болады",
+"guar_title": "Тәуекелсіздіктің үш себебі",
+"g1_t": "14 күн қайтару",
+"g1_p": "14 күн ішінде — адалдық ұпайларын пайдаланбасаңыз ақшаны қайтарамыз. Бір электрондық хат. Шартта жазылған шарт.",
+"g2_t": "12 жыл нарықта",
+"g2_p": "MWR Life 2013 жылы құрылды. 100+ елде жұмыс істейді. Әлем бойынша шамамен 700 000 мүше. Тікелей сату компанияларының жаһандық ТОП-85-ке кіреді.",
+"g3_t": "Бағаға 150% кепілдік",
+"g3_p": "Брондағаннан кейін сол қонақүйді арзанырақ тапты ма? Компания айырмашылықтың бір жарым есесін қайтарады. Жай ғана айырмашылық емес. Бір жарым есе.",
+"cta_label": "Келесі қадам",
+"cta_title": "Мұнда өзіңізге арналған нәрсені көрдіңіз бе?",
+"cta_text": "Жай ғана арзанырақ саяхаттағыңыз келе ме — міне сіздің жолыңыз. Ұсыныстардан табыс алғыңыз келе ме — міне. Мұнда байыпты бизнес мүмкіндігін көресіз бе — міне.<br><br>Немесе қонақ өткізу жолдамасын алыңыз — бір қонақүйді Booking-пен салыстырыңыз. Ештеңе сатып алудың қажеті жоқ.",
+"cta_btn1": "Жолыңызды таңдаңыз",
+"cta_btn2": "Қонақ өткізу жолдамасын алу",
+"cta_note": "Әлем бойынша шамамен 700 000 адам мұны тұрақты қаржылық ағынға айналдырды.<br>Сіз де келесі бола аласыз.",
+"faq_label": "Жиі қойылатын сұрақтар",
+"faq_title": "Шынайы жауаптар",
+"fq1": "Баға айырмашылығы қалай қалыптасады?",
+"fa1": "Booking, Airbnb және Expedia жаһандық маркетингке үлкен бюджеттер жұмсайды — және бұл шығындарды сіздің шотыңызға қосады. Travel Advantage жабық клуб моделі бойынша жұмыс істейді: бөлшек үстемеақысыз тікелей қонақүйлерден сатып алу, таза баға мүшелерге беріледі.",
+"fq2": "Booking Genius 3-деңгейінен айырмашылығы неде?",
+"fa2": "Genius 3-деңгейі — нақты қонақүй бағасынан емес, Booking үстемеақысынан жасалған жеңілдік. Сізден алғанның бір бөлігін қайтарып беред. Travel Advantage тікелей көтерме бағаға қол жеткізу береді.",
+"fq3": "150% ең жақсы баға кепілдігі қалай жұмыс істейді?",
+"fa3": "Travel Advantage арқылы брондадыңыз. Сол қонақүйді, сол күндері, сол санаттағы бөлмені басқа платформада арзанырақ тапты ма — компания айырмашылықтың бір жарым есесін қайтарады. Ресми мүшелік шарты.",
+"fq4": "Ұнамаса ақшаны қайтаруға бола ма?",
+"fa4": "Иә. Белсендіруден 14 күн ішінде — адалдық ұпайларын пайдаланбасаңыз қайтарылады. Қолдау қызметіне бір электрондық хат.",
+"fq5": "Бұл қаржылық пирамида ма?",
+"fa5": "Жоқ. Нақты өнім бар — көтерме бағалары бар брондау платформасы. MWR Life 2013 жылдан бері жұмыс істейді, ETOA мүшесі, 100+ елде шамамен 700 000 қатысушы. Пирамидалар бұншалықты ұзақ өмір сүрмейді.",
+"fq6": "Туысқандарым менің аккаунтымды пайдалана ала ма?",
+"fa6": "Иә — тарифке байланысты. VIP ($199) жеке логинмен +1 жолаушы береді. Elite ($340) — +4 жолаушы. Әрқайсысы дербес брондап, сол көтерме бағаларды пайдаланады.",
+"scroll": "Айналдырыңыз",
+"m1_old": "Сіз $200-ге қонақүй броньдайсыз. Booking қонақүйден 25%-ке дейін комиссия алады — ол сіздің бағаңызға қосылады. Делдал үшін төлейсіз.",
+"m1_new": "Біз қонақүйлермен тікелей келістік: максималды клиент ағыны — максималды жеңілдік. Бұл жеңілдікті сізге береміз, өзімізде қалдырмаймыз.",
+"m2_old": "Досыңызға Booking-ті ұсынасыз. Олар броньдайды. Booking олардың броньдауынан табыс табады. Сізбен ешнәрсе бөліспейді. Олар үшін тегін жұмыс жасайсыз.",
+"m2_new": "Досыңыз сіздің сілтемеңіз арқылы броньдаған сайын — оның үнемдегені сіздің шотыңызға түседі. Ол $60 үнемдеді — сіз $60 Travel Credits алдыңыз.",
+"m3_old": "Genius 3-деңгейі — нақты қонақүй бағасынан емес, үстемеақыдан жасалған жеңілдік. Үнемдеп жатырмын деп ойлайсыз. Шын мәнінде — артық төлем азаяды.",
+"m3_new": "Біздің қосымшамыз бен Booking-ті қатар ашыңыз. Бір қонақүй, бір күндер. Салыстырыңыз. Genius 3-деңгейімен де. Сандар өзі сөйлейді.",
+"m4_old": "Пайдалану үшін — жай ғана жүктеп алыңыз. Тегін. Бірақ әр броньдау делдалды тамақтандырады, сізді емес.",
+"m4_new": "Мүшелік жарнасы сізге қонақүйлер, ұшақ билеттері, круизтер, авто жалдау, трансферлер, экскурсиялар, тақырыптық парктер және басқаларының көтерме бағаларына қол жеткізу береді. 2 000 000-нан астам нұсқа.",
+"footer_disc": "Бұл сайт MWR Life компаниясының тәуелсіз серіктес ресурсы болып табылады. Ақпараттық мақсатта жасалған, төлем деректерін тікелей жинамайды және пайдаланушыларды жазылымдар мен броньдаулар үшін компанияның ресми ресурстарына бағыттайды. Нәтижелер жеке.",
+"p1p1": "<strong>Броньдайтының бәрі — көтерме бағамен</strong>Қонақүйлер, курорттар, ұшақ билеттері, круизтер, авто жалдау, трансферлер, экскурсиялар, дайвинг, сафари, тау-лыжа курорттары, тақырыптық парктер, темір жол билеттері. Әлем бойынша 2 000 000-нан астам нұсқа.",
+"p1p2": "<strong>150% Ең жақсы баға кепілдігі</strong>Броньдадыңыз — сол қонақүйді арзанырақ таптыңыз — компания айырмашылықтың бір жарым есесін қайтарады. Ресми шарт.",
+"p1p3": "<strong>+1 жолаушы жеке логинмен</strong>Жұбай, дос, туысқан, ата-ана, атасы-әжесі — жақын кез келген адам жеке логин алып, өзі броньдайды. Сол көтерме бағалармен. Қосымша ақысыз.",
+"p1p4": "<strong>Әр броньдаудан Travel Credits</strong>Кэшбэк сияқты — тек келесі сапарға жұмсайсыз. Жиналады, ешқашан жанбайды. Әлеуметтік желіде бөліскен — +30% кредит қосымша аласыз.",
+"p1p5": "<strong>Достарға қонақ өткізу жолдамалары</strong>Цифрлық сілтеме — досыңызға жібересіз, ол VIP ретінде кіреді, нақты көтерме бағаларды көреді, броньдайды. Ол үнемдеді — сол сома сіздің Travel Credits шотыңызға түседі.",
+"p1p6": "<strong>Flash Deals — −83%-ке дейін жанып тұрған ұсыныстар</strong>4-5 жұлдызды қонақүйлерде соңғы орындар. Дубай, Флорида, Мальдив, Италия, Индонезия. Қосымшаға хабарлама — кім бірінші болса, ол ұшып кетеді.",
+"p1p7": "<strong>Lifestyle Mall — Duty Free сияқты, тек онлайн және үнемі</strong>Салықсыз бағамен 3 миллионнан астам тауар. Gucci, Prada, Dior, Armani, Hermes, Boss, Versace, Fendi, Mont Blanc. Әуежайсыз, кезексіз.",
+"p1p8": "<strong>Ыңғайлы төлем</strong>Крипто, Apple Pay, Google Pay, Klarna, дебеттік немесе кредиттік карта.",
+"p1p9": "<strong>Тіліңізде 24/7 қолдау</strong>Түнгі сағат үш, басқа ел, броньдауда бір нәрсе дұрыс болмады. Чатқа жазасыз — бір минуттан кейін тірі адам жауап береді. Сіздің тіліңізде. Бот емес.",
+"p1p10": "<strong>14 күн — толық қайтару</strong>14 күн ішінде болдырмауға және ақшаны қайтаруға болады — адалдық ұпайларын пайдаланбасаңыз. Бір электрондық хат. Ресми шарт.",
+"p2p1": "<strong>Әр ұсыныстан комиссия</strong>Қызметті ұсындыңыз — адам қосылды — комиссия алдыңыз. Сатқан жоқсыз. Жай ғана бөлістіңіз. Үшеуіне ұсыныңыз — ай сайынғы төлеміңіз олардың жазылымдарымен толық өтеледі.",
+"p2p2": "<strong>Ай сайын $120 адалдық ұпайымен — автоматты</strong>Әр айдың 1-інде шотқа $120 келеді. Жай ғана мүше болғаныңыз үшін. Әр ұпай = $1. Қонақүйлерге, ұшақ билеттеріне, круизтерге, авто жалдауға, экскурсияларға, Lifestyle Mall-ға жұмсайсыз. Жылына $1440.",
+"p2p3": "<strong>Жылына бір рет армандаған сапар — толықтай ұпайлармен</strong>Жыл бойы ұпай жинадыңыз. Екеуге сапар таңдайсыз — Мальорка, Дубай, Грекия, Кариб — ұпайлармен төлейсіз. Толықтай. Қалтадан — нөл.",
+"p2p4": "<strong>+4 жолаушы жеке логинмен</strong>Төрт жақын адам жеке логин алып, сол көтерме бағалармен өздері броньдайды.",
+"p2p5": "<strong>Бірден 50 қонақ жолдамасы + ай сайын 20</strong>Сілтемені жіберіп, дос VIP ретінде кіріп, нақты бағаларды көріп, броньдайды. Ол үнемдеді — сол сома сіздің Travel Credits шотыңызға түседі.",
+"p2p6": "<strong>Life Experiences — клубтың куратор сапарлары</strong>Клуб сапарды ұйымдастырады — Марокко, төрт күн, бес жұлдызды қонақүй, трансфер, қош келдіңіз коктейлі, топтық экскурсия. Адамға $279. Booking-те тек қонақүй $600 тұрады.",
+"p2p7": "<strong>AI Trip Planner — жеке цифрлық туристік агент</strong>Жазасыз: \"Жұбаймен және екі баламмен 5 күн Дубайға барғым келеді, бюджет $2000.\" ЖИ қонақүй таңдап, күн бойынша маршрут жасап, экскурсияларды қосады. Дайын жоспар. Туристік агентсіз.",
+"p2p8": "<strong>Бизнес орталық — бірінші күннен дайын жүйе</strong>Сіздің сілтемеңізбен жеке сайт бірден дайын. Маркетинг воронкалары. Бизнес-бақылау тақтасы. QR код. Сценарийлер мен үлгілер. Апта сайынғы тренингтер. 100+ елде қауымдастық.",
+"p3p1": "<strong>Бірінші күні шотта $490</strong>Turbo тіркелгенде бірден $250 бонустық ұпай келеді — плюс алғашқы ай сайынғы ұпайлар. Әлі ешқайда бармадыңыз — шотта $490 бар.",
+"p3p2": "<strong>Ай сайын $240 адалдық ұпайымен — Elite-тен екі есе көп</strong>Ай сайын автоматты түрде $240 келеді. Жылына тек мүшеліктен $2880.",
+"p3p3": "<strong>1500 жолаушы сіздің сілтемеңізді күтеді</strong>Олардың бәрі саяхаттап, бөлшек бағамен төлейді. Тіркелгенде 1500 қонақ жолдамасы беріледі. Жібересіз — нақты бағаларды көріп, броньдап, үнемдейді. Олардың үнемдегені сізге келеді.",
+"p3p4": "<strong>Life Experiences-ке ерте қол жеткізу — 2 сағат бұрын</strong>Клуб сапарды жариялайды. Барлық Elite 12:00-де хабарланады. Turbo ретінде — 10:00-де. Басқалар ояна бастаған кезде сіз ең жақсы бөлмені таңдап қойдыңыз.",
+"p3p5": "<strong>Эксклюзивті Turbo қонақүй бағалары</strong>Elite мүшелеріне де қол жетімсіз бөлім. Elite көтермесінен де төмен бағалар.",
+"p3p6": "<strong>Flex Traveller 6 айда бір рет</strong>Өмір өзгереді. Жоспарлар өзгереді. Жарты жылда бір рет — айыппұлсыз броньдау параметрлерін өзгерту мүмкіндігі.",
+"p3p7": "<strong>Желіден максималды комиссия</strong>Қызметті ұсындыңыз — олар пайдаланады — комиссия аласыз. Turbo деңгейінде — максималды. Жүйе сіз үшін үздіксіз жұмыс істейді.",
+"p3p8": "<strong>Қонаққа сыйлыққа 100 ұпайға дейін</strong>Досыңызды куратор сапарға ертіп жүресіз. Оның броньдауына шотыңыздан 100 долларға дейін сыйлайсыз."
+}
+};
+
+  let currentLang = 'ru';
+
+  function detectLang() {
+    const saved = localStorage.getItem('ts-lang');
+    if (saved && TRANS[saved]) return saved;
+    const nav = (navigator.language || navigator.userLanguage || 'ru').split('-')[0].toLowerCase();
+    const map = { 'ru':'ru','kk':'kz','kz':'kz' };
+    return map[nav] || 'ru';
+  }
+
+  function applyLang(lang) {
+    if (!TRANS[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('ts-lang', lang);
+    const t = TRANS[lang];
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) {
+        if (el.tagName === 'INPUT') el.placeholder = t[key];
+        else el.innerHTML = t[key];
+      }
+    });
+
+    // Update current lang button
+    const curr = document.getElementById('langCurrentText');
+    if (curr) curr.textContent = lang.toUpperCase();
+    // Update active state in dropdown
+    document.querySelectorAll('.lang-dropdown button').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Update document lang
+    document.documentElement.lang = lang;
+  }
+
+  function toggleLangDropdown(e) {
+    e.stopPropagation();
+    const btn = document.getElementById('langCurrent');
+    const dd = document.getElementById('langDropdown');
+    btn.classList.toggle('open');
+    dd.classList.toggle('open');
+  }
+
+  function selectLang(lang) {
+    const dd = document.getElementById('langDropdown');
+    const btn = document.getElementById('langCurrent');
+    dd.classList.remove('open');
+    btn.classList.remove('open');
+    applyLang(lang);
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', () => {
+    document.getElementById('langDropdown').classList.remove('open');
+    document.getElementById('langCurrent').classList.remove('open');
+  });
+
+  function switchLang(lang) { applyLang(lang); }
+
+
+  // ── THEME SYSTEM ──
+  function getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : '');
+    localStorage.setItem('ts-theme', theme);
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  // Init theme and lang on load
+  (function() {
+    const saved = localStorage.getItem('ts-theme');
+    const theme = saved || getSystemTheme();
+    applyTheme(theme);
+    // Init language
+    const lang = detectLang();
+    applyLang(lang);
+  })();
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    if (!localStorage.getItem('ts-theme')) {
+      applyTheme(e.matches ? 'light' : 'dark');
+    }
+  });
+
+  // FAQ
+  function toggleFaq(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = null);
+    document.querySelectorAll('.faq-toggle').forEach(t => t.classList.remove('open'));
+    if (!isOpen) {
+      btn.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  // Bridge transition — 5-stage cinematic dark to light
+  function bridgeTo(url, event) {
+    if (event) event.preventDefault();
+    const bridge = document.getElementById('bridge');
+    const text = document.getElementById('bridge-text');
+
+    bridge.classList.add('active');
+
+    const stages = [
+      { t: 0,   bg: '#080808', color: '#C9A84C', txt: 'Подготовка доступа...' },
+      { t: 180, bg: '#1A1400', color: '#C9A84C', txt: 'Ваш маршрут открыт...' },
+      { t: 340, bg: '#6B5A30', color: '#111',    txt: 'Переход в Travel Advantage...' },
+      { t: 500, bg: '#D4C9B0', color: '#111',    txt: 'Подключение...' },
+      { t: 640, bg: '#FFFFFF', color: '#333',    txt: 'Вход выполнен.' }
+    ];
+
+    stages.forEach(s => {
+      setTimeout(() => {
+        bridge.style.background = s.bg;
+        text.style.color = s.color;
+        text.textContent = s.txt;
+      }, s.t);
+    });
+
+    setTimeout(() => { window.location.href = url; }, 750);
+  }
+
+  // Close from collapse bar
+  function closeAcc(bar) {
+    const card = bar.closest('.path-card');
+    card.querySelectorAll('.acc-body.open').forEach(b => b.classList.remove('open'));
+    card.querySelectorAll('.acc-toggle.open').forEach(b => b.classList.remove('open'));
+    card.querySelectorAll('.acc-collapse-bar.visible').forEach(b => b.classList.remove('visible'));
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Accordion
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const collapseBar = body.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.acc-body.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.acc-toggle.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.acc-collapse-bar.visible').forEach(b => b.classList.remove('visible'));
+
+    // Open clicked if was closed
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.classList.add('open');
+      if (collapseBar && collapseBar.classList.contains('acc-collapse-bar')) {
+        collapseBar.classList.add('visible');
+      }
+    }
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Header scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if (window.scrollY > 80) {
+      header.style.background = isLight ? 'rgba(247,243,236,0.98)' : 'rgba(8,8,8,0.98)';
+    } else {
+      header.style.background = isLight
+        ? 'linear-gradient(180deg, rgba(247,243,236,0.97) 0%, transparent 100%)'
+        : 'linear-gradient(180deg, rgba(8,8,8,0.95) 0%, transparent 100%)';
+    }
+  });
+</script>
+</body>
+</html>
