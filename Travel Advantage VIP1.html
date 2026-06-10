@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Advantage VIP — Закрытый клуб путешественников</title>
+    <style>
+        :root {
+            --bg-color: #0b132b;
+            --card-bg: #1c2541;
+            --accent-color: #00ffcc;
+            --text-main: #ffffff;
+            --text-muted: #5bc0be;
+            --gradient-btn: linear-gradient(135deg, #00ffcc, #00bfff);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-btn);
+            color: #0b132b;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            animation: pulse 2s infinite;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 255, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+        }
+
+        .section-title {
+            font-size: 20px;
+            text-align: center;
+            margin: 40px 0 20px;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .comparison-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-card h3 {
+            font-size: 16px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .comparison-card p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            margin: 40px 0;
+        }
+
+        .case-study {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .case-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price-comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .price-item {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .price-item .amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff4d4d;
+            text-decoration: line-through;
+        }
+
+        .price-item .amount.club {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 22px;
+        }
+
+        .savings-tag {
+            display: inline-block;
+            background: rgba(0, 255, 204, 0.15);
+            color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo">TRAVEL<span>ADVANTAGE</span></div>
+        </header>
+
+        <main>
+            <div class="subtitle">Закрытый VIP-клуб</div>
+            <h1>Хватит переплачивать за отели и перелеты</h1>
+            
+            <div class="video-container">
+                <video src="hero-video-en.webm" controls poster="" playsinline></video>
+            </div>
+
+            <ul class="features-list">
+                <li>Оптовые цены на отели и курорты без посредников</li>
+                <li>Доступ к базе более 2 000 000 предложений</li>
+                <li>Гарантия лучшей цены 150% — если найдете дешевле, клуб вернет разницу</li>
+            </ul>
+
+            <div class="btn-container">
+                <a href="https://vip.traveladvantage.com/Status" class="btn" target="_blank">Получить доступ к ценам</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title">В чем секрет экономии?</h2>
+            
+            <div class="comparison-card">
+                <h3>Обычные сервисы бронирования</h3>
+                <p>Тратят миллионы долларов на рекламу и маркетинг, а затем закладывают эти гигантские расходы в стоимость вашего номера. Вы переплачиваете посредникам.</p>
+            </div>
+
+            <div class="comparison-card">
+                <h3>Модель нашего клуба</h3>
+                <p>Розничной наценки нет — отели отдаются по чистой себестоимости. Вы просто оформляете единую подписку за $19.97/мес (как на Netflix или Spotify) и путешествуете без переплат.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title">Реальные примеры бронирования</h2>
+
+            <div class="case-study">
+                <div class="case-title">Отель 5★ в Дубае (ОАЭ) — 8 дней</div>
+                <div class="price-comparison">
+                    <div class="price-item">Агрегаторы<br><span class="amount">$1600</span></div>
+                    <div class="price-item">В клубе<br><span class="amount club">$600</span></div>
+                </div>
+                <div class="savings-tag">Чистая экономия: $1000</div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Отель 4★ во Флоренции (Италия) — 4 ночи</div>
+                <div class="price-comparison">
+                    <div class="price-item">Агрегаторы<br><span class="amount">€850</span></div>
+                    <div class="price-item">В клубе<br><span class="amount club">€384</span></div>
+                </div>
+                <div class="savings-tag">Чистая экономия: €466</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title">Никаких рисков и обязательств</h2>
+            <ul class="features-list">
+                <li>Подписку за $19.97 можно отменить в один клик в любой момент</li>
+                <li>Кэшбэк в виде Travel Credits за каждое бронирование</li>
+                <li>Круглосуточная поддержка членов клуба 24/7</li>
+            </ul>
+
+            <div class="btn-container" style="margin-top: 40px;">
+                <a href="https://vip.traveladvantage.com/Status" class="btn" target="_blank">Активировать VIP-доступ</a>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>© 2026 Travel Advantage VIP. Все права защищены.</p>
+            <p>Условия подписки регулируются правилами клуба. Отмена в любое время.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
