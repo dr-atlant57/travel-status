@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelStatus — Before You Book That Hotel, Check This Price</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; padding: 20px 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main); letter-spacing: -0.025em; }
+        .subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        .video-container { background: #000; border-radius: 12px; aspect-ratio: 16/9; margin-bottom: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #334155; position: relative; overflow: hidden; }
+        .video-placeholder-btn { background: var(--accent-blue); color: #fff; border: none; padding: 14px 28px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .video-placeholder-btn:hover { background: #2563eb; }
+
+        .form-section { background: var(--card-bg); border-radius: 12px; padding: 30px; border: 1px solid #334155; margin-bottom: 40px; }
+        .form-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; text-align: center; }
+        .form-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+        
+        label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+        input { width: 100%; background: #0f172a; border: 1px solid #334155; color: #fff; padding: 12px; border-radius: 6px; font-size: 1rem; outline: none; transition: border 0.2s; }
+        input:focus { border-color: var(--accent-blue); }
+        
+        .contact-field { margin-bottom: 20px; }
+        .btn-submit { width: 100%; background: var(--accent-green); color: #fff; border: none; padding: 16px; font-size: 1.1rem; font-weight: 700; border-radius: 6px; cursor: pointer; transition: transform 0.1s, background 0.2s; }
+        .btn-submit:hover { background: #059669; }
+        .btn-submit:active { transform: scale(0.99); }
+
+        .cases-section { margin-bottom: 40px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+        .tab-btn { background: #1e293b; border: 1px solid #334155; color: var(--text-muted); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .tab-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+        .case-card { background: var(--card-bg); border-radius: 12px; border: 1px solid #334155; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; }
+        @media (max-width: 600px) { .case-card { grid-template-columns: 1fr; } }
+        .interface-side { padding: 25px; border-right: 1px solid #334155; }
+        @media (max-width: 600px) { .interface-side { border-right: none; border-bottom: 1px solid #334155; } }
+        .interface-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 15px; }
+        
+        .retail-box { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 8px; }
+        .club-box { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px; }
+        
+        .hotel-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .dates-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .price-value { font-size: 1.8rem; font-weight: 800; color: #fff; }
+        .price-label { font-size: 0.8rem; color: var(--text-muted); }
+
+        .math-side { padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .math-label { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .savings-value { font-size: 2.8rem; font-weight: 900; color: var(--accent-green); margin: 5px 0; }
+        .proof-range { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+        .trust-section { text-align: center; padding: 30px; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid #334155; margin-bottom: 40px; }
+        .trust-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .trust-text { font-size: 0.95rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        footer { text-align: center; padding: 20px 0; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid #334155; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Before You Book That Hotel, Check This Price</h1>
+        <div class="subtitle">Access wholesale rates directly. No retail markups. No added margins.</div>
+    </header>
+
+    <!-- Block 2: Video Converter -->
+    <div class="video-container" id="mainVideo">
+        <button class="video-placeholder-btn" onclick="playVideoMock()">▶ Watch Price Comparison (45s)</button>
+    </div>
+
+    <!-- Block 3: Hotel Check Form -->
+    <div class="form-section">
+        <div class="form-title">Request Real-Time Price Verification</div>
+        <form id="leadForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-grid">
+                <div>
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" placeholder="e.g. Dubai, Paris, New York" required onfocus="trackEvent('form_start')">
+                </div>
+                <div>
+                    <label for="checkin">Check-in</label>
+                    <input type="date" id="checkin" required>
+                </div>
+                <div>
+                    <label for="checkout">Check-out</label>
+                    <input type="date" id="checkout" required>
+                </div>
+            </div>
+            <div class="contact-field">
+                <label for="contact">Your Email or WhatsApp (To receive exact price report)</label>
+                <input type="text" id="contact" placeholder="email@example.com or +1..." required>
+            </div>
+            <button type="submit" class="btn-submit">Check My Exact Hotel Price</button>
+        </form>
+    </div>
+
+    <!-- Block 4: Digital Proof Cases -->
+    <div class="cases-section">
+        <div class="tabs" id="caseTabs">
+            <!-- Tabs injected via JS -->
+        </div>
+        <div id="caseCardContainer">
+            <!-- Card injected via JS -->
+        </div>
+    </div>
+
+    <!-- Block 5: Trust Layer -->
+    <div class="trust-section">
+        <div class="trust-title">Why prices can differ</div>
+        <div class="trust-text">Hotels often sell inventory through multiple channels. Some member-based travel programs have access to wholesale rates not displayed on public booking sites.</div>
+    </div>
+
+    <footer>
+        TravelStatus.cc © 2026. Independent price verification service. All rights reserved.
+    </footer>
+</div>
+
+<script>
+    // Embedded Data-driven Core (Database)
+    const hotelComparisons = [
+        {
+            "id": "dubai",
+            "hotel_name": "W Hotel The Palm",
+            "city": "Dubai",
+            "check_in": "Aug 12",
+            "check_out": "Aug 19",
+            "retail_price": 1642,
+            "club_price": 598,
+            "currency": "$",
+            "savings": 1044
+        },
+        {
+            "id": "paris",
+            "hotel_name": "Pullman Tour Eiffel",
+            "city": "Paris",
+            "check_in": "Sep 05",
+            "check_out": "Sep 08",
+            "retail_price": 812,
+            "club_price": 471,
+            "currency": "€",
+            "savings": 341
+        },
+        {
+            "id": "rome",
+            "hotel_name": "NH Collection Fori Imperiali",
+            "city": "Rome",
+            "check_in": "Oct 10",
+            "check_out": "Oct 14",
+            "retail_price": 694,
+            "club_price": 438,
+            "currency": "€",
+            "savings": 256
+        }
+    ];
+
+    // Analytics Engine Mock
+    function trackEvent(eventName) {
+        console.log(`[Analytics Event] Triggered: ${eventName} | Timestamp: ${new Date().toISOString()}`);
+        // Here you can link GA4: gtag('event', eventName);
+    }
+
+    // Video Play Mock Logic
+    let videoTracked50 = false;
+    function playVideoMock() {
+        trackEvent('hero_video_play');
+        document.getElementById('mainVideo').innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 20px;">[ Video is streaming: Simulating playback. Interface cuts between Booking.com and Wholesale Rates... ]</div>`;
+        
+        // Simulating 50% video retention mark (22.5s into a 45s video)
+        setTimeout(() => {
+            if(!videoTracked50) {
+                trackEvent('hero_video_50');
+                videoTracked50 = true;
+            }
+        }, 22500);
+    }
+
+    // Form Submit Handler
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        trackEvent('lead_submit');
+        
+        const destination = document.getElementById('destination').value;
+        const contact = document.getElementById('contact').value;
+        
+        alert(`Request received for ${destination}. We are verifying wholesale inventory. The exact price report will be sent to ${contact} shortly.`);
+        document.getElementById('leadForm').reset();
+    }
+
+    // Dynamic UI Engine (Render Cases from JSON)
+    function renderCases() {
+        const tabsContainer = document.getElementById('caseTabs');
+        tabsContainer.innerHTML = '';
+
+        hotelComparisons.forEach((item, index) => {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+            btn.innerText = item.city;
+            btn.onclick = () => switchCase(item.id, btn);
+            tabsContainer.appendChild(btn);
+        });
+
+        // Initial render of first case
+        switchCase(hotelComparisons[0].id, null);
+    }
+
+    function switchCase(caseId, targetBtn) {
+        if (targetBtn) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            targetBtn.classList.add('active');
+            trackEvent(`case_switch_${caseId}`);
+        }
+
+        const data = hotelComparisons.find(item => item.id === caseId);
+        const cardContainer = document.getElementById('caseCardContainer');
+
+        cardContainer.innerHTML = `
+            <div class="case-card">
+                <div class="interface-side">
+                    <div class="retail-box" style="margin-bottom: 15px;">
+                        <div class="interface-title">Public Retail Price</div>
+                        <div class="hotel-name">${data.hotel_name}</div>
+                        <div class="dates-info">${data.check_in} – ${data.check_out}</div>
+                        <div class="price-value">${data.currency}${data.retail_price}</div>
+                        <div class="price-label">Standard public rate</div>
+                    </div>
+                    <div class="club-box">
+                        <div class="interface-title" style="color: var(--accent-green);">Verified Wholesale Rate</div>
+                        <div class="hotel-name">${data.hotel_name}</div>
+                        <div class="dates-info">${data.check_in} – ${data.check_out}</div>
+                        <div class="price-value" style="color: var(--accent-green);">${data.currency}${data.club_price}</div>
+                        <div class="price-label">Private wholesale inventory</div>
+                    </div>
+                </div>
+                <div class="math-side">
+                    <div class="math-label">Direct Value Difference</div>
+                    <div class="savings-value">${data.currency}${data.savings}</div>
+                    <div class="math-label" style="color: var(--text-main); margin-bottom: 15px;">Net Savings</div>
+                    <div class="proof-range">Typical Member Savings Range Based On Past Comparisons</div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Initialize Engine
+    window.onload = () => {
+        renderCases();
+    };
+</script>
+
+</body>
+</html>
