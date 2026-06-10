@@ -1,0 +1,299 @@
+why-hotel-prices-differ.html (Причины расхождения цен на одни и those же номера)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="meta_title">Hotel Pricing Audit | TravelStatus</title>
+    <meta name="description" id="meta-desc" content="Execute an independent hotel pricing audit. Identify hidden retail margins, distribution premiums, and tracking markups for luxury destinations.">
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1a;
+            --text-muted: #5a5a5a;
+            --accent-color: #004B87;
+            --border-color: #e5e5e5;
+            --card-bg: #f8f9fa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .lang-switcher {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #2c2c2c;
+            text-align: justify;
+        }
+        .meta-descr {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+        }
+        .bridge-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.3rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="/" class="logo">TRAVELSTATUS</a>
+        <select class="lang-switcher" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ro">Română</option>
+            <option value="ko">한국어</option>
+            <option value="et">Eesti</option>
+        </select>
+    </header>
+
+    <main>
+        <h1 id="page-title">Hotel Pricing Audit</h1>
+        <p class="meta-descr" id="page-meta-descr">Isolating intermediary cost layers from raw institutional wholesale feeds for premium hospitality assets.</p>
+
+        <p id="p-intro1">The luxury lodging segment operates on highly inflated retail distribution channels. When booking high-tier accommodations, public platforms inject cascaded commission frameworks, tracking premiums, and dynamic location-based markups into the base cost of your room nights.</p>
+
+        <h2 data-i18n="h2_1">Anatomy of the Retail Premium Stack</h2>
+        <p id="p-intro2">To uncover the structural pricing leak, travelers must analyze how open-market digital storefronts modify the base inventory value before presenting it on-screen:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th data-i18n="th1">Distribution Layer</th>
+                    <th data-i18n="th2">Public Platform Pricing</th>
+                    <th data-i18n="th3">Private Wholesale Feed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-i18n="td1_1"><strong>Storefront Markup</strong></td>
+                    <td data-i18n="td1_2">15% – 35% commission built-in to fund mass consumer ads.</td>
+                    <td data-i18n="td1_3">0% (Bypasses retail affiliate infrastructure entirely).</td>
+                </tr>
+                <tr>
+                    <td data-i18n="td2_1"><strong>Yield Management</strong></td>
+                    <td data-i18n="td2_2">Dynamic price spikes based on search frequency and cookies.</td>
+                    <td data-i18n="td2_3">Static net contract costs pulled from institutional databases.</td>
+                </tr>
+                <tr>
+                    <td data-i18n="td3_1"><strong>Rate Parity Rules</strong></td>
+                    <td data-i18n="td3_2">Forced uniform high pricing across all open internet browsers.</td>
+                    <td><strong data-i18n="td3_3">Exempt from parity constraints behind credentialed walls.</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="bridge-block">
+            <h3 id="b-title">Verify Net Wholesale Rates</h3>
+            <p id="b-text">TravelStatus routes queries straight past public frontends, connecting premium members directly to secure, unpadded B2B supply lines.</p>
+            <a href="/vip" class="btn" data-i18n="b_btn">Check Real Cost Now</a>
+        </div>
+
+        <h2 data-i18n="h2_2">Bypassing Intermediary Friction Through CUG Networks</h2>
+        <p data-i18n="p-conclusion">True optimization cannot be achieved by shifting from one public booking portal to another. Legal restrictions require hotels to list identical retail prices on all indexable websites. Bypassing these markups requires moving behind verification screens into a Closed User Group (CUG) layout, where raw net inventory is channeled straight to the user without storefront commissions.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TravelStatus.cc. Human Infrastructure Optimization.</p>
+    </footer>
+</div>
+
+<script>
+const destinationData = {
+    "dubai": { name: { en: "Dubai", ru: "Дубае", de: "Dubai", es: "Dubái", fr: "Dubaï", it: "Dubai", pt: "Dubai", ro: "Dubai", ko: "두바이", et: "Dubai" } },
+    "maldives": { name: { en: "Maldives", ru: "Мальдивах", de: "Malediven", es: "Maldivas", fr: "Maldives", it: "Maldive", pt: "Maldivas", ro: "Maldive", ko: "몰디브", et: "Maldiivid" } },
+    "paris": { name: { en: "Paris", ru: "Париже", de: "Paris", es: "París", fr: "Paris", it: "Parigi", pt: "Paris", ro: "Paris", ko: "파리", et: "Pariis" } },
+    "rome": { name: { en: "Rome", ru: "Риме", de: "Rom", es: "Roma", fr: "Rome", it: "Roma", pt: "Roma", ro: "Roma", ko: "로마", et: "Rooma" } },
+    "new-york": { name: { en: "New York", ru: "Нью-Йорке", de: "New York", es: "Nueva York", fr: "New York", it: "New York", pt: "Nova Iorque", ro: "New York", ko: "뉴욕", et: "New York" } },
+    "tokyo": { name: { en: "Tokyo", ru: "Токио", de: "Tokio", es: "Tokio", fr: "Tokyo", it: "Tokyo", pt: "Tóquio", ro: "Tokyo", ko: "도쿄", et: "Tokio" } },
+    "london": { name: { en: "London", ru: "Лондоне", de: "London", es: "Londres", fr: "Londres", it: "Londra", pt: "Londres", ro: "Londra", ko: "런던", et: "London" } },
+    "singapore": { name: { en: "Singapore", ru: "Сингапуре", de: "Singapur", es: "Singapur", fr: "Singapour", it: "Singapore", pt: "Singapura", ro: "Singapore", ko: "싱가포르", et: "Singapur" } },
+    "barcelona": { name: { en: "Barcelona", ru: "Барселоне", de: "Barcelona", es: "Barcelona", fr: "Barcelone", it: "Barcellona", pt: "Barcelona", ro: "Barcelona", ko: "바르셀로나", et: "Barcelona" } },
+    "seychelles": { name: { en: "Seychelles", ru: "Сейшелах", de: "Seychellen", es: "Seychelles", fr: "Seychelles", it: "Seychelles", pt: "Seychelles", ro: "Seychelles", ko: "세이셸", et: "Seišellid" } }
+};
+
+function getCurrentGeo() {
+    const path = window.location.pathname.toLowerCase();
+    for (const key in destinationData) {
+        if (path.includes(key)) return key;
+    }
+    return "dubai"; 
+}
+
+const geoKey = getCurrentGeo();
+
+const translations = {
+    en: {
+        meta_title: `${destinationData[geoKey].name.en} Hotel Pricing Audit | TravelStatus`,
+        meta_desc: `Execute an independent hotel pricing audit in ${destinationData[geoKey].name.en}. Identify hidden retail margins, distribution premiums, and tracking markups.`,
+        h1: `${destinationData[geoKey].name.en} Hotel Pricing Audit Guide`,
+        meta_descr: `Isolating intermediary cost layers from raw institutional wholesale feeds for premium hospitality assets in ${destinationData[geoKey].name.en}.`,
+        p1: `The luxury lodging segment in ${destinationData[geoKey].name.en} operates on highly inflated retail distribution channels. When booking high-tier accommodations, public platforms inject cascaded commission frameworks, tracking premiums, and dynamic location-based markups into the base cost of your room nights.`,
+        h2_1: "Anatomy of the Retail Premium Stack",
+        th1: "Distribution Layer", th2: "Public Platform Pricing", th3: "Private Wholesale Feed",
+        td1_1: "Storefront Markup", td1_2: "15% – 35% commission built-in to fund mass consumer ads.", td1_3: "0% (Bypasses retail affiliate infrastructure entirely).",
+        td2_1: "Yield Management", td2_2: "Dynamic price spikes based on search frequency and cookies.", td2_3: "Static net contract costs pulled from institutional databases.",
+        td3_1: "Rate Parity Rules", td3_2: "Forced uniform high pricing across all open internet browsers.", td3_3: "Exempt from parity constraints behind credentialed walls.",
+        b_title: `Audit Your ${destinationData[geoKey].name.en} Itinerary`,
+        b_text: `TravelStatus routes queries straight past public frontends, connecting premium members directly to secure, unpadded B2B supply lines in ${destinationData[geoKey].name.en}.`,
+        b_btn: "Check Real Cost Now",
+        h2_2: "Bypassing Intermediary Friction Through CUG Networks",
+        p_conclusion: "True optimization cannot be achieved by shifting from one public booking portal to another. Legal restrictions require hotels to list identical retail prices on all indexable websites. Bypassing these markups requires moving behind verification screens into a Closed User Group (CUG) layout, where raw net inventory is channeled straight to the user without storefront commissions."
+    },
+    ru: {
+        meta_title: `Аудит цен на отели в ${destinationData[geoKey].name.ru} | TravelStatus`,
+        meta_desc: `Проведите независимый аудит тарифов на отели в ${destinationData[geoKey].name.ru}. Выявите скрытые комиссии ритейла и наценки трекинга.`,
+        h1: `Руководство по аудиту цен на отели в ${destinationData[geoKey].name.ru}`,
+        meta_descr: `Изоляция посреднических накруток и доступ к чистым институциональным оптовым базам данных премиальных отелей в ${destinationData[geoKey].name.ru}.`,
+        p1: `Сегмент элитного жилья в ${destinationData[geoKey].name.ru} функционирует в условиях завышенных розничных тарифов. При бронировании высококлассного размещения публичные платформы закладывают каскадные комиссии витрин, наценки за поведенческий трекинг и динамические региональные маржи в базовую стоимость проживания.`,
+        h2_1: "Анатомия формирования розничных наценок",
+        th1: "Слой дистрибуции", th2: "Цена публичных платформ", th3: "Закрытый оптовый фид",
+        td1_1: "Наценка витрины", td1_2: "Комиссия 15% – 35% включена для покрытия затрат на массовую рекламу.", td1_3: "0% (Полный обход розничной партнерской инфраструктуры).",
+        td2_1: "Управление доходом", td2_2: "Динамические скачки цен на основе истории поиска и файлов cookie.", td2_3: "Стабильные контрактные нетто-тарифы из институциональных баз.",
+        td3_1: "Паритет цен", td3_2: "Принудительное удержание высокой стоимости во всех открытых браузерах.", td3_3: "Освобождение от паритета за верификационным экраном.",
+        b_title: `Аудит ваших бронирований в ${destinationData[geoKey].name.ru}`,
+        b_text: `TravelStatus направляет запросы в обход публичных витрин, подключая премиум-участников напрямую к защищенным B2B-каналам поставок инвентаря в ${destinationData[geoKey].name.ru}.`,
+        b_btn: "Проверить реальную цену",
+        h2_2: "Обход посреднического трения через системы CUG",
+        p_conclusion: "Настоящая оптимизация расходов не достигается сменой одного открытого сайта бронирования на другой. Юридические правила обязывают отели показывать одинаковые цены на всех публичных ресурсах. Обход наценок требует перехода за верификационный экран в закрытый контур (Closed User Group), где чистый инвентарь передается пользователю без комиссий витрин."
+    }
+};
+
+function changeLanguage(lang) {
+    const currentTranslations = translations[lang] || translations['en'];
+    document.documentElement.lang = lang;
+    
+    document.getElementById('page-title').innerHTML = currentTranslations.h1;
+    document.getElementById('page-meta-descr').innerHTML = currentTranslations.meta_descr;
+    document.getElementById('p-intro1').innerHTML = currentTranslations.p1;
+    document.getElementById('b-title').innerHTML = currentTranslations.b_title;
+    document.getElementById('b-text').innerHTML = currentTranslations.b_text;
+    document.getElementById('p-conclusion').innerHTML = currentTranslations.p_conclusion;
+
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (currentTranslations[key]) {
+            elem.innerHTML = currentTranslations[key];
+        }
+    });
+    
+    document.title = currentTranslations.meta_title;
+    document.getElementById('meta-desc').setAttribute('content', currentTranslations.meta_desc);
+    document.getElementById('langSelect').value = lang;
+    localStorage.setItem('selectedLanguage', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    const browserLang = navigator.language.substring(0, 2);
+    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+    changeLanguage(defaultLang);
+});
+</script>
+
+</body>
+</html>
