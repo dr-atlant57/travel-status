@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Hotel Distribution Works & The Truth About Wholesale Pricing | TravelStatus</title>
-    <meta name="description" content="Demystifying the hidden layers of hotel room distribution. Learn how retail OTAs inflate prices and how global wholesalers access net rates.">
+    <title data-i18n="meta_title">How Hotel Distribution Works & Wholesale Pricing | TravelStatus</title>
+    <meta name="description" id="meta-desc" content="An insider's architectural breakdown of how hotel inventory moves from property systems to consumer screens—and why retail markups happen.">
     <style>
         :root {
             --bg-color: #fdfdfd;
@@ -31,6 +31,9 @@
             margin-bottom: 40px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .logo {
             font-size: 1.2rem;
@@ -38,6 +41,15 @@
             letter-spacing: -0.02em;
             color: var(--text-color);
             text-decoration: none;
+        }
+        .lang-switcher {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            cursor: pointer;
         }
         h1 {
             font-size: 2.2rem;
@@ -55,6 +67,7 @@
         p {
             margin-bottom: 20px;
             color: #2c2c2c;
+            text-align: justify;
         }
         .meta-descr {
             font-size: 1.1rem;
@@ -106,6 +119,8 @@
             border-radius: 4px;
             transition: background-color 0.2s ease;
             margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .btn:hover {
             background-color: var(--accent-color);
@@ -118,6 +133,12 @@
             color: var(--text-muted);
             text-align: center;
         }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.3rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -125,73 +146,343 @@
 <div class="container">
     <header>
         <a href="/" class="logo">TRAVELSTATUS</a>
+        <select class="lang-switcher" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ro">Română</option>
+            <option value="ko">한국어</option>
+            <option value="et">Eesti</option>
+        </select>
     </header>
 
     <main>
-        <h1>How Hotel Distribution Works: Behind the Scenes of Wholesale Pricing</h1>
-        <p class="meta-descr">An insider’s architectural breakdown of how hotel inventory moves from property management systems to final consumer screens—and why retail markups happen.</p>
+        <h1 data-i18n="h1">How Hotel Distribution Works: Behind the Scenes of Wholesale Pricing</h1>
+        <p class="meta-descr" data-i18n="meta_descr">An insider’s architectural breakdown of how hotel inventory moves from property management systems to final consumer screens—and why retail markups happen.</p>
 
-        <p>The global hotel distribution engine is highly fragmented, intentionally opaque, and heavily guarded by traditional retail legacy platforms. To the average traveler, booking a room feels like a direct transaction with a digital storefront. In reality, a single room night passes through a complex supply chain before its retail price is generated.</p>
+        <p data-i18n="p1">The global hotel distribution engine is highly fragmented, intentionally opaque, and heavily guarded by traditional retail legacy platforms. To the average traveler, booking a room feels like a direct transaction with a digital storefront. In reality, a single room night passes through a complex supply chain before its retail price is generated.</p>
 
-        <blockquote>
+        <blockquote data-i18n="quote">
             The core asymmetry of the travel market lies here: public platforms buy at wholesale net rates but sell to you at dynamic retail margins, protected by strict price-parity agreements.
         </blockquote>
 
-        <h2>The Structural Pipeline of a Hotel Room</h2>
-        <p>Every room night begins its journey inside a hotel's local Property Management System (PMS). From there, it is pushed up the distribution architecture through several key infrastructure layers:</p>
+        <h2 data-i18n="h2_1">The Structural Pipeline of a Hotel Room</h2>
+        <p data-i18n="p2">Every room night begins its journey inside a hotel's local Property Management System (PMS). From there, it is pushed up the distribution architecture through several key infrastructure layers:</p>
 
         <table>
             <thead>
                 <tr>
-                    <th>Infrastructure Layer</th>
-                    <th>Primary Function</th>
-                    <th>Pricing Type</th>
+                    <th data-i18n="th1">Infrastructure Layer</th>
+                    <th data-i18n="th2">Primary Function</th>
+                    <th data-i18n="th3">Pricing Type</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>CRS / Channel Manager</strong></td>
-                    <td>Synchronizes direct room inventory across all connected networks in real-time.</td>
-                    <td>Base / Raw Inventory</td>
+                    <td data-i18n="td1_1"><strong>CRS / Channel Manager</strong></td>
+                    <td data-i18n="td1_2">Synchronizes direct room inventory across all connected networks in real-time.</td>
+                    <td data-i18n="td1_3">Base / Raw Inventory</td>
                 </tr>
                 <tr>
-                    <td><strong>Global Distribution Systems (GDS)</strong></td>
-                    <td>Enterprise networks (Amadeus, Sabre) connecting inventory directly to corporate travel desks.</td>
-                    <td>Negotiated Corporate Rates</td>
+                    <td data-i18n="td2_1"><strong>Global Distribution Systems (GDS)</strong></td>
+                    <td data-i18n="td2_2">Enterprise networks connecting inventory directly to corporate travel desks.</td>
+                    <td data-i18n="td2_3">Negotiated Corporate Rates</td>
                 </tr>
                 <tr>
-                    <td><strong>Wholesalers & Bedbanks</strong></td>
-                    <td>B2B aggregators (Hotelbeds, WebBeds) buying inventory in massive, pre-paid volume blocks.</td>
-                    <td><strong>Net Wholesale Rates</strong></td>
+                    <td><strong data-i18n="td3_1">Wholesalers & Bedbanks</strong></td>
+                    <td data-i18n="td3_2">B2B aggregators buying inventory in massive, pre-paid volume blocks.</td>
+                    <td><strong data-i18n="td3_3">Net Wholesale Rates</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Retail OTAs</strong></td>
-                    <td>Public-facing frontends (Booking.com, Expedia) adding massive marketing and retail markups.</td>
-                    <td>Public Dynamic Retail</td>
+                    <td data-i18n="td4_1"><strong>Retail OTAs</strong></td>
+                    <td data-i18n="td4_2">Public-facing frontends adding massive marketing and retail markups.</td>
+                    <td data-i18n="td4_3">Public Dynamic Retail</td>
                 </tr>
             </tbody>
-        </tr>
         </table>
 
-        <h2>Where the Retail Premium Generates</h2>
-        <p>Wholesalers and bedbanks operate on razor-thin margins, distributing rooms exclusively to high-volume entities, tour operators, and private corporate clubs. They access hidden corporate tariffs and net rates that are entirely closed off to the public search engines.</p>
+        <h2 data-i18n="h2_2">Where the Retail Premium Generates</h2>
+        <p data-i18n="p3">Wholesalers and bedbanks operate on razor-thin margins, distributing rooms exclusively to high-volume entities, tour operators, and private corporate clubs. They access hidden corporate tariffs and net rates that are entirely closed off to the public search engines.</p>
         
-        <p>When a retail Online Travel Agency (OTA) acquires this inventory, they inject a massive markup — frequently ranging between 15% and 40% — to offset customer acquisition costs, global TV campaigns, and search engine advertising. Because of legal Rate Parity contracts, hotels are contractually forbidden from undercutting these inflated public prices on their own websites.</p>
+        <p data-i18n="p4">When a retail Online Travel Agency (OTA) acquires this inventory, they inject a massive markup — frequently ranging between 15% and 40% — to offset customer acquisition costs, global TV campaigns, and search engine advertising. Because of legal Rate Parity contracts, hotels are contractually forbidden from undercutting these inflated public prices on their own websites.</p>
 
         <div class="bridge-block">
-            <h3>Bypass the Intermediary Markup Structure</h3>
-            <p>TravelStatus structural engineers route queries directly past the public retail layer, giving premium members instant, unedited access to global wholesale bedbank feeds.</p>
-            <a href="/vip" class="btn">Request Direct Wholesale Access</a>
+            <h3 data-i18n="b_title">Bypass the Intermediary Markup Structure</h3>
+            <p data-i18n="b_text">TravelStatus structural engineers route queries directly past the public retail layer, giving premium members instant, unedited access to global wholesale bedbank feeds.</p>
+            <a href="/vip" class="btn" data-i18n="b_btn">Request Direct Wholesale Access</a>
         </div>
 
-        <h2>The Technical Alternative: Private Rate Infrastructure</h2>
-        <p>The only legal mechanism to bypass public retail pricing structures is the utilization of closed-user-group (CUG) networks. Because these networks require secure authentication or membership invites, they are legally excluded from standard public rate-parity restrictions. This allows wholesale aggregators to pass net rates directly to the end consumer without artificial retail distortion.</p>
+        <h2 data-i18n="h2_3">The Technical Alternative: Private Rate Infrastructure</h2>
+        <p data-i18n="p5">The only legal mechanism to bypass public retail pricing structures is the utilization of closed-user-group (CUG) networks. Because these networks require secure authentication or membership invites, they are legally excluded from standard public rate-parity restrictions. This allows wholesale aggregators to pass net rates directly to the end consumer without artificial retail distortion.</p>
     </main>
 
     <footer>
         <p>&copy; 2026 TravelStatus.cc. Human Infrastructure Optimization.</p>
     </footer>
 </div>
+
+<script>
+const translations = {
+    en: {
+        meta_title: "How Hotel Distribution Works & Wholesale Pricing | TravelStatus",
+        meta_desc: "An insider's architectural breakdown of how hotel inventory moves from property systems to consumer screens—and why retail markups happen.",
+        h1: "How Hotel Distribution Works: Behind the Scenes of Wholesale Pricing",
+        meta_descr: "An insider’s architectural breakdown of how hotel inventory moves from property management systems to final consumer screens—and why retail markups happen.",
+        p1: "The global hotel distribution engine is highly fragmented, intentionally opaque, and heavily guarded by traditional retail legacy platforms. To the average traveler, booking a room feels like a direct transaction with a digital storefront. In reality, a single room night passes through a complex supply chain before its retail price is generated.",
+        quote: "The core asymmetry of the travel market lies here: public platforms buy at wholesale net rates but sell to you at dynamic retail margins, protected by strict price-parity agreements.",
+        h2_1: "The Structural Pipeline of a Hotel Room",
+        p2: "Every room night begins its journey inside a hotel's local Property Management System (PMS). From there, it is pushed up the distribution architecture through several key infrastructure layers:",
+        th1: "Infrastructure Layer", th2: "Primary Function", th3: "Pricing Type",
+        td1_1: "CRS / Channel Manager", td1_2: "Synchronizes direct room inventory across all connected networks in real-time.", td1_3: "Base / Raw Inventory",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Enterprise networks connecting inventory directly to corporate travel desks.", td2_3: "Negotiated Corporate Rates",
+        td3_1: "Wholesalers & Bedbanks", td3_2: "B2B aggregators buying inventory in massive, pre-paid volume blocks.", td3_3: "Net Wholesale Rates",
+        td4_1: "Retail OTAs", td4_2: "Public-facing frontends adding massive marketing and retail markups.", td4_3: "Public Dynamic Retail",
+        h2_2: "Where the Retail Premium Generates",
+        p3: "Wholesalers and bedbanks operate on razor-thin margins, distributing rooms exclusively to high-volume entities, tour operators, and private corporate clubs. They access hidden corporate tariffs and net rates that are entirely closed off to the public search engines.",
+        p4: "When a retail Online Travel Agency (OTA) acquires this inventory, they inject a massive markup — frequently ranging between 15% and 40% — to offset customer acquisition costs, global TV campaigns, and search engine advertising. Because of legal Rate Parity contracts, hotels are contractually forbidden from undercutting these inflated public prices on their own websites.",
+        b_title: "Bypass the Intermediary Markup Structure",
+        b_text: "TravelStatus structural engineers route queries directly past the public retail layer, giving premium members instant, unedited access to global wholesale bedbank feeds.",
+        b_btn: "Request Direct Wholesale Access",
+        h2_3: "The Technical Alternative: Private Rate Infrastructure",
+        p5: "The only legal mechanism to bypass public retail pricing structures is the utilization of closed-user-group (CUG) networks. Because these networks require secure authentication or membership invites, they are legally excluded from standard public rate-parity restrictions. This allows wholesale aggregators to pass net rates directly to the end consumer without artificial retail distortion."
+    },
+    ru: {
+        meta_title: "Как устроена дистрибуция отелей и оптовые цены | TravelStatus",
+        meta_desc: "Архитектурный разбор движения отельного инвентаря от внутренних систем управления до экранов пользователей. Причины появления розничных наценок.",
+        h1: "Как устроена дистрибуция отелей — изнанка оптового ценообразования",
+        meta_descr: "Профессиональный разбор движения отельного инвентаря от локальных систем управления до финальных экранов бронирования — и механика возникновения наценок.",
+        p1: "Глобальная машина дистрибуции отелей сильно фрагментирована, намеренно непрозрачна и жестко охраняется традиционными розничными игроками. Для обычного путешественника бронирование номера выглядит как прямая сделка с сайтом. В реальности одна ночь в отеле проходит через сложную цепочку поставок, прежде чем сформируется финальная розничная цена.",
+        quote: "Главная асимметрия туристического рынка заключается в следующем: публичные платформы покупают инвентарь по оптовым нетто-тарифам, но продают его вам с высокой розничной маржой, прикрываясь договорами о паритете цен.",
+        h2_1: "Структурный контур движения отельного номера",
+        p2: "Путь любого номера начинается внутри локальной системы управления отелем (PMS). Оттуда он передается по дистрибьюторской архитектуре через несколько ключевых технологических слоев:",
+        th1: "Инфраструктурный слой", th2: "Основная функция", th3: "Тип ценообразования",
+        td1_1: "CRS / Менеджер каналов", td1_2: "Синхронизирует свободный инвентарь отеля во всех подключенных сетях в реальном времени.", td1_3: "Базовый / Чистый инвентарь",
+        td2_1: "Глобальные дистрибьюторские системы (GDS)", td2_2: "Корпоративные сети, связывающие отели напрямую с пультами крупных туристических агентств.", td2_3: "Контрактные корпоративные тарифы",
+        td3_1: "Консолидаторы и Бедбанки", td3_2: "B2B-агрегаторы, выкупающие инвентарь у отелей огромными предоплаченными блоками.", td3_3: "Чистые оптовые цены (Net Rates)",
+        td4_1: "Розничные OTA", td4_2: "Публичные витрины (Booking, Expedia), накладывающие огромные маркетинговые и сервисные наценки.", td4_3: "Публичные динамические цены",
+        h2_2: "Где формируется розничная наценка",
+        p3: "Оптовые консолидаторы и бедбанки работают с минимальной маржой, распределяя номера исключительно среди крупных игроков, туроператоров и закрытых корпоративных клубов. Они имеют доступ к скрытым тарифам, которые полностью изолированы от публичных поисковых машин.",
+        p4: "Когда розничное онлайн-агентство (OTA) получает этот инвентарь, оно закладывает в него наценку — от 15% до 40% — для покрытия расходов на привлечение клиентов, масштабную рекламу и продвижение. Из-за юридических соглашений о паритете цен (Rate Parity) отелям строго запрещено занижать стоимость номеров на собственных сайтах вопреки розничным гигантам.",
+        b_title: "Обход посреднической структуры наценок",
+        b_text: "Инженеры TravelStatus направляют поисковые запросы в обход публичного розничного слоя, предоставляя премиум-клиентам прямой доступ к глобальным оптовым фидам бедбанков.",
+        b_btn: "Запросить прямой оптовый доступ",
+        h2_3: "Техническая альтернатива: Закрытая инфраструктура тарифов",
+        p5: "Единственным легальным механизмом обхода открытых розничных накруток является использование систем закрытого типа (CUG — Closed User Group). Поскольку такие платформы требуют обязательной авторизации или инвайтов, на них не распространяются жесткие правила публичного паритета цен. Это позволяет оптовым агрегаторам передавать чистую стоимость номеров конечному пользователю без искажений."
+    },
+    de: {
+        meta_title: "Wie Hotelvertrieb funktioniert & Großhandelspreise | TravelStatus",
+        meta_desc: "Eine architektonische Aufschlüsselung, wie Hotelzimmer von Buchungssystemen zu Endverbrauchern gelangen und warum Aufschläge entstehen.",
+        h1: "Wie Hotelvertrieb funktioniert: Ein Blick hinter die Kulissen der Großhandelspreise",
+        meta_descr: "Eine architektonische Aufschlüsselung, wie Hotelzimmer von Verwaltungssystemen zu Endverbraucherbildschirmen gelangen – und warum Aufschläge entstehen.",
+        p1: "Der globale Hotelvertrieb ist stark fragmentiert, bewusst intransparent und wird von traditionellen Einzelhandelsplattformen streng bewacht. Für den Reisenden fühlt sich eine Buchung wie eine direkte Transaktion an. In Wirklichkeit durchläuft eine Zimmernacht eine komplexe Lieferkette, bevor der Endpreis entsteht.",
+        quote: "Die Kernasymmetrie des Reisemarktes liegt hier: Öffentliche Plattformen kaufen zu Großhandelspreisen, verkaufen aber mit dynamischen Einzelhandelsmargen.",
+        h2_1: "Die strukturelle Pipeline eines Hotelzimmers",
+        p2: "Jede Zimmernacht beginnt im lokalen Property Management System (PMS) des Hotels. Von dort wird sie über mehrere Infrastrukturschichten verteilt:",
+        th1: "Infrastaturschicht", th2: "Hauptfunktion", th3: "Preistyp",
+        td1_1: "CRS / Channel Manager", td1_2: "Synchronisiert den Zimmerbestand über alle verbundenen Netzwerke in Echtzeit.", td1_3: "Roher Hotelbestand",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Unternehmensnetzwerke, die Bestände direkt mit Firmenreisebüros verbinden.", td2_3: "Ausgehandelte Firmentarife",
+        td3_1: "Großhändler & Bedbanks", td3_2: "B2B-Aggregatoren, die Zimmer in großen, im Voraus bezahlten Blöcken kaufen.", td3_3: "Netto-Großhandelspreise",
+        td4_1: "Einzelhandel-OTAs", td4_2: "Öffentliche Frontends, die enorme Marketing- und Einzelhandelsaufschläge hinzufügen.", td4_3: "Öffentlicher dynamischer Preis",
+        h2_2: "Wo der Einzelhandelsaufschlag entsteht",
+        p3: "Großhändler und Bedbanks arbeiten mit hauchdünnen Margen und vertreiben Zimmer ausschließlich an Großabnehmer, Reiseveranstalter und private Firmenclubs. Sie greifen auf versteckte Tarife zu, die für öffentliche Suchmaschinen gesperrt sind.",
+        p4: "Wenn ein Online-Reisebüro (OTA) diesen Bestand übernimmt, fügt es einen Aufschlag von 15% bis 40% hinzu, um Marketingkosten zu decken. Aufgrund von Ratenparitätsverträgen ist es Hotels vertraglich verboten, diese Preise auf eigenen Websites zu unterbieten.",
+        b_title: "Umgehen Sie die Aufschlagsstruktur der Zwischenhändler",
+        b_text: "Die Ingenieure von TravelStatus leiten Anfragen direkt am Einzelhandel vorbei und bieten Premium-Mitgliedern ungefilterten Zugriff auf globale Bedbank-Feeds.",
+        b_btn: "Direkten Großhandelszugang anfordern",
+        h2_3: "Die technische Alternative: Private Rateninfrastruktur",
+        p5: "Der einzige legale Mechanismus zur Umgehung öffentlicher Einzelhandelspreise ist die Nutzung von geschlossenen Benutzergruppen (CUG). Da diese Netzwerke eine Authentifizierung erfordern, sind sie von den Beschränkungen der Ratenparität ausgeschlossen. Dies ermöglicht es, Nettopreise direkt an den Verbraucher weiterzugeben."
+    },
+    es: {
+        meta_title: "Cómo funciona la distribución hotelera y tarifas mayoristas | TravelStatus",
+        meta_desc: "Un desglose de cómo el inventario de los hoteles se mueve desde los sistemas de gestión hasta las pantallas de consumo y por qué ocurren los márgenes.",
+        h1: "Cómo funciona la distribución hotelera: detrás de los precios mayoristas",
+        meta_descr: "Un desglose técnico de cómo el inventario de un hotel se mueve desde los sistemas locales hasta las pantallas de consumo, y por qué ocurren las tarifas minoristas.",
+        p1: "El motor global de distribución hotelera está fragmentado, es opaco y está custodiado por plataformas minoristas tradicionales. Para el viajero común, reservar parece una transacción directa. En realidad, una noche pasa por una cadena compleja antes de generar su precio final.",
+        quote: "La asimetría central del mercado radica aquí: las plataformas públicas compran a tarifas netas de mayoristas pero venden con amplios márgenes minoristas.",
+        h2_1: "El canal estructural de una habitación de hotel",
+        p2: "Cada noche comienza dentro del Property Management System (PMS) local del hotel. Desde allí, se distribuye a través de capas clave de infraestructura:",
+        th1: "Capa de Infraestructura", th2: "Función Principal", th3: "Tipo de Precio",
+        td1_1: "CRS / Channel Manager", td1_2: "Sincroniza el inventario de habitaciones en todas las redes conectadas en tiempo real.", td1_3: "Inventario Base",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Redes empresariales que conectan el inventario directamente con agencias corporativas.", td2_3: "Tarifas Corporativas Negociadas",
+        td3_1: "Mayoristas y Bedbanks", td3_2: "Agregadores B2B que compran inventario en bloques masivos prepagados.", td3_3: "Tarifas Netas Mayoristas",
+        td4_1: "OTAs Minoristas", td4_2: "Plataformas públicas que añaden enormes márgenes de marketing y comerciales.", td4_3: "Precio Minorista Dinámico",
+        h2_2: "Dónde se genera el margen minorista",
+        p3: "Los mayoristas y bancos de camas operan con márgenes mínimos, distribuyendo habitaciones exclusivamente a entidades de gran volumen y clubes privados. Acceden a tarifas ocultas que están cerradas a los buscadores públicos.",
+        p4: "Cuando una OTA minorista adquiere este inventario, inyecta un recargo de entre el 15% y el 40% para compensar los costes de adquisición de clientes. Debido a los contratos de paridad de tarifas, los hoteles tienen prohibido rebajar estos precios públicos en sus webs.",
+        b_title: "Evite el margen de los intermediarios",
+        b_text: "Los ingenieros de TravelStatus dirigen las consultas más allá de la capa minorista, dando a los miembros acceso directo a los feeds globales de mayoristas.",
+        b_btn: "Solicitar Acceso Mayorista Directo",
+        h2_3: "La alternativa técnica: Infraestructura de tarifas privadas",
+        p5: "El único mecanismo legal para evitar los precios minoristas es el uso de redes de grupos cerrados de usuarios (CUG). Debido a que requieren autenticación, están excluidas de las restricciones estándar de paridad de tarifas, permitiendo pasar precios netos directamente al consumidor."
+    },
+    fr: {
+        meta_title: "Distribution hôtelière et tarifs de gros expliqués | TravelStatus",
+        meta_desc: "Une analyse de la manière dont l'inventaire hôtelier passe des systèmes de gestion aux écrans des consommateurs et pourquoi les marges s'appliquent.",
+        h1: "Comment fonctionne la distribution hôtelière : les secrets des tarifs de gros",
+        meta_descr: "Une analyse technique du parcours d'une nuit d'hôtel, depuis les systèmes de gestion locaux jusqu'aux écrans grand public — et la mécanique des marges.",
+        p1: "Le moteur mondial de la distribution hôtelière est fragmenté, opaque et gardé par les plateformes de vente traditionnelles. Pour le voyageur, réserver semble direct. En réalité, une nuit passe par une chaîne complexe avant de générer son prix de vente.",
+        quote: "L'asymétrie fondamentale du marché réside ici : les plateformes publiques achètent aux tarifs de gros nets mais vendent avec des marges dynamiques.",
+        h2_1: "Le circuit structurel d'une chambre d'hôtel",
+        p2: "Chaque nuit commence dans le Property Management System (PMS) local de l'hôtel. De là, elle est poussée à travers plusieurs couches d'infrastructure :",
+        th1: "Couche d'Infrastructure", th2: "Fonction Principale", th3: "Type de Tarification",
+        td1_1: "CRS / Channel Manager", td1_2: "Synchronise l'inventaire des chambres sur tous les réseaux connectés en temps réel.", td1_3: "Inventaire Brut",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Réseaux d'entreprise connectant l'inventaire aux agences de voyages d'affaires.", td2_3: "Tarifs Affaires Négociés",
+        td3_1: "Grossistes & Bedbanks", td3_2: "Agrégateurs B2B achetant des inventaires en blocs massifs et prépayés.", td3_3: "Tarifs de Gros Nets",
+        td4_1: "Agences en Ligne (OTA)", td4_2: "Vitrines grand public appliquant d'importantes marges commerciales et marketing.", td4_3: "Prix Public Dynamique",
+        h2_2: "Où se génère la marge de vente au détail",
+        p3: "Les grossistes et banques de lits fonctionnent avec des marges minimes, distribuant les chambres aux voyagistes et clubs d'entreprises privés. Ils accèdent à des tarifs cachés fermés aux moteurs de recherche publics.",
+        p4: "Lorsqu'une OTA grand public acquiert cet inventaire, elle injecte une marge de 15% à 40% pour compenser ses campagnes publicitaires. En raison des contrats de parité tarifaire, les hôtels ont l'interdiction de proposer des prix inférieurs sur leurs propres sites.",
+        b_title: "Contournez les marges des intermédiaires",
+        b_text: "Les ingénieurs de TravelStatus orientent les requêtes au-delà du réseau de détail, offrant aux membres un accès direct aux flux des grossistes mondiaux.",
+        b_btn: "Demander l'Accès Direct Grossiste",
+        h2_3: "L'alternative technique : L'infrastructure de tarifs privés",
+        p5: "Le seul mécanisme légal pour contourner les prix de détail est l'utilisation de réseaux de groupes fermés d'utilisateurs (CUG). Nécessitant une authentification, ils sont exclus des restrictions de parité tarifaire, permettant de transmettre les coûts nets directs."
+    },
+    it: {
+        meta_title: "Come funziona la distribuzione alberghiera e tariffe all'ingrosso | TravelStatus",
+        meta_desc: "Un'analisi di come l'inventario degli hotel si sposta dai sistemi di gestione alle piattaforme consumer e perché si applicano i ricarichi.",
+        h1: "Come funziona la distribuzione alberghiera: dietro i prezzi all'ingrosso",
+        meta_descr: "Un'analisi tecnica di come le camere d'hotel passano dai sistemi locali agli schermi dei consumatori finali — e la logica dei ricarichi commerciali.",
+        p1: "Il motore della distribuzione alberghiera globale è frammentato, opaco e protetto dai canali di vendita tradizionali. Per il viaggiatore comune, prenotare sembra un atto diretto. In realtà, una camera attraversa una complessa catena di fornitura prima di mostrare il prezzo finale.",
+        quote: "L'asimmetria del mercato risiede qui: le piattaforme pubbliche acquistano a tariffe nette all'ingrosso ma vendono applicando margini dinamici.",
+        h2_1: "La pipeline strutturale di una camera d'hotel",
+        p2: "Ogni notte inizia nel Property Management System (PMS) locale dell'hotel. Da lì, viene distribuita attraverso livelli infrastrutturali chiave:",
+        th1: "Livello Infrastrutturale", th2: "Funzione Principale", th3: "Tipo di Tariffa",
+        td1_1: "CRS / Channel Manager", td1_2: "Sincronizza l'inventario delle camere su tutte le reti connesse in tempo reale.", td1_3: "Inventario Base",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Reti aziendali che collegano direttamente l'inventario alle agenzie corporate.", td2_3: "Tariffe Corporate Negoziate",
+        td3_1: "Grossisti & Bedbanks", td3_2: "Aggregatori B2B che acquistano l'inventario in grandi blocchi prepagati.", td3_3: "Tariffe Nette all'Ingrosso",
+        td4_1: "OTA Consumer", td4_2: "Interfacce pubbliche che applicano ricarichi commerciali e di marketing massicci.", td4_3: "Prezzo Pubblico Dinamico",
+        h2_2: "Dove si genera il ricarico al dettaglio",
+        p3: "I grossisti e le banche letti operano su margini minimi, distribuendo camere solo a operatori di grandi volumi e club privati. Accedono a tariffe aziendali nascoste del tutto escluse dai motori di ricerca pubblici.",
+        p4: "Quando un'OTA consumer acquisisce questo inventario, applica un ricarico tra il 15% e il 40% per coprire i costi di marketing. A causa dei contratti di parità tariffaria, gli hotel non possono offrire prezzi più bassi sui loro siti.",
+        b_title: "Salta i ricarichi degli intermediari",
+        b_text: "Gli ingegneri di TravelStatus indirizzano le richieste oltre i canali di vendita al dettaglio, garantendo l'accesso diretto ai feed dei grossisti mondiali.",
+        b_btn: "Richiedi Accesso Diretto all'Ingrosso",
+        h2_3: "L'alternativa tecnica: Infrastrutture a tariffa privata",
+        p5: "L'unico modo legale per evitare i ricarichi dei canali di vendita è l'uso di reti per gruppi chiusi di utenti (CUG). Richiedendo l'autenticazione, queste sono escluse dai vincoli di parità tariffaria, trasmettendo i prezzi netti direttamente al cliente."
+    },
+    pt: {
+        meta_title: "Como funciona a distribuição hoteleira e preços grossistas | TravelStatus",
+        meta_desc: "Uma análise técnica de como o inventário de quartos se move dos sistemas de gestão até às plataformas de consumo e por que ocorrem as margens.",
+        h1: "Como funciona a distribuição hoteleira: os segredos das tarifas grossistas",
+        meta_descr: "Análise técnica de como o inventário de um hotel se move dos sistemas locais até aos ecrãs dos consumidores, e o porquê das margens de retalho.",
+        p1: "O ecossistema global de distribuição hoteleira é fragmentado, opaco e protegido pelas plataformas de retalho tradicionais. Para o viajante comum, reservar parece direto. Na realidade, uma noite passa por uma cadeia complexa antes de gerar o preço final.",
+        quote: "A principal assimetria do mercado reside aqui: as plataformas públicas compram a tarifas net grossistas, mas vendem com margens de retalho dinâmicas.",
+        h2_1: "O circuito estrutural de um quarto de hotel",
+        p2: "Cada noite começa dentro do Property Management System (PMS) local do hotel. A partir daí, é distribuído por camadas de infraestrutura:",
+        th1: "Camada de Infraestrutura", th2: "Função Principal", th3: "Tipo de Tarifa",
+        td1_1: "CRS / Channel Manager", td1_2: "Sincroniza o inventário de quartos em todas as redes ligadas em tempo real.", td1_3: "Inventário Base",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Redes empresariais que ligam o inventário diretamente a agências corporativas.", td2_3: "Tarifas Corporativas Negociadas",
+        td3_1: "Grossistas & Bedbanks", td3_2: "Agregadores B2B que compram inventário em blocos massivos e pré-pagos.", td3_3: "Tarifas Net Grossistas",
+        td4_1: "OTAs de Retalho", td4_2: "Plataformas públicas que adicionam enormes margens comerciais e de marketing.", td4_3: "Preço de Retalho Dinâmico",
+        h2_2: "Onde é gerada a margem de retalho",
+        p3: "Os grossistas e bancos de camas operam com margens mínimas, distribuindo quartos a operadores de grande volume e clubes privados. Acedem a tarifas ocultas fechadas aos motores de busca públicos.",
+        p4: "Quando uma OTA adquire este inventário, aplica uma margem entre 15% e 40% para compensar os custos de marketing. Devido aos contratos de paridade de tarifas, os hotéis estão contratualmente proibidos de baixar estes preços públicos nos seus sites.",
+        b_title: "Ignore as margens dos intermediários",
+        b_text: "Os engenheiros da TravelStatus direcionam as consultas para lá da camada de retalho, dando aos membros acesso direto aos feeds grossistas globais.",
+        b_btn: "Solicitar Acesso Direto Grossista",
+        h2_3: "A alternativa técnica: Infraestrutura de tarifas privadas",
+        p5: "O único mecanismo legal para contornar os preços de retalho é a utilização de redes de grupos fechados de utilizadores (CUG). Como exigem autenticação, estão excluídas das regras de paridade, transmitindo custos net diretos."
+    },
+    ro: {
+        meta_title: "Cum funcționează distribuția hotelieră și prețurile engros | TravelStatus",
+        meta_desc: "O analiză a modului în care inventarul hotelier se deplasează de la sistemele de management la ecranele consumatorilor și de ce apar adaosurile.",
+        h1: "Cum funcționează distribuția hotelieră: în spatele prețurilor engros",
+        meta_descr: "O analiză tehnică a modului în care camerele de hotel trec de la sistemele locale la ecranele consumatorilor finali — și logica adaosurilor comerciale.",
+        p1: "Sistemul global de distribuție hotelieră este fragmentat, opac și protejat de platformele tradiționale de retail. Pentru călătorul obișnuit, rezervarea pare o tranzacție directă. În realitate, o cameră trece printr-un lanț complex înainte de a genera prețul final.",
+        quote: "Asimetria centrală a pieței constă în: platformele publice cumpără la tarife nete engros, dar vând cu margini de retail dinamice.",
+        h2_1: "Circuitul structural al unei camere de hotel",
+        p2: "Fiecare noapte începe în Property Management System (PMS) local al hotelului. De acolo, este distribuită prin straturi cheie de infrastructură:",
+        th1: "Strat de Infrastructură", th2: "Funcție Principală", th3: "Tip de Tarif",
+        td1_1: "CRS / Channel Manager", td1_2: "Sincronizează inventarul de camere în toate rețelele conectate în timp real.", td1_3: "Inventar de Bază",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Rețele corporative care conectează inventarul direct cu agențiile de turism business.", td2_3: "Tarife Corporative Negociate",
+        td3_1: "Wholesalers & Bedbanks", td3_2: "Agregatori B2B care cumpără inventar în blocuri masive, preplătite.", td3_3: "Tarife Nete Engros",
+        td4_1: "OTA de Retail", td4_2: "Interfețe publice care adaugă adaosuri masive de marketing și vânzări.", td4_3: "Preț Retail Dinamic",
+        h2_2: "Unde se generează adaosul de retail",
+        p3: "Grossiștii și băncile de paturi operează cu margini minime, distribuind camere exclusiv operatorilor de volume mari și cluburilor private. Ei accesează tarife ascunse, închise pentru motoarele publice.",
+        p4: "Când o OTA de retail achiziționează acest inventar, adaugă un adaos între 15% și 40% pentru a acoperi costurile de marketing. Din cauza contractelor de paritate a tarifelor, hotelurilor le este interzis să scadă prețurile pe site-urile proprii.",
+        b_title: "Evitați adaosurile intermediarilor",
+        b_text: "Inginerii TravelStatus direcționează interogările dincolo de stratul de retail, oferind membrilor acces direct la fluxurile globale ale grossiștilor.",
+        b_btn: "Solicită Acces Direct Engros",
+        h2_3: "Alternativa tehnică: Infrastructura de tarife private",
+        p5: "Singurul mecanism legal pentru a evita prețurile de retail este utilizarea rețelelor de grupuri închise de utilizatori (CUG). Deoarece necesită autentificare, acestea sunt excluse de la regulile de paritate, transmițând prețurile nete direct."
+    },
+    ko: {
+        meta_title: "호텔 유통 구조와 도매 가격의 진실 | TravelStatus",
+        meta_desc: "호텔 객실 인벤토리가 자산 관리 시스템에서 소비자 화면으로 이동하는 과정과 소매 마진이 발생하는 이유에 대한 분석.",
+        h1: "호텔 유통 구조의 이해: 도매 가격의 비하인드 스토리",
+        meta_descr: "호텔 인벤토리가 로컬 관리 시스템에서 최종 소비자 화면으로 이동하는 과정과 소매 마진이 발생하는 방식에 대한 아키텍처 분석.",
+        p1: "글로벌 호텔 유통 엔진은 매우 파편화되어 있고, 의도적으로 불투명하며, 전통적인 소매 플랫폼에 의해 철저히 보호됩니다. 일반적인 여행자에게 객실 예약은 단순한 직접 거래처럼 느껴집니다. 하지만 실제로는 하나의 객실이 판매 가격을 형성하기 전에 복잡한 공급망을 거치게 됩니다.",
+        quote: "여행 시장의 핵심 비대칭성은 여기에 있습니다. 공개 플랫폼은 도매 순가로 구매하지만, 엄격한 가격 패리티 협정의 보호 아래 동적 소매 마진을 붙여 판매합니다.",
+        h2_1: "호텔 객실의 구조적 파이프라인",
+        p2: "모든 객실은 호텔의 로컬 자산 관리 시스템(PMS) 내부에서 시작됩니다. 거기서부터 유통 아키텍처의 몇 가지 핵심 인프라 레이어를 거쳐 전달됩니다.",
+        th1: "인프라 레이어", th2: "주요 기능", th3: "가격 유형",
+        td1_1: "CRS / 채널 매니저", td1_2: "연결된 모든 네트워크 전반에 걸쳐 실시간으로 객실 인벤토리를 동기화합니다.", td1_3: "기본 / 원시 인벤토리",
+        td2_1: "글로벌 유통 시스템 (GDS)", td2_2: "인벤토리를 기업 출장 데스크와 직접 연결하는 엔터프라이즈 네트워크입니다.", td2_3: "협정 기업 요금",
+        td3_1: "도매상 및 베드뱅크", td3_2: "대규모 선불 물량 블록으로 인벤토리를 구매하는 B2B 어그리게이터입니다.", td3_3: "도매 네트 가격 (Net Rates)",
+        td4_1: "소매 OTA", td4_2: "대규모 마케팅 및 소매 마진을 추가하는 대중 공개용 프론트엔드입니다.", td4_3: "공개 동적 소매가",
+        h2_2: "소매 프리미엄이 발생하는 구간",
+        p3: "도매상과 베드뱅크는 매우 적은 마진으로 운영되며, 대형 물량 취급 기업, 투어 오퍼레이터, 프라이빗 기업 클럽에만 전용으로 객실을 공급합니다. 이들은 공개 검색엔진에는 노출되지 않는 숨겨진 기업 요금과 네트가에 접근합니다.",
+        p4: "소매 온라인 여행사(OTA)가 이 인벤토리를 확보하면, 고객 유치 비용과 글로벌 광고비를 상쇄하기 위해 15%에서 40%에 달하는 막대한 마진을 추가합니다. 가격 패리티(Rate Parity) 계약으로 인해, 호텔들은 자체 웹사이트에서조차 이 인플레된 공개 가격보다 저렴하게 판매하는 것이 법적으로 금지되어 있습니다.",
+        b_title: "중개 마진 구조의 우회",
+        b_text: "TravelStatus 구조 엔지니어들은 검색 쿼리를 공개 소매 레이어 너머로 직접 라우팅하여, 프리미엄 회원들에게 글로벌 도매 베드뱅크 피드에 대한 가공 없는 실시간 접근 권한을 부여합니다.",
+        b_btn: "직접 도매 접근 권한 요청",
+        h2_3: "기술적 대안: 프라이빗 요금 인프라",
+        p5: "공개 소매 가격 구조를 우회할 수 있는 유일한 합법적 메커니즘은 폐쇄형 이용자 그룹(CUG) 네트워크를 활용하는 것입니다. 이러한 네트워크는 안전한 인증이나 멤버십 초대를 필요로 하기 때문에, 표준 공개 가격 패리티 제한에서 법적으로 제외됩니다. 덕분에 도매 어그리게이터가 인위적인 소매 왜곡 없이 네트 가격을 소비자에게 직접 전달할 수 있습니다."
+    },
+    et: {
+        meta_title: "Kuidas hotellide turustus töötab ja hulgihinnad | TravelStatus",
+        meta_desc: "Ülevaade sellest, kuidas hotellide toad liikuvad hallatavatest süsteemidest tarbijate ekraanidele ja miks tekivad jaemüügi juurdehindlused.",
+        h1: "Kuidas hotellide turustus töötab: hulgihindade telgitagused",
+        meta_descr: "Arhitektuurne analüüs sellest, kuidas hotelli inventar liigub kohalikest süsteemidest lõpptarbija ekraanile ja miks tekivad jaemüügi marginaalid.",
+        p1: "Globaalne hotellide turustusmootor on killustunud, tahtlikult läbipaistmatu ja rangelt kaitstud traditsiooniliste jaemüügiplatvormide poolt. Tavareisijale tundub toa broneerimine otsese tehinguna. Tegelikkuses läbib üks tootuba keerulise tarneahela, enne kui tekib jaemüügihind.",
+        quote: "Turupõhine asümmeetria seisneb siin: avalikud platvormid ostavad hulgimüügi netohindadega, kuid müüvad teile dünaamiliste jaemüügimarginaalidega.",
+        h2_1: "Hotellitoa struktuurne teekond",
+        p2: "Iga tootuba alustab oma teekonda hotelli kohalikust omandihaldussüsteemist (PMS). Sealt liigub see edasi läbi mitme olulise infrastruktuuri kihi:",
+        th1: "Infrastruktuuri Kiht", th2: "Peamine Funktsioon", th3: "Hinnatüüp",
+        td1_1: "CRS / Channel Manager", td1_2: "Sünkroniseerib vaba tootuba reaalajas kõigis ühendatud võrkudes.", td1_3: "Baas- / Toores Inventar",
+        td2_1: "Global Distribution Systems (GDS)", td2_2: "Ettevõtete võrgustikud, mis ühendavad inventari otse ärireiside büroodega.", td2_3: "Kokkulepitud Ärikliendi Tariifid",
+        td3_1: "Hulgimüüjad & Bedbanks", td3_2: "B2B agregaatorid, kes ostavad inventari suurtes ettemakstud plokkides.", td3_3: "Hulgimüügi Netohinnad",
+        td4_1: "Jaemüügi OTA-d", td4_2: "Avalikud veebilehed, mis lisavad tohutuid turundus- ja jaemüügi marginaale.", td4_3: "Avalik Dünaamiline Jaemüügihind",
+        h2_2: "Kust tekib jaemüügi juurdehindlus",
+        p3: "Hulgimüüjad ja voodipangad töötavad minimaalsete marginaalidega, jagades tube ainult suurklientidele, reisikorraldajatele ja privaatsetele äriklubidele. Nad pääsevad ligi peidetud tariifidele, mis on avalikele otsingumootoritele suletud.",
+        p4: "Kui jaemüügi veebiagentuur (OTA) selle inventari omandab, lisab see 15% kuni 40% juurdehindluse, et katta kliendihanke- ja reklaamikulusid. Hinnapariteedi lepingute tõttu on hotellidel lepinguliselt keelatud neid hindu oma veebilehtedel alla lüüa.",
+        b_title: "Mööduge vahendajate juurdehindlusest",
+        b_text: "TravelStatus insenerid suunavad päringud otse jaemüügikihist mööda, andes premium-liikmetele vahendustasuta juurdepääsu globaalsetele hulgimüügivoogudele.",
+        b_btn: "Taotle Otsest Hulgimüügi Juurdepääsu",
+        h2_3: "Tehniline alternatiiv: Privaatne tariifiinfrastruktuur",
+        p5: "Ainus seaduslik viis avalike jaemüügihindade vältimiseks on suletud kasutajagruppide (CUG) võrgustike kasutamine. Kuna need nõuavad autentimist, on need hinnapariteedi piirangutest vabastatud, võimaldades edastada netohindu otse tarbijale."
+    }
+};
+
+function changeLanguage(lang) {
+    if (!translations[lang]) return;
+    document.documentElement.lang = lang;
+    
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            elem.innerHTML = translations[lang][key];
+        }
+    });
+    
+    document.title = translations[lang]['meta_title'];
+    document.getElementById('meta-desc').setAttribute('content', translations[lang]['meta_desc']);
+    document.getElementById('langSelect').value = lang;
+    localStorage.setItem('selectedLanguage', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    const browserLang = navigator.language.substring(0, 2);
+    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+    changeLanguage(defaultLang);
+});
+</script>
 
 </body>
 </html>
