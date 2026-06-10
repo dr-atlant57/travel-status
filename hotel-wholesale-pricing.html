@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="meta_title">B2B Hotel Wholesale & Bedbanks Explained | TravelStatus</title>
+    <meta name="description" id="meta-desc" content="A deep dive into the B2B hotel wholesale ecosystem and bedbanks. Understand how inventory consolidation and raw contract rates bypass retail margins.">
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1a;
+            --text-muted: #5a5a5a;
+            --accent-color: #004B87;
+            --border-color: #e5e5e5;
+            --card-bg: #f8f9fa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .lang-switcher {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #2c2c2c;
+            text-align: justify;
+        }
+        .meta-descr {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+        }
+        blockquote {
+            margin: 30px 0;
+            padding: 0 0 0 20px;
+            border-left: 3px solid var(--accent-color);
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        .bridge-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .bridge-block h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.3rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="/" class="logo">TRAVELSTATUS</a>
+        <select class="lang-switcher" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ro">Română</option>
+            <option value="ko">한국어</option>
+            <option value="et">Eesti</option>
+        </select>
+    </header>
+
+    <main>
+        <h1 data-i18n="h1">Behind the Screen: How Bedbanks and B2B Wholesalers Move Global Inventory</h1>
+        <p class="meta-descr" data-i18n="meta_descr">A strategic teardown of the high-volume business-to-business consolidation layer that powers the global lodging industry.</p>
+
+        <p data-i18n="p1">Before a hotel room appears on a public website with an inflated price tag, it passes through an hidden institutional marketplace. At the core of this system sit B2B wholesalers and bedbanks—high-volume aggregators that contract massive room blocks directly from hotel brands years in advance, long before individual consumer demands materialize.</p>
+
+        <blockquote data-i18n="quote">
+            Bedbanks function as the liquidity providers of the travel industry, absorbing inventory vacancy risk from hotels in exchange for baseline contract pricing.
+        </blockquote>
+
+        <h2 data-i18n="h2_1">The Structural Anatomy of Wholesale Distribution</h2>
+        <p data-i18n="p2">The mechanics of an inventory pipeline determine the final price variation. The distribution network is divided into distinct functional operational paths:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th data-i18n="th1">Structural Layer</th>
+                    <th data-i18n="th2">Operational Responsibility</th>
+                    <th data-i18n="th3">Pricing Framework</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-i18n="td1_1"><strong>Asset/Hotel Chain</strong></td>
+                    <td data-i18n="td1_2">Manages physical properties and unloads vacancy risk via bulk allocation contracts.</td>
+                    <td data-i18n="td1_3">Generates raw, margin-free static net rates.</td>
+                </tr>
+                <tr>
+                    <td data-i18n="td2_1"><strong>Bedbank Consolidation</strong></td>
+                    <td data-i18n="td2_2">Aggregates millions of room nights globally into clean API tech data streams.</td>
+                    <td data-i18n="td2_3">Distributes raw contract cost plus minimal system processing volume fees.</td>
+                </tr>
+                <tr>
+                    <td><strong data-i18n="td3_1">Public Retail OTA</strong></td>
+                    <td data-i18n="td3_2">Sources inventory from bedbanks and spends heavily on retail ads to capture open search terms.</td>
+                    <td><strong data-i18n="td3_3">Applies 15% – 35% markups to fund marketing overhead.</strong></td>
+                </tr>
+                <tr>
+                    <td data-i18n="td4_1"><strong>Closed User Networks</strong></td>
+                    <td data-i18n="td4_2">Restricts data access behind security credentials, bypassing public marketing channels completely.</td>
+                    <td data-i18n="td4_3">Bypasses retail markups, offering raw net costs directly.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 data-i18n="h2_2">How Advanced Bulk Commitments Eliminate Asset Risk</h2>
+        <p data-i18n="p3">Hotels are plagued by highly perishable inventory; an empty suite tonight is a total loss of revenue that cannot be recovered tomorrow. To guarantee operational cost coverage, corporate property management teams allocate large parts of their room inventory to bedbanks under strict, non-public wholesale agreements. The hotel trades away peak transactional retail optimization for guaranteed volume and immediate baseline cash flow.</p>
+        
+        <p data-i18n="p4">This structural compromise creates the pricing arbitrage window. Wholesalers move millions of rooms monthly via enterprise-level database queries. Because these networks process inventory purely as high-volume data packets rather than emotional retail sales, the room night retains its raw, un-marked value until public retail platforms intercept the feed.</p>
+
+        <div class="bridge-block">
+            <h3 data-i18n="b_title">Plug Into Institutional Data Streams</h3>
+            <p data-i18n="b_text">TravelStatus bypasses intermediary retail layers, linking member queries directly into the core B2B data exchanges that handle global lodging inventory.</p>
+            <a href="/vip" class="btn" data-i18n="b_btn">Access Wholesale Networks</a>
+        </div>
+
+        <h2 data-i18n="h2_3">The Digital API Pipeline and the Elimination of Retail Friction</h2>
+        <p data-i18n="p5">Modern travel tech allows secure systems to read these wholesale inventories instantly via programmatic integrations. When a closed network queries a property, it bypasses the cookie tracking, behavioral profiling, and artificial premium injections that define the public web. Securing true transaction efficiency simply means pulling rates directly from the source infrastructure before retail markups are added.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TravelStatus.cc. Human Infrastructure Optimization.</p>
+    </footer>
+</div>
+
+<script>
+const translations = {
+    en: {
+        meta_title: "B2B Hotel Wholesale & Bedbanks Explained | TravelStatus",
+        meta_desc: "A deep dive into the B2B hotel wholesale ecosystem and bedbanks. Understand how inventory consolidation and raw contract rates bypass retail margins.",
+        h1: "Behind the Screen: How Bedbanks and B2B Wholesalers Move Global Inventory",
+        meta_descr: "A strategic teardown of the high-volume business-to-business consolidation layer that powers the global lodging industry.",
+        p1: "Before a hotel room appears on a public website with an inflated price tag, it passes through an hidden institutional marketplace. At the core of this system sit B2B wholesalers and bedbanks—high-volume aggregators that contract massive room blocks directly from hotel brands years in advance, long before individual consumer demands materialize.",
+        quote: "Bedbanks function as the liquidity providers of the travel industry, absorbing inventory vacancy risk from hotels in exchange for baseline contract pricing.",
+        h2_1: "The Structural Anatomy of Wholesale Distribution",
+        p2: "The mechanics of an inventory pipeline determine the final price variation. The distribution network is divided into distinct functional operational paths:",
+        th1: "Structural Layer", th2: "Operational Responsibility", th3: "Pricing Framework",
+        td1_1: "Asset/Hotel Chain", td1_2: "Manages physical properties and unloads vacancy risk via bulk allocation contracts.", td1_3: "Generates raw, margin-free static net rates.",
+        td2_1: "Bedbank Consolidation", td2_2: "Aggregates millions of room nights globally into clean API tech data streams.", td2_3: "Distributes raw contract cost plus minimal system processing volume fees.",
+        td3_1: "Public Retail OTA", td3_2: "Sources inventory from bedbanks and spends heavily on retail ads to capture open search terms.", td3_3: "Applies 15% – 35% markups to fund marketing overhead.",
+        td4_1: "Closed User Networks", td4_2: "Restricts data access behind security credentials, bypassing public marketing channels completely.", td4_3: "Bypasses retail markups, offering raw net costs directly.",
+        h2_2: "How Advanced Bulk Commitments Eliminate Asset Risk",
+        p3: "Hotels are plagued by highly perishable inventory; an empty suite tonight is a total loss of revenue that cannot be recovered tomorrow. To guarantee operational cost coverage, corporate property management teams allocate large parts of their room inventory to bedbanks under strict, non-public wholesale agreements. The hotel trades away peak transactional retail optimization for guaranteed volume and immediate baseline cash flow.",
+        p4: "This structural compromise creates the pricing arbitrage window. Wholesalers move millions of rooms monthly via enterprise-level database queries. Because these networks process inventory purely as high-volume data packets rather than emotional retail sales, the room night retains its raw, un-marked value until public retail platforms intercept the feed.",
+        b_title: "Plug Into Institutional Data Streams",
+        b_text: "TravelStatus bypasses intermediary retail layers, linking member queries directly into the core B2B data exchanges that handle global lodging inventory.",
+        b_btn: "Access Wholesale Networks",
+        h2_3: "The Digital API Pipeline and the Elimination of Retail Friction",
+        p5: "Modern travel tech allows secure systems to read these wholesale inventories instantly via programmatic integrations. When a closed network queries a property, it bypasses the cookie tracking, behavioral profiling, and artificial premium injections that define the public web. Securing true transaction efficiency simply means pulling rates directly from the source infrastructure before retail markups are added."
+    },
+    ru: {
+        meta_title: "B2B-оптовики и Bedbanks в туризме | TravelStatus",
+        meta_desc: "Глубокий разбор оптовой экосистемы отельного бизнеса. Принципы консолидации инвентаря и обхода розничных наценок через Bedbanks.",
+        h1: "За кулисами бронирования: как Bedbanks и B2B-оптовики управляют мировым инвентарем отелей",
+        meta_descr: "Стратегический разбор работы сегмента business-to-business (B2B), обеспечивающего ликвидность глобального рынка недвижимости.",
+        p1: "Перед тем как номер в отеле появится на публичном сайте с завышенным розничным ценником, он проходит через скрытый институциональный рынок. В основе этой системы лежат B2B-оптовики и так называемые «банки слотов» (bedbanks) — крупные агрегаторы, выкупающие огромные блоки мест напрямую у отельных брендов задолго до того, как возникнет розничный спрос.",
+        quote: "Bedbanks выполняют функцию поставщиков ликвидности для индустрии туризма, забирая на себя риски недозагрузки отелей в обмен на минимальные контрактные тарифы.",
+        h2_1: "Структурная анатомия оптовой дистрибуции",
+        p2: "Механика движения инвентаря определяет итоговую разницу в цене. Цепочка распределения номеров разделена на четкие операционные уровни:",
+        th1: "Структурный уровень", th2: "Операционные задачи слоя", th3: "Тарифная модель",
+        td1_1: "Отель / Сеть", td1_2: "Управляет физическим фондом номеров и минимизирует простои через оптовые контракты.", td1_3: "Формирует чистые базовые нетто-тарифы без коммерческих наценок.",
+        td2_1: "Консолидатор (Bedbank)", td2_2: "Агрегирует миллионы ночевок по всему миру в единые технологические API-потоки.", td2_3: "Передает базовую стоимость плюс минимальный сервисный сбор за объем.",
+        td3_1: "Публичное розничное OTA", td3_2: "Закупает места у bedbanks и тратит огромные бюджеты на рекламу для захвата открытого трафика.", td3_3: "Закладывает маржу в 15–35% на покрытие маркетинговых расходов.",
+        td4_1: "Закрытые сети подписок", td4_2: "Ограничивают доступ к тарифам экраном авторизации, полностью исключая рекламные издержки.", td4_3: "Убирают розничную наценку, предоставляя доступ к ценам B2B-контрактов.",
+        h2_2: "Как оптовые обязательства ликвидируют риски отелей",
+        p3: "Отельный бизнес привязан к скоропортящемуся инвентарю: незанятый сегодня люкс — это невозвратная потеря дохода. Чтобы гарантированно покрыть операционные расходы, управляющие компании передают крупные блоки номеров консолидаторам по закрытым соглашениям. Отель сознательно отказывается от поиска случайных розничных клиентов в пользу гарантированного объема и мгновенной ликвидности.",
+        p4: "Этот компромисс и создает окно ценового арбитража. Оптовики обрабатывают миллионы комнат ежемесячно через автоматизированные базы данных. Поскольку эти системы оперируют инвентарем исключительно как цифровыми пакетами данных, а не эмоциональными розничными продажами, номер сохраняет свою исходную стоимость до момента拦截а розничными витринами.",
+        b_title: "Подключение к институциональным потокам данных",
+        b_text: "TravelStatus исключает посреднические розничные цепочки, связывая запросы участников напрямую с центральными B2B-биржами, распределяющими мировой отельный фонд.",
+        b_btn: "Получить доступ к оптовым сетям",
+        h2_3: "Цифровые API-шлюзы и ликвидация издержек розничного рынка",
+        p5: "Современные технологии позволяют закрытым системам мгновенно считывать оптовые базы данных через прямые программные интеграции. Когда авторизованная сеть запрашивает информацию, процесс защищен от трекинга файлов cookie, поведенческого профилирования и искусственных накруток открытого веба. Чистая эффективность бронирования — это получение тарифов из первоисточника до того, как к ним добавится розничная наценка."
+    },
+    de: {
+        meta_title: "B2B Hotel Großhandel & Bedbanks Erklärt | TravelStatus",
+        meta_desc: "Ein tiefer Einblick in das B2B-Großhandels-Ökosystem der Hotellerie. Erfahren Sie, wie Bedbanks und Nettotarife den Endkundenmarkt umgehen.",
+        h1: "Hinter den Kulissen: Wie Bedbanks und B2B-Großhändler das globale Hotelkontingent bewegen",
+        meta_descr: "Eine strategische Analyse der B2B-Konsolidierungsschicht, die die weltweite Hotellerie mit Liquidität versorgt.",
+        p1: "Bevor ein Hotelzimmer auf einer öffentlichen Website mit einem hohen Aufschlag erscheint, durchläuft es einen geschlossenen institutionellen Markt. Kern dieses Systems sind B2B-Großhändler und Bedbanks – Großanbieter, die riesige Zimmerkontingente direkt von Hotelmarken lange im Voraus kaufen.",
+        quote: "Bedbanks fungieren als Liquiditätsanbieter der Reisebranche. Sie übernehmen das Leerstandsrisiko der Hotels gegen minimale Nettotarife.",
+        h2_1: "Die Struktur des Hotel-Großhandels",
+        p2: "Die Mechanik der Vertriebskette bestimmt den Endpreis. Das Vertriebsnetz ist in klare operative Ebenen unterteilt:",
+        th1: "Strukturelle Ebene", th2: "Operative Aufgabe", th3: "Preismodell",
+        td1_1: "Hotel / Kette", td1_2: "Verwaltet die physische Immobilie und minimiert das Leerstandsrisiko durch Großverträge.", td1_3: "Erstellt reine, margenfreie statische Netto-Tarife.",
+        td2_1: "Konsolidierer (Bedbank)", td2_2: "Bündelt Millionen von Übernachtungen weltweit in sauberen API-Datenströmen.", td2_3: "Gibt Einkaufspreise plus minimale Systemgebühren weiter.",
+        td3_1: "Öffentliches Einzelhandels-OTA", td3_2: "Kauft Kontingente von Bedbanks und investiert massiv in Werbung, um Kunden zu gewinnen.", td3_3: "Schlägt 15 % bis 35 % auf, um Marketingkosten zu decken.",
+        td4_1: "Geschlossene Netzwerke", td4_2: "Beschränkt den Zugang auf verifizierte Mitglieder und eliminiert Werbekosten komplett.", td4_3: "Umfährt die Einzelhandelsmarge und bietet direkte B2B-Vertragspreise.",
+        h2_2: "Wie Blockbuchungen das Risiko der Hotelbühne eliminieren",
+        p3: "Hotels leiden unter extrem vergänglichem Inventar: Ein heute leeres Zimmer bedeutet einen unwiederbringlichen Umsatzverlust. Um laufende Kosten zu decken, vergeben Hotels große Teile ihrer Zimmer über vertrauliche Verträge an Bedbanks. Das Hotel tauscht die Hoffnung auf teure Einzelkunden gegen sofortige Liquidität und sichere Auslastung.",
+        p4: "Dieser Kompromiss schafft das Fenster für Preisarbitrage. Großhändler bewegen Millionen Zimmer monatlich rein digital über Datenbanken. Da dieses System Zimmer als reine Datenpakete und nicht über emotionales Marketing vertreibt, bleibt der Preis des Zimmers an der Quelle stabil, bis Endkundenportale zugreifen.",
+        b_title: "Nutzen Sie institutionelle Datenströme",
+        b_text: "TravelStatus umgeht die Einzelhändler und verbindet Mitglieder direkt mit den zentralen B2B-Datenbörsen des globalen Hotelmarktes.",
+        b_btn: "Zugang zu Großhandelsnetzwerken",
+        h2_3: "Die digitale API-Pipeline und der Wegfall von Handelsmargen",
+        p5: "Moderne Reisetechnologie erlaubt es geschlossenen Systemen, Großhandelsdaten direkt über Programmschnittstellen auszulesen. Dies schützt Suchanfragen vor Cookie-Tracking und künstlichen Preisaufschlägen des offenen Webs. Effizientes Buchen bedeutet einfach, Raten direkt an der Quelle abzurufen, bevor der Einzelhandel seine Margen aufschlägt."
+    },
+    es: {
+        meta_title: "Mayoristas de hoteles B2B y Bedbanks | TravelStatus",
+        meta_desc: "Un análisis profundo del ecosistema mayorista de hoteles B2B. Descubra cómo la consolidación de inventario esquiva los márgenes minoristas.",
+        h1: "Detrás de escena: Cómo los Bedbanks y mayoristas B2B mueven el inventario global",
+        meta_descr: "Un desglose estratégico de la capa de consolidación business-to-business (B2B) que impulsa la industria hotelera mundial.",
+        p1: "Antes de que una habitación de hotel aparezca en una web pública con un precio inflado, pasa por un mercado institucional oculto. En el núcleo de este sistema están los mayoristas B2B y los bedbanks: agregadores de alto volumen que contratan grandes bloques de habitaciones directo con los hoteles con mucha anticipación.",
+        quote: "Los bedbanks funcionan como los proveedores de liquidez de la industria de viajes, absorbiendo el riesgo de vacantes a cambio de tarifas netas base.",
+        h2_1: "La anatomía estructural de la distribución mayorista",
+        p2: "La mecánica de la cadena de suministro determina el precio final. La red se divide en niveles operativos específicos:",
+        th1: "Capa Estructural", th2: "Responsabilidad Operativa", th3: "Modelo de Precios",
+        td1_1: "Hotel / Cadena", td1_2: "Gestiona las propiedades físicas y reduce el riesgo de vacantes mediante contratos en bloque.", td1_3: "Genera tarifas netas estáticas puras sin margen comercial.",
+        td2_1: "Consolidador (Bedbank)", td2_2: "Agrega millones de noches globales en flujos de datos limpios mediante APIs integradas.", td2_3: "Distribuye costos netos de contrato más tarifas mínimas de procesamiento.",
+        td3_1: "OTA Minorista Pública", td3_2: "Compra inventario a bedbanks y gasta presupuestos masivos en publicidad web para atraer clientes.", td3_3: "Aplica márgenes del 15% al 35% para financiar sus costos de marketing.",
+        td4_1: "Redes de Usuarios Cerradas", td4_2: "Restringen el acceso tras credenciales privadas, eliminando los costos de publicidad por completo.", td4_3: "Evitan el margen minorista, ofreciendo tarifas de contratos B2B directas.",
+        h2_2: "Cómo los compromisos de compra en bloque eliminan el riesgo del hotel",
+        p3: "Los hoteles enfrentan el problema del inventario altamente perecedero: una habitación vacía hoy es una pérdida que no se recupera mañana. Para garantizar la cobertura de costos operativos, las cadenas asignan grandes partes de su inventario a bedbanks bajo acuerdos mayoristas confidenciales. El hotel cambia la optimización minorista por volumen garantizado y flujo de caja inmediato.",
+        p4: "Este acuerdo estructural crea la oportunidad de arbitraje. Los mayoristas mueven millones de habitaciones al mes mediante consultas de bases de datos corporativas. Como estas redes procesan el inventario como paquetes de datos y no como ventas emocionales, la tarifa mantiene su valor neto original hasta que las OTAs interceptan el canal.",
+        b_title: "Conéctese a los flujos de datos institucionales",
+        b_text: "TravelStatus esquiva los intermediarios comerciales, conectando las búsquedas de los miembros directamente con las bolsas de datos B2B globales.",
+        b_btn: "Acceder a Redes Mayoristas",
+        h2_3: "La canalización de APIs digitales y la eliminación de la fricción minorista",
+        p5: "La tecnología de viajes moderna permite a los sistemas privados leer bases de datos mayoristas al instante mediante integraciones de software. Cuando una red cerrada consulta un hotel, evita el rastreo de cookies y la inflación de precios de la web pública. Conseguir eficiencia real significa tomar las tarifas directo de la fuente antes de que el comercio minorista agregue sus capas de comisiones."
+    },
+    fr: {
+        meta_title: "Grossistes d'hôtels B2B & Bedbanks | TravelStatus",
+        meta_desc: "Plongée au cœur de l'écosystème des grossistes d'hôtels B2B et des bedbanks. Découvrez comment les tarifs nets d'usine évitent les intermédiaires.",
+        h1: "Dans les coulisses : Comment les Bedbanks et grossistes B2B distribuent les stocks mondiaux",
+        meta_descr: "Une analyse stratégique de la couche de consolidation business-to-business (B2B) qui injecte de la liquidité dans le secteur hôtelier.",
+        p1: "Avant qu'une chambre d'hôtel ne s'affiche sur un site grand public à un prix majoré, elle transite par un marché institutionnel invisible. Au cœur de ce système se trouvent les grossistes B2B et les « bedbanks » — des agrégateurs de gros volumes qui achètent d'immenses blocs de chambres directement aux marques hôtelières très à l'avance.",
+        quote: "Les bedbanks agissent comme les fournisseurs de liquidité de l'industrie du voyage, absorbant le risque d'invendus des hôtels contre des tarifs nets d'usine.",
+        h2_1: "L'anatomie structurelle de la distribution de gros",
+        p2: "La mécanique de la chaîne d'approvisionnement détermine le prix final au détail. Le réseau est divisé en plusieurs niveaux opérationnels :",
+        th1: "Niveau Structurel", th2: "Rôle Opérationnel", th3: "Modèle Tarifaire",
+        td1_1: "Hôtel / Chaîne", td1_2: "Gère les établissements physiques et élimine le risque de chambres vides via des contrats de volume.", td1_3: "Génère des tarifs nets statiques bruts sans marge commerciale.",
+        td2_1: "Consoldateur (Bedbank)", td2_2: "Regroupe des millions de nuitées mondiales dans des flux de données API standardisés.", td2_3: "Distribue les coûts nets contractuels avec des frais de traitement minimes.",
+        td3_1: "OTA Grand Public", td3_2: "Achète ses stocks aux bedbanks et investit massivement en publicité pour capter les clients.", td3_3: "Ajoute des marges de 15% à 35% pour financer ses coûts d'acquisition.",
+        td4_1: "Réseaux Privés d'Abonnés", td4_2: "Protègent l'accès aux données derrière une authentification, supprimant tout budget publicitaire.", td4_3: "Suppriment la marge de détail pour offrir directement les tarifs nets B2B.",
+        h2_2: "Comment les engagements d'achat en bloc protègent les hôtels",
+        p3: "Les hôtels font face à un inventaire hautement périssable : une suite vide ce soir représente une perte sèche définitive. Pour couvrir leurs coûts fixes, les gestionnaires confient d'importantes parts de leurs chambres aux bedbanks via des contrats de gros confidentiels. L'hôtel renonce aux gains incertains du marché grand public au profit d'un volume garanti et d'une trésorerie immédiate.",
+        p4: "Ce compromis structurel donne naissance à l'arbitrage tarifaire. Les grossistes traitent des millions de chambres chaque mois par requêtes informatiques. Parce que ces réseaux gèrent les stocks comme de simples paquets de données et non via du marketing émotionnel, la nuitée conserve sa valeur brute d'origine jusqu'à ce que les plateformes de détail ne capturent le flux.",
+        b_title: "Connectez-vous aux flux de données institutionnels",
+        b_text: "TravelStatus élimine les intermédiaires de détail en reliant les requêtes de ses membres directement aux bourses de données B2B qui gèrent les stocks mondiaux.",
+        b_btn: "Accéder aux Réseaux de Gros",
+        h2_3: "Les flux API et la suppression des marges de distribution",
+        p5: "La technologie moderne permet aux systèmes sécurisés de lire les bases de gros instantanément par intégration logicielle. Lorsqu'un réseau privé interroge un hôtel, il évite le ciblage par cookies et l'inflation artificielle du web ouvert. Réserver efficacement revient à extraire les tarifs directement à la source avant l'application des marges commerciales."
+    },
+    it: {
+        meta_title: "Wholesaler alberghieri B2B e Bedbanks | TravelStatus",
+        meta_desc: "Analisi approfondita dell'ecosistema dei wholesaler B2B e delle bedbank. Scopri come l'aggregazione dei volumi elimina le commissioni retail.",
+        h1: "Dietro lo schermo: Come le Bedbank e i wholesaler B2B muovono l'inventario globale",
+        meta_descr: "Un'analisi strategica del livello di consolidamento business-to-business (B2B) che alimenta il mercato alberghiero mondiale.",
+        p1: "Prima che una camera d'hotel compaia su un sito pubblico con un prezzo gonfiato, transita attraverso un mercato istituzionale nascosto. Al centro di questo sistema ci sono i wholesaler B2B e le bedbank: grandi aggregatori che acquistano enormi blocchi di camere direttamente dalle catene alberghiere con largo anticipo.",
+        quote: "Le bedbank fungono da fornitori di liquidità per l'industria dei viaggi, assorbendo il rischio di invenduto degli hotel in cambio di tariffe nette base.",
+        h2_1: "L'anatomia strutturale della distribuzione all'ingrosso",
+        p2: "La struttura della catena di distribuzione determina il prezzo finale al consumatore. La rete è suddivisa in livelli operativi ben definiti:",
+        th1: "Livello Strutturale", th2: "Responsabilità Operativa", th3: "Modello di Prezzo",
+        td1_1: "Hotel / Catena", td1_2: "Gestisce le strutture fisiche e riduce il rischio di camere vuote tramite contratti in blocco.", td1_3: "Genera tariffe contrattuali nette e statiche senza margini commerciali.",
+        td2_1: "Consolidatore (Bedbank)", td2_2: "Aggrega milioni di notti in tutto il mondo in flussi di dati puliti tramite connessioni API.", td2_3: "Distribuisce i costi netti di contratto più commissioni minime di gestione dei volumi.",
+        td3_1: "OTA Retail Pubblica", td3_2: "Acquista inventario dalle bedbank e investe massicciamente in pubblicità web per acquisire clienti.", td3_3: "Applica ricarichi dal 15% al 35% per coprire le spese di marketing.",
+        td4_1: "Reti Private di Membri", td4_2: "Garantiscono l'accesso ai dati solo dietro autenticazione, eliminando completamente i costi pubblicitari.", td4_3: "Azzerano i ricarichi commerciali, offrendo tariffe nette B2B dirette.",
+        h2_2: "Come gli acquisti in blocco eliminano il rischio della struttura",
+        p3: "Gli hotel gestiscono un prodotto altamente deperibile: una camera vuota stasera è una perdita economica permanente. Per garantire la copertura dei costi fissi, i manager alberghieri allocano ampie quote del proprio inventario alle bedbank tramite accordi riservati. L'hotel scambia l'ottimizzazione del prezzo retail con un volume garantito e flussi di cassa immediati.",
+        p4: "Questo accordo commerciale crea lo spazio per l'arbitraggio dei prezzi. I wholesaler muovono milioni di camere ogni mese attraverso transazioni puramente digitali. Poiché queste reti gestiscono l'inventario come pacchetti di dati e non tramite vendite emotive, la camera mantiene il suo valore netto originario fino a quando le OTA non applicano i loro ricarichi.",
+        b_title: "Collegati ai flussi di dati istituzionali",
+        b_text: "TravelStatus azzera l'intermediazione commerciale, connettendo le ricerche dei membri direttamente alle piattaforme B2B che gestiscono l'inventario mondiale.",
+        b_btn: "Accedi alle Reti all'Ingrosso",
+        h2_3: "I flussi API digitali e l'eliminazione dei ricarichi commerciali",
+        p5: "La moderna tecnologia applicata al turismo consente ai sistemi privati di leggere i database dei wholesaler all'istante tramite integrazioni software. Quando una rete protetta interroga una struttura, evita il tracciamento dei cookie e l'inflazione dei prezzi tipica del web consumer. Viaggiare in modo efficiente significa prelevare le tariffe direttamente dalla fonte prima dei ricarichi retail."
+    },
+    pt: {
+        meta_title: "Grossistas de hotéis B2B e Bedbanks | TravelStatus",
+        meta_desc: "Análise profunda do ecossistema grossista de hotéis B2B e bedbanks. Compreenda como a consolidação de stock evita as comissões de varejo.",
+        h1: "Por trás do ecrã: Como as Bedbanks e os grossistas B2B movem o stock global",
+        meta_descr: "Uma análise estratégica da camada de consolidação business-to-business (B2B) que garante a liquidez do setor hoteleiro mundial.",
+        p1: "Antes de um quarto de hotel aparecer num site público com um preço inflacionado, ele passa por um mercado institucional oculto. No centro deste sistema estão os grossistas B2B e as bedbanks — agregadores de grande volume que contratam blocos maciços de quartos diretamente com os hotéis com muita antecedência.",
+        quote: "As bedbanks funcionam como os fornecedores de liquidez da indústria das viagens, absorvendo o risco de quartos vazios em troca de tarifas net contratuais.",
+        h2_1: "A anatomia estrutural da distribuição grossista",
+        p2: "A mecânica da cadeia de abastecimento define o preço final ao consumidor. A rede divide-se em camadas operacionais claras:",
+        th1: "Camada Estrutural", th2: "Responsabilidade Operativa", th3: "Modelo de Preço",
+        td1_1: "Hotel / Cadeia", td1_2: "Gere as propriedades físicas e elimina o risco de quartos vazios através de contratos de volume.", td1_3: "Gera tarifas net estáticas puras sem margens comerciais.",
+        td2_1: "Consolidador (Bedbank)", td2_2: "Agrega milhões de noites globais em fluxos de dados limpos através de integrações API.", td2_3: "Distribui os custos net de contrato mais taxas mínimas de processamento de volume.",
+        td3_1: "OTA de Varejo Pública", td3_2: "Compra stock às bedbanks e gasta orçamentos massivos em anúncios para captar tráfego na web.", td3_3: "Aplica margens de 15% a 35% para financiar os seus custos de marketing.",
+        td4_1: "Redes Privadas de Membros", td4_2: "Protegem o acesso aos dados atrás de credenciais privadas, eliminando custos de publicidade na totalidade.", td4_3: "Eliminam a margem de varejo, entregando as tarifas contratuais B2B diretas.",
+        h2_2: "Como as compras em bloco eliminam o risco financeiro dos hotéis",
+        p3: "Os hotéis enfrentam o problema do stock altamente perecível: um quarto vazio hoje é uma perda financeira que nunca será recuperada. Para garantir a cobertura dos custos fixos, os gestores hoteleiros alocam grandes parcelas do seu stock a bedbanks sob acordos grossistas confidenciais. O hotel abdica da margem do varejo em troca de volume garantido e fluxo de caixa imediato.",
+        p4: "Este compromisso estrutural abre espaço para a arbitragem de preços. Os grossistas movem milhões de quartos mensalmente através de consultas informáticas. Como estas redes processam o stock como packtops de dados puros e não através de vendas emocionais, o quarto mantém o seu valor net original até que as OTAs interceptem o canal.",
+        b_title: "Ligue-se aos fluxos de dados institucionais",
+        b_text: "A TravelStatus elimina os intermediários comerciais, ligando as pesquisas dos membros diretamente às bolsas de dados B2B globais.",
+        b_btn: "Aceder a Redes Grossistas",
+        h2_3: "A tecnologia de APIs e a eliminação das margens do varejo",
+        p5: "A tecnologia de viagens moderna permite que os sistemas privados leiam bases de dados grossistas instantaneamente através de integrações de software. Quando uma rede fechada consulta um hotel, evita o rastreamento por cookies e a inflação de preços da web aberta. Reservar com eficiência significa obter as tarifas direto da fonte antes que o varejo adicione as suas comissões."
+    },
+    ro: {
+        meta_title: "Wholesaleri hotelieri B2B și Bedbanks | TravelStatus",
+        meta_desc: "O analiză profundă a ecosistemului de wholesaleri B2B și bedbanks. Înțelegeți cum consolidarea stocurilor elimină adaosurile de retail.",
+        h1: "În spatele ecranului: Cum mută Bedbank-urile și wholesalerii B2B stocurile globale",
+        meta_descr: "O analiză strategică a stratului de consolidare business-to-business (B2B) care asigură lichiditatea industriei hoteliere mondiale.",
+        p1: "Înainte ca o cameră de hotel să apară pe un site public cu un preț umflat, aceasta trece printr-o piață instituțională ascunsă. În centrul acestui sistem se află wholesalerii B2B și bedbank-urile — agregatori de volume mari care contractează blocuri masive de camere direct de la brandurile hoteliere, cu mult timp în avans.",
+        quote: "Bedbank-urile funcționează ca furnizori de lichiditate ai industriei turismului, absorbind riscul de neocupare al hotelurilor în schimbul unor tarife nete de bază.",
+        h2_1: "Anatomia structurală a distribuției de gros",
+        p2: "Mecanica lanțului de distribuție determină prețul final de retail. Rețeaua este împărțită în niveluri operaționale clare:",
+        th1: "Strat Structural", th2: "Responsabilitate Operațională", th3: "Model de Preț",
+        td1_1: "Hotel / Lanț", td1_2: "Gestionează proprietățile fizice și elimină riscul de camere goale prin contracte de volum.", td1_3: "Generează tarife nete statice brute, fără marje comerciale.",
+        td2_1: "Consolidator (Bedbank)", td2_2: "Unește milioane de nopți de cazare la nivel global în fluxuri de date API standardizate.", td2_3: "Distribuie costurile nete contractuale plus taxe minime de procesare a volumului.",
+        td3_1: "OTA de Retail Publică", td3_2: "Cumpără stocuri de la bedbank-uri și cheltuiește bugete uriașe pe publicitate pentru a capta clienți.", td3_3: "Aplică adaosuri de 15% – 35% pentru a-și finanța costurile de marketing.",
+        td4_1: "Rețele Private de Membri", td4_2: "Restricționează accesul la date în spatele unui ecran de autentificare, eliminând complet costurile publicitare.", td4_3: "Elimină adaosul de retail, oferind direct tarifele din contractele B2B.",
+        h2_2: "Cum elimină riscul hotelurilor angajamentele de cumpărare în bloc",
+        p3: "Hotelurile se confruntă cu problema stocurilor extrem de perisabile: o cameră goală la noapte reprezintă o pierdere financiară definitivă. Pentru a-și garanta acoperirea costurilor fixe, managerii hotelieri alocă mari părți din inventar către bedbank-uri prin acorduri de gros confidențiale. Hotelul renunță la optimizarea prețurilor de retail în favoarea unui volum garantat și a unui flux de numerar imediat.",
+        p4: "Acest compromis structural creează fereastra de arbitraj al prețurilor. Wholesalerii mută milioane de camere lunar prin interogări de baze de date corporative. Deoarece aceste rețele procesează inventarul ca pachete de date pure și nu prin marketing emoțional, camera își păstrează valoarea netă originală până când platformele de retail interceptează canalul.",
+        b_title: "Conectați-vă la fluxurile de date instituționale",
+        b_text: "TravelStatus elimină intermediarii de retail, conectând căutările membrilor direct la bursele de date B2B care gestionează stocurile globale.",
+        b_btn: "Accesează Rețelele de Gros",
+        h2_3: "Fluxurile API digitale și eliminarea adaosurilor comerciale",
+        p5: "Tehnologia modernă permite sistemelor securizate să citească bazele de date de gros instantaneu prin integrări software. Când o rețea închisă interoghează un hotel, evită monitorizarea prin cookie-uri și inflația de prețuri din web-ul deschis. Rezervarea eficientă înseamnă pur și simplu extragerea tarifelor direct de la sursă, înainte ca retailul să își adauge comisioanele."
+    },
+    ko: {
+        meta_title: "B2B 호텔 도매 시스템 및 베드뱅크의 실체 | TravelStatus",
+        meta_desc: "B2B 호텔 도매 생태계와 베드뱅크 구조에 대한 심층 분석. 유통 거래 인벤토리 통합으로 소매 수수료를 제거하는 방법.",
+        h1: "화면 뒤의 진실: 베드뱅크와 B2B 도매상이 글로벌 호텔 인벤토리를 움직이는 방식",
+        meta_descr: "글로벌 숙박 산업에 대규모 유동성을 공급하는 기업 간 거래(B2B) 통합 자산 레이어에 대한 전략적 분석.",
+        p1: "호텔 객실 요금이 소매 사이트에 상향 조정된 가격으로 표시되기 전에, 해당 인벤토리는 보이지 않는 제도적 도매 시장을 거치게 됩니다. 이 시스템의 핵심에는 B2B 도매상과 베드뱅크(Bedbanks)가 있습니다. 이들은 개인 소비자의 구체적인 수요가 발생하기 훨씬 전, 최대 몇 년 앞서 호텔 브랜드로부터 대규모 객실 블록을 직접 계약 및 선매입하는 대형 콘솔리데이터입니다.",
+        quote: "베드뱅크는 여행 산업의 유동성 공급자 역할을 수행하며, 원시 계약가를 확보하는 대가로 호텔의 객실 공실 리스크를 흡수합니다.",
+        h2_1: "도매 유통 아키텍처의 구조적 분석",
+        p2: "인벤토리 공급망의 이동 경로는 최종 소매 가격의 왜곡 범위를 결정합니다. 글로벌 유통 네트워크는 다음과 같은 고유한 기능 레이어로 구분됩니다.",
+        th1: "구조적 레이어", th2: "운영상의 핵심 역할", th3: "가격 책정 매커니즘",
+        td1_1: "자산 보유 호텔 / 체인", td1_2: "물리적 자산을 관리하며, 블록 대량 할당 계약을 통해 공실 리스크를 즉시 헤지함.", td1_3: "상업적 마진이 배제된 원시 정적 네트가 생성.",
+        td2_1: "베드뱅크 (콘솔리데이터)", td2_2: "전 세계 수백만 개의 객실 공급량을 통합하여 정제된 API 기술 데이터 스트림으로 변환.", td2_3: "도매 계약 원가에 최소한의 시스템 대량 처리 수수료만 가산하여 전송.",
+        td3_1: "공개형 소매 OTA", th3_2: "베드뱅크로부터 인벤토리를 공급받은 후, 포털 광고 및 키워드 마케팅에 막대한 자본 투입.", td3_3: "브랜드 마케팅 및 유치 비용 충당을 위해 15% ~ 35% 소매 마진 추가.",
+        td4_1: "폐쇄형 회원제 네트워크", td4_2: "보안 인증 방식으로 데이터 접근 권한을 제한하여 공개 웹 마케팅 비용을 원천 차단.", td4_3: "소매 유통 마진을 완전히 제거하고 원시 B2B 계약가를 직접 연결.",
+        h2_2: "대량 선매입 계약이 호텔의 운영 리스크를 소멸시키는 방식",
+        p3: "호텔은 시간 경과에 따라 가치가 소멸하는 고도의 휘발성 인벤토리를 다룹니다. 오늘 판매되지 않은 객실은 내일 다시 회수할 수 없는 영구적인 손실을 의미합니다. 이에 따라 자산 관리 팀은 고정 운영비를 안정적으로 확보하고자 인벤토리의 상당 부분을 비공개 도매 협정을 통해 베드뱅크에 할당합니다. 호텔은 가변적인 소매 마진의 극대화 기회를 양보하는 대신, 확실한 객실 판매 볼륨과 즉각적인 현금 흐름을 보장받습니다.",
+        p4: "이러한 구조적 상호 보완 관계가 가격 아비트리지의 기회를 생성합니다. 도매상들은 엔터프라이즈급 데이터베이스 쿼리를 통해 매월 수백만 개의 객실 데이터를 처리합니다. 이 과정에서 인벤토리는 감정적 소매 영업이 아닌 철저히 대량의 데이터 패킷으로 유통되므로, 일반 소매 플랫폼이 중간에서 데이터를 가로채기 전까지는 객실 고유의 원시 원가를 그대로 보존하게 됩니다.",
+        b_title: "제도적 도매 데이터 스트림에 직접 연동하십시오",
+        b_text: "TravelStatus는 중간 유통 소매 레이어를 배제하고, 글로벌 숙박 자산을 실시간 분산 처리하는 코어 B2B 데이터 거래소에 회원의 쿼리를 직결합니다.",
+        b_btn: "도매 네트워크 접근 권한 확보",
+        h2_3: "디지털 API 파이프라인과 소매 마진의 원천 차단 기술",
+        p5: "현대 여행 기술은 보안 시스템이 소프트웨어 연동을 통해 도매 데이터베이스를 실시간으로 판독할 수 있도록 지원합니다. 인증된 폐쇄형 네트워크가 호텔 정보를 조회할 때, 해당 프로세스는 공개 웹의 쿠키 추적, 행동 프로파일링 및 인위적인 가격 인상 로직의 간섭을 받지 않습니다. 거래의 극대화된 효율성은 소매상이 마진 레이어를 얹기 전, 공급망의 최상단 소스 인프라에서 요금을 직접 추출하는 데서 발생합니다."
+    },
+    et: {
+        meta_title: "B2B hulgimüük & Bedbanks turismis | TravelStatus",
+        meta_desc: "Süvaanalüüs hotellide B2B hulgimüügi ökosüsteemist ja bedbankidest. Vaata lähemalt, kuidas suured andmemahud välistavad jaemüügi vahendustasud.",
+        h1: "Ekraani taga: Kuidas Bedbankid ja B2B hulgimüüjad liigutavad globaalset hotellitubade varu",
+        meta_descr: "Strateegiline ülevaade business-to-business (B2B) konsolideerimise kihist, mis tagab globaalse majutusraamistiku likviidsuse.",
+        p1: "Enne kui hotellituba ilmub avalikule veebisaidile koos jaemüügi juurdehindlusega, läbib see peidetud institutsionaalse turu. Selle süsteemi tuumaks on B2B hulgimüüjad ja bedbankid — suure mahuga konsolideerijad, kes ostavad hotellikettidelt suuri tubade plokke ette ära.",
+        quote: "Bedbankid toimivad reisitööstuse likviidsuse tagajatena, võttes hotellidelt ära tühjade tubade riski vastutasuks puhta lepingulise netohinna eest.",
+        h2_1: "Hulgimüügi distributsiooni struktuurne anatoomia",
+        p2: "Tarneahela mehaanika määrab ära toa lõpliku hinna jaemüügis. Võrgustik on jaotatud selgeteks operatiivseteks tasemeteks:",
+        th1: "Struktuurne kiht", th2: "Operatiivne ülesanne", th3: "Hinnamudel",
+        td1_1: "Hotell / Kett", td1_2: "Haldab füüsilist kinnisvara ja maandab tühjade tubade riski läbi mahulepingute.", td1_3: "Loob puhtad staatilised netohinnad ilma äriliste marginaalideta.",
+        td2_1: "Konsolideerija (Bedbank)", td2_2: "Koondab miljonid ööbimised üle maailma ühtsetesse API andmevoogudesse.", td2_3: "Edastab lepingulised ostuhinnad koos minimaalse süsteemi haldustasuga.",
+        td3_1: "Avalik Jaemüügi OTA", td3_2: "Ostab mahtu bedbankidelt ja investeerib suuri summasid reklaami, et püüda kliente avatud veebis.", td3_3: "Lisab 15% kuni 35% marginaali, et katta turunduskulusid.",
+        td4_1: "Suletud Kasutajavõrgud", td4_2: "Piiravad ligipääsu andmetele sisselogimise kaudu, välistades täielikult avalikud reklaamikulud.", td4_3: "Kaotavad jaemüügi marginaali, pakkudes otseseid B2B lepinguhindu.",
+        h2_2: "Kuidas plokkide eelostmine kaotab hotellide riskid",
+        p3: "Hotellid tegelevad kiiresti kuluva kaubaga: täna tühjaks jäänud tuba on pöördumatu finantskaotus. Et tagada püsikulude katmine, suunavad hotellide juhid suure osa tubadest bedbankidele konfidentsiaalsete lepingute alusel. Hotell loobub jaemüügi maksimeerimise püüdest kindla mahu ja kohese likviidsuse kasuks.",
+        p4: "See struktuurne kokkulepe loobki ruumi hindade arbitraažiks. Hulgimüüjad liigutavad miljoneid tube kuus läbi andmebaaside. Kuna need süsteemid käsitlevad tube puhtalt andmepakettidena, mitte emotsionaalse jaemüügina, säilitab tuba oma algse netoväärtuse hetkeni, mil jaemüügiplatvormid andmevoo kinni püüavad.",
+        b_title: "Ühendage end institutsionaalsete andmevoogudega",
+        b_text: "TravelStatus välistab jaemüügi vahendajad, ühendades liikmete päringud otse kesksete B2B andmevahetusplatvormidega, mis haldavad globaalset hotellifondi.",
+        b_btn: "Sisene Hulgimüügivõrkudesse",
+        h2_3: "Digitaalsed API-kanalid ja jaemüügi lisakulude kaotamine",
+        p5: "Kaasaegne tehnoloogia võimaldab suletud süsteemidel lugeda hulgimüügi andmebaase reaalajas otse programmiliideste kaudu. Kui privaatne võrk teeb päringu, on see vaba küpsiste jälgimisest ja avatud veebile omasest hindade kunstlikust tõstmisest. Tõeliselt efektiivne broneerimine tähendab hindade võtmist otse algallikast enne, kui jaekaubandus lisab oma marginaalid."
+    }
+};
+
+function changeLanguage(lang) {
+    if (!translations[lang]) return;
+    document.documentElement.lang = lang;
+    
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            elem.innerHTML = translations[lang][key];
+        }
+    });
+    
+    document.title = translations[lang]['meta_title'];
+    document.getElementById('meta-desc').setAttribute('content', translations[lang]['meta_desc']);
+    document.getElementById('langSelect').value = lang;
+    localStorage.setItem('selectedLanguage', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    const browserLang = navigator.language.substring(0, 2);
+    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+    changeLanguage(defaultLang);
+});
+</script>
+
+</body>
+</html>
