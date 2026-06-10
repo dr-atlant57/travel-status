@@ -1,0 +1,312 @@
+<div class="calc-container" id="margin-calc">
+    <div class="calc-header">
+        <h3 id="calc-title">Institutional Markup Calculator</h3>
+        <p id="calc-subtitle">Isolate retail distribution fees from raw contract rates</p>
+    </div>
+    
+    <div class="calc-body">
+        <div class="input-group">
+            <label for="calc-retail-input" id="label-retail">Public Retail Price per Night ($)</label>
+            <input type="number" id="calc-retail-input" value="850" min="50" max="10000" oninput="calculateLeakage()">
+        </div>
+
+        <div class="slider-group">
+            <input type="range" id="calc-retail-slider" min="50" max="5000" value="850" step="50" oninput="syncSliderToInput(this.value)">
+        </div>
+
+        <div class="results-grid">
+            <div class="result-card accent">
+                <span class="result-label" id="label-net">Raw Institutional Net</span>
+                <span class="result-value" id="val-net">$0</span>
+            </div>
+            <div class="result-card leakage">
+                <span class="result-label" id="label-leak">Intermediary Friction</span>
+                <span class="result-value" id="val-leak">$0</span>
+            </div>
+        </div>
+
+        <div class="calc-breakdown">
+            <div class="breakdown-row">
+                <span id="row-ota">OTA Storefront Commission (18%)</span>
+                <span id="val-row-ota">$0</span>
+            </div>
+            <div class="breakdown-row">
+                <span id="row-ad">Ad & Affiliate Targeting (7%)</span>
+                <span id="val-row-ad">$0</span>
+            </div>
+            <div class="breakdown-row">
+                <span id="row-dynamic">Dynamic Profiling Premium (5%)</span>
+                <span id="val-row-dynamic">$0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .calc-container {
+        background-color: #f8f9fa;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        padding: 25px;
+        margin: 35px 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .calc-header {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 15px;
+    }
+    .calc-header h3 {
+        margin: 0 0 5px 0;
+        font-size: 1.3rem;
+        letter-spacing: -0.02em;
+        color: #1a1a1a;
+    }
+    .calc-header p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #5a5a5a;
+    }
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    .input-group label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #1a1a1a;
+    }
+    .input-group input {
+        padding: 12px;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+    .slider-group {
+        margin-bottom: 25px;
+    }
+    .slider-group input {
+        width: 100%;
+        accent-color: #004B87;
+        cursor: pointer;
+    }
+    .results-grid {
+        display: grid;
+        grid-template-columns: 1xl 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    @media (min-width: 480px) {
+        .results-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .result-card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    .result-card.accent {
+        border-left: 4px solid #004B87;
+    }
+    .result-card.leakage {
+        border-left: 4px solid #b30000;
+    }
+    .result-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #5a5a5a;
+        margin-bottom: 5px;
+    }
+    .result-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+    .calc-breakdown {
+        border-top: 1px dashed #e5e5e5;
+        padding-top: 15px;
+    }
+    .breakdown-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: #2c2c2c;
+        margin-bottom: 8px;
+    }
+    .breakdown-row:last-child {
+        margin-bottom: 0;
+    }
+</style>
+
+<script>
+const calcTranslations = {
+    en: {
+        title: "Institutional Markup Calculator",
+        subtitle: "Isolate retail distribution fees from raw contract rates",
+        retail: "Public Retail Price per Night ($)",
+        net: "Raw Institutional Net",
+        leak: "Intermediary Friction",
+        ota: "OTA Storefront Commission (18%)",
+        ad: "Ad & Affiliate Targeting (7%)",
+        dynamic: "Dynamic Profiling Premium (5%)"
+    },
+    ru: {
+        title: "Калькулятор посреднических наценок",
+        subtitle: "Изоляция комиссий открытого ритейла от чистых тарифных сеток",
+        retail: "Публичная цена отеля за ночь ($)",
+        net: "Чистый нетто-тариф",
+        leak: "Посредническое трение",
+        ota: "Комиссия витрины OTA (18%)",
+        ad: "Таргетинг и реклама (7%)",
+        dynamic: "Динамическая наценка профиля (5%)"
+    },
+    de: {
+        title: "Margen-Rechner für Intermediäre",
+        subtitle: "Isolieren Sie Einzelhandelsgebühren von reinen Vertragstarifen",
+        retail: "Öffentlicher Hotelpreis pro Nacht ($)",
+        net: "Reiner institutioneller Netto-Tarif",
+        leak: "Reibungsverlust durch Vermittler",
+        ota: "OTA-Plattformprovision (18%)",
+        ad: "Werbung & Affiliate-Targeting (7%)",
+        dynamic: "Dynamischer Profilierungsaufschlag (5%)"
+    },
+    es: {
+        title: "Calculadora de Margenes de Intermediarios",
+        subtitle: "Aísle las tarifas de distribución minorista de las tarifas netas",
+        retail: "Precio público de venta por noche ($)",
+        net: "Tarifa neta institucional",
+        leak: "Fricción de intermediarios",
+        ota: "Comisión de la plataforma OTA (18%)",
+        ad: "Publicidad y segmentación (7%)",
+        dynamic: "Prima de perfilamiento dinámico (5%)"
+    },
+    fr: {
+        title: "Calculateur de Marges Intermédiaires",
+        subtitle: "Isolez les frais de distribution des tarifs nets institutionnels",
+        retail: "Prix public de vente par nuit ($)",
+        net: "Tarif net institutionnel",
+        leak: "Friction des intermédiaires",
+        ota: "Commission de la plateforme OTA (18%)",
+        ad: "Ciblage publicitaire & affiliation (7%)",
+        dynamic: "Prime de profilage dynamique (5%)"
+    },
+    it: {
+        title: "Calcolatore dei Margini degli Intermediari",
+        subtitle: "Isola le commissioni di vendita dai tassi netti istituzionali",
+        retail: "Prezzo pubblico per notte ($)",
+        net: "Tariffa netta istituzionale",
+        leak: "Attrito degli intermediari",
+        ota: "Commissione della piattaforma OTA (18%)",
+        ad: "Targeting pubblicitario e affiliazione (7%)",
+        dynamic: "Premio di profilazione dinamica (5%)"
+    },
+    pt: {
+        title: "Calculadora de Margens de Intermediários",
+        subtitle: "Isole as taxas de distribuição do varejo das tarifas net puras",
+        retail: "Preço público de varejo por noite ($)",
+        net: "Tarifa neta institucional",
+        leak: "Fricção de intermediários",
+        ota: "Comissão da plataforma OTA (18%)",
+        ad: "Publicidade e segmentação (7%)",
+        dynamic: "Prêmio de perfilamento dinâmico (5%)"
+    },
+    ro: {
+        title: "Calculator de Adaosuri intermediare",
+        subtitle: "Izolați comisioanele de retail de tarifele nete instituționale",
+        retail: "Preț public de vânzare pe noapte ($)",
+        net: "Tarif net instituțional",
+        leak: "Fricțiune intermediară",
+        ota: "Comision platformă OTA (18%)",
+        ad: "Targeting publicitar și afiliere (7%)",
+        dynamic: "Primă de profilare dinamică (5%)"
+    },
+    ko: {
+        title: "유통 마진 고립 계산기",
+        subtitle: "공개 소매가에서 중간 유통 수수료 및 추적 할증료 분리",
+        retail: "1박 기준 공개 소매가 ($)",
+        net: "순수 기관용 네트 단가",
+        leak: "중간 유통 마찰 비용",
+        ota: "OTA 플랫폼 수수료 (18%)",
+        ad: "광고 및 타겟 마케팅 비용 (7%)",
+        dynamic: "사용자 프로파일링 동적 할증료 (5%)"
+    },
+    et: {
+        title: "Vahendustasude kalkulaator",
+        subtitle: "Eraldage jaemüügi vahendustasud puhtast hulgihinnast",
+        retail: "Avalik jaemüügihind öö kohta ($)",
+        net: "Puhas institutsionaalne netohind",
+        leak: "Vahendajate põhjustatud kadu",
+        ota: "OTA platvormi vahendustasu (18%)",
+        ad: "Reklaam ja sihitud turundus (7%)",
+        dynamic: "Dünaamiline profiilipõhine juurdehindlus (5%)"
+    }
+};
+
+function syncSliderToInput(val) {
+    document.getElementById('calc-retail-input').value = val;
+    calculateLeakage();
+}
+
+function calculateLeakage() {
+    let retailPrice = parseFloat(document.getElementById('calc-retail-input').value);
+    
+    if (isNaN(retailPrice) || retailPrice < 0) {
+        retailPrice = 0;
+    }
+
+    document.getElementById('calc-retail-slider').value = retailPrice;
+
+    // Математическая модель распределения структуры наценки (Всего 30% от ритейла)
+    const otaMargin = Math.round(retailPrice * 0.18);
+    const adMargin = Math.round(retailPrice * 0.07);
+    const dynamicMargin = Math.round(retailPrice * 0.05);
+    const totalLeakage = otaMargin + adMargin + dynamicMargin;
+    const netPrice = retailPrice - totalLeakage;
+
+    // Вывод значений
+    document.getElementById('val-net').innerText = '$' + netPrice.toLocaleString();
+    document.getElementById('val-leak').innerText = '$' + totalLeakage.toLocaleString();
+    document.getElementById('val-row-ota').innerText = '$' + otaMargin.toLocaleString();
+    document.getElementById('val-row-ad').innerText = '$' + adMargin.toLocaleString();
+    document.getElementById('val-row-dynamic').innerText = '$' + dynamicMargin.toLocaleString();
+}
+
+function updateCalcLanguage(lang) {
+    const l = calcTranslations[lang] || calcTranslations['en'];
+    
+    document.getElementById('calc-title').innerText = l.title;
+    document.getElementById('calc-subtitle').innerText = l.subtitle;
+    document.getElementById('label-retail').innerText = l.retail;
+    document.getElementById('label-net').innerText = l.net;
+    document.getElementById('label-leak').innerText = l.leak;
+    document.getElementById('row-ota').innerText = l.ota;
+    document.getElementById('row-ad').innerText = l.ad;
+    document.getElementById('row-dynamic').innerText = l.dynamic;
+}
+
+// Интеграция в существующий на сайте цикл смены языков
+document.addEventListener('DOMContentLoaded', () => {
+    calculateLeakage();
+    
+    // Перехватываем событие смены языка, если оно сохранено в localStorage
+    const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    updateCalcLanguage(currentLang);
+    
+    // Расширяем глобальную функцию changeLanguage, чтобы она обновляла и калькулятор
+    if (typeof window.changeLanguage === 'function') {
+        const originalChangeLanguage = window.changeLanguage;
+        window.changeLanguage = function(lang) {
+            originalChangeLanguage(lang);
+            updateCalcLanguage(lang);
+            calculateLeakage();
+        };
+    }
+});
+</script>
