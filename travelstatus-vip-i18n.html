@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Status — Private Mobility Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-dim: rgba(201, 168, 76, 0.1);
+    --gold-bright: #E8C97A;
+    --black: #111111;
+    --dark: #161616;
+    --dark-card: #1C1C1C;
+    --text: #F0EAE1;
+    --text-dim: #B1A89A;
+    --white: #FAF6EE;
+    --border: rgba(201, 168, 76, 0.09);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--black);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.82;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Высококлассный тактильный микро-шум */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.015;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='%23000'/%3e%3cfilter id='noise'%3e%3cfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3e%3c/svg%3e");
+  }
+
+  h1, h2, h3, .premium-serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Header */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+  }
+  .header-container { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 20px; letter-spacing: 3px; font-weight: 500; text-transform: uppercase; color: var(--white); }
+  .logo span { color: var(--gold); }
+  
+  /* Hero Section — Эволюция сознания: Понимание -> Рационализация -> Вовлечение */
+  .hero { 
+    padding: 230px 0 130px; 
+    background: radial-gradient(circle at 50% 35%, rgba(17, 17, 17, 0.4) 0%, var(--black) 80%),
+                url('https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&w=1920&q=40') center/cover no-repeat;
+    background-blend-mode: multiply;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: center; 
+  }
+  .hero-badge {
+    display: inline-block; padding: 6px 16px; border: 1px solid var(--gold);
+    border-radius: 30px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--gold); margin-bottom: 28px; background: rgba(201,168,76,0.05);
+  }
+  .hero h1 { font-size: clamp(38px, 6vw, 64px); line-height: 1.15; margin-bottom: 32px; letter-spacing: -0.5px; }
+  
+  .flow-container { max-width: 720px; margin: 0 auto 40px; text-align: center; }
+  .flow-step-1 { font-size: clamp(16px, 2.2vw, 20px); color: var(--white); line-height: 1.5; margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; }
+  .flow-step-1 span { color: var(--gold); font-style: italic; }
+  .flow-step-2 { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 28px; padding: 0 10px; }
+  .flow-step-3 { font-size: clamp(15px, 2vw, 17px); color: var(--white); font-weight: 500; margin-bottom: 12px; display: block; }
+  .flow-break { display: block; font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold); font-style: italic; margin-top: 14px; letter-spacing: 1px; }
+
+  .hero-sub-cta { display: block; font-size: 12px; color: var(--gold); letter-spacing: 1px; font-style: italic; margin-top: 24px; opacity: 0.75; }
+  
+  .btn-primary {
+    display: inline-block; padding: 18px 40px; background: var(--gold);
+    color: var(--black); font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 2px; border: none; cursor: pointer; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+
+  /* Live Ticker — Чистая линия движения */
+  .live-rates { padding: 30px 0; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .ticker-wrap { display: flex; width: 100%; }
+  .ticker { display: flex; white-space: nowrap; animation: ticker 42s linear infinite; gap: 60px; }
+  .ticker-item { display: flex; align-items: center; font-size: 12px; color: var(--text-dim); letter-spacing: 1px; }
+  .ticker-item strong { color: var(--white); margin: 0 6px; font-weight: 500; }
+  .ticker-item .delta { color: var(--gold); margin-left: 8px; font-weight: 600; font-family: monospace; }
+  @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+  /* Section Base */
+  section { padding: 120px 0; position: relative; }
+  .section-header { max-width: 600px; margin-bottom: 70px; }
+  .section-badge { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); display: block; margin-bottom: 16px; font-weight: 600; }
+  .section-title { font-size: clamp(28px, 4vw, 44px); line-height: 1.2; }
+
+  /* Grid Protocol */
+  .grid-protocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+  .protocol-card { background: var(--dark); border: 1px solid var(--border); padding: 48px 36px; transition: border-color 0.3s; }
+  .protocol-card:hover { border-color: rgba(201, 168, 76, 0.3); }
+  .protocol-num { font-size: 14px; font-family: monospace; color: var(--gold); margin-bottom: 24px; display: block; }
+  .protocol-card h3 { font-size: 24px; margin-bottom: 16px; }
+  .protocol-card p { color: var(--text-dim); font-size: 14px; }
+
+  /* Calculator Section — Ссылка-якорь ведет сюда */
+  .matrix-showcase { 
+    background: linear-gradient(rgba(22, 22, 22, 0.91), rgba(22, 22, 22, 0.91)),
+                url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=10') center/cover no-repeat;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); 
+  }
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; gap: 40px; } }
+  
+  .calc-controls h2 { margin-bottom: 24px; }
+  .calc-controls p { color: var(--text-dim); font-size: 15px; margin-bottom: 40px; }
+  
+  .slider-container { margin-bottom: 40px; }
+  .custom-slider {
+    -webkit-appearance: none; width: 100%; height: 4px; background: rgba(201,168,76,0.2);
+    outline: none; border-radius: 2px;
+  }
+  .custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--gold); cursor: pointer; transition: transform 0.1s;
+  }
+  .custom-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  
+  .slider-labels { display: flex; justify-content: space-between; margin-top: 16px; font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+  
+  .calc-display { background: var(--dark-card); border: 1px solid var(--border); padding: 48px; border-radius: 4px; position: relative; }
+  .calc-display::before {
+    content: ''; position: absolute; inset: 0; border-radius: 4px;
+    box-shadow: inset 0 0 100px rgba(201, 168, 76, 0.1); pointer-events: none;
+  }
+  .display-destination { font-size: 28px; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+  .rate-row { display: flex; justify-content: space-between; margin-bottom: 18px; font-size: 14px; }
+  .rate-row.total { margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px; font-size: 16px; }
+  .rate-row.total .delta-val { color: var(--gold); font-weight: 600; font-size: 22px; font-family: monospace; }
+  .realism-note { font-size: 11px; color: var(--text-dim); margin-top: 20px; display: block; font-style: italic; }
+
+  /* Tactile Evidence */
+  .evidence-box { background: #0d0d0d; border: 1px solid var(--border); padding: 24px; font-family: monospace; font-size: 12px; color: var(--text-dim); margin-top: 40px; }
+  .evidence-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 16px; color: var(--gold); }
+
+  /* Tiers Matrix */
+  .tiers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: stretch; margin-top: 40px; }
+  .tier-card {
+    background: var(--dark); border: 1px solid var(--border); padding: 50px 40px;
+    display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: all 0.3s;
+  }
+  .tier-card.featured {
+    background: var(--dark-card);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  }
+  .tier-badge {
+    position: absolute; top: 24px; right: 40px; font-size: 9px;
+    text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim);
+    border: 1px solid var(--border); padding: 4px 10px; border-radius: 2px;
+  }
+  .tier-name { font-size: 28px; margin-bottom: 8px; font-weight: 400; }
+  .tier-price { font-size: 36px; color: var(--white); font-family: monospace; margin-bottom: 32px; font-weight: 500; }
+  .tier-price span { font-size: 14px; color: var(--text-dim); font-family: 'Montserrat', sans-serif; }
+  
+  .tier-features { list-style: none; margin-bottom: 40px; border-top: 1px solid var(--border); padding-top: 24px; }
+  .tier-features li { font-size: 14px; color: var(--text-dim); margin-bottom: 14px; display: flex; align-items: center; }
+  .tier-features li::before { content: '—'; margin-right: 12px; color: var(--gold); }
+  
+  .btn-tier {
+    width: 100%; padding: 16px; border: 1px solid var(--gold); background: transparent;
+    color: var(--gold); font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 2px; cursor: pointer; transition: all 0.3s; text-align: center; text-decoration: none; display: block;
+  }
+  .btn-tier:hover { background: var(--gold); color: var(--black); }
+  .tier-card.featured .btn-tier { background: var(--gold); color: var(--black); }
+  .tier-card.featured .btn-tier:hover { background: var(--white); border-color: var(--white); }
+
+  /* Podcast Section */
+  .podcast-section { background: #141414; border-top: 1px solid var(--border); }
+  .podcast-container { max-width: 800px; margin: 0 auto; background: var(--dark-card); border: 1px solid var(--border); padding: 40px; text-align: center; transition: all 0.4s; }
+  .podcast-container:hover { border-color: rgba(201, 168, 76, 0.15); }
+  .audio-wave { display: flex; justify-content: center; gap: 4px; height: 24px; align-items: center; margin: 24px 0; }
+  .wave-bar { width: 3px; background: rgba(201, 168, 76, 0.25); border-radius: 2px; animation: pulse 1.2s infinite ease-in-out; }
+  .wave-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(3) { height: 24px; animation-delay: 0.4s; }
+  .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.6s; }
+  @keyframes pulse { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
+
+  /* FAQ */
+  .faq-section { background: var(--black); }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+  .faq-toggle {
+    width: 100%; background: none; border: none; text-align: left;
+    color: var(--white); font-family: 'Cormorant Garamond', serif;
+    font-size: 25px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  }
+  @media (max-width: 600px) { .faq-toggle { font-size: 23px; } }
+  .faq-toggle::after { content: '+'; font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--gold); transition: transform 0.3s; }
+  .faq-toggle.open::after { transform: rotate(45deg); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .faq-content { padding-top: 16px; color: var(--text-dim); font-size: 14px; line-height: 1.82; }
+
+  /* Footer */
+  footer { background: #0d0d0d; padding: 60px 0; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); }
+  .footer-grid { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .disclaimer { max-width: 700px; font-size: 11px; line-height: 1.6; color: rgba(177, 168, 154, 0.4); border-top: 1px solid rgba(201, 168, 76, 0.05); padding-top: 24px; margin-top: 24px; }
+
+
+  /* Lang switcher */
+  .lang-wrap { position: relative; }
+  .lang-btn-current {
+    background: none; border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold); font-family: 'Montserrat', sans-serif;
+    font-size: 10px; letter-spacing: 2px; padding: 5px 10px;
+    cursor: pointer; text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-btn-current:hover { border-color: var(--gold); }
+  .lang-btn-current svg { transition: transform 0.25s; }
+  .lang-btn-current.open svg { transform: rotate(180deg); }
+  .lang-drop {
+    display: none; position: absolute; top: calc(100% + 6px); right: 0;
+    background: #1C1C1C; border: 1px solid rgba(201,168,76,0.15);
+    min-width: 150px; z-index: 2000; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .lang-drop.open { display: block; }
+  .lang-drop button {
+    display: block; width: 100%; background: none; border: none;
+    color: #B1A89A; font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: 1px; padding: 10px 16px;
+    text-align: left; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .lang-drop button:hover { background: rgba(201,168,76,0.08); color: var(--gold); }
+  .lang-drop button.active { color: var(--gold); }
+
+  /* Staged Ambient Gateway */
+  #routing-overlay {
+    position: fixed; inset: 0; background: var(--black); z-index: 10000;
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+    box-shadow: inset 0 0 200px rgba(201, 168, 76, 0.12);
+  }
+  .bridge-status {
+    font-family: monospace; font-size: 13px; color: var(--gold); letter-spacing: 2px;
+    text-transform: uppercase; margin-top: 24px; opacity: 0;
+    animation: textFadeIn 0.3s forwards ease-out;
+  }
+  .spinner { width: 60px; height: 1px; background: var(--gold); animation: line-glow 1.5s infinite ease-in-out; }
+  @keyframes line-glow { 0% { opacity: 0.1; transform: scaleX(0.3); } 50% { opacity: 0.7; transform: scaleX(1.1); } 100% { opacity: 0.1; transform: scaleX(0.3); } }
+  @keyframes textFadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div id="routing-overlay">
+  <div class="spinner"></div>
+  <div class="bridge-status" id="bridge-text">Подготовка private access...</div>
+</div>
+
+<header>
+  <div class="container header-container">
+    <div class="logo">Travel<span>Status</span></div>
+    <div style="display:flex; align-items:center; gap:20px;">
+      <div style="font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);" data-i18n="insider">Insider Layer</div>
+      <div class="lang-wrap">
+        <button class="lang-btn-current" id="langBtn" onclick="toggleDrop(event)">
+          <span id="langLabel">RU</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-drop" id="langDrop">
+          <button data-lang="ru" onclick="setLang('ru')">RU — Русский</button>
+          <button data-lang="en" onclick="setLang('en')">EN — English</button>
+          <button data-lang="kz" onclick="setLang('kz')">KZ — Қазақша</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-badge" data-i18n="hero_badge">Private Access Protocol</div>
+    <h1 data-i18n="hero_h1">Private Mobility Access</h1>
+    
+    <div class="flow-container">
+      <div class="flow-step-1" data-i18n="flow1">
+        Booking, Airbnb и Expedia — это розничные витрины travel-рынка.<br>
+        <span>Travel Advantage</span> — закрытый оптовый слой доступа.
+      </div>
+      
+      <div class="flow-step-2" data-i18n="flow2">
+        Абсолютное большинство travel-платформ функционируют по розничной модели, перекладывая расходы на глобальную рекламу в чеки клиентов. Мы открываем прямую разницу между розничными тарифами и direct-access стоимостью инвентаря.
+      </div>
+      
+      <div class="flow-step-3" data-i18n="flow3">
+        На сколько реально можно было снизить стоимость твоего последнего путешествия?
+        <span class="flow-break" data-i18n="flow3b">Посчитаем?</span>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="scrollToCalculator()" data-i18n="hero_btn">Посчитать разницу</button>
+    <span class="hero-sub-cta" data-i18n="hero_sub">Travel through direct access, not retail noise.</span>
+  </div>
+</div>
+
+<div class="live-rates">
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item">Maldives / Overwater Villa: <span data-i18n="retail">розница</span> $1,420 &rarr; member rate<strong>$840</strong><span class="delta">-41%</span></div>
+      <div class="ticker-item">Dubai / Business Bay: <span data-i18n="retail">розница</span> $680 &rarr; member rate<strong>$410</strong><span class="delta">-39%</span></div>
+      <div class="ticker-item">Paris / Boutique Stay: <span data-i18n="retail">розница</span> $490 &rarr; member rate<strong>$310</strong><span class="delta">-36%</span></div>
+      <div class="ticker-item">Rome / Historic Center: <span data-i18n="retail">розница</span> $460 &rarr; member rate<strong>$290</strong><span class="delta">-37%</span></div>
+      <div class="ticker-item">Maldives / Overwater Villa: <span data-i18n="retail">розница</span> $1,420 &rarr; member rate<strong>$840</strong><span class="delta">-41%</span></div>
+      <div class="ticker-item">Dubai / Business Bay: <span data-i18n="retail">розница</span> $680 &rarr; member rate<strong>$410</strong><span class="delta">-39%</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="container reveal">
+  <div class="section-header">
+    <span class="section-badge" data-i18n="proto_badge">Алгоритм взаимодействия</span>
+    <h2 class="section-title" data-i18n="proto_h2">Прямая маршрутизация персонального трафика</h2>
+  </div>
+  <div class="grid-protocol">
+    <div class="protocol-card">
+      <span class="protocol-num" data-i18n="p1_num">01 / АВТОРИЗАЦИЯ</span>
+      <h3>Guest Access</h3>
+      <p data-i18n="p1_desc">Инициация гостевого аккаунта для первичного ознакомления с архитектурой оптового склада.</p>
+    </div>
+    <div class="protocol-card">
+      <span class="protocol-num" data-i18n="p2_num">02 / ВЕРИФИКАЦИЯ</span>
+      <h3 data-i18n="p2_h3">Сравнение тарифов</h3>
+      <p data-i18n="p2_desc">Сопоставление публичных розничных цен агрегаторов с прямыми шлюзами закрытой системы в реальном времени.</p>
+    </div>
+    <div class="protocol-card">
+      <span class="protocol-num" data-i18n="p3_num">03 / ОПТИМИЗАЦИЯ</span>
+      <h3>Direct Booking</h3>
+      <p data-i18n="p3_desc">Бронирование ресурсов без скрытых комиссий, рекламных бюджетов и посреднических звеньев.</p>
+    </div>
+  </div>
+</section>
+
+<section class="matrix-showcase" id="calculator-section">
+  <div class="container calc-grid reveal">
+    <div class="calc-controls">
+      <span class="section-badge" data-i18n="calc_badge">Калибровка сбережений</span>
+      <h2 data-i18n="calc_h2">Анализ тарифов закрытого инвентаря</h2>
+      <p data-i18n="calc_p">Интерактивная демонстрация формирования стоимости при устранении розничных наценок открытых маркетплейсов.</p>
+      <div class="slider-container">
+        <input type="range" min="0" max="3" value="0" class="custom-slider" id="dest-slider" oninput="updateCalculator(this.value)">
+        <div class="slider-labels">
+          <span>MALDIVES</span>
+          <span>DUBAI</span>
+          <span>LONDON</span>
+          <span>ROME</span>
+        </div>
+      </div>
+    </div>
+    <div class="calc-display">
+      <div class="display-destination" id="location-name">Maldives / Overwater Villa</div>
+      <div class="rate-row">
+        <span data-i18n="calc_retail">Розничные платформы (Booking, Airbnb, Expedia)</span>
+        <span id="retail-price">$1,420</span>
+      </div>
+      <div class="rate-row">
+        <span data-i18n="calc_wholesale">Оптовый слой (Travel Advantage)</span>
+        <span id="status-price">$840</span>
+      </div>
+      <div class="rate-row total">
+        <span data-i18n="calc_savings">Чистые сбережения (без торговых надстроек)</span>
+        <span class="delta-val" id="delta-display">$580</span>
+      </div>
+      <span class="realism-note" data-i18n="calc_note">*В среднем по категории. Фактические показатели зависят от сезонности, категории размещения и глубины бронирования.</span>
+    </div>
+  </div>
+</section>
+
+<section class="container reveal">
+  <div class="section-header">
+    <span class="section-badge">Tactile Evidence</span>
+    <h2 class="section-title" data-i18n="evid_h2">Устранение посреднических наценок</h2>
+  </div>
+  <div class="evidence-box">
+    <div class="evidence-header">
+      <span>MEMBER RATE TRACE</span>
+      <span>INVENTORY MATCH: VERIFIED</span>
+    </div>
+    [ВЕРИФИКАЦИЯ ДАННЫХ] Сравнительный снимок экрана: Открытый розничный OTA-сервис фиксирует цену запрашиваемого лота на отметке $540. Параллельный запрос через закрытый оптовый шлюз Travel Advantage по тому же идентификатору объекта возвращает чистую стоимость $324. Маркетинговые и посреднические наценки в размере 40% полностью удалены из транзакции.
+  </div>
+</section>
+
+<section class="container reveal">
+  <div class="section-header" style="max-width: 700px;">
+    <span class="section-badge" data-i18n="tiers_badge">Инфраструктурные уровни</span>
+    <h2 class="section-title" data-i18n="tiers_h2">Выбор протокола интеграции</h2>
+  </div>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div>
+        <div class="tier-name">Smart Tier</div>
+        <div class="tier-price">$199 <span>/ год</span></div>
+        <ul class="tier-features">
+          <li data-i18n="t1_f1">Прямой доступ к закрытому инвентарю</li>
+          <li data-i18n="t1_f2">Гарантия лучшей цены 150%</li>
+          <li data-i18n="t1_f3">1 дополнительный пользователь</li>
+          <li data-i18n="t1_f4">15 гостевых пропусков</li>
+        </ul>
+      </div>
+      <button class="btn-tier" onclick="executeRoute('smart')" data-i18n="t1_btn">Активировать Smart</button>
+    </div>
+    
+    <div class="tier-card featured">
+      <div class="tier-badge">Elite Access</div>
+      <div>
+        <div class="tier-name">Elite Access</div>
+        <div class="tier-price">$340 <span>/ год</span></div>
+        <ul class="tier-features">
+          <li data-i18n="t2_f1">Максимальная глубина дисконтирования</li>
+          <li data-i18n="t2_f2">Доступ к оптовой базе VIP-уровня</li>
+          <li data-i18n="t2_f3">4 дополнительных пользователя</li>
+          <li data-i18n="t2_f4">50 стартовых гостевых пакетов</li>
+          <li data-i18n="t2_f5">Приоритетная обработка маршрутов</li>
+        </ul>
+      </div>
+      <button class="btn-tier" onclick="executeRoute('elite')" data-i18n="t2_btn">Выбрать Elite Access</button>
+    </div>
+    
+    <div class="tier-card">
+      <div>
+        <div class="tier-name">Executive Tier</div>
+        <div class="tier-price">$590 <span>/ год</span></div>
+        <ul class="tier-features">
+          <li data-i18n="t3_f1">Глобальный пакет масштабирования</li>
+          <li data-i18n="t3_f2">Интеграция выделенного VIP-маршрута</li>
+          <li data-i18n="t3_f3">Персональный маршрут и concierge-level support</li>
+          <li data-i18n="t3_f4">Выделенный приоритет для Guest-слотов</li>
+        </ul>
+      </div>
+      <button class="btn-tier" onclick="executeRoute('executive')" data-i18n="t3_btn">Открыть Executive Access</button>
+    </div>
+  </div>
+</section>
+
+<section class="podcast-section">
+  <div class="container reveal">
+    <div class="podcast-container">
+      <span class="section-badge" style="margin-bottom: 8px;">Access Session</span>
+      <h3 style="font-size: 24px; margin-bottom: 12px;" data-i18n="pod_h3">Как устроены закрытые travel-модели</h3>
+      <p style="color: var(--text-dim); font-size: 14px; max-width: 500px; margin: 0 auto;" data-i18n="pod_p">Краткий разбор механизмов распределения оптового инвентаря и природы ценообразования современных агрегаторов.</p>
+      <div class="audio-wave">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+      <button class="btn-primary" style="padding: 12px 24px; font-size: 11px;" onclick="alert('Воспроизведение сессии...')" data-i18n="pod_btn">Слушать сессию</button>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container reveal">
+    <div class="section-header">
+      <span class="section-badge" data-i18n="faq_badge">Архитектурный FAQ</span>
+      <h2 class="section-title" data-i18n="faq_h2">Часто запрашиваемые протоколы</h2>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="faq-item">
+        <button class="faq-toggle" onclick="toggleFaq(this)" data-i18n="fq1">За счет чего формируется разница в стоимости?</button>
+        <div class="faq-body">
+          <div class="faq-content">
+            <span data-i18n="fa1">Публичные розничные платформы (Booking, Expedia) расходуют значительную часть маржи на глобальный маркетинг. Платформа Travel Advantage функционирует по закрытой клубной модели, закупая инвентарь напрямую у поставщиков без розничных надстроек.</span>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-toggle" onclick="toggleFaq(this)" data-i18n="fq2">Как работает гарантия лучшей цены 150%?</button>
+        <div class="faq-body">
+          <div class="faq-content">
+            <span data-i18n="fa2">В случае обнаружения идентичного предложения с более низкой стоимостью в открытых источниках, система компенсирует 150% разницы через внутренние расчетные инструменты (Loyalty Credits).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="font-size: 16px; margin-bottom: 8px;">Travel<span>Status</span></div>
+        <p style="color: rgba(255,255,255,0.3);">Private Mobility Gateway &copy; 2026</p>
+      </div>
+      <div style="text-align: right;">
+        <p style="color: var(--gold);">Официальный шлюз: Travel Advantage</p>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <span data-i18n="disclaimer">Данный веб-ресурс является независимым партнерским сайтом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает персональные платежные данные и направляет пользователей на официальные шлюзы компании.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const destinationData = [
+    { name: "Maldives / Overwater Villa", retail: "$1,420", status: "$840", delta: "$580" },
+    { name: "Dubai / Business Bay", retail: "$680", status: "$410", delta: "$270" },
+    { name: "London / City Suite", retail: "$520", status: "$340", delta: "$180" },
+    { name: "Rome / Historic Center", retail: "$460", status: "$290", delta: "$170" }
+  ];
+
+  // Скрипт плавного скролла к калькулятору
+  function scrollToCalculator() {
+    const calcSection = document.getElementById('calculator-section');
+    if (calcSection) {
+      calcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function updateCalculator(val) {
+    const data = destinationData[val];
+    document.getElementById('location-name').innerText = data.name;
+    document.getElementById('retail-price').innerText = data.retail;
+    document.getElementById('status-price').innerText = data.status;
+    document.getElementById('delta-display').innerText = data.delta;
+  }
+
+  function toggleFaq(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    
+    document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = null);
+    document.querySelectorAll('.faq-toggle').forEach(t => t.classList.remove('open'));
+    
+    if (!isOpen) {
+      btn.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + "px";
+    }
+  }
+
+  // Staged Ambient Transition (600ms)
+  function executeRoute(gatewayKey) {
+    const overlay = document.getElementById('routing-overlay');
+    const textNode = document.getElementById('bridge-text');
+    
+    const gateways = {
+      'guest': 'https://free.traveladvantage.com/Status',
+      'smart': 'https://join.traveladvantage.com/Status',
+      'elite': 'https://www.mwrlife.com/Status',
+      'executive': 'https://vip.traveladvantage.com/Status'
+    };
+
+    const targetUrl = gateways[gatewayKey] || 'https://www.mwrlife.com/Status';
+
+    overlay.style.display = 'flex';
+    
+    const stages = [
+      { t: 0,   bg: '#111111', color: '#C9A84C', txt: 'Подготовка private access...' },
+      { t: 150, bg: '#2A241E', color: '#C9A84C', txt: 'Ваш маршрут открыт...' },
+      { t: 300, bg: '#706556', color: '#111111', txt: 'Перенаправление в Travel Advantage...' },
+      { t: 450, bg: '#D9D0C2', color: '#111111', txt: 'Подключение к партнерской инфраструктуре...' },
+      { t: 550, bg: '#FAF6EE', color: '#111111', txt: 'Вход выполнен.' }
+    ];
+
+    stages.forEach(stage => {
+      setTimeout(() => {
+        overlay.style.backgroundColor = stage.bg;
+        textNode.style.color = stage.color;
+        textNode.innerText = stage.txt;
+      }, stage.t);
+    });
+
+    setTimeout(() => {
+      window.location.href = targetUrl;
+    }, 600);
+  }
+
+  // Intersection Observer
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 40);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.03 });
+  reveals.forEach(el => observer.observe(el));
+
+
+  // ── I18N ────────────────────────────────────────────────────────────────────
+  const T = {
+    ru: {
+      insider:'Insider Layer',
+      hero_badge:'Private Access Protocol',
+      hero_h1:'Private Mobility Access',
+      flow1:'Booking, Airbnb и Expedia — это розничные витрины travel-рынка.<br><span>Travel Advantage</span> — закрытый оптовый слой доступа.',
+      flow2:'Абсолютное большинство travel-платформ функционируют по розничной модели, перекладывая расходы на глобальную рекламу в чеки клиентов. Мы открываем прямую разницу между розничными тарифами и direct-access стоимостью инвентаря.',
+      flow3:'На сколько реально можно было снизить стоимость твоего последнего путешествия?',
+      flow3b:'Посчитаем?',
+      hero_btn:'Посчитать разницу',
+      hero_sub:'Travel through direct access, not retail noise.',
+      retail:'розница',
+      proto_badge:'Алгоритм взаимодействия',
+      proto_h2:'Прямая маршрутизация персонального трафика',
+      p1_num:'01 / АВТОРИЗАЦИЯ',p1_desc:'Инициация гостевого аккаунта для первичного ознакомления с архитектурой оптового склада.',
+      p2_num:'02 / ВЕРИФИКАЦИЯ',p2_h3:'Сравнение тарифов',p2_desc:'Сопоставление публичных розничных цен агрегаторов с прямыми шлюзами закрытой системы в реальном времени.',
+      p3_num:'03 / ОПТИМИЗАЦИЯ',p3_desc:'Бронирование ресурсов без скрытых комиссий, рекламных бюджетов и посреднических звеньев.',
+      calc_badge:'Калибровка сбережений',calc_h2:'Анализ тарифов закрытого инвентаря',
+      calc_p:'Интерактивная демонстрация формирования стоимости при устранении розничных наценок открытых маркетплейсов.',
+      calc_retail:'Розничные платформы (Booking, Airbnb, Expedia)',
+      calc_wholesale:'Оптовый слой (Travel Advantage)',
+      calc_savings:'Чистые сбережения (без торговых надстроек)',
+      calc_note:'*В среднем по категории. Фактические показатели зависят от сезонности, категории размещения и глубины бронирования.',
+      evid_h2:'Устранение посреднических наценок',
+      tiers_badge:'Инфраструктурные уровни',tiers_h2:'Выбор протокола интеграции',
+      t1_f1:'Прямой доступ к закрытому инвентарю',t1_f2:'Гарантия лучшей цены 150%',t1_f3:'1 дополнительный пользователь',t1_f4:'15 гостевых пропусков',t1_btn:'Активировать Smart',
+      t2_f1:'Максимальная глубина дисконтирования',t2_f2:'Доступ к оптовой базе VIP-уровня',t2_f3:'4 дополнительных пользователя',t2_f4:'50 стартовых гостевых пакетов',t2_f5:'Приоритетная обработка маршрутов',t2_btn:'Выбрать Elite Access',
+      t3_f1:'Глобальный пакет масштабирования',t3_f2:'Интеграция выделенного VIP-маршрута',t3_f3:'Персональный маршрут и concierge-level support',t3_f4:'Выделенный приоритет для Guest-слотов',t3_btn:'Открыть Executive Access',
+      pod_h3:'Как устроены закрытые travel-модели',pod_p:'Краткий разбор механизмов распределения оптового инвентаря и природы ценообразования современных агрегаторов.',pod_btn:'Слушать сессию',
+      faq_badge:'Архитектурный FAQ',faq_h2:'Часто запрашиваемые протоколы',
+      fq1:'За счет чего формируется разница в стоимости?',fa1:'Публичные розничные платформы расходуют значительную часть маржи на глобальный маркетинг. Travel Advantage функционирует по закрытой клубной модели, закупая инвентарь напрямую у поставщиков без розничных надстроек.',
+      fq2:'Как работает гарантия лучшей цены 150%?',fa2:'В случае обнаружения идентичного предложения с более низкой стоимостью в открытых источниках, система компенсирует 150% разницы через внутренние расчетные инструменты (Loyalty Credits).',
+      disclaimer:'Данный веб-ресурс является независимым партнерским сайтом Амбассадора компании MWR Life и платформы Travel Advantage. Сайт создан в информационных целях, не собирает персональные платежные данные и направляет пользователей на официальные шлюзы компании.',
+      bridge:['Подготовка private access...','Ваш маршрут открыт...','Перенаправление в Travel Advantage...','Подключение к партнерской инфраструктуре...','Вход выполнен.'],
+    },
+    en: {
+      insider:'Insider Layer',
+      hero_badge:'Private Access Protocol',
+      hero_h1:'Private Mobility Access',
+      flow1:'Booking, Airbnb and Expedia are the retail storefronts of the travel market.<br><span>Travel Advantage</span> is the closed wholesale access layer.',
+      flow2:'The vast majority of travel platforms operate on a retail model, passing global advertising costs into client bills. We open the direct gap between retail tariffs and direct-access inventory pricing.',
+      flow3:'How much could you really have reduced the cost of your last trip?',
+      flow3b:'Shall we calculate?',
+      hero_btn:'Calculate the difference',
+      hero_sub:'Travel through direct access, not retail noise.',
+      retail:'retail',
+      proto_badge:'Interaction Algorithm',
+      proto_h2:'Direct Routing of Personal Traffic',
+      p1_num:'01 / AUTHORIZATION',p1_desc:'Initiate a guest account for initial familiarization with the wholesale warehouse architecture.',
+      p2_num:'02 / VERIFICATION',p2_h3:'Rate Comparison',p2_desc:'Real-time comparison of public retail aggregator prices with direct gateways of the closed system.',
+      p3_num:'03 / OPTIMIZATION',p3_desc:'Resource booking without hidden commissions, advertising budgets or intermediary layers.',
+      calc_badge:'Savings Calibration',calc_h2:'Closed Inventory Rate Analysis',
+      calc_p:'Interactive demonstration of cost formation when retail markups of open marketplaces are eliminated.',
+      calc_retail:'Retail platforms (Booking, Airbnb, Expedia)',
+      calc_wholesale:'Wholesale layer (Travel Advantage)',
+      calc_savings:'Net savings (without trading markups)',
+      calc_note:'*Category average. Actual savings depend on seasonality, accommodation category and booking depth.',
+      evid_h2:'Elimination of Intermediary Markups',
+      tiers_badge:'Infrastructure Levels',tiers_h2:'Choose Integration Protocol',
+      t1_f1:'Direct access to closed inventory',t1_f2:'150% best price guarantee',t1_f3:'1 additional user',t1_f4:'15 guest passes',t1_btn:'Activate Smart',
+      t2_f1:'Maximum discount depth',t2_f2:'Access to VIP-level wholesale base',t2_f3:'4 additional users',t2_f4:'50 starter guest packages',t2_f5:'Priority route processing',t2_btn:'Choose Elite Access',
+      t3_f1:'Global scaling package',t3_f2:'Dedicated VIP route integration',t3_f3:'Personal route and concierge-level support',t3_f4:'Dedicated access priority for Guest slots',t3_btn:'Open Executive Access',
+      pod_h3:'How closed travel models work',pod_p:'A brief breakdown of wholesale inventory distribution mechanics and the nature of modern aggregator pricing.',pod_btn:'Listen to session',
+      faq_badge:'Architectural FAQ',faq_h2:'Frequently Requested Protocols',
+      fq1:'What drives the price difference?',fa1:'Public retail platforms spend a significant portion of their margin on global marketing. Travel Advantage operates on a closed club model, sourcing inventory directly from suppliers without retail markups.',
+      fq2:'How does the 150% best price guarantee work?',fa2:'If an identical bookable offer at a lower price is found in open retail sources, the system compensates 150% of the difference through internal accounting tools (Loyalty Credits).',
+      disclaimer:'This web resource is an independent partner site of an MWR Life Ambassador. Created for informational purposes only, does not collect personal payment data directly, and routes users to official company gateways for final subscription and booking processing.',
+      bridge:['Preparing private access...','Your route is open...','Redirecting to Travel Advantage...','Connecting to partner infrastructure...','Access granted.'],
+    },
+    kz: {
+      insider:'Insider Layer',
+      hero_badge:'Жеке Қатынас Протоколы',
+      hero_h1:'Жеке Мобильділік Қатынасы',
+      flow1:'Booking, Airbnb және Expedia — туристік нарықтың бөлшек сауда витриналары.<br><span>Travel Advantage</span> — жабық көтерме қатынас деңгейі.',
+      flow2:'Туристік платформалардың абсолютті көпшілігі бөлшек сауда моделі бойынша жұмыс істейді, жаһандық жарнамаға жұмсалған шығындарды клиенттердің шоттарына аударады. Біз бөлшек тарифтер мен тікелей қатынас инвентарь бағасының айырмасын ашамыз.',
+      flow3:'Соңғы сапарыңыздың құнын шынымен қаншалықты төмендетуге болмаді?',
+      flow3b:'Есептейік?',
+      hero_btn:'Айырманы есептеу',
+      hero_sub:'Бөлшек шулаудың орнына тікелей қатынас арқылы саяхат етіңіз.',
+      retail:'бөлшек',
+      proto_badge:'Өзара Әрекет Алгоритмі',
+      proto_h2:'Жеке Трафиктің Тікелей Маршрутизациясы',
+      p1_num:'01 / АВТОРИЗАЦИЯ',p1_desc:'Көтерме қойма архитектурасымен алғашқы танысу үшін қонақ аккаунтын іске қосу.',
+      p2_num:'02 / ВЕРИФИКАЦИЯ',p2_h3:'Тарифтерді салыстыру',p2_desc:'Агрегаторлардың жалпыға қол жетімді бөлшек бағаларын жабық жүйенің тікелей шлюздерімен нақты уақытта салыстыру.',
+      p3_num:'03 / ОПТИМИЗАЦИЯ',p3_desc:'Жасырын комиссиялар, жарнама бюджеттері және делдалдық буындарсыз ресурстарды броньдау.',
+      calc_badge:'Жинақтауды Калибрлеу',calc_h2:'Жабық Инвентарь Тарифтерін Талдау',
+      calc_p:'Ашық маркетплейстердің бөлшек үстемеақыларын жоюда құн қалыптасуының интерактивті демонстрациясы.',
+      calc_retail:'Бөлшек платформалар (Booking, Airbnb, Expedia)',
+      calc_wholesale:'Көтерме деңгей (Travel Advantage)',
+      calc_savings:'Таза жинақтаулар (сауда надстройкаларынсыз)',
+      calc_note:'*Санат бойынша орташа. Нақты жинақтаулар маусымдылыққа, тұру санатына және броньдау тереңдігіне байланысты.',
+      evid_h2:'Делдалдық Үстемеақыларды Жою',
+      tiers_badge:'Инфрақұрылым Деңгейлері',tiers_h2:'Интеграция Протоколын Таңдау',
+      t1_f1:'Жабық инвентарьға тікелей қатынас',t1_f2:'Ең жақсы баға кепілдігі 150%',t1_f3:'1 қосымша пайдаланушы',t1_f4:'15 қонақ өткізу жолдамасы',t1_btn:'Smart белсендіру',
+      t2_f1:'Максималды дисконтирование тереңдігі',t2_f2:'VIP деңгейлі көтерме базаға қатынас',t2_f3:'4 қосымша пайдаланушы',t2_f4:'50 стартап қонақ пакеті',t2_f5:'Маршруттарды басым өңдеу',t2_btn:'Elite Access таңдау',
+      t3_f1:'Жаһандық масштабтау пакеті',t3_f2:'Арналған VIP-маршрутты интеграциялау',t3_f3:'Жеке маршрут және concierge деңгейлі қолдау',t3_f4:'Guest-слоттарға арналған басымдықты қатынас',t3_btn:'Executive Access ашу',
+      pod_h3:'Жабық туристік модельдер қалай жұмыс істейді',pod_p:'Көтерме инвентарьды таратудың механизмдері мен заманауи агрегаторлардың баға белгілеу табиғатының қысқаша талдауы.',pod_btn:'Сессияны тыңдау',
+      faq_badge:'Архитектуралық FAQ',faq_h2:'Жиі Сұралатын Протоколдар',
+      fq1:'Баға айырмасы неден қалыптасады?',fa1:'Жалпыға қол жетімді бөлшек платформалар маржасының елеулі бөлігін жаһандық маркетингке жұмсайды. Travel Advantage жабық клуб моделі бойынша жұмыс істейді, инвентарьды бөлшек надстройкаларсыз тікелей жеткізушілерден сатып алады.',
+      fq2:'150% ең жақсы баға кепілдігі қалай жұмыс істейді?',fa2:'Ашық бөлшек көздерде төменірек бағамен броньдауға қол жетімді идентикалық ұсыныс табылған жағдайда, жүйе ішкі есептеу құралдары арқылы айырманың 150%-ін өтейді (Loyalty Credits).',
+      disclaimer:'Бұл веб-ресурс MWR Life компаниясы мен Travel Advantage платформасының Амбассадорының тәуелсіз серіктестік сайты болып табылады. Сайт ақпараттық мақсатта жасалған, жеке төлем деректерін тікелей жинамайды және пайдаланушыларды жазылымдар мен броньдаулар үшін компанияның ресми шлюздеріне бағыттайды.',
+      bridge:['Жеке қатынасты дайындау...','Маршрутыңыз ашық...','Travel Advantage-ге бағыттау...','Серіктестік инфрақұрылымға қосылу...','Кіру орындалды.'],
+    }
+  };
+
+  let currentLang = 'ru';
+
+  function applyLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('ts-lang', lang);
+    const t = T[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (t[k] !== undefined) el.innerHTML = t[k];
+    });
+    document.getElementById('langLabel').textContent = lang.toUpperCase();
+    document.querySelectorAll('.lang-drop button').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    document.documentElement.lang = lang;
+    // Update bridge default text
+    if (t.bridge) document.getElementById('bridge-text').textContent = t.bridge[0];
+  }
+
+  function toggleDrop(e) {
+    e.stopPropagation();
+    document.getElementById('langBtn').classList.toggle('open');
+    document.getElementById('langDrop').classList.toggle('open');
+  }
+  function setLang(lang) {
+    document.getElementById('langBtn').classList.remove('open');
+    document.getElementById('langDrop').classList.remove('open');
+    applyLang(lang);
+  }
+  document.addEventListener('click', () => {
+    document.getElementById('langDrop').classList.remove('open');
+    document.getElementById('langBtn').classList.remove('open');
+  });
+
+  // Override executeRoute to use translated bridge texts
+  const _origExecuteRoute = executeRoute;
+  function executeRoute(key) {
+    const gateways = {
+      'guest':'https://free.traveladvantage.com/Status',
+      'smart':'https://join.traveladvantage.com/Status',
+      'elite':'https://www.mwrlife.com/Status',
+      'executive':'https://vip.traveladvantage.com/Status'
+    };
+    const overlay = document.getElementById('routing-overlay');
+    const textNode = document.getElementById('bridge-text');
+    const targetUrl = gateways[key] || 'https://www.mwrlife.com/Status';
+    const bt = (T[currentLang] || T.ru).bridge;
+    overlay.style.display = 'flex';
+    const timings = [0, 150, 300, 450, 550];
+    const bgs = ['#111111','#2A241E','#706556','#D9D0C2','#FAF6EE'];
+    const colors = ['#C9A84C','#C9A84C','#111111','#111111','#111111'];
+    timings.forEach((t, i) => {
+      setTimeout(() => {
+        overlay.style.backgroundColor = bgs[i];
+        textNode.style.color = colors[i];
+        textNode.textContent = bt[i] || '';
+      }, t);
+    });
+    setTimeout(() => { window.location.href = targetUrl; }, 600);
+  }
+
+  // Init
+  (function() {
+    const saved = localStorage.getItem('ts-lang');
+    const nav = (navigator.language || 'ru').split('-')[0].toLowerCase();
+    const map = { ru:'ru', kk:'kz', kz:'kz', en:'en' };
+    applyLang(saved || map[nav] || 'ru');
+  })();
+
+</script>
+</body>
+</html>
