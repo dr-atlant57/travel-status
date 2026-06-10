@@ -133,6 +133,121 @@
             color: var(--text-muted);
             text-align: center;
         }
+        /* SIMULATOR STYLES */
+        .simulator-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .sim-header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 15px;
+        }
+        .sim-header h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.4rem;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+            text-transform: uppercase;
+        }
+        .sim-header p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #5a5a5a;
+        }
+        .sim-control-box {
+            margin-bottom: 30px;
+        }
+        .sim-input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+        }
+        .sim-input-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+        .sim-input-group input {
+            padding: 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            background-color: #fff;
+        }
+        .sim-slider-group input {
+            width: 100%;
+            accent-color: #1a1a1a;
+            cursor: pointer;
+        }
+        .sim-metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 576px) {
+            .sim-metrics-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .sim-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sim-card.retail-loss { border-top: 4px solid #b30000; }
+        .sim-card.membership-roi { border-top: 4px solid #006633; }
+        .sim-metric-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #5a5a5a;
+            margin-bottom: 6px;
+        }
+        .sim-metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .sim-breakdown-panel {
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        .sim-breakdown-panel h4 {
+            margin: 0 0 15px 0;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            border-bottom: 1px dashed #e5e5e5;
+            padding-bottom: 10px;
+        }
+        .sim-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+        }
+        .sim-total-row {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e5e5;
+            font-size: 0.95rem;
+        }
+        .sim-red-text { color: #b30000; font-weight: 600; }
+        .sim-green-text { color: #006633; font-weight: 600; }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.75rem; }
             h2 { font-size: 1.3rem; }
@@ -205,6 +320,57 @@
             </tbody>
         </table>
 
+        <!-- INTEGRATED SIMULATOR COMPONENT -->
+        <div class="simulator-container" id="distribution-simulator">
+            <div class="sim-header">
+                <h3 id="sim-title">Hotel Pricing Distribution Simulator</h3>
+                <p id="sim-subtitle">Analyze institutional price leakage and club membership ROI</p>
+            </div>
+            
+            <div class="sim-body">
+                <div class="sim-control-box">
+                    <div class="sim-input-group">
+                        <label for="sim-retail-input" id="sim-label-retail">Estimated Annual Hotel Spend ($)</label>
+                        <input type="number" id="sim-retail-input" value="5000" min="500" max="100000" oninput="runSimulation()">
+                    </div>
+                    <div class="sim-slider-group">
+                        <input type="range" id="sim-retail-slider" min="500" max="25000" value="5000" step="500" oninput="syncSimSlider(this.value)">
+                    </div>
+                </div>
+
+                <div class="sim-metrics-grid">
+                    <div class="sim-card retail-loss">
+                        <span class="sim-metric-label" id="sim-label-leak">Intermediary Markup Loss</span>
+                        <span class="sim-metric-value" id="sim-val-leak">$0</span>
+                    </div>
+                    <div class="sim-card membership-roi">
+                        <span class="sim-metric-label" id="sim-label-savings">Net Savings (After Club Fee)</span>
+                        <span class="sim-metric-value" id="sim-val-savings">$0</span>
+                    </div>
+                </div>
+
+                <div class="sim-breakdown-panel">
+                    <h4 id="sim-breakdown-title">Loss Allocation Breakdown</h4>
+                    <div class="sim-row">
+                        <span id="sim-row-ota">B2C OTA Retail Commission (18%)</span>
+                        <span class="sim-red-text" id="sim-val-ota">$0</span>
+                    </div>
+                    <div class="sim-row">
+                        <span id="sim-row-gds">GDS & Merchant Switch Fees (7%)</span>
+                        <span class="sim-red-text" id="sim-val-gds">$0</span>
+                    </div>
+                    <div class="sim-row">
+                        <span id="sim-row-meta">Metasearch Ad Arbitrage (5%)</span>
+                        <span class="sim-red-text" id="sim-val-meta">$0</span>
+                    </div>
+                    <div class="sim-row sim-total-row">
+                        <strong id="sim-row-total-net">Pure Wholesale Base Cost</strong>
+                        <strong class="sim-green-text" id="sim-val-total-net">$0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h2 data-i18n="h2_2">Why Public Alternatives Do Not Offer Deep Discounts</h2>
         <p data-i18n="p3">Many travelers switch from one public booking site to another expecting significant price discrepancies. However, because hotels sign strict rate-parity clauses with major distributors, they are contractually obligated to maintain the same public rate across all open platforms. Any site that openly displays hotel rooms without an explicit login screen is bound by these retail pricing rules.</p>
         
@@ -251,19 +417,16 @@ const translations = {
         p5: "When choosing a professional alternative to standard booking engines, look for platforms that do not invest heavily in public television or search engine marketing. These public ad budgets are paid for by the retail markups added to your room nights. Private club architectures, subscription-based networks, and verified travel identity platforms are the only technical pathways to acquiring direct wholesale pricing."
     },
     ru: {
-        meta_title: "Альтернативы Booking и закрытые системы бронирования | TravelStatus",
-        meta_desc: "Профессиональные альтернативы открытым агрегаторам отелей. Как закрытые клубы и оптовые сети обходят розничные наценки рынка.",
         h1: "Альтернативы бронированию отелей: выход за рамки публичного ритейла",
         meta_descr: "Сравнительный анализ открытых потребительских платформ бронирования и закрытых оптовых систем с доступом по учетным данным.",
         p1: "Рынок бронирования отелей монополизирован структурами, которые контролируют более 85% глобального трафика розничных агентств (OTA). Для премиальных путешественников поиск по разным открытым сайтам выдает одинаковые цены. Чтобы найти реальные альтернативы, необходимо уйти от публичных витрин к закрытым, неиндексируемым экосистемам.",
         quote: "Настоящие альтернативы привычным сервисам бронирования — это не просто другие сайты, а принципиально иные бизнес-модели, работающие вне рамок публичного ценообразования.",
         h2_1: "Классификация ландшафта систем бронирования",
-        p2: "Для обхода традиционных розничных наценок необходимо разделить доступные интерфейсы бронирования по их архитектурным моделям и ограничениям:",
         th1: "Модель бронирования", th2: "Доступ к платформе", th3: "Ограничения тарифов",
         td1_1: "Публичные OTA (Booking, Expedia)", td1_2: "Открыты для всех пользователей без авторизации. Полностью индексируются поисковиками.", td1_3: "Подчиняются жестким соглашениям о публичном паритете цен.",
         td2_1: "Метапоисковики (KAYAK, Google Travel)", td2_2: "Открытые агрегаторы, собирающие цены публичных розничных сайтов в один интерфейс.", td2_3: "Ограничены розничными тарифами и базовыми скидками программ лояльности.",
-        td3_1: "Корпоративные порталы", td3_2: "Доступ ограничен для верифицированных корпоративных клиентов и сотрудников компаний.", td3_3: "Согласованные фиксированные корпоративные тарифы (непубличные).",
-        td4_1: "Закрытые клубные сети (CUG)", td4_2: "Закрытые группы пользователей, требующие верификации, инвайта или авторизации.", td4_3: "Юридически свободны от паритета цен. Прямой доступ к оптовым нетто-тарифам.",
+        td3_1: "Corporate Portals", td3_2: "Доступ ограничен для верифицированных корпоративных клиентов и сотрудников компаний.", td3_3: "Согласованные фиксированные корпоративные тарифы (непубличные).",
+        td4_1: "Private Club Networks (CUG)", td4_2: "Закрытые группы пользователей, требующие верификации, инвайта или авторизации.", td4_3: "Юридически свободны от паритета цен. Прямой доступ к оптовым нетто-тарифам.",
         h2_2: "Почему открытые альтернативы не дают реальной экономии",
         p3: "Многие путешественники меняют один публичный сайт на другой в надежде обнаружить существенную разницу в цене. Однако из-за жестких контрактов о паритете цен (Rate Parity) отели обязаны поддерживать одинаковую стоимость на всех открытых площадках. Любой ресурс, показывающий цены без обязательной авторизации, зажат в рамки розничных правил.",
         p4: "Реальная оптимизация затрат возможна только тогда, когда интерфейс имеет юридический статус Закрытой Группы Пользователей (CUG — Closed User Group). Поскольку такие платформы скрывают цены за защищенным контуром авторизации, они выводятся из-под правил паритета цен, что позволяет передавать оптовые фиды бедбанков напрямую клиенту без розничных накруток.",
@@ -272,26 +435,108 @@ const translations = {
         b_btn: "Запросить прямой оптовый доступ",
         h2_3: "Выбор стратегической альтернативы бронирования",
         p5: "Выбирая профессиональную альтернативу стандартным поисковикам, обращайте внимание на платформы, которые не ведут агрессивных рекламных кампаний на телевидении или в поисковых сетях. Эти маркетинговые бюджеты оплачиваются за счет наценок на ваши бронирования. Закрытые клубные архитектуры, подписные сети и верифицированные системы — единственный технологический путь к чистым оптовым ценам."
+    }
+};
+
+const simTranslations = {
+    en: {
+        title: "Hotel Pricing Distribution Simulator",
+        subtitle: "Analyze institutional price leakage and club membership ROI",
+        retail: "Estimated Annual Hotel Spend ($)",
+        leak: "Intermediary Markup Loss",
+        savings: "Net Savings (After Club Fee)",
+        h4: "Loss Allocation Breakdown",
+        ota: "B2C OTA Retail Commission (18%)",
+        gds: "GDS & Merchant Switch Fees (7%)",
+        meta: "Metasearch Ad Arbitrage (5%)",
+        total: "Pure Wholesale Base Cost"
     },
-    de: {
-        meta_title: "Hotel Buchung Alternativen & Private Netzwerke | TravelStatus",
-        meta_desc: "Entdecken Sie professionelle Alternativen zu öffentlichen Hotel-Buchungsportalen. Wie private Netzwerke den Einzelhandelsaufschlag umgehen.",
-        h1: "Alternativen zur Hotelbuchung: Jenseits von öffentlichen Plattformen",
-        meta_descr: "Eine Bewertung von offenen Buchungsportalen im Vergleich zu privaten Großhandelsalternativen und geschlossenen Netzwerken.",
-        p1: "Der Markt für Hotelbuchungen wird von einem strengen Duopol beherrscht, das den Großteil des öffentlichen Datenverkehrs kontrolliert. Für Premium-Reisende bieten alle offenen Plattformen identische Preise. Echte Alternativen liegen in privaten, nicht indexierten Buchungsökosystemen.",
-        quote: "Echte Alternativen zu Standard-Buchungsportalen sind keine anderen Websites – es sind andere Geschäftsmodelle außerhalb öffentlicher Preisbindungen.",
-        h2_1: "Strukturelle Analyse der Buchungsmodelle",
-        p2: "Um Einzelhandelsaufschläge zu umgehen, unterteilen wir die Buchungsschnittstellen nach ihren Modellen und Beschränkungen:",
-        th1: "Buchungsmodell", th2: "Plattformzugang", th3: "Tarifbeschränkungen",
-        td1_1: "Öffentliche OTAs (Booking, Expedia)", td1_2: "Offen für alle Nutzer ohne Anmeldung. Vollständig von Suchmaschinen indexiert.", td1_3: "Unterliegt strengen Verträgen zur Ratenparität.",
-        td2_1: "Metasuchmaschinen (KAYAK, Google Travel)", td2_2: "Offene Aggregatoren, die Preise öffentlicher Einzelhandelsseiten vergleichen.", td2_3: "Beschränkt auf öffentliche Endkundenpreise und Standard-Rabatte.",
-        td3_1: "Corporate Portale", td3_2: "Zugang nur für verifizierte Unternehmenskunden und deren Mitarbeiter.", td3_3: "Ausgehandelte feste Firmentarife (nicht öffentlich).",
-        td4_1: "Private Club-Netzwerke (CUG)", td4_2: "Geschlossene Benutzergruppen, die eine Mitgliedschaft oder Zugangsdaten erfordern.", td4_3: "Befreit von der Ratenparität. Direkter Zugriff auf Netto-Großhandelspreise.",
-        h2_2: "Warum öffentliche Alternativen keine tiefen Rabatte bieten",
-        p3: "Viele Reisende wechseln zwischen öffentlichen Portalen und erwarten Preisunterschiede. Da Hotels jedoch Ratenparitätsklauseln unterzeichnen, müssen sie überall denselben Preis anzeigen. Jede Seite ohne Login unterliegt diesen Einzelhandelsregeln.",
-        p4: "Echte Optimierung wird nur erreicht, wenn die Plattform als geschlossene Benutzergruppe (CUG) eingestuft ist. Da diese Netzwerke Tarife hinter einem Login verbergen, umgehen sie die Ratenparität und geben Großhandelspreise ohne Aufschläge weiter.",
-        b_title: "Zugang zu privater Rateninfrastruktur",
-        b_text: "TravelStatus agiert außerhalb des öffentlichen Vertriebs und leitet Anfragen direkt an sichere B2B-Großhandelsnetzwerke weiter.",
-        b_btn: "Direkten Großhandelszugang anfordern",
-        h2_3: "Auswahl einer strategischen Buchungsalternative",
-        p5: "Achten Sie bei der Auswahl professioneller Alternativen auf Plattformen, die auf teure öffentliche Werbung verzichten. Diese Bud
+    ru: {
+        title: "Hotel Pricing Distribution Simulator",
+        subtitle: "Анализ утечки бюджета в ритейл-каналах и окупаемости подписки",
+        retail: "Ваш примерный годовой бюджет на отели ($)",
+        leak: "Потери на наценках посредников",
+        savings: "Чистая выгода (за вычетом клубного взноса)",
+        h4: "Сканирование распределения скрытых комиссий",
+        ota: "Розничная маржа B2C OTA платформ (18%)",
+        gds: "Сборы шлюзов дистрибуции GDS (7%)",
+        meta: "Рекламный арбитраж метапоисковиков (5%)",
+        total: "Чистая оптовая стоимость инвентаря"
+    }
+};
+
+function syncSimSlider(val) {
+    document.getElementById('sim-retail-input').value = val;
+    runSimulation();
+}
+
+function runSimulation() {
+    let spend = parseFloat(document.getElementById('sim-retail-input').value);
+    if (isNaN(spend) || spend < 0) spend = 0;
+    document.getElementById('sim-retail-slider').value = spend;
+
+    const otaLoss = Math.round(spend * 0.18);
+    const gdsLoss = Math.round(spend * 0.07);
+    const metaLoss = Math.round(spend * 0.05);
+    const totalLeakage = otaLoss + gdsLoss + metaLoss;
+    const netWholesale = spend - totalLeakage;
+
+    const clubFee = 500;
+    const netSavings = totalLeakage > clubFee ? totalLeakage - clubFee : 0;
+
+    document.getElementById('sim-val-leak').innerText = '$' + totalLeakage.toLocaleString();
+    document.getElementById('sim-val-savings').innerText = '$' + netSavings.toLocaleString();
+    document.getElementById('sim-val-ota').innerText = '$' + otaLoss.toLocaleString();
+    document.getElementById('sim-val-gds').innerText = '$' + gdsLoss.toLocaleString();
+    document.getElementById('sim-val-meta').innerText = '$' + metaLoss.toLocaleString();
+    document.getElementById('sim-val-total-net').innerText = '$' + netWholesale.toLocaleString();
+}
+
+function updateSimLanguage(lang) {
+    const l = simTranslations[lang] || simTranslations['en'];
+    document.getElementById('sim-title').innerText = l.title;
+    document.getElementById('sim-subtitle').innerText = l.subtitle;
+    document.getElementById('sim-label-retail').innerText = l.retail;
+    document.getElementById('sim-label-leak').innerText = l.leak;
+    document.getElementById('sim-label-savings').innerText = l.savings;
+    document.getElementById('sim-breakdown-title').innerText = l.h4;
+    document.getElementById('sim-row-ota').innerText = l.ota;
+    document.getElementById('sim-row-gds').innerText = l.gds;
+    document.getElementById('sim-row-meta').innerText = l.meta;
+    document.getElementById('sim-row-total-net').innerText = l.total;
+}
+
+function changeLanguage(lang) {
+    const currentTranslations = translations[lang] || translations['en'];
+    document.documentElement.lang = lang;
+    
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (currentTranslations[key]) {
+            elem.innerHTML = currentTranslations[key];
+        }
+    });
+    
+    document.title = currentTranslations.meta_title || document.title;
+    const metaDescElem = document.getElementById('meta-desc');
+    if (metaDescElem && currentTranslations.meta_desc) {
+        metaDescElem.setAttribute('content', currentTranslations.meta_desc);
+    }
+    document.getElementById('langSelect').value = lang;
+    localStorage.setItem('selectedLanguage', lang);
+    
+    updateSimLanguage(lang);
+    runSimulation();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    runSimulation();
+    const savedLang = localStorage.getItem('selectedLanguage');
+    const browserLang = navigator.language.substring(0, 2);
+    const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+    changeLanguage(defaultLang);
+});
+</script>
+
+</body>
+</html>
