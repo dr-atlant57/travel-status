@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>TRAVEL STATUS — Global Travel Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080808; --surface:#111; --surface-2:#181818; --surface-3:#1f1f1f;
+  --border:rgba(255,255,255,0.07); --border-hi:rgba(255,255,255,0.18);
+  --gold:#C9A84C; --gold-light:#E8D5A3; --gold-dim:rgba(201,168,76,0.12);
+  --text:#F0EDE8; --text-muted:rgba(240,237,232,0.52); --text-dim:rgba(240,237,232,0.26);
+  --green:#1db87c; --green-dark:#158f5e; --green-dim:rgba(29,184,124,0.12);
+  --blue:#1558a8; --blue-dim:rgba(21,88,168,0.12);
+  --purple:#7c3aed; --purple-dim:rgba(124,58,237,0.12);
+  --red:#dc2626; --red-dim:rgba(220,38,38,0.1);
+  --radius:2px; --radius-card:6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--black);color:var(--text);line-height:1.7;overflow-x:hidden}
+
+/* STATUS BAR */
+.status-bar{background:linear-gradient(90deg,transparent,rgba(201,168,76,0.08),transparent);border-bottom:1px solid rgba(201,168,76,0.2);padding:.6rem 2rem;text-align:center}
+.status-bar span{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:linear-gradient(to bottom,rgba(8,8,8,.94),transparent);backdrop-filter:blur(4px);transition:all .3s}
+nav.scrolled{background:rgba(8,8,8,.97);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;letter-spacing:.3em;color:var(--gold-light);text-transform:uppercase;text-decoration:none}
+.nav-lang{display:flex;gap:.75rem}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.65rem;letter-spacing:.18em;color:var(--text-muted);text-transform:uppercase;padding:.2rem .4rem;transition:color .2s}
+.lang-btn:hover,.lang-btn.active{color:var(--gold)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 40%,rgba(201,168,76,.04) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-size:60px 60px;background-image:linear-gradient(rgba(255,255,255,.011) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.011) 1px,transparent 1px);mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 20%,transparent 75%)}
+.hero-eyebrow{font-size:.6rem;letter-spacing:.45em;text-transform:uppercase;color:var(--red);margin-bottom:2rem;opacity:.9}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:300;line-height:1.15;letter-spacing:.02em;max-width:880px}
+.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{margin-top:1.5rem;font-size:.82rem;font-weight:300;letter-spacing:.1em;color:var(--text-muted);max-width:540px;line-height:1.85}
+
+/* NEIGHBOR BLOCK */
+.neighbor-block{margin-top:3rem;background:var(--surface);border:1px solid var(--border-hi);border-radius:var(--radius-card);padding:2rem;max-width:600px;width:100%;text-align:left}
+.neighbor-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;text-align:center;margin-bottom:.4rem}
+.neighbor-sub{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);text-align:center;margin-bottom:1.75rem}
+.neighbor-seats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.75rem}
+.seat{background:var(--surface-2);border-radius:4px;padding:1.2rem .75rem;text-align:center;border:1px solid var(--border)}
+.seat.winner{border-color:var(--green);background:rgba(29,184,124,.07)}
+.seat-icon{font-size:1.5rem;margin-bottom:.5rem}
+.seat-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:.3rem}
+.seat-price.red{color:var(--red)}
+.seat-price.amber{color:var(--gold)}
+.seat-price.green{color:var(--green)}
+.seat-label{font-size:.62rem;letter-spacing:.1em;color:var(--text-muted);line-height:1.5}
+.seat-note{font-size:.6rem;color:var(--text-dim);margin-top:.3rem;font-style:italic}
+.seat-you{font-size:.55rem;background:var(--green);color:#fff;padding:.15rem .5rem;border-radius:2px;display:inline-block;margin-bottom:.4rem;letter-spacing:.12em}
+.neighbor-cta{display:block;text-align:center;padding:1rem;background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border-radius:var(--radius);text-decoration:none;transition:all .2s}
+.neighbor-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,184,124,.3)}
+
+/* 4 PSYCHOTYPES */
+.psycho-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem;max-width:600px;width:100%}
+.psycho-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-card);padding:1.5rem;text-align:left;cursor:pointer;transition:all .25s}
+.psycho-card:hover{border-color:var(--border-hi);background:var(--surface-2);transform:translateY(-2px)}
+.psycho-card.active{border-color:var(--gold)}
+.psycho-icon{font-size:1.6rem;margin-bottom:.75rem}
+.psycho-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;margin-bottom:.4rem}
+.psycho-desc{font-size:.72rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem}
+.psycho-btn{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:var(--border-hi);padding:.55rem 1rem;border-radius:var(--radius);border:none;cursor:pointer;width:100%;font-family:'Montserrat',sans-serif;transition:all .2s}
+
+/* COMMON */
+section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:.58rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;line-height:1.2;max-width:680px}
+.section-title em{font-style:italic;color:var(--gold-light)}
+.gold-line{width:36px;height:1px;background:var(--gold);margin:1.75rem 0;opacity:.55}
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--border-hi),transparent);max-width:1100px;margin:0 auto}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden;margin-top:3.5rem}
+.stat{background:var(--surface);padding:2rem 1.5rem;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gold-light);line-height:1;display:block}
+.stat-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-top:.6rem;display:block}
+
+/* COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.compare-card{padding:2rem 1.75rem;border-radius:var(--radius-card)}
+.compare-card.retail{background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.25)}
+.compare-card.member{background:var(--green-dim);border:1px solid rgba(29,184,124,.4);position:relative}
+.compare-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.55rem;font-weight:600;padding:.25rem .8rem;border-radius:10px;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+.compare-label{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.75rem}
+.compare-label.red{color:var(--red)}
+.compare-label.green{color:var(--green)}
+.compare-source{font-size:.72rem;color:var(--text-muted);margin-bottom:.6rem}
+.compare-price{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;line-height:1;margin-bottom:.75rem}
+.compare-price.red{color:var(--red)}
+.compare-price.green{color:var(--green)}
+.compare-features{list-style:none;font-size:.72rem;color:var(--text-muted);line-height:2}
+.compare-features li{display:flex;align-items:center;gap:.5rem}
+.compare-result{margin-top:1.5rem;background:var(--green-dim);border:1px solid rgba(29,184,124,.3);border-radius:var(--radius-card);padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.compare-note{font-size:.62rem;color:var(--text-dim);text-align:center;margin-top:.6rem}
+
+/* TIERS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5px;margin-top:3.5rem;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden}
+.card{background:var(--surface);padding:2.5rem 2rem;display:flex;flex-direction:column;transition:background .3s;position:relative}
+.card:hover{background:var(--surface-2)}
+.card.featured{background:var(--surface-2)}
+.card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.card-badge{display:inline-block;font-size:.52rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:.25rem .7rem;border-radius:1px;margin-bottom:1.75rem;align-self:flex-start}
+.card-tier{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;letter-spacing:.05em;margin-bottom:.6rem}
+.card-desc{font-size:.75rem;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:2rem;flex:1}
+.card-features{list-style:none;margin-bottom:2rem}
+.card-features li{font-size:.72rem;color:var(--text-muted);padding:.5rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
+.card-features li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.55;flex-shrink:0}
+.card-cta{font-family:'Montserrat',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,.28);padding:.85rem 1.25rem;border-radius:var(--radius);cursor:pointer;transition:all .2s;width:100%;text-align:center;text-decoration:none;display:block}
+.card-cta:hover{background:rgba(201,168,76,.22);border-color:rgba(201,168,76,.5)}
+.card.featured .card-cta{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.card.featured .card-cta:hover{background:var(--gold-light)}
+
+/* ROADMAP */
+.roadmap{display:flex;flex-direction:column;margin-top:3.5rem}
+.roadmap-item{display:grid;grid-template-columns:56px 1fr;gap:0 2rem;cursor:pointer}
+.roadmap-left{display:flex;flex-direction:column;align-items:center}
+.step-num{width:40px;height:40px;border:1px solid var(--border-hi);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--gold-light);flex-shrink:0;background:var(--surface);position:relative;z-index:1;transition:all .3s}
+.roadmap-item:hover .step-num{border-color:var(--gold);background:var(--gold-dim)}
+.step-line{width:1px;flex:1;background:linear-gradient(to bottom,rgba(255,255,255,.07),rgba(255,255,255,.02));min-height:56px}
+.roadmap-item:last-child .step-line{display:none}
+.roadmap-content{padding:.3rem 0 3.5rem}
+.step-label{font-size:.56rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:.6rem;line-height:1.2}
+.step-body{font-size:.76rem;font-weight:300;color:var(--text-muted);line-height:1.9;max-width:460px}
+.step-alex-hint{font-size:.62rem;color:var(--gold);margin-top:.6rem;opacity:.7}
+
+/* SAVINGS */
+.savings-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden}
+.saving-item{background:var(--surface);padding:1.25rem 1.75rem;display:flex;align-items:center;gap:1.25rem;transition:background .2s}
+.saving-item:hover{background:var(--surface-2)}
+.saving-flag{font-size:1.6rem;flex-shrink:0}
+.saving-info{flex:1}
+.saving-name{font-size:.85rem;font-weight:500}
+.saving-place{font-size:.68rem;color:var(--text-muted);letter-spacing:.08em}
+.saving-amount{text-align:right}
+.saving-dollars{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--green)}
+.saving-days{font-size:.62rem;color:var(--gold)}
+
+/* FAQ */
+.faq-list{margin-top:2.5rem;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden}
+.faq-item{}
+.faq-q{width:100%;padding:1.25rem 1.75rem;background:none;border:none;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:500;text-align:left;transition:background .2s}
+.faq-q:hover{background:var(--surface-2)}
+.faq-q .faq-icon{color:var(--text-muted);font-size:1.2rem;flex-shrink:0;transition:transform .25s;line-height:1}
+.faq-q.open .faq-icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:1.25rem 1.75rem 1.5rem;font-size:.76rem;font-weight:300;color:var(--text-muted);line-height:1.9;border-bottom:1px solid var(--border)}
+.faq-a.open{display:block}
+
+/* CTA SECTION */
+.cta-section{text-align:center;padding:5rem 2rem}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1rem}
+.cta-title em{font-style:italic;color:var(--gold-light)}
+.cta-sub{font-size:.78rem;color:var(--text-muted);margin-bottom:2.5rem;letter-spacing:.1em}
+.cta-btns{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap}
+.btn-gold{font-family:'Montserrat',sans-serif;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;font-weight:600;padding:1rem 2.5rem;border-radius:var(--radius);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;background:var(--gold);color:var(--black);border:none}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{font-family:'Montserrat',sans-serif;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;font-weight:500;padding:1rem 2.5rem;border-radius:var(--radius);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;background:none;color:var(--text-muted);border:1px solid var(--border-hi)}
+.btn-outline:hover{color:var(--text);border-color:var(--gold);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;max-width:1100px;margin:0 auto}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:.3em;color:var(--text-muted);text-transform:uppercase}
+.footer-copy{font-size:.6rem;letter-spacing:.1em;color:var(--text-dim)}
+
+/* CHAT TRIGGER */
+.chat-trigger{position:fixed;bottom:2rem;right:2rem;z-index:300;background:var(--gold);color:var(--black);border:none;padding:.85rem 1.6rem;border-radius:30px;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(201,168,76,.3);transition:all .25s}
+.chat-trigger:hover{background:var(--gold-light);transform:translateY(-2px)}
+.chat-trigger.hide{opacity:0;pointer-events:none;transform:scale(.9)}
+
+/* CHAT WIDGET */
+.chat-widget{position:fixed;bottom:2rem;right:2rem;z-index:290;width:400px;max-width:calc(100vw - 4rem);background:#0c0c0c;border:1px solid var(--border-hi);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.75);display:flex;flex-direction:column;transform:translateY(20px);opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.16,1,.3,1)}
+.chat-widget.open{transform:translateY(0);opacity:1;pointer-events:auto}
+.chat-header{background:#141414;padding:1rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem}
+.chat-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .3s}
+.chat-header-info{flex:1}
+.chat-name{font-size:.85rem;font-weight:600;color:var(--text)}
+.chat-status-text{font-size:.65rem;color:var(--text-muted)}
+.chat-online{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.chat-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.3rem;line-height:1;padding:0 .2rem}
+.chat-modes{display:grid;grid-template-columns:1fr 1fr;background:#0f0f0f;border-bottom:1px solid var(--border)}
+.mode-btn{background:none;border:none;color:var(--text-muted);padding:.6rem;font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative}
+.mode-btn.active{color:var(--text);background:#151515}
+.mode-btn.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.mode-btn.m-travel.active::after{background:var(--green)}
+.mode-btn.m-earn.active::after{background:var(--gold)}
+.mode-btn.m-skeptic.active::after{background:var(--blue)}
+.mode-btn.m-lost.active::after{background:var(--purple)}
+.chat-messages{height:280px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.85rem;background:#080808}
+.chat-messages::-webkit-scrollbar{width:3px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border-hi)}
+.msg-wrap{display:flex;gap:8px;align-items:flex-end;max-width:85%}
+.msg-wrap.u{align-self:flex-end;flex-direction:row-reverse}
+.msg-wrap.a{align-self:flex-start}
+.msg-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;color:#fff}
+.msg-bubble{padding:.55rem .9rem;font-size:.77rem;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.msg-wrap.u .msg-bubble{border-radius:14px 14px 2px 14px;color:#fff;font-weight:500}
+.msg-wrap.a .msg-bubble{background:#161616;color:var(--text);border-radius:14px 14px 14px 2px;border:1px solid var(--border)}
+.chat-typing{font-size:.72rem;color:var(--text-muted);padding:.55rem .9rem;background:#161616;border-radius:14px 14px 14px 2px;border:1px solid var(--border);align-self:flex-start}
+.chat-input-row{padding:.75rem;border-top:1px solid var(--border);background:#141414;display:flex;gap:.5rem}
+.chat-input{flex:1;background:#080808;border:1px solid var(--border-hi);padding:.6rem .85rem;border-radius:4px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.78rem;outline:none;caret-color:var(--gold);-webkit-text-fill-color:var(--text)}
+.chat-input:focus{border-color:var(--gold)}
+.chat-send{background:var(--green);border:none;padding:0 1.1rem;border-radius:4px;color:#fff;font-weight:700;font-size:.72rem;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'Montserrat',sans-serif;letter-spacing:.1em}
+.chat-send:disabled{background:#222;color:#444;cursor:not-allowed}
+
+/* UTILS */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  section{padding:4rem 1.5rem}
+  .psycho-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .neighbor-seats{grid-template-columns:1fr 1fr 1fr}
+  .chat-widget{bottom:0;right:0;width:100vw;max-width:100vw;border-radius:0}
+  .chat-messages{height:calc(100vh - 200px)}
+  .chat-trigger{bottom:1.5rem;right:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <span id="statusBarText">⬤ &nbsp;СТАТУС: Доступ к закрытой биосистеме оптового туризма — АКТИВИРОВАН</span>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">TRAVEL STATUS</a>
+  <div class="nav-lang">
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+    <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('tr')">TR</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <p class="hero-eyebrow" id="heroEyebrow">ЗА КУЛИСАМИ РОЗНИЧНОГО ТУРИЗМА</p>
+  <h1 class="hero-title" id="heroTitle">Booking.com заработал <em>$4 миллиарда</em> в прошлом году. На твоих деньгах.</h1>
+  <p class="hero-sub" id="heroSub">Розничные агрегаторы добавляют до 40% скрытых накруток. Travel Status открывает оптовые цены. Те же отели. Без накрутки.</p>
+
+  <!-- NEIGHBOR BLOCK -->
+  <div class="neighbor-block">
+    <h3 class="neighbor-title" id="neighborTitle">Сколько заплатил человек в соседнем кресле?</h3>
+    <p class="neighbor-sub" id="neighborSub">Один перелёт · Один отель · Три разные цены</p>
+    <div class="neighbor-seats">
+      <div class="seat">
+        <div class="seat-icon">👤</div>
+        <div class="seat-price red">$400</div>
+        <div class="seat-label" id="seatLabel1">Booking.com</div>
+        <div class="seat-note" id="seatNote1">реклама + комиссия включены</div>
+      </div>
+      <div class="seat">
+        <div class="seat-icon">👤</div>
+        <div class="seat-price amber">$280</div>
+        <div class="seat-label" id="seatLabel2">OTA + баллы</div>
+        <div class="seat-note" id="seatNote2">лучше, но всё равно много</div>
+      </div>
+      <div class="seat winner">
+        <div class="seat-you" id="seatYouLabel">ВЫ</div>
+        <div class="seat-icon">👤</div>
+        <div class="seat-price green">$150</div>
+        <div class="seat-label" id="seatLabel3">Travel Status</div>
+        <div class="seat-note" id="seatNote3">оптовая цена клуба</div>
+      </div>
+    </div>
+    <a id="neighborCta" href="https://free.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="neighbor-cta">Занять место за $150 →</a>
+  </div>
+
+  <!-- 4 PSYCHOTYPES -->
+  <div class="psycho-grid" style="margin-top:2.5rem">
+    <div class="psycho-card" id="ps-skeptic" onclick="openChat('skeptic')">
+      <div class="psycho-icon">🔑</div>
+      <div class="psycho-title" id="pt1title">Скептик? Поймай систему на лжи.</div>
+      <div class="psycho-desc" id="pt1desc">Открой бесплатный доступ. Проверь свой отель. Убедись сам.</div>
+      <button class="psycho-btn" id="pt1btn" style="background:rgba(21,88,168,.25);color:#7ab3f5">Взломать розничную цену</button>
+    </div>
+    <div class="psycho-card" id="ps-travel" onclick="openChat('travel')">
+      <div class="psycho-icon">💎</div>
+      <div class="psycho-title" id="pt2title">Часто путешествую.</div>
+      <div class="psycho-desc" id="pt2desc">VIP окупается с первого бронирования. 150% гарантия лучшей цены.</div>
+      <button class="psycho-btn" id="pt2btn" style="background:rgba(29,184,124,.2);color:#5ce0ab">Войти в закрытый клуб</button>
+    </div>
+    <div class="psycho-card" id="ps-earn" onclick="openChat('earn')">
+      <div class="psycho-icon">💼</div>
+      <div class="psycho-title" id="pt3title">Хочу зарабатывать.</div>
+      <div class="psycho-desc" id="pt3desc">Рынок туризма $11 трлн. Готовая франшиза. Пассивный доход.</div>
+      <button class="psycho-btn" id="pt3btn" style="background:rgba(201,168,76,.15);color:#e8d5a3">Получить ключ от франшизы</button>
+    </div>
+    <div class="psycho-card" id="ps-lost" onclick="openChat('lost')">
+      <div class="psycho-icon">🗺️</div>
+      <div class="psycho-title" id="pt4title">Потерялся? Alex проведёт.</div>
+      <div class="psycho-desc" id="pt4desc">Посмотрел видео, загорелся — но сайт запутал? Шаг за шагом.</div>
+      <button class="psycho-btn" id="pt4btn" style="background:rgba(124,58,237,.2);color:#c4b5fd">Начать с гидом</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATS -->
+<section style="padding-top:4rem;padding-bottom:4rem">
+  <div class="stats-row">
+    <div class="stat reveal"><span class="stat-num">700K+</span><span class="stat-label" id="stat1">Участников по всему миру</span></div>
+    <div class="stat reveal d1"><span class="stat-num">100+</span><span class="stat-label" id="stat2">Стран присутствия</span></div>
+    <div class="stat reveal d2"><span class="stat-num">$2.4M</span><span class="stat-label" id="stat3">Сэкономлено в 2025</span></div>
+    <div class="stat reveal d3"><span class="stat-num">24/7</span><span class="stat-label" id="stat4">Интеллектуальный гид</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="reveal">
+    <p class="section-label" id="compareLabel">Анатомия цены</p>
+    <h2 class="section-title" id="compareTitle">Розница vs. <em>Travel Status</em></h2>
+    <div class="gold-line"></div>
+    <p style="font-size:.76rem;font-weight:300;color:var(--text-muted);max-width:520px" id="compareSub">Один и тот же отель. Те же даты. Разные модели дистрибуции.</p>
+  </div>
+  <div class="compare-grid reveal d1">
+    <div class="compare-card retail">
+      <div class="compare-label red" id="retailLabel">Розничная цена</div>
+      <div class="compare-source">Booking.com</div>
+      <div class="compare-price red">$1,450</div>
+      <ul class="compare-features">
+        <li><span style="color:var(--red)">✕</span> <span id="rf1">Маркетинговая накрутка ~$400</span></li>
+        <li><span style="color:var(--red)">✕</span> <span id="rf2">Комиссия платформы ~$150</span></li>
+        <li><span style="color:var(--red)">✕</span> <span id="rf3">Реклама в Google включена</span></li>
+      </ul>
+    </div>
+    <div class="compare-card member">
+      <div class="compare-badge" id="memberBadge">ЦЕНА УЧАСТНИКА</div>
+      <div class="compare-label green" id="memberLabel">Цена участника</div>
+      <div class="compare-source">Travel Advantage</div>
+      <div class="compare-price green">$920</div>
+      <ul class="compare-features">
+        <li><span style="color:var(--green)">✓</span> <span id="mf1">Чистая оптовая цена</span></li>
+        <li><span style="color:var(--green)">✓</span> <span id="mf2">Без рекламных накруток</span></li>
+        <li><span style="color:var(--green)">✓</span> <span id="mf3">150% гарантия лучшей цены</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="compare-result reveal d2">
+    <div>
+      <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)" id="savedLabel">Экономия</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--green)">$530</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)" id="freedaysLabel">= свободных дней в следующей поездке</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold)">≈ 6 ночей 🌴</div>
+    </div>
+  </div>
+  <p class="compare-note">*Hilton Pattaya, Thailand · 7 ночей · Стандартный номер · Май 2025</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIERS -->
+<section id="tiers">
+  <div class="reveal">
+    <p class="section-label" id="tiersLabel">Варианты входа</p>
+    <h2 class="section-title" id="tiersTitle">Установите свой <em>уровень контроля</em></h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="cards-grid reveal d1">
+    <div class="card">
+      <span class="card-badge" id="guestBadge">Старт</span>
+      <div class="card-tier">Guest</div>
+      <p class="card-desc" id="guestDesc">Бесплатный тест-драйв. Откройте платформу, вбейте любой знакомый отель и сравните с розницей. Если разницы нет — закройте этот сайт навсегда.</p>
+      <ul class="card-features">
+        <li id="gf1">1 бронирование отеля (до 2 ночей)</li>
+        <li id="gf2">Доступ к платформе Travel Advantage</li>
+        <li id="gf3">Накопление Travel Credits</li>
+        <li id="gf4">Приглашение гостей</li>
+      </ul>
+      <a href="https://free.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="card-cta" id="guestCta">🔑 Взломать розничную цену →</a>
+    </div>
+    <div class="card featured">
+      <span class="card-badge" id="vipBadge">Рекомендуем</span>
+      <div class="card-tier">VIP</div>
+      <p class="card-desc" id="vipDesc">Полный доступ. VIP-участники не спорят о ценах — они их диктуют. $19.97/мес окупается с первой поездки.</p>
+      <ul class="card-features">
+        <li id="vf1">Оптовые цены на отели и перелёты</li>
+        <li id="vf2">150% Гарантия лучшей цены</li>
+        <li id="vf3">+1 дополнительный путешественник</li>
+        <li id="vf4">15 гостевых пропусков сейчас</li>
+        <li id="vf5">Без стоп-дат · Поддержка 24/7</li>
+      </ul>
+      <a href="https://vip.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="card-cta" id="vipCta">💎 Активировать VIP →</a>
+    </div>
+    <div class="card">
+      <span class="card-badge" id="partnerBadge">Бизнес</span>
+      <div class="card-tier">Partner</div>
+      <p class="card-desc" id="partnerDesc">Глобальная франшиза на рынке $11 трлн. Люди путешествовали через COVID, кризисы и войны. Забирай процент с каждого бронирования в своей сети.</p>
+      <ul class="card-features">
+        <li id="pf1">Все привилегии VIP</li>
+        <li id="pf2">Ежедневные бонусы за клиентов</li>
+        <li id="pf3">Ежемесячный остаточный доход</li>
+        <li id="pf4">Командные и строительные бонусы</li>
+        <li id="pf5">Автомобильный + Президентский бонус</li>
+      </ul>
+      <a href="https://join.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="card-cta" id="partnerCta">💼 Запустить франшизу →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="reveal">
+    <p class="section-label" id="roadLabel">Дорожная карта</p>
+    <h2 class="section-title" id="roadTitle">От первого клика до <em>первого бронирования</em></h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="roadmap">
+    <div class="roadmap-item reveal d1" onclick="openChatStep('plan')">
+      <div class="roadmap-left"><div class="step-num">I</div><div class="step-line"></div></div>
+      <div class="roadmap-content">
+        <p class="step-label" id="s1label">Шаг первый</p>
+        <h3 class="step-title" id="s1title">Выбор плана</h3>
+        <p class="step-body" id="s1body">Guest — бесплатно и без карты. VIP — $19.97/мес, окупается с первой поездки. Partner — для тех, кто хочет зарабатывать.</p>
+        <p class="step-alex-hint">↗ Нажми — Alex объяснит разницу</p>
+      </div>
+    </div>
+    <div class="roadmap-item reveal d2" onclick="openChatStep('register')">
+      <div class="roadmap-left"><div class="step-num">II</div><div class="step-line"></div></div>
+      <div class="roadmap-content">
+        <p class="step-label" id="s2label">Шаг второй</p>
+        <h3 class="step-title" id="s2title">Регистрация (3 минуты)</h3>
+        <p class="step-body" id="s2body">Нажми кнопку выше. Введи email, создай пароль, заполни платёжные данные (для платных пакетов). Готово.</p>
+        <p class="step-alex-hint">↗ Нажми — Alex проведёт пошагово</p>
+      </div>
+    </div>
+    <div class="roadmap-item reveal d3" onclick="openChatStep('email')">
+      <div class="roadmap-left"><div class="step-num">III</div><div class="step-line"></div></div>
+      <div class="roadmap-content">
+        <p class="step-label" id="s3label">Шаг третий</p>
+        <h3 class="step-title" id="s3title">Письмо на email</h3>
+        <p class="step-body" id="s3body">Подтверди email. Обязательно проверь папку Спам — письмо от MWR Life / Travel Advantage содержит данные входа.</p>
+        <p class="step-alex-hint">↗ Не нашёл письмо? Alex поможет</p>
+      </div>
+    </div>
+    <div class="roadmap-item reveal" onclick="openChatStep('app')">
+      <div class="roadmap-left"><div class="step-num">IV</div><div class="step-line"></div></div>
+      <div class="roadmap-content">
+        <p class="step-label" id="s4label">Шаг четвёртый</p>
+        <h3 class="step-title" id="s4title">Скачай приложение</h3>
+        <p class="step-body" id="s4body">Travel Advantage — App Store или Google Play. Войди по своему email и паролю. Ищи любой отель — видишь цену участника.</p>
+        <p class="step-alex-hint">↗ Не можешь найти цены? Alex объяснит</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SAVINGS -->
+<section id="savings">
+  <div class="reveal">
+    <p class="section-label" id="savingsLabel">Реальные участники</p>
+    <h2 class="section-title" id="savingsTitle">Реальные сбережения. <em>Переведено в дни.</em></h2>
+    <div class="gold-line"></div>
+    <p style="font-size:.76rem;font-weight:300;color:var(--text-muted)" id="savingsSub">Деньги — абстракция. Дополнительные дни отдыха — нет.</p>
+  </div>
+  <div class="savings-list reveal d1" id="savingsList"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="reveal">
+    <p class="section-label" id="faqLabel">Вопросы, которые задают все</p>
+    <h2 class="section-title" id="faqTitle">Честные ответы</h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="faq-list reveal d1" id="faqList"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title" id="ctaTitle">Место за $150 <em>ещё свободно.</em></h2>
+  <p class="cta-sub" id="ctaSub">700 000+ человек уже заняли его.</p>
+  <div class="cta-btns">
+    <a href="https://vip.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="btn-gold" id="ctaBtn1">✈ Стать участником</a>
+    <a href="https://join.traveladvantage.com/Status" target="_blank" rel="noopener noreferrer" class="btn-outline" id="ctaBtn2">💼 Стать партнёром</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">TRAVEL STATUS</span>
+  <span class="footer-copy" id="footerCopy">© 2025 travelstatus.cc · Независимый гид · Не является официальным сайтом MWR Life LLC</span>
+</footer>
+
+<!-- CHAT TRIGGER -->
+<button class="chat-trigger" id="chatTrigger" onclick="toggleChat()">
+  <span>💬</span> <span id="chatTriggerText">Спросить Alex</span>
+</button>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header">
+    <div class="chat-avatar" id="chatAvatar" style="background:var(--green)">✈️</div>
+    <div class="chat-header-info">
+      <div class="chat-name">Alex — Travel Status Guide</div>
+      <div class="chat-status-text" id="chatStatusText">отвечает на вашем языке · 24/7</div>
+    </div>
+    <div class="chat-online"></div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-modes">
+    <button class="mode-btn m-skeptic" id="mSkeptic" onclick="setMode('skeptic')">🔑 Скептик</button>
+    <button class="mode-btn m-travel active" id="mTravel" onclick="setMode('travel')">✈️ Путешествия</button>
+    <button class="mode-btn m-earn" id="mEarn" onclick="setMode('earn')">💼 Заработок</button>
+    <button class="mode-btn m-lost" id="mLost" onclick="setMode('lost')">🗺️ Помощь</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-row">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Напишите вопрос..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" id="chatSend" onclick="sendMsg()">→</button>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const ID = "Status";
+const LINKS = {
+  guest:`https://free.traveladvantage.com/${ID}`,
+  vip:`https://vip.traveladvantage.com/${ID}`,
+  join:`https://join.traveladvantage.com/${ID}`,
+  life:`https://lifeexperience.club/${ID}`,
+  present:`https://www.mwrlife.online/${ID}`,
+  academy:`https://www.mwracademy.com/`,
+  events:`https://www.mwrevents.com/`,
+};
+
+// ─── SYSTEM PROMPT ────────────────────────────────────────────────────────────
+const SYSTEM = `You are Alex — a sharp, warm personal guide for MWR Life / Travel Advantage on travelstatus.cc.
+Always respond in the SAME language the user writes in. Never switch.
+
+CORE REFRAME (use when explaining the model):
+Travel Advantage works like Costco or Netflix — you pay a small membership, they cut advertising spend and pass savings to members.
+Booking.com spent $6 billion on advertising in 2023. Every retail booking includes that budget.
+MWR Life redirects it to wholesale prices for members. Legal, operating since 2013, 700,000+ members.
+
+HANDLE SKEPTICISM ("scam","fraud","pyramid","why so cheap","too good"):
+Never apologize. Hit with facts immediately:
+"You're right to ask. Booking.com spends $6B/year on ads — that's in every price you see.
+Travel Advantage is the Costco model: membership fee, no ads, savings passed to you.
+Best proof: grab a free Guest Pass, search any hotel you know, compare yourself."
+
+CONVERT MONEY TO TIME (always):
+Example: "You save $300 on this hotel — that's roughly 2–3 extra nights on your next trip, completely free."
+
+KEY LINKS:
+Free Guest → ${LINKS.guest}
+VIP $19.97/mo → ${LINKS.vip}
+Ambassador → ${LINKS.join}
+Life Experiences → ${LINKS.life}
+Presentations (14 languages) → ${LINKS.present}
+Academy (after registration) → ${LINKS.academy}
+Events → ${LINKS.events}
+
+REGISTRATION: click link → plan → email+password → payment → CHECK SPAM → download Travel Advantage app → ${LINKS.academy}
+
+ROUTING:
+"skeptic/try free" → ${LINKS.guest}
+"VIP/travel a lot" → ${LINKS.vip}
+"earn/business/franchise" → ${LINKS.join}
+"already registered" → ${LINKS.academy}
+"group trips" → ${LINKS.life}
+"events" → ${LINKS.events}
+
+BUSINESS MODE (earn track):
+$11 trillion market, never died (through COVID, 2008, every crisis)
+Ready franchise: IT platform + training + proven system
+Daily Customer Bonuses + Monthly Residual + Team Bonuses + Car Bonus + Presidential Bonus
+Real ambassadors reach $50k/month within 9 months
+You sell travel dreams at fair prices — not "discounts"
+
+OBJECTIONS:
+"MLM/pyramid?" → Club model like Costco. Real product. Real savings. Verifiable by guest pass.
+"Worth $19.97/mo?" → $240/year. One booking saves $100-500. Pays itself first trip.
+"My country?" → 100+ countries: all CIS, EU, Americas, Middle East, Asia, Japan.
+"App doesn't show prices?" → Log in with your registration email+password. Prices shown = member price already.
+
+STYLE: 2–3 short paragraphs. ONE question at a time. Warm, confident, like a smart friend. 1–2 emojis max.`;
+
+// ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
+const TX = {
+  ru:{
+    statusBar:"⬤ &nbsp;СТАТУС: Доступ к закрытой биосистеме оптового туризма — АКТИВИРОВАН",
+    heroEyebrow:"ЗА КУЛИСАМИ РОЗНИЧНОГО ТУРИЗМА",
+    heroTitle:"Booking.com заработал <em>$4 миллиарда</em> в прошлом году. На твоих деньгах.",
+    heroSub:"Розничные агрегаторы добавляют до 40% скрытых накруток. Travel Status открывает оптовые цены. Те же отели. Без накрутки.",
+    neighborTitle:"Сколько заплатил человек в соседнем кресле?",
+    neighborSub:"Один перелёт · Один отель · Три разные цены",
+    seatLabel1:"Booking.com",seatNote1:"реклама + комиссия включены",
+    seatLabel2:"OTA + баллы",seatNote2:"лучше, но всё равно много",
+    seatLabel3:"Travel Status",seatNote3:"оптовая цена клуба",
+    seatYouLabel:"ВЫ",
+    neighborCta:"Занять место за $150 →",
+    pt1title:"Скептик? Поймай систему на лжи.",pt1desc:"Открой бесплатный доступ. Проверь свой отель. Убедись сам.",pt1btn:"Взломать розничную цену",
+    pt2title:"Часто путешествую.",pt2desc:"VIP окупается с первого бронирования. 150% гарантия лучшей цены.",pt2btn:"Войти в закрытый клуб",
+    pt3title:"Хочу зарабатывать.",pt3desc:"Рынок туризма $11 трлн. Готовая франшиза. Пассивный доход.",pt3btn:"Получить ключ от франшизы",
+    pt4title:"Потерялся? Alex проведёт.",pt4desc:"Посмотрел видео, загорелся — но сайт запутал? Шаг за шагом.",pt4btn:"Начать с гидом",
+    stat1:"Участников по всему миру",stat2:"Стран присутствия",stat3:"Сэкономлено в 2025",stat4:"Интеллектуальный гид",
+    compareLabel:"Анатомия цены",compareTitle:"Розница vs. <em>Travel Status</em>",
+    compareSub:"Один и тот же отель. Те же даты. Разные модели дистрибуции.",
+    retailLabel:"Розничная цена",memberLabel:"Цена участника",memberBadge:"ЦЕНА УЧАСТНИКА",
+    rf1:"Маркетинговая накрутка ~$400",rf2:"Комиссия платформы ~$150",rf3:"Реклама в Google включена",
+    mf1:"Чистая оптовая цена",mf2:"Без рекламных накруток",mf3:"150% гарантия лучшей цены",
+    savedLabel:"Экономия",freedaysLabel:"= свободных дней в следующей поездке",
+    tiersLabel:"Варианты входа",tiersTitle:"Установите свой <em>уровень контроля</em>",
+    guestBadge:"Старт",guestDesc:"Бесплатный тест-драйв. Откройте платформу, вбейте любой знакомый отель и сравните с розницей. Если разницы нет — закройте этот сайт навсегда.",
+    gf1:"1 бронирование отеля (до 2 ночей)",gf2:"Доступ к платформе Travel Advantage",gf3:"Накопление Travel Credits",gf4:"Приглашение гостей",
+    guestCta:"🔑 Взломать розничную цену →",
+    vipBadge:"Рекомендуем",vipDesc:"Полный доступ. VIP-участники не спорят о ценах — они их диктуют. $19.97/мес окупается с первой поездки.",
+    vf1:"Оптовые цены на отели и перелёты",vf2:"150% Гарантия лучшей цены",vf3:"+1 дополнительный путешественник",vf4:"15 гостевых пропусков сейчас",vf5:"Без стоп-дат · Поддержка 24/7",
+    vipCta:"💎 Активировать VIP →",
+    partnerBadge:"Бизнес",partnerDesc:"Глобальная франшиза на рынке $11 трлн. Люди путешествовали через COVID, кризисы и войны. Забирай процент с каждого бронирования в своей сети.",
+    pf1:"Все привилегии VIP",pf2:"Ежедневные бонусы за клиентов",pf3:"Ежемесячный остаточный доход",pf4:"Командные и строительные бонусы",pf5:"Автомобильный + Президентский бонус",
+    partnerCta:"💼 Запустить франшизу →",
+    roadLabel:"Дорожная карта",roadTitle:"От первого клика до <em>первого бронирования</em>",
+    s1label:"Шаг первый",s1title:"Выбор плана",s1body:"Guest — бесплатно и без карты. VIP — $19.97/мес, окупается с первой поездки. Partner — для тех, кто хочет зарабатывать.",
+    s2label:"Шаг второй",s2title:"Регистрация (3 минуты)",s2body:"Нажми кнопку выше. Введи email, создай пароль, заполни платёжные данные (для платных пакетов). Готово.",
+    s3label:"Шаг третий",s3title:"Письмо на email",s3body:"Обязательно проверь папку Спам — письмо от MWR Life / Travel Advantage содержит данные входа.",
+    s4label:"Шаг четвёртый",s4title:"Скачай приложение",s4body:"Travel Advantage — App Store или Google Play. Войди по email и паролю. Цены уже показаны с оптовыми скидками.",
+    savingsLabel:"Реальные участники",savingsTitle:"Реальные сбережения. <em>Переведено в дни.</em>",savingsSub:"Деньги — абстракция. Дополнительные дни отдыха — нет.",
+    faqLabel:"Вопросы, которые задают все",faqTitle:"Честные ответы",
+    ctaTitle:"Место за $150 <em>ещё свободно.</em>",ctaSub:"700 000+ человек уже заняли его.",
+    ctaBtn1:"✈ Стать участником",ctaBtn2:"💼 Стать партнёром",
+    footerCopy:"© 2025 travelstatus.cc · Независимый гид · Не является официальным сайтом MWR Life LLC",
+    chatTriggerText:"Спросить Alex",chatStatusText:"отвечает на вашем языке · 24/7",
+    chatPh:"Напишите вопрос...",chatSend:"→",
+    mSkeptic:"🔑 Скептик",mTravel:"✈️ Путешествия",mEarn:"💼 Заработок",mLost:"🗺️ Помощь",
+    alexHint:"↗ Нажми — Alex объяснит разницу",
+    stepHints:["↗ Нажми — Alex объяснит разницу","↗ Нажми — Alex проведёт пошагово","↗ Не нашёл письмо? Alex поможет","↗ Не можешь найти цены? Alex объяснит"],
+    daysWord:"дн.",
+    faqData:[
+      ["Почему цены ниже? Это законно?","Travel Advantage работает по клубной модели — как Costco для продуктов или Netflix для кино. Booking.com тратит $6 млрд в год на рекламу в Google. Каждое твоё бронирование включает этот бюджет. MWR Life убрал посредника и передаёт эту разницу участникам. Полностью законно, работает с 2013 года, 700 000+ участников."],
+      ["Это МЛМ или пирамида?","Финансовая пирамида — это когда нет реального продукта, только рекрутинг. MWR Life продаёт реальные туристические членства, которые дают реальную экономию. Скидки проверяемы — открой бесплатный Guest Pass и сравни любой отель сам до того, как заплатишь хоть рубль."],
+      ["Стоит ли VIP за $19.97/мес?","VIP стоит $240 в год. Одно бронирование отеля экономит $100–500. Большинство участников окупают годовую стоимость с первой поездки. Математика простая: путешествуешь раз в год — окупается. Чаще — выгода нарастает."],
+      ["Работает ли в моей стране?","MWR работает в 100+ странах: вся Европа, СНГ (Россия, Казахстан, Кыргызстан, Украина, Узбекистан), США, Великобритания, Япония, Турция, ОАЭ, Юго-Восточная Азия и другие."],
+      ["Что делать после регистрации?","Письмо на email → проверь Спам → скачай приложение Travel Advantage → войди → ищи любой отель и сравни сам. Это момент истины — увидишь разницу своими глазами. Амбассадорам дополнительно: mwracademy.com."],
+      ["Можно ли отменить в любой момент?","Да. 14 дней с момента активации — полный возврат. Никаких контрактов. Никаких скрытых комиссий."]
+    ],
+    proofDaysUnit:"дн.",
+    modes:{
+      skeptic:{init:"Привет! 👋 Правильно — сначала проверь, потом доверяй. Вот как поймать систему на лжи: открой бесплатный Guest Pass (без карты, бесплатно), найди любой отель в котором бывал, и сравни с Booking.com. Какой отель или город хочешь проверить?",color:"#1558a8",icon:"🔑"},
+      travel:{init:"Привет! 👋 Частый путешественник — мой любимый тип. VIP за $19.97/мес окупается с первого бронирования. Куда планируешь следующую поездку? Покажу точную экономию.",color:"#1db87c",icon:"✈️"},
+      earn:{init:"Привет! 👋 Умный выбор. Коротко: рынок туризма $11 трлн — вырос через COVID, кризис 2008 и всё остальное. Люди всегда путешествуют. Можно тратить на отпуск — а можно забирать процент с каждого бронирования в своей сети. Есть опыт в сетевом бизнесе, или это новая территория?",color:"#c9a84c",icon:"💼"},
+      lost:{init:"Привет! 👋 Ты точно там где нужно. Давай разберёмся:\n\nА) Ещё не регистрировался — не знаю с чего начать\nБ) Зарегистрировался, но не знаю что делать\nВ) Есть приложение, но не могу найти цены\n\nПросто напиши А, Б или В.",color:"#7c3aed",icon:"🗺️"},
+    }
+  },
+  en:{
+    statusBar:"⬤ &nbsp;STATUS: Access to closed wholesale travel biosystem — ACTIVATED",
+    heroEyebrow:"BEHIND THE CURTAIN OF RETAIL TOURISM",
+    heroTitle:"Booking.com earned <em>$4 billion</em> last year. On your money.",
+    heroSub:"Retail aggregators add up to 40% hidden markups. Travel Status opens wholesale prices. Same hotels. No markup.",
+    neighborTitle:"How much did the person in the next seat pay?",
+    neighborSub:"Same flight · Same hotel · Three different prices",
+    seatLabel1:"Booking.com",seatNote1:"ad markup + commission included",
+    seatLabel2:"OTA + loyalty",seatNote2:"better, but still overpaying",
+    seatLabel3:"Travel Status",seatNote3:"club wholesale price",
+    seatYouLabel:"YOU",
+    neighborCta:"Take the $150 seat →",
+    pt1title:"Skeptic? Catch the system in a lie.",pt1desc:"Open free access. Check your hotel. Verify yourself.",pt1btn:"Hack the retail price",
+    pt2title:"I travel often.",pt2desc:"VIP pays for itself on the first booking. 150% Best Price Guarantee.",pt2btn:"Enter the closed club",
+    pt3title:"I want to earn.",pt3desc:"$11T travel market. Ready franchise. Passive income.",pt3btn:"Get the franchise key",
+    pt4title:"Lost? Alex guides you.",pt4desc:"Watched the video, got excited — but the site confused you?",pt4btn:"Start guided",
+    stat1:"Members worldwide",stat2:"Countries",stat3:"Saved in 2025",stat4:"Smart AI Guide",
+    compareLabel:"Price anatomy",compareTitle:"Retail vs. <em>Travel Status</em>",
+    compareSub:"Same hotel. Same dates. Different distribution models.",
+    retailLabel:"Retail price",memberLabel:"Member price",memberBadge:"MEMBER PRICE",
+    rf1:"Marketing markup ~$400",rf2:"Platform commission ~$150",rf3:"Google advertising included",
+    mf1:"Pure wholesale price",mf2:"No advertising markup",mf3:"150% Best Price Guarantee",
+    savedLabel:"Saved",freedaysLabel:"= free days on your next trip",
+    tiersLabel:"Entry levels",tiersTitle:"Set your <em>level of control</em>",
+    guestBadge:"Start",guestDesc:"Free test drive. Open the platform, search any hotel you know, compare with retail. If there's no difference — close this site forever.",
+    gf1:"1 hotel booking (max 2 nights)",gf2:"Access to Travel Advantage platform",gf3:"Earn Travel Credits",gf4:"Invite guest members",
+    guestCta:"🔑 Hack the retail price →",
+    vipBadge:"Recommended",vipDesc:"Full access. VIP members don't argue about prices — they dictate them. $19.97/month pays for itself on the first trip.",
+    vf1:"Wholesale hotel & flight prices",vf2:"150% Best Price Guarantee",vf3:"+1 extra traveler",vf4:"15 Guest Passes now",vf5:"No blackout dates · 24/7 support",
+    vipCta:"💎 Activate VIP →",
+    partnerBadge:"Business",partnerDesc:"Global franchise in the $11T travel market. People traveled through COVID, crises and wars. Take a percentage of every booking in your network.",
+    pf1:"All VIP benefits",pf2:"Daily Customer Bonuses",pf3:"Monthly Residual Income",pf4:"Team & Builder Bonuses",pf5:"Car Bonus + Presidential Bonus",
+    partnerCta:"💼 Launch franchise →",
+    roadLabel:"Roadmap",roadTitle:"From first click to <em>first booking</em>",
+    s1label:"Step one",s1title:"Choose your plan",s1body:"Guest — free, no card. VIP — $19.97/mo, pays itself first trip. Partner — for those who want to earn.",
+    s2label:"Step two",s2title:"Register (3 minutes)",s2body:"Click the button above. Enter email, create password, add payment (for paid plans). Done.",
+    s3label:"Step three",s3title:"Check your email",s3body:"Check your Spam folder — email from MWR Life / Travel Advantage contains your login credentials.",
+    s4label:"Step four",s4title:"Download the app",s4body:"Travel Advantage — App Store or Google Play. Log in with email and password. Prices shown are already member prices.",
+    savingsLabel:"Real members",savingsTitle:"Real savings. <em>Converted to days.</em>",savingsSub:"Money is abstract. Extra days of rest are not.",
+    faqLabel:"Questions everyone asks",faqTitle:"Honest answers",
+    ctaTitle:"The $150 seat is <em>still open.</em>",ctaSub:"700,000+ people already took it.",
+    ctaBtn1:"✈ Join as Member",ctaBtn2:"💼 Become Partner",
+    footerCopy:"© 2025 travelstatus.cc · Independent guide · Not affiliated with MWR Life LLC",
+    chatTriggerText:"Ask Alex",chatStatusText:"answers in your language · 24/7",
+    chatPh:"Ask a question...",chatSend:"→",
+    mSkeptic:"🔑 Skeptic",mTravel:"✈️ Travel",mEarn:"💼 Earn",mLost:"🗺️ Help",
+    stepHints:["↗ Click — Alex explains the difference","↗ Click — Alex guides step by step","↗ Can't find the email? Alex helps","↗ Can't find prices? Alex explains"],
+    daysWord:"days",
+    faqData:[
+      ["Why are prices lower? Is this legal?","Travel Advantage works like Costco or Netflix applied to travel. Booking.com spends $6B/year on Google ads — that's in every price you see. MWR Life cut out the advertising middleman and passes savings to members. Legal since 2013, 700,000+ members worldwide."],
+      ["Is this MLM or a pyramid scheme?","A pyramid scheme has no real product. MWR Life sells real travel memberships with real savings. Verifiable — open a free Guest Pass and compare any hotel yourself before paying anything."],
+      ["Is VIP worth $19.97/month?","VIP costs $240/year. One hotel booking saves $100–500. Most members recover the full annual cost on their very first trip."],
+      ["Is it available in my country?","MWR operates in 100+ countries: all of Europe, CIS, USA, UK, Japan, Turkey, UAE, Southeast Asia and more."],
+      ["What after registration?","Email (check spam) → download Travel Advantage app → log in → search any hotel and compare yourself. That's the moment of truth."],
+      ["Can I cancel anytime?","Yes. 14-day full refund from activation. No contracts. No hidden fees."]
+    ],
+    proofDaysUnit:"days",
+    modes:{
+      skeptic:{init:"Hi! 👋 Smart — verify before trusting. Here's how to catch the system in a lie: grab a free Guest Pass (no card, free), search any hotel you've stayed at, compare with Booking.com. Which hotel or city do you want to test?",color:"#1558a8",icon:"🔑"},
+      travel:{init:"Hi! 👋 A frequent traveler — my favorite type. VIP at $19.97/month pays for itself on the first booking. Where are you planning your next trip? I'll show you the exact savings.",color:"#1db87c",icon:"✈️"},
+      earn:{init:"Hi! 👋 Smart choice. Quick context: the travel market is $11 trillion — it grew through COVID, 2008, and every crisis since. People always travel. You can keep spending on vacations — or take a cut of every booking in your network. Do you have network business experience, or is this new territory?",color:"#c9a84c",icon:"💼"},
+      lost:{init:"Hi! 👋 You're in exactly the right place. Let me understand where you are:\n\nA) Haven't registered yet — don't know where to start\nB) Registered but don't know what to do next\nC) Have the app but can't find the member prices\n\nJust type A, B or C.",color:"#7c3aed",icon:"🗺️"},
+    }
+  },
+  de:{
+    statusBar:"⬤ &nbsp;STATUS: Zugang zum geschlossenen Reisegrößhandelsbiosystem — AKTIVIERT",
+    heroEyebrow:"HINTER DEN KULISSEN DES EINZELHANDELSREISENS",
+    heroTitle:"Booking.com verdiente letztes Jahr <em>$4 Milliarden</em>. Mit deinem Geld.",
+    heroSub:"Retail-Aggretatoren fügen bis zu 40% versteckte Aufschläge hinzu. Travel Status öffnet Großhandelspreise. Dieselben Hotels. Ohne Aufschlag.",
+    neighborTitle:"Wie viel zahlte der Mensch im Nebensitz?",
+    neighborSub:"Derselbe Flug · Dasselbe Hotel · Drei verschiedene Preise",
+    seatLabel1:"Booking.com",seatNote1:"Werbung + Provision enthalten",
+    seatLabel2:"OTA + Punkte",seatNote2:"besser, aber immer noch zu viel",
+    seatLabel3:"Travel Status",seatNote3:"Club-Großhandelspreis",
+    seatYouLabel:"SIE",
+    neighborCta:"Den $150-Platz einnehmen →",
+    pt1title:"Skeptisch? Überführe das System.",pt1desc:"Öffne kostenlosen Zugang. Prüfe dein Hotel. Überzeug dich selbst.",pt1btn:"Einzelhandelspreis hacken",
+    pt2title:"Ich reise oft.",pt2desc:"VIP amortisiert sich bei der ersten Buchung. 150% Bestpreisgarantie.",pt2btn:"In den geschlossenen Club eintreten",
+    pt3title:"Ich möchte verdienen.",pt3desc:"$11B Reisemarkt. Fertige Franchise. Passives Einkommen.",pt3btn:"Franchise-Schlüssel holen",
+    pt4title:"Verloren? Alex führt dich.",pt4desc:"Video gesehen, begeistert — aber die Seite verwirrt? Schritt für Schritt.",pt4btn:"Geführt starten",
+    stat1:"Mitglieder weltweit",stat2:"Länder",stat3:"Gespart 2025",stat4:"Intelligenter Guide",
+    compareLabel:"Preisanatomie",compareTitle:"Einzelhandel vs. <em>Travel Status</em>",
+    compareSub:"Dasselbe Hotel. Dieselben Daten. Verschiedene Distributionsmodelle.",
+    retailLabel:"Einzelhandelspreis",memberLabel:"Mitgliederpreis",memberBadge:"MITGLIEDERPREIS",
+    rf1:"Marketing-Aufschlag ~$400",rf2:"Plattformgebühr ~$150",rf3:"Google-Werbung enthalten",
+    mf1:"Reiner Großhandelspreis",mf2:"Keine Werbeaufschläge",mf3:"150% Bestpreisgarantie",
+    savedLabel:"Ersparnis",freedaysLabel:"= kostenlose Tage auf der nächsten Reise",
+    tiersLabel:"Einstiegsstufen",tiersTitle:"Bestimme dein <em>Kontrollniveau</em>",
+    guestBadge:"Start",guestDesc:"Kostenloser Testlauf. Öffne die Plattform, suche dein Lieblingshotel, vergleiche mit Retail. Kein Unterschied? — Schließe diese Seite für immer.",
+    gf1:"1 Hotelbuchung (max. 2 Nächte)",gf2:"Zugang zur Travel Advantage Plattform",gf3:"Travel Credits sammeln",gf4:"Gäste einladen",
+    guestCta:"🔑 Einzelhandelspreis hacken →",
+    vipBadge:"Empfohlen",vipDesc:"Voller Zugang. VIP-Mitglieder streiten nicht über Preise — sie diktieren sie. 19,97 $/Monat amortisiert sich bei der ersten Reise.",
+    vf1:"Großhandelspreise Hotels & Flüge",vf2:"150% Bestpreisgarantie",vf3:"+1 Reisender",vf4:"15 Gästepässe sofort",vf5:"Keine Sperrdaten · 24/7 Support",
+    vipCta:"💎 VIP aktivieren →",
+    partnerBadge:"Business",partnerDesc:"Globale Franchise im $11B Reisemarkt. Menschen reisten durch COVID, Krisen und Kriege. Nimm einen Prozentsatz jeder Buchung in deinem Netzwerk.",
+    pf1:"Alle VIP-Vorteile",pf2:"Tägliche Kundenboni",pf3:"Monatliche Resteinnahmen",pf4:"Team- & Builder-Boni",pf5:"Auto-Bonus + Präsidentschaftsbonus",
+    partnerCta:"💼 Franchise starten →",
+    roadLabel:"Roadmap",roadTitle:"Vom ersten Klick zur <em>ersten Buchung</em>",
+    s1label:"Schritt eins",s1title:"Plan wählen",s1body:"Guest — kostenlos, keine Karte. VIP — 19,97 $/Monat, amortisiert sich erste Reise. Partner — für alle, die verdienen wollen.",
+    s2label:"Schritt zwei",s2title:"Registrierung (3 Minuten)",s2body:"Klicke oben auf den Button. E-Mail eingeben, Passwort erstellen, Zahlungsdaten eintragen (für bezahlte Pakete). Fertig.",
+    s3label:"Schritt drei",s3title:"E-Mail prüfen",s3body:"Spam-Ordner prüfen — E-Mail von MWR Life / Travel Advantage enthält deine Anmeldedaten.",
+    s4label:"Schritt vier",s4title:"App herunterladen",s4body:"Travel Advantage — App Store oder Google Play. Mit E-Mail und Passwort einloggen. Preise zeigen bereits Mitgliederpreise.",
+    savingsLabel:"Echte Mitglieder",savingsTitle:"Echte Ersparnisse. <em>In Tage umgerechnet.</em>",savingsSub:"Geld ist abstrakt. Zusätzliche Urlaubstage nicht.",
+    faqLabel:"Fragen die alle stellen",faqTitle:"Ehrliche Antworten",
+    ctaTitle:"Der $150-Platz ist <em>noch frei.</em>",ctaSub:"700.000+ Menschen haben ihn schon eingenommen.",
+    ctaBtn1:"✈ Als Mitglied beitreten",ctaBtn2:"💼 Partner werden",
+    footerCopy:"© 2025 travelstatus.cc · Unabhängiger Guide · Kein offizieller MWR Life-Partner",
+    chatTriggerText:"Alex fragen",chatStatusText:"antwortet auf Deutsch · 24/7",
+    chatPh:"Frage stellen...",chatSend:"→",
+    mSkeptic:"🔑 Skeptisch",mTravel:"✈️ Reisen",mEarn:"💼 Verdienen",mLost:"🗺️ Hilfe",
+    stepHints:["↗ Klick — Alex erklärt den Unterschied","↗ Klick — Alex führt Schritt für Schritt","↗ E-Mail nicht gefunden? Alex hilft","↗ Preise nicht sichtbar? Alex erklärt"],
+    daysWord:"Tg.",
+    faqData:[
+      ["Warum sind die Preise niedriger? Ist das legal?","Travel Advantage funktioniert wie Costco für Lebensmittel oder Netflix für Filme. Booking.com gibt $6 Milliarden/Jahr für Google-Werbung aus — das steckt in jedem Preis. MWR Life streicht den Werbemittelsmann und gibt die Ersparnis an Mitglieder weiter. Legal seit 2013, 700.000+ Mitglieder weltweit."],
+      ["Ist das MLM oder ein Schneeballsystem?","Ein Schneeballsystem hat kein echtes Produkt. MWR Life verkauft echte Reisemitgliedschaften mit echten Ersparnissen. Überprüfbar — öffne einen kostenlosen Guest Pass und vergleiche selbst."],
+      ["Lohnt sich VIP für 19,97 $/Monat?","VIP kostet 240 $/Jahr. Eine Hotelbuchung spart 100–500 $. Die meisten Mitglieder amortisieren die Jahreskosten bei der ersten Reise."],
+      ["Verfügbar in meinem Land?","MWR ist in 100+ Ländern: ganz Europa, GUS, USA, UK, Japan, Türkei, VAE und mehr."],
+      ["Was nach der Registrierung?","E-Mail (Spam prüfen) → Travel Advantage App laden → einloggen → Hotel suchen und selbst vergleichen. Das ist der Moment der Wahrheit."],
+      ["Jederzeit kündbar?","Ja. 14-tägige Erstattungsfrist ab Aktivierung. Keine Verträge. Keine versteckten Gebühren."]
+    ],
+    proofDaysUnit:"Tg.",
+    modes:{
+      skeptic:{init:"Hallo! 👋 Klug — erst prüfen, dann vertrauen. So überführst du das System: Hol dir einen kostenlosen Guest Pass (keine Karte, kostenlos), such ein Hotel das du kennst, vergleiche mit Booking.com. Welches Hotel oder welche Stadt möchtest du testen?",color:"#1558a8",icon:"🔑"},
+      travel:{init:"Hallo! 👋 Ein Vielreisender — mein Lieblingstyp. VIP für 19,97 $/Monat amortisiert sich bei der ersten Buchung. Wohin planst du deine nächste Reise? Ich zeige dir die genaue Ersparnis.",color:"#1db87c",icon:"✈️"},
+      earn:{init:"Hallo! 👋 Kluge Wahl. Kurzer Kontext: Der Reisemarkt ist 11 Billionen $ groß — er wuchs durch COVID, 2008 und jede Krise. Menschen reisen immer. Kannst weiter Urlaub ausgeben — oder einen Anteil an jeder Buchung in deinem Netzwerk nehmen. Erfahrung im Netzwerkgeschäft?",color:"#c9a84c",icon:"💼"},
+      lost:{init:"Hallo! 👋 Du bist genau am richtigen Ort. Lass mich verstehen wo du bist:\n\nA) Noch nicht registriert — weiß nicht wo anfangen\nB) Registriert, weiß aber nicht was als nächstes\nC) Habe die App, finde aber die Mitgliederpreise nicht\n\nSchreib einfach A, B oder C.",color:"#7c3aed",icon:"🗺️"},
+    }
+  },
+  fr:{statusBar:"⬤ &nbsp;STATUT: Accès au biosystème fermé de tourisme en gros — ACTIVÉ",heroTitle:"Booking.com a gagné <em>4 milliards de dollars</em> l'an dernier. Avec ton argent.",heroSub:"Les agrégateurs retail ajoutent jusqu'à 40% de frais cachés. Travel Status ouvre les prix de gros.",neighborTitle:"Combien a payé la personne à côté?",neighborCta:"Prendre la place à 150$ →",pt1btn:"Pirater le prix retail",pt2btn:"Entrer dans le club fermé",pt3btn:"Obtenir la clé franchise",pt4btn:"Commencer guidé",chatTriggerText:"Demander à Alex",chatPh:"Posez une question...",chatSend:"→",guestCta:"🔑 Pirater le prix retail →",vipCta:"💎 Activer VIP →",partnerCta:"💼 Lancer franchise →",ctaBtn1:"✈ Rejoindre",ctaBtn2:"💼 Devenir partenaire",daysWord:"j.",modes:{skeptic:{init:"Bonjour! 👋 Intelligent — vérifier avant de faire confiance. Prends un Guest Pass gratuit, cherche un hôtel que tu connais, compare avec Booking.com. Quel hôtel ou quelle ville veux-tu tester?",color:"#1558a8",icon:"🔑"},travel:{init:"Bonjour! 👋 Un voyageur fréquent — mon type préféré. VIP à 19,97 $/mois s'amortit dès la première réservation. Où vas-tu pour ton prochain voyage?",color:"#1db87c",icon:"✈️"},earn:{init:"Bonjour! 👋 Bon choix. Le marché du voyage représente 11 000 milliards $ — il a survécu au COVID, à 2008 et à toutes les crises. Tu peux continuer à dépenser pour les vacances — ou prendre un pourcentage de chaque réservation dans ton réseau.",color:"#c9a84c",icon:"💼"},lost:{init:"Bonjour! 👋 Tu es au bon endroit.\n\nA) Pas encore inscrit — ne sais pas par où commencer\nB) Inscrit mais ne sais pas quoi faire ensuite\nC) J'ai l'app mais ne trouve pas les prix membres\n\nÉcris simplement A, B ou C.",color:"#7c3aed",icon:"🗺️"}},faqData:[["Pourquoi les prix sont-ils plus bas?","Travel Advantage fonctionne comme Costco ou Netflix pour les voyages. Booking.com dépense 6 milliards $/an en publicité Google — c'est dans chaque prix que tu vois. MWR Life supprime cet intermédiaire. Légal depuis 2013, 700 000+ membres."],["C'est du MLM ou une pyramide?","Une pyramide n'a pas de produit réel. MWR Life vend de vraies adhésions de voyage avec de vraies économies. Vérifiable — ouvre un Guest Pass gratuit et compare toi-même."],["VIP vaut 19,97 $/mois?","VIP coûte 240 $/an. Une réservation hôtelière économise 100–500 $. La plupart des membres récupèrent le coût annuel sur leur premier voyage."],["Disponible dans mon pays?","MWR opère dans 100+ pays: toute l'Europe, CEI, USA, UK, Japon, Turquie, EAU et plus."],["Que faire après l'inscription?","Email (vérifier spam) → télécharger Travel Advantage → se connecter → chercher un hôtel et comparer soi-même."],["Peut-on annuler?","Oui. 14 jours de remboursement complet. Pas de contrats."]],proofDaysUnit:"j.",seatYouLabel:"VOUS",stepHints:["↗ Cliquez — Alex explique","↗ Cliquez — Alex guide","↗ Email introuvable? Alex aide","↗ Prix invisibles? Alex explique"]},
+  tr:{statusBar:"⬤ &nbsp;DURUM: Kapalı toptan turizm biyosistemine erişim — AKTİFLEŞTİRİLDİ",heroTitle:"Booking.com geçen yıl <em>4 milyar dolar</em> kazandı. Senin paranla.",heroSub:"Perakende toplayıcılar %40'a kadar gizli ücret ekler. Travel Status toptan fiyatları açar.",neighborTitle:"Yan koltukta oturan ne kadar ödedi?",neighborCta:"$150'lık yere geç →",pt1btn:"Perakende fiyatı hackle",pt2btn:"Kapalı kulübe gir",pt3btn:"Franchise anahtarını al",pt4btn:"Rehberli başla",chatTriggerText:"Alex'e sor",chatPh:"Soru sorun...",chatSend:"→",guestCta:"🔑 Perakende fiyatı hackle →",vipCta:"💎 VIP'i etkinleştir →",partnerCta:"💼 Franchise başlat →",ctaBtn1:"✈ Üye ol",ctaBtn2:"💼 Ortak ol",daysWord:"gün",modes:{skeptic:{init:"Merhaba! 👋 Akıllıca — güvenmeden önce kontrol et. Ücretsiz Guest Pass al, bildiğin bir oteli ara, Booking.com ile karşılaştır. Hangi otel veya şehri test etmek istiyorsun?",color:"#1558a8",icon:"🔑"},travel:{init:"Merhaba! 👋 Sık seyahat eden biri — en sevdiğim tür. VIP 19,97 $/ay'dır — ilk rezervasyonda kendini amorti eder. Bir sonraki seyahatine nereye gidiyorsun?",color:"#1db87c",icon:"✈️"},earn:{init:"Merhaba! 👋 Akıllı seçim. Seyahat pazarı 11 trilyon $ — COVID, 2008 ve tüm krizlerden geçerek büyüdü. İnsanlar her zaman seyahat eder. Tatile harcamaya devam edebilir — ya da ağındaki her rezervasyondan pay alabilirsin.",color:"#c9a84c",icon:"💼"},lost:{init:"Merhaba! 👋 Tam doğru yerdesin.\n\nA) Henüz kayıt olmadım — nereden başlayacağımı bilmiyorum\nB) Kayıt oldum ama ne yapacağımı bilmiyorum\nC) Uygulamam var ama üye fiyatlarını bulamıyorum\n\nSadece A, B veya C yaz.",color:"#7c3aed",icon:"🗺️"}},faqData:[["Fiyatlar neden daha düşük?","Travel Advantage, Costco veya Netflix gibi çalışır. Booking.com yılda 6 milyar $ Google reklamı harcıyor — bu her fiyata dahil. MWR Life bu aracıyı kesiyor. 2013'ten beri yasal, 700.000+ üye."],["Bu MLM mi yoksa piramit mi?","Piramitin gerçek ürünü yoktur. MWR Life gerçek seyahat üyelikleri satar. Doğrulanabilir — ücretsiz Guest Pass açın ve kendiniz karşılaştırın."],["VIP 19,97 $/ay değer mi?","VIP yılda 240 $. Tek otel rezervasyonu 100–500 $ tasarruf sağlar."],["Ülkemde mevcut mu?","100+ ülke: Avrupa, BDT, ABD, İngiltere, Japonya, Türkiye, BAE ve daha fazlası."],["Kayıttan sonra ne yapmalı?","E-posta (spam kontrol) → Travel Advantage uygulaması → giriş → otel ara ve kendin karşılaştır."],["İptal edilebilir mi?","Evet. Aktivasyondan itibaren 14 günlük tam geri ödeme."]],proofDaysUnit:"gün",seatYouLabel:"SİZ",stepHints:["↗ Tıkla — Alex açıklar","↗ Tıkla — Alex adım adım rehberlik eder","↗ E-posta bulunamadı? Alex yardım eder","↗ Fiyatlar görünmüyor? Alex açıklar"]}
+};
+
+// ─── GEO PROOF ────────────────────────────────────────────────────────────────
+const PROOF_REGIONS = {
+  cis:[{f:"🇰🇬",n:"Anjelika",s:103,h:"Turkey"},{f:"🇰🇿",n:"Raikhan",s:134,h:"Spain"},{f:"🇰🇬",n:"Eliza",s:147,h:"Italy"},{f:"🇺🇦",n:"Mariia",s:494,h:"New York"},{f:"🇷🇺",n:"Sergey",s:219,h:"Dubai"},{f:"🇷🇺",n:"Tatiana",s:324,h:"Egypt"},{f:"🇷🇺",n:"Venera",s:130,h:"Bali"},{f:"🇷🇺",n:"Iana",s:92,h:"Dubai"}],
+  europe:[{f:"🇫🇷",n:"Flora",s:257,h:"Spain"},{f:"🇮🇹",n:"Sara",s:124,h:"London"},{f:"🇫🇷",n:"Coralie",s:500,h:"Italy"},{f:"🇩🇪",n:"Edgar",s:270,h:"Mallorca"},{f:"🇫🇷",n:"Kevin",s:376,h:"Amsterdam"},{f:"🇮🇹",n:"Camille",s:342,h:"Croatia"},{f:"🇷🇴",n:"Constantin",s:276,h:"Spain"},{f:"🇫🇷",n:"Thomas",s:216,h:"Marseille"}],
+  uk_en:[{f:"🇬🇧",n:"Viorica",s:135,h:"Montenegro"},{f:"🇬🇧",n:"Moana",s:116,h:"Bahrain"},{f:"🇺🇸",n:"Susan",s:752,h:"Athens"},{f:"🇺🇸",n:"Loweta",s:348,h:"Savannah"},{f:"🇨🇦",n:"Nancy",s:222,h:"Toronto"}],
+  americas:[{f:"🇺🇸",n:"Susan",s:752,h:"Athens"},{f:"🇺🇸",n:"Loweta",s:348,h:"Savannah"},{f:"🇺🇸",n:"Anastasia",s:244,h:"Anaheim"},{f:"🇺🇸",n:"Liubov",s:294,h:"Las Vegas"},{f:"🇨🇦",n:"Nancy",s:222,h:"Toronto"}],
+  japan:[{f:"🇯🇵",n:"Miho",s:258,h:"Okinawa"},{f:"🇯🇵",n:"Tetsuya",s:253,h:"Tokyo"},{f:"🇯🇵",n:"Tohru",s:103,h:"Haneda"},{f:"🇯🇵",n:"Natsumi",s:186,h:"Los Angeles"}],
+  turkey:[{f:"🇷🇴",n:"Constantin",s:276,h:"Spain"},{f:"🇬🇧",n:"Moana",s:116,h:"Bahrain"},{f:"🇷🇺",n:"Iana",s:92,h:"Dubai"},{f:"🇰🇬",n:"Anjelika",s:103,h:"Turkey"},{f:"🇺🇦",n:"Viktor",s:216,h:"Athens"}],
+  arab:[{f:"🇷🇺",n:"Sergey",s:219,h:"Dubai"},{f:"🇷🇺",n:"Iana",s:92,h:"Dubai"},{f:"🇬🇧",n:"Moana",s:116,h:"Bahrain"},{f:"🇷🇺",n:"Tatiana",s:324,h:"Egypt"}],
+};
+const PROOF_MAP={RU:"cis",KZ:"cis",KG:"cis",UZ:"cis",BY:"cis",TJ:"cis",TM:"cis",UA:"cis",AM:"cis",MD:"cis",DE:"europe",AT:"europe",CH:"europe",FR:"europe",IT:"europe",ES:"europe",PT:"europe",NL:"europe",BE:"europe",RO:"europe",PL:"europe",LT:"europe",AL:"europe",GB:"uk_en",IE:"uk_en",ZA:"uk_en",AU:"uk_en",NZ:"uk_en",SG:"uk_en",HK:"uk_en",US:"americas",CA:"americas",MX:"americas",BR:"americas",AR:"americas",JP:"japan",KR:"japan",TR:"turkey",AZ:"turkey",SA:"arab",AE:"arab",EG:"arab",MA:"arab",KW:"arab",QA:"arab",BH:"arab"};
+function getProof(cc){const r=PROOF_MAP[cc?.toUpperCase()]||"europe";return[...(PROOF_REGIONS[r]||PROOF_REGIONS.europe)].sort(()=>Math.random()-.5).slice(0,5)}
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let lang = "ru";
+let mode = "travel";
+let chatHistory = [];
+let chatOpen = false;
+let cc = "";
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Country from Worker injection OR URL param
+  cc = window.__CC__ || new URLSearchParams(location.search).get('country') || '';
+  // Language from Worker OR browser
+  const injectedLang = window.__LANG__;
+  const browserLang = (navigator.language || 'ru').slice(0, 2).toLowerCase();
+  lang = injectedLang || (TX[browserLang] ? browserLang : 'ru');
+  
+  setLang(lang);
+  buildSavings();
+  buildFAQ();
+  initReveal();
+  initNav();
+});
+
+// ─── LANGUAGE ─────────────────────────────────────────────────────────────────
+function setLang(l) {
+  if (!TX[l]) l = 'en';
+  lang = l;
+  const t = TX[l];
+  
+  // Update all translatable elements
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; };
+  
+  set('statusBarText', t.statusBar);
+  set('heroEyebrow', t.heroEyebrow || TX.en.heroEyebrow);
+  set('heroTitle', t.heroTitle || TX.en.heroTitle);
+  set('heroSub', t.heroSub || TX.en.heroSub);
+  set('neighborTitle', t.neighborTitle || TX.en.neighborTitle);
+  set('neighborSub', t.neighborSub || TX.en.neighborSub);
+  set('seatLabel1', t.seatLabel1 || 'Booking.com');
+  set('seatNote1', t.seatNote1 || TX.en.seatNote1);
+  set('seatLabel2', t.seatLabel2 || TX.en.seatLabel2);
+  set('seatNote2', t.seatNote2 || TX.en.seatNote2);
+  set('seatLabel3', t.seatLabel3 || 'Travel Status');
+  set('seatNote3', t.seatNote3 || TX.en.seatNote3);
+  set('seatYouLabel', t.seatYouLabel || 'YOU');
+  const ncta = document.getElementById('neighborCta'); if (ncta) ncta.textContent = t.neighborCta || TX.en.neighborCta;
+  
+  set('pt1title', t.pt1title || TX.en.pt1title); set('pt1desc', t.pt1desc || TX.en.pt1desc); set('pt1btn', t.pt1btn || TX.en.pt1btn);
+  set('pt2title', t.pt2title || TX.en.pt2title); set('pt2desc', t.pt2desc || TX.en.pt2desc); set('pt2btn', t.pt2btn || TX.en.pt2btn);
+  set('pt3title', t.pt3title || TX.en.pt3title); set('pt3desc', t.pt3desc || TX.en.pt3desc); set('pt3btn', t.pt3btn || TX.en.pt3btn);
+  set('pt4title', t.pt4title || TX.en.pt4title); set('pt4desc', t.pt4desc || TX.en.pt4desc); set('pt4btn', t.pt4btn || TX.en.pt4btn);
+  
+  set('stat1', t.stat1 || TX.en.stat1); set('stat2', t.stat2 || TX.en.stat2); set('stat3', t.stat3 || TX.en.stat3); set('stat4', t.stat4 || TX.en.stat4);
+  
+  set('compareLabel', t.compareLabel || TX.en.compareLabel);
+  set('compareTitle', t.compareTitle || TX.en.compareTitle);
+  set('compareSub', t.compareSub || TX.en.compareSub);
+  set('retailLabel', t.retailLabel || TX.en.retailLabel);
+  set('memberLabel', t.memberLabel || TX.en.memberLabel);
+  set('memberBadge', t.memberBadge || TX.en.memberBadge);
+  set('rf1', t.rf1 || TX.en.rf1); set('rf2', t.rf2 || TX.en.rf2); set('rf3', t.rf3 || TX.en.rf3);
+  set('mf1', t.mf1 || TX.en.mf1); set('mf2', t.mf2 || TX.en.mf2); set('mf3', t.mf3 || TX.en.mf3);
+  set('savedLabel', t.savedLabel || TX.en.savedLabel);
+  set('freedaysLabel', t.freedaysLabel || TX.en.freedaysLabel);
+  
+  set('tiersLabel', t.tiersLabel || TX.en.tiersLabel);
+  set('tiersTitle', t.tiersTitle || TX.en.tiersTitle);
+  set('guestBadge', t.guestBadge || TX.en.guestBadge);
+  set('guestDesc', t.guestDesc || TX.en.guestDesc);
+  set('gf1', t.gf1 || TX.en.gf1); set('gf2', t.gf2 || TX.en.gf2); set('gf3', t.gf3 || TX.en.gf3); set('gf4', t.gf4 || TX.en.gf4);
+  set('guestCta', t.guestCta || TX.en.guestCta);
+  set('vipBadge', t.vipBadge || TX.en.vipBadge);
+  set('vipDesc', t.vipDesc || TX.en.vipDesc);
+  set('vf1', t.vf1 || TX.en.vf1); set('vf2', t.vf2 || TX.en.vf2); set('vf3', t.vf3 || TX.en.vf3); set('vf4', t.vf4 || TX.en.vf4); set('vf5', t.vf5 || TX.en.vf5);
+  set('vipCta', t.vipCta || TX.en.vipCta);
+  set('partnerBadge', t.partnerBadge || TX.en.partnerBadge);
+  set('partnerDesc', t.partnerDesc || TX.en.partnerDesc);
+  set('pf1', t.pf1 || TX.en.pf1); set('pf2', t.pf2 || TX.en.pf2); set('pf3', t.pf3 || TX.en.pf3); set('pf4', t.pf4 || TX.en.pf4); set('pf5', t.pf5 || TX.en.pf5);
+  set('partnerCta', t.partnerCta || TX.en.partnerCta);
+  
+  set('roadLabel', t.roadLabel || TX.en.roadLabel);
+  set('roadTitle', t.roadTitle || TX.en.roadTitle);
+  set('s1label', t.s1label || TX.en.s1label); set('s1title', t.s1title || TX.en.s1title); set('s1body', t.s1body || TX.en.s1body);
+  set('s2label', t.s2label || TX.en.s2label); set('s2title', t.s2title || TX.en.s2title); set('s2body', t.s2body || TX.en.s2body);
+  set('s3label', t.s3label || TX.en.s3label); set('s3title', t.s3title || TX.en.s3title); set('s3body', t.s3body || TX.en.s3body);
+  set('s4label', t.s4label || TX.en.s4label); set('s4title', t.s4title || TX.en.s4title); set('s4body', t.s4body || TX.en.s4body);
+  
+  // Step hints
+  const hints = t.stepHints || TX.en.stepHints;
+  document.querySelectorAll('.step-alex-hint').forEach((el,i) => { if (hints[i]) el.textContent = hints[i]; });
+  
+  set('savingsLabel', t.savingsLabel || TX.en.savingsLabel);
+  set('savingsTitle', t.savingsTitle || TX.en.savingsTitle);
+  set('savingsSub', t.savingsSub || TX.en.savingsSub);
+  set('faqLabel', t.faqLabel || TX.en.faqLabel);
+  set('faqTitle', t.faqTitle || TX.en.faqTitle);
+  set('ctaTitle', t.ctaTitle || TX.en.ctaTitle);
+  set('ctaSub', t.ctaSub || TX.en.ctaSub);
+  set('ctaBtn1', t.ctaBtn1 || TX.en.ctaBtn1);
+  set('ctaBtn2', t.ctaBtn2 || TX.en.ctaBtn2);
+  set('footerCopy', t.footerCopy || TX.en.footerCopy);
+  set('chatTriggerText', t.chatTriggerText || TX.en.chatTriggerText);
+  set('chatStatusText', t.chatStatusText || TX.en.chatStatusText);
+  set('mSkeptic', t.mSkeptic || TX.en.mSkeptic);
+  set('mTravel', t.mTravel || TX.en.mTravel);
+  set('mEarn', t.mEarn || TX.en.mEarn);
+  set('mLost', t.mLost || TX.en.mLost);
+  
+  const inp = document.getElementById('chatInput');
+  if (inp) inp.placeholder = t.chatPh || TX.en.chatPh;
+  
+  // Lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+  
+  buildSavings();
+  buildFAQ();
+  
+  // Reset chat if open
+  if (chatOpen) resetChat();
+}
+
+// ─── SAVINGS ──────────────────────────────────────────────────────────────────
+function buildSavings() {
+  const list = document.getElementById('savingsList');
+  if (!list) return;
+  const proof = getProof(cc);
+  const t = TX[lang] || TX.en;
+  const dw = t.proofDaysUnit || t.daysWord || 'days';
+  list.innerHTML = proof.map(r => {
+    const days = Math.max(1, Math.round(r.s / 90));
+    return `<div class="saving-item">
+      <div class="saving-flag">${r.f}</div>
+      <div class="saving-info"><div class="saving-name">${r.n}</div><div class="saving-place">${r.h}</div></div>
+      <div class="saving-amount"><div class="saving-dollars">-$${r.s}</div><div class="saving-days">+${days} ${dw} 🌴</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
+function buildFAQ() {
+  const list = document.getElementById('faqList');
+  if (!list) return;
+  const t = TX[lang] || TX.en;
+  const fd = t.faqData || TX.en.faqData;
+  list.innerHTML = fd.map(([q,a],i) => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(${i})">
+        <span>${q}</span><span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a" id="fa${i}">${a}</div>
+    </div>`).join('');
+}
+function toggleFAQ(i) {
+  const a = document.getElementById('fa'+i);
+  const q = a?.previousElementSibling;
+  if (!a) return;
+  const open = a.classList.toggle('open');
+  if (q) q.classList.toggle('open', open);
+}
+
+// ─── CHAT ────────────────────────────────────────────────────────────────────
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWidget').classList.toggle('open', chatOpen);
+  document.getElementById('chatTrigger').classList.toggle('hide', chatOpen);
+  if (chatOpen && chatHistory.length === 0) resetChat();
+}
+
+function setMode(m) {
+  mode = m;
+  ['skeptic','travel','earn','lost'].forEach(k => {
+    document.getElementById('m'+k.charAt(0).toUpperCase()+k.slice(1))?.classList.toggle('active', k === m);
+  });
+  const modeData = (TX[lang]||TX.en).modes[m];
+  const avatar = document.getElementById('chatAvatar');
+  if (avatar) { avatar.textContent = modeData.icon; avatar.style.background = modeData.color; }
+  resetChat();
+}
+
+function openChat(m) {
+  mode = m;
+  if (!chatOpen) toggleChat();
+  else { setMode(m); }
+  if (!chatOpen) { chatOpen = true; document.getElementById('chatWidget').classList.add('open'); document.getElementById('chatTrigger').classList.add('hide'); }
+  setMode(m);
+}
+
+function openChatStep(step) {
+  const stepContexts = {
+    plan:"Help the user choose between Guest (free, no card), VIP ($19.97/mo), and Partner/Ambassador plans. Explain differences clearly. Use the free days framing.",
+    register:"Walk through registration step by step. Click the link → choose plan → enter email → create password → payment details for paid plans → submit → check spam for confirmation.",
+    email:"Help find the confirmation email. ALWAYS check spam/junk folder. Email comes from MWR Life or Travel Advantage. Contains login credentials.",
+    app:"Guide to download Travel Advantage app from App Store or Google Play. Log in with registration email and password. Show how to search hotels and see member prices.",
+  };
+  mode = 'lost';
+  if (!chatOpen) { chatOpen = true; document.getElementById('chatWidget').classList.add('open'); document.getElementById('chatTrigger').classList.add('hide'); }
+  setMode('lost');
+  const ctx = stepContexts[step] || '';
+  if (ctx) {
+    setTimeout(() => sendWithContext(ctx), 300);
+  }
+}
+
+function resetChat() {
+  chatHistory = [];
+  const msgs = document.getElementById('chatMessages');
+  if (msgs) msgs.innerHTML = '';
+  const modeData = (TX[lang]||TX.en).modes[mode];
+  if (!modeData) return;
+  const avatar = document.getElementById('chatAvatar');
+  if (avatar) { avatar.textContent = modeData.icon; avatar.style.background = modeData.color; }
+  appendMsg('a', modeData.init);
+  chatHistory.push({role:'assistant', content: modeData.init});
+}
+
+function appendMsg(role, text) {
+  const msgs = document.getElementById('chatMessages');
+  if (!msgs) return;
+  const modeData = (TX[lang]||TX.en).modes[mode];
+  const color = modeData?.color || '#1db87c';
+  const icon = modeData?.icon || '✈️';
+  const wrap = document.createElement('div');
+  wrap.className = `msg-wrap ${role}`;
+  wrap.innerHTML = role === 'a'
+    ? `<div class="msg-icon" style="background:${color}">${icon}</div><div class="msg-bubble">${text}</div>`
+    : `<div class="msg-icon" style="background:#333">👤</div><div class="msg-bubble" style="background:${color};border-radius:14px 14px 2px 14px">${text}</div>`;
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'chat-typing';
+  el.id = 'typingIndicator';
+  el.textContent = '...';
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() { document.getElementById('typingIndicator')?.remove(); }
+
+async function sendMsg() {
+  const inp = document.getElementById('chatInput');
+  const text = inp?.value.trim();
+  if (!text) return;
+  inp.value = '';
+  appendMsg('u', text);
+  chatHistory.push({role:'user', content: text});
+  await callAlex();
+}
+
+async function sendWithContext(ctx) {
+  const systemWithCtx = SYSTEM + `\n\nSPECIFIC CONTEXT FOR THIS CONVERSATION: ${ctx}\nLANG: ${lang}`;
+  document.getElementById('chatSend').disabled = true;
+  showTyping();
+  try {
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ messages: chatHistory, system: systemWithCtx, lang })
+    });
+    const d = await res.json();
+    const reply = d.content?.[0]?.text || '...';
+    hideTyping();
+    appendMsg('a', reply);
+    chatHistory.push({role:'assistant', content: reply});
+  } catch(e) { hideTyping(); appendMsg('a', 'Connection error. Please try again.'); }
+  document.getElementById('chatSend').disabled = false;
+}
+
+async function callAlex() {
+  document.getElementById('chatSend').disabled = true;
+  showTyping();
+  const sys = SYSTEM + `\nMODE: ${mode.toUpperCase()}\nLANG: ${lang}`;
+  try {
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ messages: chatHistory, system: sys, lang })
+    });
+    const d = await res.json();
+    const reply = d.content?.[0]?.text || '...';
+    hideTyping();
+    appendMsg('a', reply);
+    chatHistory.push({role:'assistant', content: reply});
+  } catch(e) {
+    hideTyping();
+    appendMsg('a', lang==='ru'?'Ошибка соединения. Попробуй ещё раз.':'Connection error. Try again.');
+  }
+  document.getElementById('chatSend').disabled = false;
+}
+
+// ─── NAV SCROLL ──────────────────────────────────────────────────────────────
+function initNav() {
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 60);
+  });
+}
+
+// ─── REVEAL ON SCROLL ─────────────────────────────────────────────────────────
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+</script>
+</body>
+</html>
